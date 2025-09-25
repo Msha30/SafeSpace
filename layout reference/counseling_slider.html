@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendar Slider</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f5faff; margin: 20px; }
+    .header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .header button { padding: 6px 12px; border: none; border-radius: 5px; background: #ddd; cursor: pointer; }
+    .slider-container { overflow: hidden; position: relative; }
+    .slider { display: flex; transition: transform 0.3s ease; }
+    .card { min-width: 250px; background: white; padding: 15px; margin: 0 10px; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+  </style>
+</head>
+<body>
+
+  <!-- Top Cards -->
+  <div class="header">
+    <button onclick="goToday('cards')">Today</button>
+    <button onclick="slide('cards', -1)">←</button>
+    <button onclick="slide('cards', 1)">→</button>
+  </div>
+  <div class="slider-container">
+    <div class="slider" id="cards">
+      <div class="card">Sept 22 - Video Call</div>
+      <div class="card">Sept 23 - In Person</div>
+      <div class="card">Sept 26 - In Person</div>
+      <div class="card">Sept 27 - Call</div>
+      <div class="card">Sept 28 - In Person</div>
+    </div>
+  </div>
+
+  <!-- Bottom Week View -->
+  <div class="header" style="margin-top: 30px;">
+    <button onclick="goToday('days')">Today</button>
+    <button onclick="slide('days', -1)">←</button>
+    <button onclick="slide('days', 1)">→</button>
+  </div>
+  <div class="slider-container">
+    <div class="slider" id="days">
+      <div class="card">Mon 22</div>
+      <div class="card">Tue 23</div>
+      <div class="card">Wed 24</div>
+      <div class="card">Thu 25</div>
+      <div class="card">Fri 26</div>
+      <div class="card">Sat 27</div>
+    </div>
+  </div>
+
+  <script>
+    let positions = { cards: 0, days: 0 };
+
+    function slide(id, direction) {
+      const slider = document.getElementById(id);
+      const cardWidth = slider.querySelector(".card").offsetWidth + 20; // width + margin
+      const visibleCount = 3; // how many cards are visible at once
+      const totalCards = slider.children.length;
+
+      // current index of the first card shown
+      let currentIndex = positions[id] / cardWidth;
+      let newIndex = currentIndex + direction * visibleCount;
+
+      // clamp between 0 and max starting index
+      if (newIndex < 0) newIndex = 0;
+      if (newIndex > totalCards - visibleCount) newIndex = totalCards - visibleCount;
+
+      positions[id] = newIndex * cardWidth;
+      slider.style.transform = `translateX(${-positions[id]}px)`;
+    }
+
+    function goToday(id) {
+      positions[id] = 0;
+      document.getElementById(id).style.transform = "translateX(0px)";
+    }
+  </script>
+
+
+
+</body>
+</html>

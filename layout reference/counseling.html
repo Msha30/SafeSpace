@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Appointment cards */
+        .appointments-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .appointment-card {
+            flex: 1;
+            background: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .appointment-card h4 { margin: 0 0 10px; }
+        .new-tag {
+            background: red;
+            color: #fff;
+            font-size: 10px;
+            padding: 2px 5px;
+            border-radius: 5px;
+        }
+        .btn {
+            display: inline-block;
+            margin: 5px 2px;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .btn.green { background: #28a745; color: white; }
+        .btn.blue { background: #0847b2; color: white; }
+        .btn.lightblue { background: #cce5ff; color: #0847b2; }
+        .btn.gray { background: #eee; }
+
+        /* Calendar */
+        .calendar-section { background: #fff; padding: 20px; border-radius: 10px; }
+
+        .calendar-header { display: flex; gap: 10px; margin-bottom: 15px; }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 15px;
+        }
+        .calendar-day {
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 10px;
+            min-height: 120px;
+        }
+
+        .calendar-day h5 { margin: 0 0 10px; }
+        .calendar-day span { font-size: 12px; color: gray; }
+
+        .event {
+            background: #d9e7ff;
+            border-radius: 6px;
+            padding: 5px;
+            margin-bottom: 5px;
+            font-size: 12px;
+        }
+        .event.blue { background: #d9e7ff; color: #0847b2; }
+    </style>
+</head>
+<body>
+    <div id="counseling" class="page">
+        <h2>Guidance Counseling</h2>
+
+        <!-- Top row: Appointment cards -->
+        <div class="appointments-row">
+            <div class="appointment-card">
+            <h4>Sept 22 - Video Call</h4>
+            <p><b>1:00 PM - 3:00 PM</b></p>
+            <p>Joshua John Santos<br>2023-123456<br>Not Urgent<br>Prefers <b>Male</b> Counselor</p>
+            <button class="btn green">Start Call</button>
+            <button class="btn gray">See Details</button>
+            </div>
+
+            <div class="appointment-card">
+            <h4>Sept 23 - In Person</h4>
+            <p><b>3:30 PM - 5:30 PM</b></p>
+            <p>Joshua John Santos<br>2023-123456<br>Urgent<br>Prefers <b>Female</b> Counselor</p>
+            <button class="btn blue">Confirmed</button>
+            <button class="btn gray">See Details</button>
+            </div>
+
+            <div class="appointment-card">
+            <h4>Sept 26 - In Person <span class="new-tag">NEW</span></h4>
+            <p><b>3:30 PM - 5:30 PM</b></p>
+            <p>Joshua John Santos<br>2023-123456<br>Not Urgent<br>Prefers <b>Male</b> Counselor</p>
+            <button class="btn lightblue">Take Session</button>
+            <button class="btn gray">See Details</button>
+            </div>
+        </div>
+
+        <!-- Bottom row: Weekly calendar -->
+        <div class="calendar-section">
+            <div class="calendar-header">
+            <button class="btn gray">Today</button>
+            <button class="btn gray">←</button>
+            <button class="btn gray">→</button>
+            </div>
+            <div class="calendar-grid">
+            <!-- Days -->
+            <div class="calendar-day">
+                <h5>22<br><span>Monday</span></h5>
+                <div class="event blue">Video Call<br>1:00 PM - 3:00 PM</div>
+            </div>
+            <div class="calendar-day">
+                <h5>23<br><span>Tuesday</span></h5>
+                <div class="event blue">In Person<br>3:30 PM - 5:30 PM</div>
+            </div>
+            <div class="calendar-day">
+                <h5>24<br><span>Wednesday</span></h5>
+            </div>
+            <div class="calendar-day">
+                <h5>25<br><span>Thursday</span></h5>
+            </div>
+            <div class="calendar-day">
+                <h5>26<br><span>Friday</span></h5>
+                <div class="event blue">In Person<br>10:00 AM - 12:00 PM</div>
+                <div class="event blue">Call<br>12:00 PM - 2:00 PM</div>
+            </div>
+            <div class="calendar-day">
+                <h5>27<br><span>Saturday</span></h5>
+            </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

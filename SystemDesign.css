@@ -1,0 +1,317 @@
+@font-face {
+	font-family: "RegularFont";
+	src: url("fonts/PublicSans-Regular.ttf") format("truetype");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "BoldFont";
+	src: url("fonts/PublicSans-Bold.ttf") format("truetype");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "ItalicFont";
+	src: url("fonts/PublicSans-Italic.ttf") format("truetype");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "MediumFont";
+	src: url("fonts/PublicSans-Medium.ttf") format("truetype");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "OswaldFont";
+	src: url("fonts/Oswald.ttf") format("truetype");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "BoldOswald";
+	src: url("fonts/Oswald.ttf") format("truetype");
+	font-weight: 700;
+	font-style: normal;
+}
+
+
+/* --------------------------------------MAIN-------------------------------------- */
+
+
+body {
+	margin: 0;
+	font-family: "RegularFont", Arial, sans-serif;
+	display: flex;
+	height: 100vh;
+	overflow: hidden;
+}
+
+.sidebar {
+	width: 320px;
+	background-color: #062b6b;
+	color: white;
+	height: 100vh;
+	padding-top: 20px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	font-family: "MediumFont", sans-serif;
+	font-size: 14px;
+}
+
+.sidebar a {
+	display: flex;
+	align-items: center;
+	gap: 20px; 
+	padding: 15px 20px;
+	margin: 0px 30px;
+	text-decoration: none;
+	color: white;
+	transition: background 0.3s;
+}
+
+.sidebar a img.icon {
+	width: 18px;
+	height: 18px;
+	color: white;
+}
+
+.sidebar a.active {
+	background-color: white;
+	color: #0847b2;
+	font-weight: bold;
+	padding: 15px 20px;
+	margin: 0px 30px;
+	border-radius: 5px;
+}
+
+
+.logo {
+	width: 130px;
+	background-image: url("photos/pic_logo.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	margin: 10px auto 30px; 
+	padding: 20px;
+}
+
+.main {
+	margin-left: 320px;
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+}
+
+.topbar {
+	background-color: #c3e1f4;
+	padding: 20px 30px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-family: "BoldFont", sans-serif;
+	color: #062b6b;
+	font-size: 20px;
+	flex-shrink: 0;
+	position: relative;
+}
+
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+	color: black;
+	font-size: 15px;
+	font-family: "RegularFont", sans-serif;
+}
+
+.dropdown-menu {
+	display: none;
+	position: absolute;
+	margin-top: 10px;
+	right: 0;
+	background-color: #fff;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+	min-width: 100px;
+	z-index: 1000;
+	border-radius: 4px;
+}
+
+.dropdown-menu a {
+	display: block;
+	padding: 10px 15px;
+	text-decoration: none;
+	color: #e85536;
+	font-weight: bold;
+}
+
+.dropdown-menu a:hover {
+	background-color: #f2f2f2;
+}
+
+.dropdown.show .dropdown-menu {
+	display: block;
+}
+
+.content {
+	flex-grow: 1;
+	background-color: #eff5f9;
+	padding: 30px;
+	overflow-y: auto;
+}
+
+.page {
+	display: none;
+}
+
+.page.active {
+	display: block;
+}
+
+
+/* --------------------------------------CONTENT-------------------------------------- */
+
+.content h3 {
+	font-size: 17px;
+	color: black;
+	font-weight: bold;
+	padding: 20px 30px;
+	border-bottom: 2px solid #c3e1f4;
+	width: 100%;
+	box-sizing: border-box;
+	margin: 0;
+}
+
+/* ------------ROW DESIGN---------------------------WAG GAGALAWIN----------------------- */
+
+.row {
+	display: flex;
+	gap: 30px;
+	margin-bottom: 20px;
+}
+
+.card {
+	background: white;
+	border-radius: 5px;
+	flex: 1;
+	padding-bottom: 20px;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.table-card {
+	flex: 3.5; /* LEFT COLUMN NG ROW */
+}
+
+table {
+	width: 100%;
+	margin: 0;
+	border-collapse: collapse;
+}
+
+#left {
+	text-align: left;
+}
+
+/* ----------------------ETO DESIGN FOR TABLES-------------------------------------------------- */
+
+table th, table td {
+	padding: 5px 30px;
+	font-size: 15px;
+	text-align: center;
+}
+
+table th {
+	padding: 8px 30px;
+	background: #e4f4ff;
+	text-align: center;
+	color: #7398b0;
+	font-weight: bold;
+}
+
+td.up {
+	color: #00bf63;
+	font-weight: bold;
+}
+
+td.down {
+	color: #e85536; 
+	font-weight: bold;
+}
+
+td.up::after {
+	content: " ▲";
+	font-size: 13px;
+	color: #00bf63;
+	font-weight: bold;
+}
+
+td.down::after {
+	content: " ▼";
+	font-size: 13px;
+	color: #e85536; 
+	font-weight: bold;
+}
+
+/* ------------STATS SA LEFT NG OVERVIEW---------------------------------------------- */
+
+.stats {
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+	flex: 1;
+}
+
+.stats h2 {
+	font-size: 80px;
+	font-weight: bold;
+	font-family: "BoldOswald", sans-serif;
+	margin: 0;
+	padding: 0;
+	color: #0847b2;
+}
+
+.stat-card {
+	text-align: center;
+}
+
+
+#engagementChart {
+	padding: 0px 30px;
+	padding-top: 15px;
+	height: 50px;
+	width: 100%;
+}
+
+#engagementChart2 {
+	padding: 0px 30px;
+	padding-top: 15px;
+	height: 50px;
+	width: 100%;
+}
+
+.chart-description {
+    font-size: 15px;
+    font-style: italic;
+	padding: 0px 30px;
+	padding-top: 15px;
+    color: black;
+}
+
+
+.left-half, .right-half {
+	width: 50%;
+}
+
+.right-half {
+	display: flex;
+	justify-content: flex-end;
+	width: 50%;
+}

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SafeSpace Dashboard</title>
+  <link rel="stylesheet" href="SystemDesign.css">
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>SafeSpace</h2>
+    <a href="#" class="active" onclick="showPage('overview', this)">Overview</a>
+    <a href="#" onclick="showPage('counseling', this)">Guidance Counseling</a>
+    <a href="#" onclick="showPage('users', this)">Users</a>
+    <a href="#" onclick="showPage('support', this)">Support Group</a>
+    <a href="#" onclick="showPage('announcement', this)">Announcement</a>
+    <a href="#" onclick="showPage('chat', this)">Chat Management</a>
+    <a href="#" onclick="showPage('feedback', this)">Feedback</a>
+    <a href="#" onclick="showPage('settings', this)">Settings & Logs</a>
+    <a href="#" onclick="showPage('reports', this)">Reports</a>
+  </div>
+
+  <!-- Main section -->
+  <div class="main">
+    <!-- Top bar -->
+    <div class="topbar">
+      <span id="pageTitle">Overview</span>
+
+      <!-- Dropdown -->
+      <div class="dropdown" onclick="toggleDropdown()">
+        <span>👤 GCO Coordinator ⬇</span>
+        <div class="dropdown-menu">
+          <a href="#">Sign Out</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+      <div id="overview" class="page active">
+        <h1>Overview</h1>
+        <p>Welcome to the SafeSpace dashboard.</p>
+        
+        <!-- Button to show popup -->
+        <button id="openPopupBtn" class="btn">Show Popup</button>
+
+        <!-- Popup -->
+        <div id="popupOverlay" class="overlay hidden">
+          <div class="popup">
+            <h2>Are you sure?</h2>
+            <p>This is a popup message.</p>
+            <button id="closePopupBtn" class="btn btn-red">Close</button>
+          </div>
+        </div>
+
+        <p style="margin-top: 800px;">⬆ Scrollable content test.</p>
+      </div>
+
+      <div id="counseling" class="page">
+        <h1>Guidance Counseling</h1>
+        <p>Manage counseling sessions here.</p>
+        <p style="margin-top: 1200px;">⬆ Scrollable test.</p>
+      </div>
+
+      <div id="users" class="page">
+        <h1>Users</h1>
+        <p>List of users will be shown here.</p>
+      </div>
+
+      <div id="support" class="page">
+        <h1>Support Group</h1>
+        <p>Group management area.</p>
+      </div>
+
+      <div id="announcement" class="page">
+        <h1>Announcement</h1>
+        <p>Post and view announcements.</p>
+      </div>
+
+      <div id="chat" class="page">
+        <h1>Chat Management</h1>
+        <p>Handle user chats here.</p>
+      </div>
+
+      <div id="feedback" class="page">
+        <h1>Feedback</h1>
+        <p>View feedback from users.</p>
+      </div>
+
+      <div id="settings" class="page">
+        <h1>Settings & System Logs</h1>
+        <p>Manage system settings.</p>
+      </div>
+
+      <div id="reports" class="page">
+        <h1>Reports</h1>
+        <p>View system reports here.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showPage(pageId, el) {
+      if (!pageId) return;
+
+      document.querySelectorAll(".sidebar a").forEach(a => a.classList.remove("active"));
+      el.classList.add("active");
+
+      document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+      document.getElementById(pageId).classList.add("active");
+
+      document.getElementById("pageTitle").textContent = el.textContent;
+    }
+
+    function toggleDropdown() {
+      document.querySelector(".dropdown").classList.toggle("show");
+    }
+
+    window.onclick = function(event) {
+      if (!event.target.closest(".dropdown")) {
+        document.querySelector(".dropdown").classList.remove("show");
+      }
+    }
+
+    // Popup logic
+    const openBtn = document.getElementById("openPopupBtn");
+    const closeBtn = document.getElementById("closePopupBtn");
+    const overlay = document.getElementById("popupOverlay");
+
+    openBtn.addEventListener("click", () => {
+      overlay.classList.toggle("hidden");
+    });
+
+    closeBtn.addEventListener("click", () => {
+      overlay.classList.add("hidden");
+    });
+
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) {
+        overlay.classList.add("hidden");
+      }
+    });
+  </script>
+</body>
+</html>

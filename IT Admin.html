@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>SafeSpace Dashboard</title>
+	<link rel="icon" type="image/png" href="photos/piclogo2.png">
+	<link rel="stylesheet" href="SystemDesign.css">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+	<!---------------- Eto yung side bar -------------------- wag gagalawin ------------------------->
+	<div class="sidebar">
+		<div class="logo"></div>
+
+		<a href="#" class="active" onclick="showPage('overview', this)"> <img src="icons/ic_sba_overview.svg" class="icon"><span>Overview</span></a>
+
+		<a href="#" onclick="showPage('counseling', this)"><img src="icons/ic_sb_counseling.svg" class="icon"><span>Guidance Counseling</span></a>
+
+		<a href="#" onclick="showPage('users', this)"><img src="icons/ic_sb_user.svg" class="icon"><span>Users</span></a>
+
+		<a href="#" onclick="showPage('support', this)"><img src="icons/ic_sb_support.svg" class="icon"><span>Support Group</span></a>
+
+		<a href="#" onclick="showPage('announcement', this)"><img src="icons/ic_sb_announcement.svg" class="icon"><span>Announcement</span></a>
+
+		<a href="#" onclick="showPage('chat', this)"><img src="icons/ic_sb_chat.svg" class="icon"><span>Chat Management</span></a>
+
+		<a href="#" onclick="showPage('feedback', this)"><img src="icons/ic_sb_feedback.svg" class="icon"><span>Feedback</span></a>
+
+		<a href="#" onclick="showPage('settings', this)"><img src="icons/ic_sb_settings.svg" class="icon"><span>Settings and System Logs</span></a>
+
+		<a href="#" onclick="showPage('reports', this)"><img src="icons/ic_sb_report.svg" class="icon"><span>Reports</span></a>
+	</div>
+
+	<!---------------- Eto yung top bar -------------------- wag gagalawin ------------------------->
+
+	<div class="main">
+	<div class="topbar">
+		<span id="pageTitle">Overview</span>
+		<div class="dropdown" onclick="toggleDropdown()">
+			<span>GCO Coordinator</span>
+			<div class="dropdown-menu">
+				<a href="#">Sign Out</a>
+			</div>
+		</div>
+	</div>
+
+	<!---------------- Eto yung content ------------------------------------------------------------>
+	<div class="content">
+
+		<div id="overview" class="page active">
+             <!-- dito yung content  -->
+		</div>
+
+		<div id="counseling" class="page">
+            <!-- dito yung content  -->
+		</div>
+
+		<div id="users" class="page">
+            <!-- dito yung content  -->
+		</div>
+
+		<div id="support" class="page">
+            <!-- dito yung content  -->
+		</div>
+
+		<div id="announcement" class="page">
+            <!-- dito yung content  -->
+		</div>
+
+		<div id="chat" class="page">
+            <!-- dito yung content  -->
+		</div>
+
+		<div id="feedback" class="page">
+            <!-- dito yung content  -->
+		</div>
+
+		<div id="settings" class="page">
+            <!-- dito yung content  -->
+		</div>
+
+		<div id="reports" class="page">
+            <!-- dito yung content  -->
+		</div>
+	</div>
+
+	<script>
+
+		// Pages ----------------------------- wag gagalawin ----------------------------------------
+
+		function showPage(pageId, el) {
+			if (!pageId) return;
+
+			document.querySelectorAll(".sidebar a").forEach(a => {
+			a.classList.remove("active");
+
+			let img = a.querySelector("img.icon");
+			if (img) {
+				img.src = img.src.replace("ic_sba_", "ic_sb_");
+			}
+			});
+
+			el.classList.add("active");
+
+			let activeImg = el.querySelector("img.icon");
+			if (activeImg) {
+				activeImg.src = activeImg.src.replace("ic_sb_", "ic_sba_");
+			}
+
+			document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+			document.getElementById(pageId).classList.add("active");
+
+			document.getElementById("pageTitle").textContent = el.textContent.trim();
+		}
+
+		// Sign out ------------------------- wag gagalawin ----------------------------------------
+
+		function toggleDropdown() {
+			document.querySelector(".dropdown").classList.toggle("show");
+		}
+
+		window.onclick = function(event) {
+		if (!event.target.closest(".dropdown")) {
+			document.querySelector(".dropdown").classList.remove("show");
+		}
+		}
+
+		// Popup logic REFERENCE ONLY------------------------------------------------------------------
+		const openBtn = document.getElementById("openPopupBtn");
+		const closeBtn = document.getElementById("closePopupBtn");
+		const overlay = document.getElementById("popupOverlay");
+
+		openBtn.addEventListener("click", () => {
+		overlay.classList.toggle("hidden");
+		});
+
+		closeBtn.addEventListener("click", () => {
+		overlay.classList.add("hidden");
+		});
+
+		overlay.addEventListener("click", (e) => {
+		if (e.target === overlay) {
+		overlay.classList.add("hidden");
+		}
+		});
+		
+	</script>
+</body>
+</html>

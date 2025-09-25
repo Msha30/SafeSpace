@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>SafeSpace Dashboard</title>
+	<link rel="icon" type="image/png" href="photos/piclogo2.png">
+	<link rel="stylesheet" href="SystemDesign.css">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+	<!---------------- Eto yung side bar -------------------- wag gagalawin ------------------------->
+	<div class="sidebar">
+		<div class="logo"></div>
+
+		<a href="#" class="active" onclick="showPage('overview', this)">
+		<img src="icons/ic_sba_overview.svg" class="icon"><span>Overview</span></a>
+
+		<a href="#" onclick="showPage('counseling', this)"><img src="icons/ic_sb_counseling.svg" class="icon"><span>Guidance Counseling</span></a>
+
+		<a href="#" onclick="showPage('users', this)"><img src="icons/ic_sb_user.svg" class="icon"><span>Users</span></a>
+
+		<a href="#" onclick="showPage('support', this)"><img src="icons/ic_sb_support.svg" class="icon"><span>Support Group</span></a>
+
+		<a href="#" onclick="showPage('announcement', this)"><img src="icons/ic_sb_announcement.svg" class="icon"><span>Announcement</span></a>
+
+		<a href="#" onclick="showPage('chat', this)"><img src="icons/ic_sb_chat.svg" class="icon"><span>Chat Management</span></a>
+
+		<a href="#" onclick="showPage('feedback', this)"><img src="icons/ic_sb_feedback.svg" class="icon"><span>Feedback</span></a>
+
+		<a href="#" onclick="showPage('settings', this)"><img src="icons/ic_sb_settings.svg" class="icon"><span>Settings and System Logs</span></a>
+
+		<a href="#" onclick="showPage('reports', this)"><img src="icons/ic_sb_report.svg" class="icon"><span>Reports</span></a>
+	</div>
+
+	<!---------------- Eto yung top bar -------------------- wag gagalawin ------------------------->
+
+	<div class="main">
+	<div class="topbar">
+		<span id="pageTitle">Overview</span>
+		<div class="dropdown" onclick="toggleDropdown()">
+			<span>GCO Coordinator</span>
+			<div class="dropdown-menu">
+				<a href="#">Sign Out</a>
+			</div>
+		</div>
+	</div>
+
+	<!---------------- Eto yung content ------------------------------------------------------------>
+	<div class="content">
+
+	<!---------------- OVERVIEW ------------------------------------------------------------>
+
+		<div id="overview" class="page active">
+			<div class="row">
+				<div class="card table-card">
+					<h3>Programs</h3>
+					<table>
+						<thead>
+							<tr>
+								<th id="left">Programs</th>
+								<th>New Users this Month</th>
+								<th>Total No. of Users</th>
+								<th>Change, %</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td id="left">BS Information Technology</td>
+								<td >18</td>
+								<td>43</td>
+								<td class="up">18 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Psychology</td>
+								<td>12</td>
+								<td>22</td>
+								<td class="up">12 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Computer Engineering</td>
+								<td>10</td>
+								<td>26</td>
+								<td class="down">10 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Information Technology</td>
+								<td >18</td>
+								<td>43</td>
+								<td class="up">18 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Psychology</td>
+								<td>12</td>
+								<td>22</td>
+								<td class="up">12 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Computer Engineering</td>
+								<td>10</td>
+								<td>26</td>
+								<td class="down">10 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Information Technology</td>
+								<td >18</td>
+								<td>43</td>
+								<td class="up">18 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Psychology</td>
+								<td>12</td>
+								<td>22</td>
+								<td class="up">12 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Computer Engineering</td>
+								<td>10</td>
+								<td>26</td>
+								<td class="down">10 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Information Technology</td>
+								<td >18</td>
+								<td>43</td>
+								<td class="up">18 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Psychology</td>
+								<td>12</td>
+								<td>22</td>
+								<td class="up">12 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Computer Engineering</td>
+								<td>10</td>
+								<td>26</td>
+								<td class="down">10 %</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="stats">
+					<div class="card stat-card">
+						<h3>Student Count</h3>
+						<h2>360</h2>
+					</div>
+					<div class="card stat-card">
+						<h3>PEERS Count</h3>
+						<h2>10</h2>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="card">
+					<h3>Engagement Breakdown</h3>
+					<canvas id="engagementChart" height="220px"></canvas>
+					<p class="chart-description">
+						The graph shows a significant drop in engagement from February to March, followed by a slight decrease in April. 
+						Engagement picked up in May but declined again in June, reflecting an overall inconsistent trend that may require 
+						sustained strategies to maintain interest.
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="card">
+					<h3>User Activity</h3>
+					<canvas id="engagementChart2" height="220px"></canvas>
+					<p class="chart-description">
+						The graph shows a significant drop in engagement from February to March, followed by a slight decrease in April. 
+						Engagement picked up in May but declined again in June, reflecting an overall inconsistent trend that may require 
+						sustained strategies to maintain interest.
+					</p>
+				</div>
+			</div>
+		</div>
+
+	<!---------------- COUNSELING ------------------------------------------------------------>
+
+		<div id="counseling" class="page">
+			<div class="row">
+				<div class="left-half">
+					<button class="btn gray">Today</button>
+					<button class="btn gray">←</button>
+					<button class="btn gray">→</button>
+				</div>
+				<div class="right-half">
+					<button class="btn gray">Today</button>
+					<button class="btn gray">←</button>
+					<button class="btn gray">→</button>
+				</div>
+		</div>
+
+	<!---------------- USER MANAGEMENT ------------------------------------------------------------>
+
+		<div id="users" class="page">
+			<h1>Users</h1>
+			<p>List of users will be shown here.</p>
+		</div>
+
+	<!---------------- SUPPORT ------------------------------------------------------------>
+
+		<div id="support" class="page">
+			<h1>Support Group</h1>
+			<p>Group management area.</p>
+		</div>
+
+	<!---------------- ANNOUNCEMENT ------------------------------------------------------------>
+
+		<div id="announcement" class="page">
+			<h1>Announcement</h1>
+			<p>Post and view announcements.</p>
+		</div>
+
+	<!---------------- CHAT MANAGEMENT ------------------------------------------------------------>
+
+		<div id="chat" class="page">
+			<h1>Chat Management</h1>
+			<p>Handle user chats here.</p>
+		</div>
+
+	<!---------------- FEEDBACK ------------------------------------------------------------>
+
+		<div id="feedback" class="page">
+			<h1>Feedback</h1>
+			<p>View feedback from users.</p>
+		</div>
+
+	<!---------------- SETTINGS ------------------------------------------------------------>
+
+		<div id="settings" class="page">
+			<h1>Settings & System Logs</h1>
+			<p>Manage system settings.</p>
+		</div>
+
+	<!---------------- REPORTS ------------------------------------------------------------>
+
+		<div id="reports" class="page">
+			<h1>Reports</h1>
+			<p>View system reports here.</p>
+		</div>
+	</div>
+
+	<script>
+		// Eto yung unang engagement chart ----------------------------------------------------
+		const ctx = document.getElementById('engagementChart').getContext('2d');
+		const engagementChart = new Chart(ctx, {
+		type: 'line',
+		data: {
+			labels: ['Feb', 'Mar', 'Apr', 'May', 'Jun'],
+			datasets: [{
+			label: ' Engagement',
+			data: [55, 12, 9, 28, 11], 
+			borderColor: '#0847b2',
+			borderWidth: 7,
+			fill: false,
+			pointBackgroundColor: '#0847b2',
+			pointRadius: 0
+			}]
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: true,
+			plugins: {
+			legend: {
+				display: false
+			}
+			},
+			scales: {
+			y: {
+				beginAtZero: true
+			}
+			}
+		}
+		});
+
+		// Eto yung pangalawang engagement chart ----------------------------------------------------
+
+		const ctx2 = document.getElementById('engagementChart2').getContext('2d');
+		const engagementChart2 = new Chart(ctx2, {
+			type: 'line',
+			data: {
+				labels: ['19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31',
+				'1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18'],
+				datasets: [
+					{
+						label: ' DUA',
+						data: [90, 85, 80, 95, 88, 100, 110, 78, 85, 92, 89, 95, 98, 87, 110, 95, 92, 98, 97, 94, 96, 99, 95, 93, 97, 92, 90, 95, 93, 91, 89],
+						borderColor: '#0847b2',
+						borderWidth: 5,
+						fill: false,
+						pointRadius: 0
+					},
+					{
+						label: ' WUA',
+						data: [120, 120, 121, 122, 121, 123, 125, 127, 126, 128, 129, 130, 131, 128, 126, 124, 123, 122, 121, 122, 124, 125, 126, 128, 130, 132, 133, 130, 128, 126, 120],
+						borderColor: '#e94e1b',
+						borderWidth: 5,
+						fill: false,
+						pointRadius: 0
+					},
+					{
+						label: ' MUA',
+						data: Array(31).fill(190), // flat line at 190
+						borderColor: '#f2c500',
+						borderWidth: 5,
+						fill: false,
+						pointRadius: 0
+					}
+				]
+			},
+			options: {
+				responsive: true,
+				maintainAspectRatio: true,
+				plugins: {
+					legend: {
+						display: true,
+						position: 'top',
+						labels: {
+							usePointStyle: true,
+							boxWidth: 4,
+							boxHeight: 4,
+							padding: 15,
+						}
+					}
+				},
+				scales: {
+					y: {
+						beginAtZero: true
+					}
+				}
+			}
+		});
+
+		// Pages ----------------------------- wag gagalawin ----------------------------------------
+
+		function showPage(pageId, el) {
+			if (!pageId) return;
+
+			document.querySelectorAll(".sidebar a").forEach(a => {
+			a.classList.remove("active");
+
+			let img = a.querySelector("img.icon");
+			if (img) {
+				img.src = img.src.replace("ic_sba_", "ic_sb_");
+			}
+			});
+
+			el.classList.add("active");
+
+			let activeImg = el.querySelector("img.icon");
+			if (activeImg) {
+				activeImg.src = activeImg.src.replace("ic_sb_", "ic_sba_");
+			}
+
+			document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+			document.getElementById(pageId).classList.add("active");
+
+			document.getElementById("pageTitle").textContent = el.textContent.trim();
+		}
+
+		// Sign out ------------------------- wag gagalawin ----------------------------------------
+
+		function toggleDropdown() {
+			document.querySelector(".dropdown").classList.toggle("show");
+		}
+
+		window.onclick = function(event) {
+		if (!event.target.closest(".dropdown")) {
+			document.querySelector(".dropdown").classList.remove("show");
+		}
+		}
+
+		// Popup logic REFERENCE ONLY------------------------------------------------------------------
+		const openBtn = document.getElementById("openPopupBtn");
+		const closeBtn = document.getElementById("closePopupBtn");
+		const overlay = document.getElementById("popupOverlay");
+
+		openBtn.addEventListener("click", () => {
+		overlay.classList.toggle("hidden");
+		});
+
+		closeBtn.addEventListener("click", () => {
+		overlay.classList.add("hidden");
+		});
+
+		overlay.addEventListener("click", (e) => {
+		if (e.target === overlay) {
+		overlay.classList.add("hidden");
+		}
+		});
+		
+	</script>
+</body>
+</html>
