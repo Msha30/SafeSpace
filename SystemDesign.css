@@ -114,6 +114,8 @@ button {
 	height: 100vh;
 }
 
+/* -------------------------------------- TOPBAR -------------------------------------- */
+
 .topbar {
 	background-color: #c3e1f4;
 	padding: 20px 30px;
@@ -198,7 +200,7 @@ button {
 
 .row {
 	display: flex;
-	gap: 30px;
+	gap: 20px;
 	margin-bottom: 20px;
 }
 
@@ -264,12 +266,12 @@ td.down::after {
 	font-weight: bold;
 }
 
-/* ------------STATS SA LEFT NG OVERVIEW---------------------------------------------- */
+/* -------------------------------------- OVERVIEW - STATS -------------------------------------- */
 
 .stats {
 	display: flex;
 	flex-direction: column;
-	gap: 30px;
+	gap: 20px;
 	flex: 1;
 }
 
@@ -309,6 +311,8 @@ td.down::after {
     color: black;
 }
 
+/* -------------------------------------- COUNSELING -------------------------------------- */
+
 .btn-white{
 	height: 30px;
 	background: white;
@@ -335,7 +339,6 @@ td.down::after {
     height: 15px; 
     width: 15px; 
 	margin: 0px 15px;
-	margin-top: 15px;
 }
 
 
@@ -351,18 +354,18 @@ td.down::after {
 
 
 #schedule h4 {
-	font-size: 20px;
+	font-size: 17px;
 	color: black;
 	font-family: "BoldFont", sans-serif;
-	padding: 20px 0px 0px 30px;
+	padding: 15px 0px 0px 30px;
 	margin-bottom: 5px;
 	margin: 0;
 }
 
 #schedule h5 {
-	font-size: 15px;
+	font-size: 13px;
 	color: black;
-	padding: 5px 0px 20px 30px;
+	padding: 1px 0px 15px 30px;
 	border-bottom: 2px solid #c3e1f4;
 	width: 100%;
 	box-sizing: border-box;
@@ -370,12 +373,277 @@ td.down::after {
 }
 
 .sched {
-	height: 30px;
 	background: #c3e1f4;
 	border: none;
 	border-radius: 5px;
+	margin: 15px 20px 0px 20px;
+	padding: 10px 10px;
 	font-family: "MediumFont", sans-serif;
 	color: #0847b2;
-	padding: 10px 30px;
+	align-items: center;
+	cursor: pointer;
+}
+
+
+.sched-type{
+	font-size: 14px;
+	font-family: "BoldFont", sans-serif;
+	margin: 0; 
+	padding: 0;
+	padding-bottom: 2px;
+}
+
+.sched-time{
+	font-size: 13px;
+	margin: 0; 
+	padding: 0;
+}
+
+/* -------------------------------------- USERS -------------------------------------- */
+
+.searchbar {
+	height: 30px;
+	width: 25%;
+	background: white;
+	border: none;
+	border-radius: 5px;
+	font-family: "MediumFont", sans-serif;
+	color: #6d6d6d;
+	padding: 0px 15px;
 	box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
+
+.searchbar img {
+    height: 13px; 
+    width: 13px; 
+}
+
+.searchbar input{
+	height: 100%; 
+	padding: 0px 0px;
+	flex: 1; 
+	border: none;
+	outline: none;
+	margin-left: 10px;
+	font-size: 15px;
+}
+
+select {
+	outline: none;        
+}
+
+select option {
+	outline: none;   
+	background-color: white;  
+	color: black;           
+	font-size: 14px;
+}
+
+select option:focus {
+	outline: none;  
+	background-color: #c2e1f5;  
+	color: black;           
+	font-size: 14px;
+}
+
+.userdrop{
+	height: 30px;
+	background: white;
+	border: none;
+	border-radius: 5px;
+	font-family: "MediumFont", sans-serif;
+	color: #6d6d6d;
+	padding: 0px 25px;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+	margin-left: 15px;
+	padding-left: 15px;
+}
+
+.userdrop:hover {
+	border-color: #0847b2;
+}
+
+.userdrop:focus {
+	border-color: #0847b2;
+	box-shadow: 0 0 4px rgba(8, 71, 178, 0.4);
+}
+
+.table_user{
+	width: 60px;
+
+}
+
+.table_user img {
+    height: 45px; 
+    width: 45px; 
+	margin: 0px;
+	padding-left: 15px;
+}
+
+#name {
+	text-align: left;
+	width: 250px;
+	padding-left: 0px;
+	line-height: 1.5;
+}
+
+#name span {
+	color: #6d6d6d;
+	font-style: italic;
+	padding-top: 10px;
+}
+
+.user tr:last-child td {
+	border-bottom: none;
+	padding-bottom: 0px;
+}
+
+
+.user th {
+	text-align: left;
+	padding-left: 15px;
+}
+
+.user td {
+	text-align: left;
+	border-bottom: 2px solid #e4f4ff;
+	padding: 15px;
+}
+
+.cat_peer {
+	font-size: 13px;
+	width: fit-content;
+	display: flex;
+	height: 30px;
+	background: #fee48e;
+	color: #977a16;
+	border: none;
+	border-radius: 15px;
+	font-family: "BoldFont", sans-serif;
+	padding: 0px 15px;
+	align-items: center;
+	justify-content: center;
+}
+
+.cat_user {
+	font-size: 13px;
+	width: fit-content;
+	display: flex;
+	height: 30px;
+	background: #c3e1f4;
+	color: #0067c4;
+	border: none;
+	border-radius: 15px;
+	font-family: "BoldFont", sans-serif;
+	padding: 0px 15px;
+	align-items: center;
+	justify-content: center;
+}
+
+/* -------------------------------------- LAYOUTING -------------------------------------- */
+
+.left {
+	flex: 2;
+	background: white;
+	border-radius: 5px;
+	padding-bottom: 20px;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.right {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	flex: 1;
+}
+
+.card2 {
+	background: white;
+	border-radius: 5px;
+	flex: 1;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.blue_bg {
+	height: 70vh;
+	background: #dbeefa;
+	flex-direction: column;
+	border-radius: 0px 0px 5px 5px;
+	display: flex;
+	padding: 15px 30px;
+	gap: 20px;
+	overflow-y: auto;
+}
+
+.card3 {
+	background: white;
+	border-radius: 5px;
+	display: flex;
+	padding: 15px;
+}
+
+.left2 {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	flex: 2;
+}
+
+.right2 {
+	flex: 1;
+	background: white;
+	border-radius: 5px;
+	padding-bottom: 20px;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.leftscroll {
+	height: 70vh;
+	background: white;
+	flex-direction: column;
+	border-radius: 0px 0px 5px 5px;
+	display: flex;
+	padding: 0px;
+	gap: 20px;
+	overflow-y: auto;
+}
+
+/* -------------------------------------- FEEDBACK -------------------------------------- */
+
+.feedback {
+	background: white;
+	border-radius: 5px;
+	display: flex;
+	padding: 15px 30px;
+	border-bottom: 2px solid #e4f4ff;
+}
+
+.big_btn {
+	background: white;
+	border-radius: 5px;
+	flex: 1;
+	padding-bottom: 20px;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.big_btn h6 {
+	font-size: 17px;
+	color: black;
+	font-weight: bold;
+	padding: 20px 30px 0px 30px;
+	width: 100%;
+	box-sizing: border-box;
+	margin: 0;
+}
+
+.big_btn p {
+	font-size: 13px;
+	color: black;
+	padding: 5px 0px 0px 30px;
+	margin-left: 30px;
+	width: 100%;
+	box-sizing: border-box;
+	margin: 0;
+}
+
+/* -------------------------------------- ADDED BY SHAN -------------------------------------- */

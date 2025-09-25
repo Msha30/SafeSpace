@@ -3,8 +3,8 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>SafeSpace Dashboard</title>
-	<link rel="icon" type="image/png" href="photos/piclogo2.png">
+	<title>Dashboard</title>
+	<link rel="icon" type="image/png" href="photos/pic_logo2.png">
 	<link rel="stylesheet" href="SystemDesign.css">
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -40,6 +40,7 @@
 		<span id="pageTitle">Overview</span>
 		<div class="dropdown" onclick="toggleDropdown()">
 			<span>GCO Coordinator</span>
+			<img src="icons/ic_dropdown.svg" style="height: 10px; margin-left: 3px;"></a>
 			<div class="dropdown-menu">
 				<a href="#">Sign Out</a>
 			</div>
@@ -214,60 +215,332 @@
 					<h4 class="sched-date">23</h4>
 					<h5 style="padding-left: 30px;">MON</h5>
 					<div class="sched">
-						<p>content here - remove this</p>
+						<p class="sched-type">type</p>
+						<p class="sched-time">time</p>
+					</div>
+					<div class="sched">
+						<p class="sched-type">type</p>
+						<p class="sched-time">time</p>
 					</div>
 				</div>
-
+				<div class="card">
+					<h4 class="sched-date">23</h4>
+					<h5 style="padding-left: 30px;">MON</h5>
+					<div class="sched">
+						<p class="sched-type">type</p>
+						<p class="sched-time">time</p>
+					</div>
+					<div class="sched">
+						<p class="sched-type">type</p>
+						<p class="sched-time">time</p>
+					</div>
+				</div>
+				<div class="card">
+					<h4 class="sched-date">23</h4>
+					<h5 style="padding-left: 30px;">MON</h5>
+					<div class="sched">
+						<p class="sched-type">type</p>
+						<p class="sched-time">time</p>
+					</div>
+					<div class="sched">
+						<p class="sched-type">type</p>
+						<p class="sched-time">time</p>
+					</div>
+				</div>
+				<div class="card">
+					<h4 class="sched-date">23</h4>
+					<h5 style="padding-left: 30px;">MON</h5>
+					<div class="sched">
+						<p class="sched-type">type</p>
+						<p class="sched-time">time</p>
+					</div>
+					<div class="sched">
+						<p class="sched-type">type</p>
+						<p class="sched-time">time</p>
+					</div>
+				</div>
+				<div class="card">
+					<h4 class="sched-date">23</h4>
+					<h5 style="padding-left: 30px;">MON</h5>
+					<div class="sched">
+						<p class="sched-type">type</p>
+						<p class="sched-time">time</p>
+					</div>
+					<div class="sched">
+						<p class="sched-type">type</p>
+						<p class="sched-time">time</p>
+					</div>
+				</div>
+				<div class="card">
+					<h4 class="sched-date">23</h4>
+					<h5 style="padding-left: 30px;">MON</h5>
+					<div class="sched">
+						<p class="sched-type">type</p>
+						<p class="sched-time">time</p>
+					</div>
+					<div class="sched">
+						<p class="sched-type">type</p>
+						<p class="sched-time">time</p>
+					</div>
+				</div>
 			</div>
 		</div>
 
 	<!---------------- USER MANAGEMENT ------------------------------------------------------------>
 
 		<div id="users" class="page">
-			<h1>Users</h1>
-			<p>List of users will be shown here.</p>
+			<div class="row">
+				<div class="right-half" style="width: 100%;">
+					<div class="searchbar">
+						<img src="icons/ic_search.svg">
+						<input type="text" placeholder="Search...">
+					</div>
+					<select name="userdrop" class="userdrop">
+						<option value="All">All</option>
+						<option value="Peers">Peers</option>
+						<option value="Users">Users</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="card">
+					<h3>Lerum Ipsum</h3>
+					<table class="user">
+						<thead>
+							<tr>
+								<th id="left">User</th>
+								<th> </th>
+								<th>Lorem Ipsum</th>
+								<th>Lorem Ipsum</th>
+								<th>Lorem Ipsum</th>
+								<th>Lorem Ipsum</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Lorem Ipsum<br>
+									<span>Lorem Ipsum</span>
+								</td>
+								<td>Lorem Ipsum</td>
+								<td>
+									<div class="cat_peer">PEER</div>
+								</td>
+								<td>Lorem Ipsum</td>
+								<td>Lorem Ipsum</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Lorem Ipsum<br>
+									<span>Lorem Ipsum</span>
+								</td>
+								<td>Lorem Ipsum</td>
+								<td>
+									<div class="cat_user">USER</div>
+								</td>
+								<td>Lorem Ipsum</td>
+								<td>Lorem Ipsum</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 
 	<!---------------- SUPPORT ------------------------------------------------------------>
 
 		<div id="support" class="page">
-			<h1>Support Group</h1>
-			<p>Group management area.</p>
+			<div class="row">
+				<div class="left">
+					<h3>Lorem Ipsum</h3>
+				</div>
+				<div class="right">
+					<div class="card">
+						<h3>Lorem Ipsum</h3>
+						<table class="user">
+							<tbody>
+								<tr>
+									<td class="table_user">
+										<img src="photos/pic_placeholder.png">
+									</td>
+									<td id="name">
+										Lorem Ipsum<br>
+										<span>Lorem Ipsum</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="card">
+						<h3>Lorem Ipsum</h3>
+						<table class="user">
+							<tbody>
+								<tr>
+									<td class="table_user">
+										<img src="photos/pic_placeholder.png">
+									</td>
+									<td id="name">
+										Lorem Ipsum<br>
+										<span>Lorem Ipsum</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
 		</div>
 
 	<!---------------- ANNOUNCEMENT ------------------------------------------------------------>
 
 		<div id="announcement" class="page">
-			<h1>Announcement</h1>
-			<p>Post and view announcements.</p>
+			<div class="row">
+				<div class="card">
+					<h3>Lorem Ipsum</h3>
+				</div>
+				<div class="card2">
+					<h3>Lorem Ipsum</h3>
+					<div class="blue_bg">
+						<div class="card3">test</div>
+					</div>
+				</div>
+			</div>
 		</div>
 
 	<!---------------- CHAT MANAGEMENT ------------------------------------------------------------>
 
 		<div id="chat" class="page">
-			<h1>Chat Management</h1>
-			<p>Handle user chats here.</p>
+			<div class="row">
+				<div class="card">
+					<h3>Lorem Ipsum</h3>
+					<table class="user">
+						<thead>
+							<tr>
+								<th id="left">User</th>
+								<th> </th>
+								<th>Lorem Ipsum</th>
+								<th>Lorem Ipsum</th>
+								<th>Lorem Ipsum</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Lorem Ipsum<br>
+									<span>Lorem Ipsum</span>
+								</td>
+								<td>Lorem Ipsum</td>
+								<td style="color: #e85536; font-weight: bold;">Lorem Ipsum</td>
+								<td>Lorem Ipsum</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="left2">
+					<div class="card">
+						<h3>Lorem Ipsum</h3>
+					</div>
+					<div class="card">
+						<h3>Lorem Ipsum</h3>
+						<table class="user">
+							<thead>
+								<tr>
+									<th id="left">User</th>
+									<th> </th>
+									<th>Lorem Ipsum</th>
+									<th>Lorem Ipsum</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="table_user">
+										<img src="photos/pic_placeholder.png">
+									</td>
+									<td id="name">
+										Lorem Ipsum<br>
+										<span>Lorem Ipsum</span>
+									</td>
+									<td style="color: #e85536; font-weight: bold;">Lorem Ipsum</td>
+									<td>Lorem Ipsum</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="right2">
+					<h3>Lorem Ipsum</h3>
+				</div>
+			</div>
 		</div>
 
 	<!---------------- FEEDBACK ------------------------------------------------------------>
 
 		<div id="feedback" class="page">
-			<h1>Feedback</h1>
-			<p>View feedback from users.</p>
+			<div class="row">
+				<div class="card2" style="flex: 2;">
+					<h3>Lorem Ipsum</h3>
+					<div class="leftscroll">
+						<div class="feedback">test</div>
+					</div>
+				</div>
+				<div class="right">
+					<div class="card">
+						<h3>Lorem Ipsum</h3>
+					</div>
+				</div>
+			</div>
 		</div>
 
 	<!---------------- SETTINGS ------------------------------------------------------------>
 
 		<div id="settings" class="page">
-			<h1>Settings & System Logs</h1>
-			<p>Manage system settings.</p>
+			<div class="row">
+				<div class="big_btn">
+					<h6>Lorem Ipsum</h6>
+					<p>Lorem Ipsum</p>
+				</div>
+				<div class="big_btn">
+					<h6>Lorem Ipsum</h6>
+					<p>Lorem Ipsum</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="card">
+					<h3>Lorem Ipsum</h3>
+				</div>
+				<div class="card">
+					<h3>Lorem Ipsum</h3>
+				</div>
+			</div>
 		</div>
 
 	<!---------------- REPORTS ------------------------------------------------------------>
 
 		<div id="reports" class="page">
-			<h1>Reports</h1>
-			<p>View system reports here.</p>
+			<div class="row">
+				<div class="right">
+					<div class="card">
+						<h3>Lorem Ipsum</h3>
+					</div>
+				</div>
+				<div class="card2">
+					<h3>Lorem Ipsum</h3>
+					<div class="leftscroll">
+						<div class="feedback">test</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 
