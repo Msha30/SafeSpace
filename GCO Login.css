@@ -1,0 +1,134 @@
+@font-face {
+  font-family: "BoldFont";
+  src: url("fonts/PublicSans-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "RegularFont";
+  src: url("fonts/PublicSans-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Oswald";
+  src: url("fonts/Oswald-Regular.ttf") format("truetype");
+}
+
+
+body {
+  margin: 0;
+  font-family: "RegularFont", Arial, sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("photos/bg_login.png") no-repeat center center fixed;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.login {
+  display: flex;
+  width: 90%;
+  max-width: 1000px;
+  height: 470px;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* --------------------------------------LEFT SECTION-------------------------------------- */
+.left {
+  flex: 1;
+  background: linear-gradient(135deg, #eff5f9, #c3e1f4, #eff5f9);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  text-align: center;
+}
+
+.left .logos {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 150px;
+}
+
+.left .logo-small {
+  height: 40px;
+}
+
+.left .main-logo {
+  width: 120px;
+  margin-bottom: 40px;
+  margin-top: -90px
+}
+
+.left h1 {
+  font-family: "BoldFont", sans-serif;
+  font-size: 45px;
+  color: #062b6b;
+}
+
+/* --------------------------------------RIGHT SECTION-------------------------------------- */
+.right {
+  flex: 1;
+  background: #062b6b;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px;
+  color: white;
+}
+
+.right h2 {
+  margin-bottom: 40px;
+  font-family: "BoldOswald", sans-serif;
+  font-size: 30px;
+  text-align: left;
+  margin-top: -50px;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+.btn {
+  width: 100%;
+  padding: 12px;
+  background: #4a90e2;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background: #357ab7;
+}
+
+.forgot {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.forgot a {
+  text-decoration: none;
+  color: #b3c6ff;
+  font-size: 14px;
+}
+
+
