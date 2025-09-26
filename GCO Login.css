@@ -1,3 +1,5 @@
+/* --------------------------------------NOT FINAL-------------------------------------- */
+
 @font-face {
   font-family: "BoldFont";
   src: url("fonts/PublicSans-Bold.ttf") format("truetype");
@@ -31,7 +33,6 @@ body {
   max-width: 1000px;
   height: 470px;
   background: white;
-  border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
@@ -50,25 +51,37 @@ body {
 
 .left .logos {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; 
+  align-items: center;
   width: 100%;
-  margin-bottom: 150px;
+  margin-bottom: 45px;
+  padding: 0 20px;
 }
 
-.left .logo-small {
-  height: 40px;
+.logo-left {
+  max-height: 140px;  /* adjust NU Fairview logo */
+  margin-left: -60px;
 }
 
+.logo-right {
+  max-height: 85px;  /* adjust NUFV Peers logo */
+  margin-right: -25px;
+  margin-top: -15px;
+
+}
+
+/* Main logo in the middle */
 .left .main-logo {
-  width: 120px;
-  margin-bottom: 40px;
-  margin-top: -90px
+  width: 130px;
+  margin-top: -50px;
+  margin-bottom: 10px
+
 }
 
 .left h1 {
-  font-family: "BoldFont", sans-serif;
-  font-size: 45px;
-  color: #062b6b;
+  font-family: "Oswald", sans-serif;
+  font-size: 55px;
+  color: #0847b2;
 }
 
 /* --------------------------------------RIGHT SECTION-------------------------------------- */
@@ -85,9 +98,9 @@ body {
 .right h2 {
   margin-bottom: 40px;
   font-family: "BoldOswald", sans-serif;
-  font-size: 30px;
+  font-size: 35px;
   text-align: left;
-  margin-top: -50px;
+  margin-top: -90px;
 }
 
 .input-group {
@@ -95,23 +108,26 @@ body {
 }
 
 .input-group input {
-  width: 100%;
-  padding: 12px;
-  border-radius: 6px;
+  width: 95%;
+  height: 55px;
+  padding: 0 12px;
+  border-radius: 4px;
   border: none;
   outline: none;
+  font-family: "RegularPublicSans", sans-serif;
   font-size: 14px;
 }
 
 .btn {
   width: 100%;
-  padding: 12px;
-  background: #4a90e2;
+  height: 55px;
+  padding: 0 12px;
+  background: #c3e1f4;
   border: none;
   border-radius: 6px;
   font-size: 16px;
   font-weight: bold;
-  color: white;
+  color: #0847b2;
   cursor: pointer;
   transition: 0.3s;
 }
@@ -121,13 +137,13 @@ body {
 }
 
 .forgot {
-  margin-top: 15px;
+  margin-top: 20px;
   text-align: center;
 }
 
 .forgot a {
   text-decoration: none;
-  color: #b3c6ff;
+  color: white;
   font-size: 14px;
 }
 
