@@ -950,19 +950,19 @@ select option:focus {
 
 .custom-input {
   width: 470px;
-  padding: 10px;
+  padding: 20px;
   height: 30px;
   background-color: #eff5f9;
   font-size: 14px;
   border: none;
   border-radius: 8px;
-  height: 30px;
+  outline: none;
 }
 
 .custom-btn {
   width: 125px;
   padding: 10px;
-  height: 48px;
+  height: 40px;
   background: #c3e1f4;
   color: #0067c4;
   border: none;
