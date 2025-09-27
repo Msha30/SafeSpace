@@ -670,14 +670,14 @@ select option:focus {
 /* -------------------------------------- ADDED BY SHAN -------------------------------------- */
 
 /* --------------------------------------COUNSELING 2 -------------------------------------- */
-.session-mode-right {
+.session-mode-left {
   display: flex;
   align-items: flex-start;
   gap: 10px;
   margin: 10px 0;
 }
 
-.session-mode-right img {
+.session-mode-left img {
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -687,7 +687,7 @@ select option:focus {
   top: 5px;
 }
 
-.session-details-right {
+.session-details-left {
   font-family: "RegularPublicSans", sans-serif;
   color: #000;
   line-height: 1.5;
@@ -695,36 +695,35 @@ select option:focus {
   left: 40px;
 }
 
-.session-details-right .time {
+.session-details-left .time {
   font-weight: bold;
   font-size: 14px;
   line-height: 2;
 }
 
-.session-details-right .name {
+.session-details-left .name {
   font-size: 14px;
 }
 
-.session-details-right .info {
+.session-details-left .info {
   color: #333;
   font-size: 14px;
 }
 
-.session-details-right .info strong {
+.session-details-left .info strong {
   font-weight: bold;
 }
 
-.session-btn-right {
+.session-btn-left {
   display: flex;
   flex-direction: column;
-  gap: 10px;          /* space between buttons */
+  gap: 10px;         
   margin-top: 15px;
   position: relative;
   left: 30px;
 }
 
-/* Common button style */
-.session-btn-right .btn {
+.session-btn-left .btn {
   width: 84%;
   height: 35px;
   border: none;
@@ -736,21 +735,19 @@ select option:focus {
   transition: 0.3s;
 }
 
-/* Start Call button */
-.session-btn-right .btn.start {
+.session-btn-left .btn.start {
   background: #00bf63; /* green */
 }
 
-.session-btn-right .btn.start:hover {
+.session-btn-left .btn.start:hover {
   background: #009e3e;
 }
 
-/* See Details button */
-.session-btn-right .btn.details {
-  background: #bdc1c4; /* gray */
+.session-btn-left .btn.details {
+  background: #bdc1c4; 
 }
 
-.session-btn-right .btn.details:hover {
+.session-btn-left .btn.details:hover {
   background: #6b6a6a;
 }
 
@@ -808,13 +805,12 @@ select option:focus {
 .session-btn-mid {
   display: flex;
   flex-direction: column;
-  gap: 10px;          /* space between buttons */
+  gap: 10px;          
   margin-top: 15px;
   position: relative;
   left: 30px;
 }
 
-/* Common button style */
 .session-btn-mid .btn {
   width: 84%;
   height: 35px;
@@ -827,21 +823,110 @@ select option:focus {
   transition: 0.3s;
 }
 
-/* Start Call button */
 .session-btn-mid .btn.start {
-  background: #00bf63; /* green */
+  background: white; 
+  color: #007bff;            
+  border: 2px solid #007bff;
+  font-weight: normal;
+  font-style: italic; 
+  transition: 0.3s;
 }
 
 .session-btn-mid .btn.start:hover {
-  background: #009e3e;
+  background: #007bff;   
+  color: white;  
 }
 
-/* See Details button */
-.session-btn-mid.btn.details {
-  background: #bdc1c4; /* gray */
+.session-btn-mid .btn.details {
+  background: #bdc1c4; 
 }
 
 .session-btn-mid .btn.details:hover {
+  background: #6b6a6a;
+}
+
+/*--------------- session-right ---------------*/
+
+.session-mode-right {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.session-mode-right img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  position: relative;
+  left: 30px;
+  top: 5px;
+}
+
+.session-details-right {
+  font-family: "RegularPublicSans", sans-serif;
+  color: #000;
+  line-height: 1.5;
+  position: relative;
+  left: 40px;
+}
+
+.session-details-right .time {
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 2;
+}
+
+.session-details-right .name {
+  font-size: 14px;
+}
+
+.session-details-right .info {
+  color: #333;
+  font-size: 14px;
+}
+
+.session-details-right .info strong {
+  font-weight: bold;
+}
+
+.session-btn-right {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;          
+  margin-top: 15px;
+  position: relative;
+  left: 30px;
+}
+
+.session-btn-right .btn {
+  width: 84%;
+  height: 35px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  color:white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.session-btn-right .btn.start {
+  background: #c3e1f4; 
+  color: #0847b2;           
+}
+
+.session-btn-right .btn.start:hover {
+  background: #007bff;   
+  color: white;  
+}
+
+.session-btn-right .btn.details {
+  background: #bdc1c4; 
+}
+
+.session-btn-right .btn.details:hover {
   background: #6b6a6a;
 }
 
