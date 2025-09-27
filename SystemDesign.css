@@ -1135,3 +1135,87 @@ background: #ffe6e6;
 color: #d9534f;
 font-weight: bold;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* -------------------------------------- SYSTEM AND LOGS 2 -------------------------------------- */
+.logs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.log-entry {
+  background: #e9f3f9;
+  border-radius: 4px;
+  padding: 12px 12px 12px 52px; /* space for avatar */
+  position: relative;
+  left: 30px;
+  top: 20px;
+  width: 400px; 
+  height: 70px;
+  margin-bottom: 10px;
+}
+
+.avatar {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 32px;
+  height: 23px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.log-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.log-name {
+  font-weight: 650rem;
+  color: #6d6d6d;
+  font-size: 0.95rem;
+  margin-top: 5px;
+}
+
+.log-time {
+  font-size: 0.75rem;
+  color: #718096;
+  margin-top: 7px;
+}
+
+.log-message {
+  font-size: 0.9rem;
+  color: #6d6d6d;
+  font-weight: bold;
+  position: static;      /* remove relative offsets */
+  display: inline-block; /* grows with content */
+  max-width: 100%;       /* prevents overflow from parent */
+  word-wrap: break-word; /* wrap long text */
+  margin-top: 15px; 
+  margin-left: -35px; 
+}
