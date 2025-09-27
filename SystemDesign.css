@@ -644,31 +644,135 @@ select option:focus {
 }
 
 .big_btn {
-	background: white;
-	border-radius: 5px;
-	flex: 1;
-	padding-bottom: 20px;
-	box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    background: white;
+    border-radius: 5px;
+    flex: 1;
+    padding: 20px 30px; /* added padding around all content */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center; /* vertically center items */
+    justify-content: space-between; /* space between text and chevron */
+    position: relative;
+    cursor: pointer;
+}
+
+.big_btn .text {
+    display: flex;
+    flex-direction: column;
 }
 
 .big_btn h6 {
-	font-size: 17px;
-	color: black;
-	font-weight: bold;
-	padding: 20px 30px 0px 30px;
-	width: 100%;
-	box-sizing: border-box;
-	margin: 0;
+    font-size: 17px;
+    color: black;
+    font-weight: bold;
+    margin: 0;
+	position: relative;
+
 }
 
 .big_btn p {
-	font-size: 13px;
-	color: black;
-	padding: 5px 0px 0px 30px;
-	margin-left: 30px;
-	width: 100%;
-	box-sizing: border-box;
-	margin: 0;
+    font-size: 13px;
+    color: black;
+    margin: 0;
+    margin-top: 5px; /* small gap below h6 */
+}
+
+.setting_slider {
+    height: 20px; /* increase for bigger arrow */
+    width: 20px;
+    margin-left: 10px; /* space between text and arrow */
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+  position: relative;   /* ✅ relative positioning */
+  background: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  width: 60%;
+  max-height: 70%;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+
+  /* instead of margin auto, use relative offsets */
+  top: 180px;    /* move down */
+  left: 150px;      /* aligned left */
+  right: 0;     /* centered horizontally */
+  margin: 0 auto; /* keep centered */
+}
+
+/* inner grey box with scroll */
+.terms-box {
+  position: relative;    /* ✅ allows positioning */
+  background: #f5f8fa;
+  padding: 20px;
+  border-radius: 4px;
+  max-height: 300px;
+  overflow-y: auto;
+  text-align: left;
+
+  /* size adjustment */
+  width: 90%;            /* adjust width (e.g., 90% of modal-content) */
+  
+  /* positioning */
+  left: 3%;              /* push it slightly to the right */
+  margin-top: -30px;      /* space below heading */
+
+  text-align: left;    /* ✅ ensures text aligns left */
+}
+
+.terms-box ol {
+  margin: 0;
+  padding-left: 20px;   /* keep space so numbers show nicely */
+  text-align: left;
+}
+
+.terms-box ul {
+  list-style: none;     /* 🚫 remove bullets */
+  margin: 0;
+  padding-left: 20px;   /* indent text but no bullets */
+  text-align: left;
+}
+
+.terms-box li {
+  margin-bottom: 10px;
+}
+
+.terms-box p {
+  margin: 5px 0;
+}
+
+.close {
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #555;
+}
+
+.close:hover {
+  color: #000;
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #111;
+  border: none;       
+  box-shadow: none;   
 }
 
 /* -------------------------------------- ADDED BY SHAN -------------------------------------- */
