@@ -519,6 +519,10 @@ select option:focus {
 	padding-bottom: 0px;
 }
 
+.user th:first-child {
+	text-align: left;
+	padding-left: 30px;
+}
 
 .user th {
 	text-align: left;
@@ -984,6 +988,7 @@ gap: 8px;
 position:relative;
 left: 25px;
 top: 10px;
+padding-bottom: 20px;
 }
 
 .tag {
