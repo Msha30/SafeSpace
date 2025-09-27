@@ -411,6 +411,8 @@ td.down::after {
 	color: #6d6d6d;
 	padding: 0px 15px;
 	box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+	position: relative;
+    left: -15px;
 }
 
 .searchbar img {
@@ -457,6 +459,8 @@ select option:focus {
 	box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 	margin-left: 15px;
 	padding-left: 15px;
+	position: relative;
+    left: -15px;
 }
 
 .userdrop:hover {
@@ -466,6 +470,23 @@ select option:focus {
 .userdrop:focus {
 	border-color: #0847b2;
 	box-shadow: 0 0 4px rgba(8, 71, 178, 0.4);
+}
+
+.btn-peersession{
+	height: 30px;
+	background: #062b6b;
+	border: none;
+	border-radius: 5px;
+	font-family: "MediumFont", sans-serif;
+	color: white;
+	padding: 0px 25px;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.peersession {
+	display: flex;
+	justify-content: flex-end;
+	width: 50%;
 }
 
 .table_user{
