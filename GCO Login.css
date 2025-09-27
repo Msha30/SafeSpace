@@ -29,14 +29,19 @@ body {
 
 .login {
   display: flex;
-  width: 90%;
-  max-width: 1000px;
+  width: 1000px;
   height: 470px;
+  margin: auto;
   background: white;
   overflow: hidden;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
+.left, .right {
+  width: 500px;
+  height: 470px;
+  box-sizing: border-box; 
+}
 /* --------------------------------------LEFT SECTION-------------------------------------- */
 .left {
   flex: 1;
@@ -54,34 +59,42 @@ body {
   justify-content: space-between; 
   align-items: center;
   width: 100%;
-  margin-bottom: 45px;
+  margin-bottom: 80px;
   padding: 0 20px;
 }
 
-.logo-left {
-  max-height: 140px;  /* adjust NU Fairview logo */
-  margin-left: -60px;
+/* NU FV LOGO*/
+.logo-nufv {
+  max-height: 150px;
+  position: relative; 
+  left: -55px;       
+  top: 40px;            
 }
 
-.logo-right {
-  max-height: 85px;  /* adjust NUFV Peers logo */
-  margin-right: -25px;
-  margin-top: -15px;
-
+/* PEERS LOGO*/
+.logo-peer {
+  max-height: 90px;
+  position: relative; 
+  right: -10px;      
+  top: 35px;         /
 }
 
-/* Main logo in the middle */
-.left .main-logo {
+/* SAFESPACE*/
+.left .SafeSpaceLogo {
   width: 130px;
-  margin-top: -50px;
-  margin-bottom: 10px
-
+  position: relative; 
+  top: -50px;         
 }
 
 .left h1 {
-  font-family: "Oswald", sans-serif;
+  font-weight: bolder;
+  font-family: "BoldOswald", sans-serif;
   font-size: 55px;
+  line-height: 1.11;
+  letter-spacing: -2.5px;
   color: #0847b2;
+  position: relative; 
+  top: -65px;
 }
 
 /* --------------------------------------RIGHT SECTION-------------------------------------- */
@@ -96,18 +109,23 @@ body {
 }
 
 .right h2 {
-  margin-bottom: 40px;
-  font-family: "BoldOswald", sans-serif;
-  font-size: 35px;
+  font-weight: bold;
+  font-family: "BoldFont", sans-serif;
+  font-size: 33px;
+  letter-spacing: 0.5px;
   text-align: left;
-  margin-top: -90px;
+  position: relative; 
+  top: -50px;
 }
 
-.input-group {
+.input-box {
   margin-bottom: 15px;
+  position: relative;
+  left: 0px;  
+  top: -45px;   
 }
 
-.input-group input {
+.input-box input {
   width: 95%;
   height: 55px;
   padding: 0 12px;
@@ -130,6 +148,9 @@ body {
   color: #0847b2;
   cursor: pointer;
   transition: 0.3s;
+  position: relative;
+  left: 0px;  
+  top: -30px;   
 }
 
 .btn:hover {
@@ -145,6 +166,8 @@ body {
   text-decoration: none;
   color: white;
   font-size: 14px;
+  position: relative;
+  top: -30px;   
 }
 
 
