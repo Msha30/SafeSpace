@@ -1053,13 +1053,13 @@ select option:focus {
 }
 
 .custom-input {
-  width: 470px;
+  width: 500px;
   padding: 20px;
   height: 30px;
   background-color: #eff5f9;
   font-size: 14px;
   border: none;
-  border-radius: 8px;
+  border-radius: 4px;
   outline: none;
 }
 
@@ -1073,6 +1073,12 @@ select option:focus {
   border-radius: 4px;
   cursor: pointer;
   font-weight: bold;
+  transition: background 0.3s, color 0.3s;
+}
+
+.custom-btn:hover {
+  background: #a0d4f0; /* slightly darker blue */
+  color: #0067c4;     /* darker text for contrast */
 }
 
 .flagged {
