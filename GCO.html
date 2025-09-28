@@ -696,22 +696,58 @@
 					<div class="profile">
 						<img src="photos/pic_placeholder.png" alt="Profile" class="profile-img">
 						<span class="profile-name">NUFV Guidance and Counseling Office</span>
+						<img src="icons/ic_dropdown.svg" alt="dropdown" class="dropdown-icon">
 					</div>
 				    <input type="text" placeholder="Title..." class="input-title">
-      			<!--<textarea placeholder="Content..." class="input-content"></textarea>
-					<div class="media-upload">
-						<div class="upload-box"></div>
-						<div class="upload-box"></div>
-						<div class="upload-box add">
+      			    <textarea placeholder="Content..." class="input-content"></textarea>
+				    <div class="file-boxes">
+						<div class="file"></div>
+						<div class="file"></div>
+						<div class="file add-file" id="dropArea">
+						<img src="icons/addfile_btn.svg" alt="Upload" class="add-icon">
 						Add photos/videos
 						</div>
+					<input type="file" id="fileInput" style="display:none">
       				</div>
-					<button class="post-btn">Post</button> -->
+					<button class="post-btn">Post</button>
 				</div>
 				<div class="card2">
 					<h3>Announcement</h3>
 					<div class="blue_bg">
-						<div class="card3">test</div>
+						<div class="card3">
+							<div class="announcement-header">
+								 <img src="photos/pic_placeholder.png" class="avatar">
+								<div class="announcement-title">Stellar</div>
+							</div>
+							<p class="announcement-text">
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+								<br>
+								<br>
+								Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+							</p>
+							<div class="announcement-images">
+								<img src="photos/squarepic_placeholder.png" alt="">
+            					<img src="photos/squarepic_placeholder.png" alt="">
+							</div>
+						</div>
+						<small>Created on May 15, 2025 by GCO Coordinator</small>
+						<div class="card3">
+							<div class="announcement-header">
+								<img src="photos/pic_placeholder.png" class="avatar">
+            					<div class="announcement-title">Stellar</div>
+							</div>
+							<p class="announcement-text">
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+								<br>
+								<br>
+								Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+							</p>
+							<div class="announcement-images">
+								<img src="photos/squarepic_placeholder.png" alt="">
+            					<img src="photos/squarepic_placeholder.png" alt="">
+							</div>
+						</div>
+						<small>Created on May 15, 2025 by GCO Coordinator</small>
 					</div>
 				</div>
 			</div>
@@ -1088,15 +1124,15 @@
 								<label><input type="radio" name="type"> Other</label>
 								<label><input type="radio" name="type"> Update</label>
 							 </div>
-							 <textarea placeholder="Report Description"></textarea>
-							 <div class="file-boxes">
-								<div class="file"></div>
-								<div class="file"></div>
-								<div class="file add-file" id="dropArea">
-									 <img src="icons/addfile_btn.svg" alt="Upload" class="add-icon">
+							 <textarea placeholder="Report Description" class="report"></textarea>
+							 <div class="file-boxes2">
+								<div class="file2"></div>
+								<div class="file2"></div>
+								<div class="file add-file2" id="dropArea2">
+									 <img src="icons/addfile_btn.svg" alt="Upload" class="add-icon2">
  									 Add file<br>or drag and drop
 								</div>
-								<input type="file" id="fileInput" style="display:none">
+								<input type="file2" id="fileInput2" style="display:none">
 							</div>
 							<button type="submit" class="report-btn">Report</button>
 						</form>

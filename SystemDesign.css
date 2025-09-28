@@ -600,21 +600,29 @@ select option:focus {
 }
 
 .blue_bg {
-	height: 70vh;
-	background: #dbeefa;
-	flex-direction: column;
-	border-radius: 0px 0px 5px 5px;
-	display: flex;
-	padding: 15px 30px;
-	gap: 20px;
-	overflow-y: auto;
+ background: #dbeefa;
+  border-radius: 0 0 5px 5px;
+  display: flex;
+  flex-direction: column;
+  padding: 15px 30px;
+  gap: 20px;
+
+  /* make it responsive inside the card */
+  width: 100%;         /* span full width of the card */
+  height: auto;        /* grow/shrink based on content */
+  max-height: 100%;    /* never taller than parent */
+  overflow-y: auto;    /* scroll if it ever gets too tall */
+  box-sizing: border-box;
 }
 
 .card3 {
-	background: white;
-	border-radius: 5px;
-	display: flex;
-	padding: 15px;
+  background: #fff;
+  border-radius: 8px;
+  /* add padding for everything inside */
+  padding: 15px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  max-width: 500px; /* or whatever you need */      /* never overflow container */
 }
 
 .left2 {
@@ -788,11 +796,16 @@ select option:focus {
 /* -------------------------------------- ADDED BY SHAN -------------------------------------- */
 
 /* --------------------------------------COUNSELING 2 -------------------------------------- */
+/* --------------------------------------DONE -------------------------------------- */
+/*--------------- session-left ---------------*/
 .session-mode-left {
   display: flex;
   align-items: flex-start;
   gap: 10px;
   margin: 10px 0;
+  padding: 10px;             /* inner spacing inside card */
+  flex-wrap: wrap;           /* wrap if screen is narrow */
+  box-sizing: border-box;
 }
 
 .session-mode-left img {
@@ -800,17 +813,19 @@ select option:focus {
   height: 50px;
   border-radius: 50%;
   object-fit: cover;
-  position: relative;
-  left: 30px;
-  top: 5px;
+  margin-left: 20px;
+  /* removed position left/top to stay inside */
 }
 
 .session-details-left {
   font-family: "RegularPublicSans", sans-serif;
   color: #000;
   line-height: 1.5;
-  position: relative;
-  left: 40px;
+  /* removed position left to be responsive */
+  flex: 1;                    /* take remaining width */
+  padding-left: 10px;          /* adjust this value as you like */
+  margin-top: -5px;
+  box-sizing: border-box;
 }
 
 .session-details-left .time {
@@ -837,12 +852,16 @@ select option:focus {
   flex-direction: column;
   gap: 10px;         
   margin-top: 15px;
-  position: relative;
-  left: 30px;
+  margin-left: auto;   /* stick to left edge of card */
+  margin-right: auto;  /* or adjust these two for center/left */
+  justify-content: center; /* center horizontally */
+  width: 80%;
+  max-width: 300px;
+  box-sizing: border-box;
 }
 
 .session-btn-left .btn {
-  width: 84%;
+  width: 100%;
   height: 35px;
   border: none;
   border-radius: 4px;
@@ -870,12 +889,14 @@ select option:focus {
 }
 
 /*--------------- session-mid ---------------*/
-
 .session-mode-mid {
   display: flex;
   align-items: flex-start;
   gap: 10px;
   margin: 10px 0;
+  padding: 10px;             /* inner spacing inside card */
+  flex-wrap: wrap;           /* wrap if screen is narrow */
+  box-sizing: border-box;
 }
 
 .session-mode-mid img {
@@ -883,17 +904,19 @@ select option:focus {
   height: 50px;
   border-radius: 50%;
   object-fit: cover;
-  position: relative;
-  left: 30px;
-  top: 5px;
+  margin-left: 20px;
+  /* removed position left/top to stay inside */
 }
 
 .session-details-mid {
   font-family: "RegularPublicSans", sans-serif;
   color: #000;
   line-height: 1.5;
-  position: relative;
-  left: 40px;
+  /* removed position left to be responsive */
+  flex: 1;                    /* take remaining width */
+  padding-left: 10px;          /* adjust this value as you like */
+  margin-top: -5px;
+  box-sizing: border-box;
 }
 
 .session-details-mid .time {
@@ -915,22 +938,25 @@ select option:focus {
   font-weight: bold;
 }
 
-.urgent
-{
-	color: #e85536
+.urgent {
+  color: #e85536;
 }
 
 .session-btn-mid {
   display: flex;
   flex-direction: column;
-  gap: 10px;          
+  gap: 10px;         
   margin-top: 15px;
-  position: relative;
-  left: 30px;
+  margin-left: auto;   /* stick to left edge of card */
+  margin-right: auto;  /* or adjust these two for center/left */
+  justify-content: center; /* center horizontally */
+  width: 80%;
+  max-width: 300px;
+  box-sizing: border-box;
 }
 
 .session-btn-mid .btn {
-  width: 84%;
+  width: 100%;
   height: 35px;
   border: none;
   border-radius: 4px;
@@ -964,12 +990,14 @@ select option:focus {
 }
 
 /*--------------- session-right ---------------*/
-
 .session-mode-right {
   display: flex;
   align-items: flex-start;
   gap: 10px;
   margin: 10px 0;
+  padding: 10px;             /* inner spacing inside card */
+  flex-wrap: wrap;           /* wrap if screen is narrow */
+  box-sizing: border-box;
 }
 
 .session-mode-right img {
@@ -977,17 +1005,19 @@ select option:focus {
   height: 50px;
   border-radius: 50%;
   object-fit: cover;
-  position: relative;
-  left: 30px;
-  top: 5px;
+  margin-left: 20px;
+  /* removed position left/top to stay inside */
 }
 
 .session-details-right {
   font-family: "RegularPublicSans", sans-serif;
   color: #000;
   line-height: 1.5;
-  position: relative;
-  left: 40px;
+  /* removed position left to be responsive */
+  flex: 1;                    /* take remaining width */
+  padding-left: 10px;          /* adjust this value as you like */
+  margin-top: -5px;
+  box-sizing: border-box;
 }
 
 .session-details-right .time {
@@ -1012,14 +1042,18 @@ select option:focus {
 .session-btn-right {
   display: flex;
   flex-direction: column;
-  gap: 10px;          
+  gap: 10px;         
   margin-top: 15px;
-  position: relative;
-  left: 30px;
+  margin-left: auto;   /* stick to left edge of card */
+  margin-right: auto;  /* or adjust these two for center/left */
+  justify-content: center; /* center horizontally */
+  width: 80%;
+  max-width: 300px;
+  box-sizing: border-box;
 }
 
 .session-btn-right .btn {
-  width: 84%;
+  width: 100%;
   height: 35px;
   border: none;
   border-radius: 4px;
@@ -1053,32 +1087,43 @@ select option:focus {
 
 
 /* -------------------------------------- ANNOUNCEMENT 2 -------------------------------------- */
+/* -------------------------------------- DONE -------------------------------------- */
 
 /* profile area inside card */
 .profile {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 10px;
-  position: relative;
-  top: 20px;   /* move down */
-  left: 45px;  /* move right */
+  margin: 25px auto 0 30px; /* top: 100px; right: auto; bottom: 0; left: auto; */
+  /* removed fixed top/left for responsiveness */
+  padding: 0 15px; /* add horizontal padding instead */
+  box-sizing: border-box; /* include padding in width */
+  flex-wrap: wrap;        /* wrap if space is small */
 }
 
 .profile-img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  flex-shrink: 0; /* never shrink image out of card */
 }
 
 .profile-name {
   font-weight: bold;
 }
 
+.dropdown-icon {
+  width: 12px;      /* adjust size */
+  height: 12px;
+  margin-left: 5px; /* space between text and icon */
+  cursor: pointer;  /* shows a hand on hover */
+  color: #bdc1c4;
+}
+
 .input-title {
   width: 88%;
   height: 50px;
-  margin: 35px 0 10px 30px; /* top right bottom left */
+  margin: 25px auto 10px 28px; /* center horizontally */
   padding: 8px;
   border: none;
   border-radius: 4px;
@@ -1087,60 +1132,148 @@ select option:focus {
   background-color: #f0f8ff; /* your fill color */
   /* optional: text color */
   color: #333; 
+  display: block;
+  box-sizing: border-box; /* include padding in width */
 }
-
-/*
 
 .input-content {
-  width: 100%;
-  height: 120px;        
+  width: 88%;
+  height: 250px;        
   resize: none;         
   overflow-y: auto;     
-  margin-bottom: 10px;
+  margin: 20px auto 0 30px; /* top: 100px; right: auto; bottom: 0; left: auto; */
   padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 14px;
-  box-sizing: border-box;
-}
-
-
-.media-upload {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.upload-box {
-  width: 60px;
-  height: 60px;
-  background: #ccc;
+  border: none;
   border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  text-align: center;
+  outline: none;
+  font-size: 14px;
+  box-sizing: border-box; /* keep inside parent */
+  background-color: #f0f8ff;
+  display: block;
 }
 
-.upload-box.add {
-  background: #eee;
-  border: 1px dashed #999;
-  color: #666;
+.file-boxes {
+  display: flex;
+  gap: 20px;            /* space between each box */
+  margin: 12px 0 12px 30px; /* top | right | bottom | left */
+  
+  /* ✅ Set size of the flex container */
+  width: 88%;           /* adjust total width */
+  height: 150px;        /* adjust total height */
+  justify-content: center; /* center boxes horizontally */
+  align-items: center;     /* center boxes vertically within the height */
+}
+
+.file {
+  flex: 1;
+  height: 130px;
+  background: #bdc1c4;
+  border-radius: 4px;
+}
+
+.add-file {
+  background: #f4f4f4;
+  height: 130px;
+  color: #555;
+  text-align: center;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column; 
+  justify-content: center;
+  align-items: center;
+  gap: 6px; 
+  cursor: pointer;  
+}
+
+.add-file .add-icon {
+  width: 30px;          /* adjust icon size */
+  height: 30px;
+  pointer-events: none;  /* let clicks pass through image */
 }
 
 
 .post-btn {
-  background-color: #007bff;
-  color: white;
+  width: clamp(120px, 30%, 200px);  /* responsive width: min 120px, ideal 30%, max 200px */
+  display: block;
+  background: #c3e1f4;
+  color: #0067c4;
+  font-size: 14px;
+  font-weight: bold;
   border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
+  padding: 10px 20px;
+  border-radius: 4px;
   cursor: pointer;
+  transition: 0.3s;
+  margin: 20px auto 0 325px;       /* centers button horizontally, top spacing 20px */
+  box-sizing: border-box;
 }
-.post-btn:hover {
-  background-color: #0069d9;
-} */
+
+.post-btn:hover { background: #a0d4f0; }
+
+.announcement-header {
+  display: flex;           /* layout avatar + title horizontally */
+  align-items: center;     /* vertical alignment */
+  gap: 10px;               /* spacing between avatar and title */
+  padding: 8px 15px;       /* optional padding */
+  box-sizing: border-box;
+  background-color: #fff;  /* optional: keep inside card */
+}
+
+.announcement-header .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  flex-shrink: 0;          /* prevents shrinking */
+  margin: 0;               /* important! remove any previous crazy margin */
+  position: static;        /* make sure it’s not absolute/floating */
+}
+
+.announcement-title {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* Shift the paragraph text to line up under the title */
+.announcement-text {
+  font-family: 'RegularPublic', sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  color: black;
+
+  /* indent text the same as avatar + gap */
+  margin: 10px 15px 10px 65px;  /* top right bottom left */
+
+  width: auto;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  box-sizing: border-box;
+}
+
+.announcement-images {
+  display: flex;
+  gap: 10px;
+  margin: 10px 15px;
+  flex-wrap: wrap; /* wrap images if screen narrows */
+  box-sizing: border-box;
+  margin-left: 63px;  /* push to the right */
+}
+
+.announcement-images img {
+  width: 90px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0; /* keep image from shrinking out */
+}
+
+small {
+  display: block;
+  margin: -5px 15px;
+  color: #6d6d6d;
+  font-size: 12px;
+  box-sizing: border-box;
+  margin-left: 5px;  /* push to the right */
+} 
 
 
 /* -------------------------------------- CHAT MANAGEMENT 2 -------------------------------------- */
@@ -1270,10 +1403,14 @@ font-weight: bold;
 
 
 /* -------------------------------------- SYSTEM AND LOGS 2 -------------------------------------- */
+/* -------------------------------------- DONE 2 -------------------------------------- */
 .logs-list {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  padding: 0 10px; /* optional: add padding around the list */
+  margin-left: 20px;
+  margin-top: 20px;
 }
 
 .log-entry {
@@ -1281,11 +1418,10 @@ font-weight: bold;
   border-radius: 4px;
   padding: 12px 12px 12px 52px; /* space for avatar */
   position: relative;
-  left: 30px;
-  top: 20px;
-  width: 400px; 
-  height: 70px;
-  margin-bottom: 10px;
+  width: 100%;           /* full width of parent container */
+  max-width: 460px;      /* optional: limits card size */
+  box-sizing: border-box; /* include padding in width */
+  min-height: 70px;      /* ensures consistent height */
 }
 
 .avatar {
@@ -1293,7 +1429,7 @@ font-weight: bold;
   top: 12px;
   left: 12px;
   width: 32px;
-  height: 23px;
+  height: 32px;          /* adjust height to match width for circle */
   border-radius: 50%;
   object-fit: cover;
 }
@@ -1301,32 +1437,29 @@ font-weight: bold;
 .log-top {
   display: flex;
   justify-content: space-between;
+  align-items: center;   /* vertically center name and time */
   margin-bottom: 4px;
 }
 
 .log-name {
-  font-weight: 650rem;
+  font-weight: 650;      /* remove 'rem' unit */
   color: #6d6d6d;
   font-size: 0.95rem;
-  margin-top: 5px;
 }
 
 .log-time {
   font-size: 0.75rem;
   color: #718096;
-  margin-top: 7px;
 }
 
 .log-message {
   font-size: 0.9rem;
   color: #6d6d6d;
   font-weight: bold;
-  position: static;      /* remove relative offsets */
-  display: inline-block; /* grows with content */
-  max-width: 100%;       /* prevents overflow from parent */
-  word-wrap: break-word; /* wrap long text */
-  margin-top: 15px; 
-  margin-left: -35px; 
+  display: block;          /* takes full width of parent */
+  max-width: 100%;         /* ensures it stays inside card */
+  word-wrap: break-word;   /* wrap long text */
+  margin-top: 5px;
 }
 
 
@@ -1334,67 +1467,58 @@ font-weight: bold;
 /* Radio options grid */
 .options {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6px;
-  margin-bottom: 12px;
-  position: relative;
-  top: 22px;   /* move DOWN by 10px */
-  left: 25px;  /* move RIGHT by 15px */
+  grid-template-columns: 1fr 1fr;  /* 2 columns */
+  gap: 6px;                        /* space between items */
+  margin: 20px 0 12px 25px;           /* vertical spacing only */
+  width: 100%;                      /* fill parent card width */
+  box-sizing: border-box;           /* include padding in width */
 }
 
 .options label {
-  display: flex;               /* ✅ flex for proper alignment */
-  align-items: center;         /* vertically center radio + text */
-  gap: 6px;                     /* space between circle and text */
+  display: flex;                    /* align radio + text */
+  align-items: center;              /* vertical center */
+  gap: 6px;                         /* space between circle and text */
   cursor: pointer;
-  margin-top: 10px;   
+  padding: 5px 0;                   /* optional: space inside each label */
 }
 
 .options input[type="radio"] {
-  appearance: none;            /* remove default style */
+  appearance: none;                 
   -webkit-appearance: none;
   width: 18px;
   height: 18px;
-  border: 2px solid #c0c6cc;    /* outline color */
+  border: 2px solid #c0c6cc;       
   border-radius: 50%;
-  background-color: #f4f8fb;    /* default background */
+  background-color: #f4f8fb;       
   cursor: pointer;
 }
 
 /* when checked: fill entire circle */
 .options input[type="radio"]:checked {
-  background-color: #c2e1f5;    /* full fill color */
-  border-color: #c0c6cc;        /* optional: match outline to fill */
+  background-color: #c2e1f5;       
+  border-color: #c0c6cc;           
 }
 
-textarea {
+.report {
   width: 88%;
-  height: 180px;
-  padding: 10px;
-  position: relative;
-  top: 35px;   /* move DOWN by 20px */
-  left: 30px;  /* move RIGHT by 30px */
-  border-radius: 4px;
+  height: 150px;        
+  resize: none;         
+  overflow-y: auto;     
+  margin: 20px auto 0 30px; /* top: 100px; right: auto; bottom: 0; left: auto; */
+  padding: 8px;
   border: none;
+  border-radius: 4px;
   outline: none;
-  resize: none;
-  box-sizing: border-box;
-
-  /* ✅ Adjust the fill color */
-  background-color: #eff5f9; /* light blue fill */
-  color: black;               /* text color */
-
-  font-size: 14px;           /* change text size */
-  font-family: "RegularPublicSans", sans-serif; /* choose font family */
+  font-size: 14px;
+  box-sizing: border-box; /* keep inside parent */
+  background-color: #f0f8ff;
+  display: block;
 }
  
-.file-boxes {
+.file-boxes2 {
   display: flex;
   gap: 20px;            /* space between each box */
-  margin: 20px 0 12px 30px; /* top | right | bottom | left */
-  position: relative;   /* for top/left if you need precise positioning */
-  top: 20px;            /* move DOWN */
-  left: 0px;           /* move RIGHT */
+  margin: 10px 0 12px 30px; /* top | right | bottom | left */
   
   /* ✅ Set size of the flex container */
   width: 88%;           /* adjust total width */
@@ -1403,14 +1527,14 @@ textarea {
   align-items: center;     /* center boxes vertically within the height */
 }
 
-.file {
+.file2 {
   flex: 1;
   height: 130px;
   background: #bdc1c4;
   border-radius: 4px;
 }
 
-.add-file {
+.add-file2 {
   background: #f4f4f4;
   height: 130px;
   color: #555;
@@ -1424,15 +1548,18 @@ textarea {
   cursor: pointer;  
 }
 
-.add-file .add-icon {
+.add-file2 .add-icon2 {
   width: 30px;          /* adjust icon size */
   height: 30px;
   pointer-events: none;  /* let clicks pass through image */
 }
 .report-btn {
+  width: 30%;
   display: block;
   background: #c3e1f4;
   color: #0067c4;
+  font-size: 14px;
+  font-weight: bold;
   border: none;
   padding: 10px 20px;
   border-radius: 4px;
@@ -1440,7 +1567,7 @@ textarea {
   transition: 0.3s;
   position: relative;
   top: 14px;   /* move down */
-  left: 408px;  /* move right */
+  left: 330px;  /* move right */
 }
 .report-btn:hover { background: #a0d4f0;}
 
