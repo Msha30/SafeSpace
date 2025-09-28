@@ -338,7 +338,7 @@
 						<option value="Users">Users</option>
 					</select>
 					<div class="peer-session">
-					<button class="btn-peersession">Peer Support Session</button>
+					<button class="btn-peersession" onclick="showPage('peersession')">Peer Support Session</button>
 				    </div>
 				</div>
 			</div>
@@ -513,6 +513,134 @@
 			</div>
 		</div>
 
+	<!---------------- PEER SUPPORT SESSION ------------------------------------------------------------>
+		<div id="peersession" class="page" style="display:none;">
+			<div class="row">
+				<div class="left-half">
+				<button class="btn-white">Today</button>
+				<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+				<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+			</div>
+
+			<div class="row">
+			<div class="card">
+			<h3>Sept 22 - Video Call</h3> 
+				<div class="session-mode-left">
+					<img src="photos/pic_placeholder.png" alt="Avatar"> 
+					<div class="session-details-left">
+					<div class="time">0:00 PM - 0:00 PM</div>
+					<div class="name">Jane Smith</div>
+					<div class="info">2023-987654</div>
+					<div class="info">Peer Mentor</div>
+					<div class="info">Support Session</div>
+					</div>
+				</div>
+				<div class="session-btn-left">
+					<button class="btn start">Start Call</button>
+					<button class="btn details">See Details</button>
+				</div>
+			</div>
+
+			<div class="card">
+			<h3>Sept 22 - In Person</h3> 
+				<div class="session-mode-mid">
+					<img src="photos/pic_placeholder.png" alt="Avatar"> 
+					<div class="session-details-mid">
+					<div class="time">0:00 PM - 0:00 PM</div>
+					<div class="name">Mark Lee</div>
+					<div class="info">2023-654321</div>
+					<div class="info"><strong><span class="urgent">Urgent</span></strong></div>
+					<div class="info">Peer Session</div>
+					</div>
+				</div>
+				<div class="session-btn-mid">
+					<button class="btn start">Confirmed</button>
+					<button class="btn details">See Details</button>
+				</div>
+			</div>
+
+			<div class="card">
+			<h3>Sept 22 - In Person</h3> 
+				<div class="session-mode-right">
+					<img src="photos/pic_placeholder.png" alt="Avatar"> 
+					<div class="session-details-right">
+					<div class="time">0:00 PM - 0:00 PM</div>
+					<div class="name">Ana Cruz</div>
+					<div class="info">2023-112233</div>
+					<div class="info">Not Urgent</div>
+					<div class="info">Peer Mentor</div>
+					</div>
+				</div>
+				<div class="session-btn-right">
+					<button class="btn start">Take Session</button>
+					<button class="btn details">See Details</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="left-half">
+			<button class="btn-white">Today</button>
+			<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+			<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+			</div>
+		</div>
+
+		<div class="row" id="schedule" style="gap: 15px;">
+			<div class="card">
+			<h4 class="sched-date">23</h4>
+			<h5 style="padding-left: 30px;">MON</h5>
+			<div class="sched">
+				<p class="sched-type">Face to Face</p>
+				<p class="sched-time">0:00 PM - 0:00 PM</p>
+			</div>
+			<div class="sched">
+				<p class="sched-type">Video Call</p>
+				<p class="sched-time">0:00 PM - 0:00 PM</p>
+			</div>
+			</div>
+
+			<div class="card">
+			<h4 class="sched-date">24</h4>
+			<h5 style="padding-left: 30px;">TUE</h5>
+			<div class="sched">
+				<p class="sched-type">Call</p>
+				<p class="sched-time">0:00 PM - 0:00 PM</p>
+			</div>
+			<div class="sched">
+				<p class="sched-type">Face to Face</p>
+				<p class="sched-time">0:00 PM - 0:00 PM</p>
+			</div>
+			</div>
+			<div class="card">
+			<h4 class="sched-date">24</h4>
+			<h5 style="padding-left: 30px;">TUE</h5>
+			<div class="sched">
+				<p class="sched-type">Call</p>
+				<p class="sched-time">0:00 PM - 0:00 PM</p>
+			</div>
+			<div class="sched">
+				<p class="sched-type">Face to Face</p>
+				<p class="sched-time">0:00 PM - 0:00 PM</p>
+			</div>
+			</div>
+			<div class="card">
+			<h4 class="sched-date">24</h4>
+			<h5 style="padding-left: 30px;">TUE</h5>
+			<div class="sched">
+				<p class="sched-type">Call</p>
+				<p class="sched-time">0:00 PM - 0:00 PM</p>
+			</div>
+			<div class="sched">
+				<p class="sched-type">Face to Face</p>
+				<p class="sched-time">0:00 PM - 0:00 PM</p>
+			</div>
+			</div>
+		</div>
+	</div>
+
+
 	<!---------------- SUPPORT ------------------------------------------------------------>
 
 		<div id="support" class="page">
@@ -564,10 +692,24 @@
 		<div id="announcement" class="page">
 			<div class="row">
 				<div class="card">
-					<h3>Lorem Ipsum</h3>
+					<h3>Create an Announcement</h3>
+					<div class="profile">
+						<img src="photos/pic_placeholder.png" alt="Profile" class="profile-img">
+						<span class="profile-name">NUFV Guidance and Counseling Office</span>
+					</div>
+				    <input type="text" placeholder="Title..." class="input-title">
+      			<!--<textarea placeholder="Content..." class="input-content"></textarea>
+					<div class="media-upload">
+						<div class="upload-box"></div>
+						<div class="upload-box"></div>
+						<div class="upload-box add">
+						Add photos/videos
+						</div>
+      				</div>
+					<button class="post-btn">Post</button> -->
 				</div>
 				<div class="card2">
-					<h3>Lorem Ipsum</h3>
+					<h3>Announcement</h3>
 					<div class="blue_bg">
 						<div class="card3">test</div>
 					</div>
@@ -751,9 +893,9 @@
 		<div id="feedback" class="page">
 			<div class="row">
 				<div class="card2" style="flex: 2;">
-					<h3>Lorem Ipsum</h3>
+					<h3>Feedback</h3>
 					<div class="leftscroll">
-						<div class="feedback">test</div>
+						<div class="feedback"></div>
 					</div>
 				</div>
 				<div class="right">
@@ -841,7 +983,7 @@
         						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
         						<div class="log-top">
           							<span class="log-name">Doe, John A.</span>
-          							<span class="log-time">September 22, 2025 at 0:0 AM</span>
+          							<span class="log-time">September 22, 2025 at 0:00 AM</span>
         						</div>
         						<div class="log-message">
           							Lorem ipsum dolor sit amet, consectetur adipiscing elit
@@ -852,7 +994,7 @@
         						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
         						<div class="log-top">
           							<span class="log-name">Doe, John A.</span>
-          							<span class="log-time">September 22, 2025 at 0:0 AM</span>
+          							<span class="log-time">September 22, 2025 at 0:00 AM</span>
         						</div>
         						<div class="log-message">
           							Lorem ipsum dolor sit amet, consectetur adipiscing elit
@@ -862,7 +1004,7 @@
         						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
         						<div class="log-top">
           							<span class="log-name">Doe, John A.</span>
-          							<span class="log-time">September 22, 2025 at 0:0 AM</span>
+          							<span class="log-time">September 22, 2025 at 0:00 AM</span>
         						</div>
         						<div class="log-message">
           							Lorem ipsum dolor sit amet, consectetur adipiscing elit
@@ -872,7 +1014,7 @@
         						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
         						<div class="log-top">
           							<span class="log-name">Doe, John A.</span>
-          							<span class="log-time">September 22, 2025 at 0:0 AM</span>
+          							<span class="log-time">September 22, 2025 at 0:00 AM</span>
         						</div>
         						<div class="log-message">
           							Lorem ipsum dolor sit amet, consectetur adipiscing elit
@@ -887,7 +1029,7 @@
         						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
         						<div class="log-top">
           							<span class="log-name">Doe, John A.</span>
-          							<span class="log-time">September 22, 2025 at 0:0 AM</span>
+          							<span class="log-time">September 22, 2025 at 0:00 AM</span>
         						</div>
         						<div class="log-message">
           							Lorem ipsum dolor sit amet, consectetur adipiscing elit
@@ -898,7 +1040,7 @@
         						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
         						<div class="log-top">
           							<span class="log-name">Doe, John A.</span>
-          							<span class="log-time">September 22, 2025 at 0:0 AM</span>
+          							<span class="log-time">September 22, 2025 at 0:00 AM</span>
         						</div>
         						<div class="log-message">
           							Lorem ipsum dolor sit amet, consectetur adipiscing elit
@@ -908,7 +1050,7 @@
         						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
         						<div class="log-top">
           							<span class="log-name">Doe, John A.</span>
-          							<span class="log-time">September 22, 2025 at 0:0 AM</span>
+          							<span class="log-time">September 22, 2025 at 0:00 AM</span>
         						</div>
         						<div class="log-message">
           							Lorem ipsum dolor sit amet, consectetur adipiscing elit
@@ -918,7 +1060,7 @@
         						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
         						<div class="log-top">
           							<span class="log-name">Doe, John A.</span>
-          							<span class="log-time">September 22, 2025 at 0:0 AM</span>
+          							<span class="log-time">September 22, 2025 at 0:00 AM</span>
         						</div>
         						<div class="log-message">
           							Lorem ipsum dolor sit amet, consectetur adipiscing elit
@@ -935,13 +1077,69 @@
 			<div class="row">
 				<div class="right">
 					<div class="card">
-						<h3>Lorem Ipsum</h3>
+						<h3>Report to IT Admin</h3>
+						<form>
+							 <div class="options">
+								<label><input type="radio" name="type"> Technical</label>
+								<label><input type="radio" name="type"> Edit</label>
+								<label><input type="radio" name="type"> Account</label>
+								<label><input type="radio" name="type"> Removal</label>
+								<label><input type="radio" name="type"> Chat History</label>
+								<label><input type="radio" name="type"> Other</label>
+								<label><input type="radio" name="type"> Update</label>
+							 </div>
+							 <textarea placeholder="Report Description"></textarea>
+							 <div class="file-boxes">
+								<div class="file"></div>
+								<div class="file"></div>
+								<div class="file add-file" id="dropArea">
+									 <img src="icons/addfile_btn.svg" alt="Upload" class="add-icon">
+ 									 Add file<br>or drag and drop
+								</div>
+								<input type="file" id="fileInput" style="display:none">
+							</div>
+							<button type="submit" class="report-btn">Report</button>
+						</form>
 					</div>
 				</div>
 				<div class="card2">
-					<h3>Lorem Ipsum</h3>
+					<h3>System Updates</h3>
 					<div class="leftscroll">
-						<div class="feedback">test</div>
+						<div class="update">
+							 <div class="update-header">
+								<strong>Lorem Ipsum</strong>
+								<span>September 22, 2025 at 0:0 AM</span>
+							</div>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+						</div>
+						<div class="update">
+							 <div class="update-header">
+								<strong>Lorem Ipsum</strong>
+								<span>September 22, 2025 at 0:0 AM</span>
+							</div>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+						</div>
+						<div class="update">
+							 <div class="update-header">
+								<strong>Lorem Ipsum</strong>
+								<span>September 22, 2025 at 0:0 AM</span>
+							</div>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+						</div>
+						<div class="update">
+							 <div class="update-header">
+								<strong>Lorem Ipsum</strong>
+								<span>September 22, 2025 at 0:0 AM</span>
+							</div>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+						</div>
+						<div class="update">
+							 <div class="update-header">
+								<strong>Lorem Ipsum</strong>
+								<span>September 22, 2025 at 0:0 AM</span>
+							</div>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -1097,7 +1295,7 @@
 		}
 		});
 
-		// SLIDER------------------------------------------------------------------
+		// SLIDER FOR TERMS AND CONDITIONS AND PRIVACY POLICY
 
 		function openModal(id) {
     		document.getElementById(id).style.display = "block";
@@ -1119,6 +1317,37 @@
         		privacyModal.style.display = "none";
     		}
 		}
+
+		function showPage(pageId, el) {
+			// hide all pages
+			document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+
+			// show target page
+			document.getElementById(pageId).style.display = 'block';
+
+			// reset active sidebar link
+			document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
+			if (el) el.classList.add('active');
+
+			// set topbar title / breadcrumb
+			let title = pageId.charAt(0).toUpperCase() + pageId.slice(1);
+			if (pageId === "peersession") {
+				title = `
+					<a href="#" onclick="showPage('users')" style="text-decoration:none; color:inherit;">
+						Users
+					</a>
+					<img src="icons/ic_arrow right.svg" 
+						style="width:14px; vertical-align:middle; margin:0 5px; cursor:pointer;" 
+						onclick="showPage('users')">
+					Peer Session
+				`;
+			}
+
+			// inject HTML instead of plain text
+			document.getElementById("pageTitle").innerHTML = title;
+		}
+
+		
 	</script>
 </body>
 </html>

@@ -335,6 +335,11 @@ td.down::after {
 	box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
+.btn-blue:hover {
+  background: #0b3c91;        /* lighter/darker blue on hover */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
 .slider-btn{
     height: 15px; 
     width: 15px; 
@@ -481,6 +486,11 @@ select option:focus {
 	color: white;
 	padding: 0px 25px;
 	box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.btn-peersession:hover {
+  background: #0b3c91;        /* lighter/darker blue on hover */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 .peersession {
@@ -1038,6 +1048,100 @@ select option:focus {
   background: #6b6a6a;
 }
 
+/* -------------------------------------- PEER SESSION 2 -------------------------------------- */
+
+
+
+/* -------------------------------------- ANNOUNCEMENT 2 -------------------------------------- */
+
+/* profile area inside card */
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  position: relative;
+  top: 20px;   /* move down */
+  left: 45px;  /* move right */
+}
+
+.profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.profile-name {
+  font-weight: bold;
+}
+
+.input-title {
+  width: 88%;
+  height: 50px;
+  margin: 35px 0 10px 30px; /* top right bottom left */
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  font-size: 14px;
+  background-color: #f0f8ff; /* your fill color */
+  /* optional: text color */
+  color: #333; 
+}
+
+/*
+
+.input-content {
+  width: 100%;
+  height: 120px;        
+  resize: none;         
+  overflow-y: auto;     
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+
+.media-upload {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.upload-box {
+  width: 60px;
+  height: 60px;
+  background: #ccc;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  text-align: center;
+}
+
+.upload-box.add {
+  background: #eee;
+  border: 1px dashed #999;
+  color: #666;
+}
+
+
+.post-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.post-btn:hover {
+  background-color: #0069d9;
+} */
+
 
 /* -------------------------------------- CHAT MANAGEMENT 2 -------------------------------------- */
 
@@ -1142,8 +1246,7 @@ color: #d9534f;
 font-weight: bold;
 }
 
-
-
+/* --------------------------------------FEEDBACK 2 -------------------------------------- */
 
 
 
@@ -1224,4 +1327,172 @@ font-weight: bold;
   word-wrap: break-word; /* wrap long text */
   margin-top: 15px; 
   margin-left: -35px; 
+}
+
+
+/* --------------------------------------REPORTS 2 -------------------------------------- */
+/* Radio options grid */
+.options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-bottom: 12px;
+  position: relative;
+  top: 22px;   /* move DOWN by 10px */
+  left: 25px;  /* move RIGHT by 15px */
+}
+
+.options label {
+  display: flex;               /* ✅ flex for proper alignment */
+  align-items: center;         /* vertically center radio + text */
+  gap: 6px;                     /* space between circle and text */
+  cursor: pointer;
+  margin-top: 10px;   
+}
+
+.options input[type="radio"] {
+  appearance: none;            /* remove default style */
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #c0c6cc;    /* outline color */
+  border-radius: 50%;
+  background-color: #f4f8fb;    /* default background */
+  cursor: pointer;
+}
+
+/* when checked: fill entire circle */
+.options input[type="radio"]:checked {
+  background-color: #c2e1f5;    /* full fill color */
+  border-color: #c0c6cc;        /* optional: match outline to fill */
+}
+
+textarea {
+  width: 88%;
+  height: 180px;
+  padding: 10px;
+  position: relative;
+  top: 35px;   /* move DOWN by 20px */
+  left: 30px;  /* move RIGHT by 30px */
+  border-radius: 4px;
+  border: none;
+  outline: none;
+  resize: none;
+  box-sizing: border-box;
+
+  /* ✅ Adjust the fill color */
+  background-color: #eff5f9; /* light blue fill */
+  color: black;               /* text color */
+
+  font-size: 14px;           /* change text size */
+  font-family: "RegularPublicSans", sans-serif; /* choose font family */
+}
+ 
+.file-boxes {
+  display: flex;
+  gap: 20px;            /* space between each box */
+  margin: 20px 0 12px 30px; /* top | right | bottom | left */
+  position: relative;   /* for top/left if you need precise positioning */
+  top: 20px;            /* move DOWN */
+  left: 0px;           /* move RIGHT */
+  
+  /* ✅ Set size of the flex container */
+  width: 88%;           /* adjust total width */
+  height: 150px;        /* adjust total height */
+  justify-content: center; /* center boxes horizontally */
+  align-items: center;     /* center boxes vertically within the height */
+}
+
+.file {
+  flex: 1;
+  height: 130px;
+  background: #bdc1c4;
+  border-radius: 4px;
+}
+
+.add-file {
+  background: #f4f4f4;
+  height: 130px;
+  color: #555;
+  text-align: center;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column; 
+  justify-content: center;
+  align-items: center;
+  gap: 6px; 
+  cursor: pointer;  
+}
+
+.add-file .add-icon {
+  width: 30px;          /* adjust icon size */
+  height: 30px;
+  pointer-events: none;  /* let clicks pass through image */
+}
+.report-btn {
+  display: block;
+  background: #c3e1f4;
+  color: #0067c4;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3s;
+  position: relative;
+  top: 14px;   /* move down */
+  left: 408px;  /* move right */
+}
+.report-btn:hover { background: #a0d4f0;}
+
+
+.update {
+  background: #e9f3f9;
+  padding: 16px 20px;
+  border-radius: 4px;
+  margin: 30px auto -30px auto;             /* center horizontally */
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  border: 1px solid #e3e9ef;
+  width: 420px;                   /* fixed width */
+  max-width: 90%;                 /* stays responsive on small screens */
+}
+
+.update-header {
+  display: flex;
+  justify-content: space-between;  /* title left, date right */
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.update-header strong {
+  font-weight: 400;
+  font-size: 0.95rem;
+  color: #6d6d6d;
+}
+
+.update-header span {
+  font-size: 0.75rem;   /* ⬅️ change to 12px, 14px, etc. */
+  color: #999;        /* lighter gray for subtle look */
+  font-weight: 300;   /* optional: lighter weight */
+}
+
+.update p {
+  margin: 15px 0 6px;
+  color: #6d6d6d;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.update a {
+  display: inline-block;
+  font-size: 12px;
+  color: #409eff;
+  background: #dceeff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  text-decoration: none;
+  margin-top: 6px;
+}
+
+.update a:hover {
+  background: #c4e0ff;
 }
