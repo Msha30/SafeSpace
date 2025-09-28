@@ -338,7 +338,7 @@
 						<option value="Users">Users</option>
 					</select>
 					<div class="peer-session">
-					<button class="btn-peersession" onclick="showPage('peersession')">Peer Support Session</button>
+					<button class="btn-peersession" onclick="showPage('peer-support-session')">Peer Support Session</button>
 				    </div>
 				</div>
 			</div>
@@ -514,7 +514,7 @@
 		</div>
 
 	<!---------------- PEER SUPPORT SESSION ------------------------------------------------------------>
-		<div id="peersession" class="page" style="display:none;">
+		<div id="peer-support-session" class="page" style="display:none;">
 			<div class="row">
 				<div class="left-half">
 				<button class="btn-white">Today</button>
@@ -1353,21 +1353,72 @@
         		privacyModal.style.display = "none";
     		}
 		}
-
+		
 		function showPage(pageId, el) {
-			// hide all pages
-			document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+			if (!pageId) return;
 
-			// show target page
-			document.getElementById(pageId).style.display = 'block';
+			// Reset sidebar state
+			document.querySelectorAll(".sidebar a").forEach(a => {
+				a.classList.remove("active");
+				let img = a.querySelector("img.icon");
+				if (img) {
+					img.src = img.src.replace("ic_sba_", "ic_sb_");
+				}
+			});
 
-			// reset active sidebar link
-			document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
-			if (el) el.classList.add('active');
+			// ✅ Define subpages
+			const taskSubpages = ["technical", "editing", "account", "removal", "chat-history", "update", "other"];
+			const userSubpages = ["peer-support-session"]; // add more later if needed
 
-			// set topbar title / breadcrumb
-			let title = pageId.charAt(0).toUpperCase() + pageId.slice(1);
-			if (pageId === "peersession") {
+			// --- Highlight logic ---
+			if (taskSubpages.includes(pageId)) {
+				// Always highlight the Tasks menu item
+				const tasksLink = document.querySelector(".sidebar a[data-page='tasks']");
+				if (tasksLink) {
+					tasksLink.classList.add("active");
+					let activeImg = tasksLink.querySelector("img.icon");
+					if (activeImg) {
+						activeImg.src = activeImg.src.replace("ic_sb_", "ic_sba_");
+					}
+				}
+			} else if (userSubpages.includes(pageId)) {
+				// Always highlight the Users menu item
+				const usersLink = document.querySelector(".sidebar a[data-page='users']");
+				if (usersLink) {
+					usersLink.classList.add("active");
+					let activeImg = usersLink.querySelector("img.icon");
+					if (activeImg) {
+						activeImg.src = activeImg.src.replace("ic_sb_", "ic_sba_");
+					}
+				}
+			} else if (el) {
+				// Normal case → highlight the clicked one
+				el.classList.add("active");
+				let activeImg = el.querySelector("img.icon");
+				if (activeImg) {
+					activeImg.src = activeImg.src.replace("ic_sb_", "ic_sba_");
+				}
+			}
+
+			// --- Show the right page ---
+			document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+			document.getElementById(pageId).classList.add("active");
+
+			// --- Breadcrumb / Topbar title ---
+			let title = "";
+			if (taskSubpages.includes(pageId)) {
+				title = `
+					<a href="#" onclick="showPage('tasks')" style="text-decoration:none; color:inherit;">
+						Tasks
+					</a>
+					<img src="icons/ic_arrow right.svg" 
+						style="width:14px; vertical-align:middle; margin:0 5px; cursor:pointer;" 
+						onclick="showPage('tasks')">
+					${formatTitle(pageId)}
+				`;
+			} else if (pageId === "tasks") {
+				title = "Tasks";
+			} else if (userSubpages.includes(pageId)) {
 				title = `
 					<a href="#" onclick="showPage('users')" style="text-decoration:none; color:inherit;">
 						Users
@@ -1375,13 +1426,24 @@
 					<img src="icons/ic_arrow right.svg" 
 						style="width:14px; vertical-align:middle; margin:0 5px; cursor:pointer;" 
 						onclick="showPage('users')">
-					Peer Session
+					${formatTitle(pageId)}
 				`;
+			} else if (pageId === "users") {
+				title = "Users";
+			} else {
+				title = formatTitle(pageId);
 			}
 
-			// inject HTML instead of plain text
 			document.getElementById("pageTitle").innerHTML = title;
 		}
+
+		function formatTitle(str) {
+			return str
+				.split('-')
+				.map(word => word.charAt(0).toUpperCase() + word.slice(1))
+				.join(' ');
+		}
+
 
 		
 	</script>

@@ -575,6 +575,21 @@ select option:focus {
 	justify-content: center;
 }
 
+.cat_IT {
+	font-size: 13px;
+	width: fit-content;
+	display: flex;
+	height: 30px;
+	background: #ffdad2;
+	color: #e85536;
+	border: none;
+	border-radius: 15px;
+	font-family: "BoldFont", sans-serif;
+	padding: 0px 15px;
+	align-items: center;
+	justify-content: center;
+}
+
 /* -------------------------------------- LAYOUTING -------------------------------------- */
 
 .left {
@@ -1622,4 +1637,236 @@ font-weight: bold;
 
 .update a:hover {
   background: #c4e0ff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ----------------------------------------------------------------------------------------- */
+
+/* --------------------------------------IT DASHBOARD -------------------------------------- */
+
+/* ----------------------------------------------------------------------------------------- */
+
+/* --------------------------------------TASKS -------------------------------------- */
+.task-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* exactly 3 per row */
+  gap: 40px;
+  margin-bottom: 30px;
+}
+
+.task-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  height: 75px;
+  border-left: 8px solid #0067c4; /* Blue line */
+}
+
+.task-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.task-icon img {
+  width: 32px;
+  height: 32px;
+}
+
+.task-info h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+.task-info p {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.badge {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: #ff4d4d;
+  color: white;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+
+.task-section-group {
+  margin-bottom: 30px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.section-header h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.nav-arrows span {
+  margin: 0 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.task-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Always 3 per row */
+  gap: 20px;
+}
+
+.task-box {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 15px;
+}
+
+.task-box p {
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.task-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.task-actions button {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-details {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.btn-start {
+  background: #cce1f7;
+  color: #0067c4;
+}
+
+.btn-done {
+  background: #28a745;
+  color: #fff;
+}
+
+.btn-pending {
+  background: #fff;
+  border: 2px solid #0067c4;
+  color: #0067c4;
+}
+
+
+/* --------------------------------------USER MANAGEMENT -------------------------------------- */
+
+
+/* grid-two ensures the left and right columns have identical widths */
+.grid-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* two equal columns */
+  gap: 20px; /* spacing between columns and rows */
+  align-items: start;
+}
+
+/* Each cell in the grid */
+.grid-item {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Force buttons and cards to always fill width */
+.grid-item .big_btn,
+.grid-item .card {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+
+
+/* --------------------------------------SETTINGS & SYSTEM LOGS -------------------------------------- */
+/* SAVE BUTTON*/
+.modal-footer {
+    display: flex;
+    justify-content: flex-end; /* push button to the right */
+    margin-top: 15px;
+    padding: 0 20px 10px; /* some spacing inside modal */
+}
+
+.save-btn {
+    background-color: #bdc1c4; /* Blue */
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 120px; /* adjust this */
+    text-align: center;
+}
+
+.save-btn:hover {
+    background-color: #9aa0a4;; /* Darker blue */
 }

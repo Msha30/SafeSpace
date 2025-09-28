@@ -3,8 +3,8 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>SafeSpace Dashboard</title>
-	<link rel="icon" type="image/png" href="photos/piclogo2.png">
+	<title>IT Dashboard</title>
+	<link rel="icon" type="image/png" href="photos/pic_logo2.png">
 	<link rel="stylesheet" href="SystemDesign.css">
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -17,7 +17,7 @@
 
 		<a href="#" onclick="showPage('tasks', this)"><img src="icons/ic_sb_tasks.svg" class="icon"><span>Tasks</span></a>
 
-		<a href="#" onclick="showPage('users', this)"><img src="icons/ic_sb_user.svg" class="icon"><span>Users</span></a>
+		<a href="#" onclick="showPage('users', this)"><img src="icons/ic_sb_user.svg" class="icon"><span>User Management</span></a>
 
 		<a href="#" onclick="showPage('chat', this)"><img src="icons/ic_sb_chat.svg" class="icon"><span>Chat Management</span></a>
 
@@ -45,32 +45,810 @@
 
 		<!---------------- OVERVIEW ------------------------------------------------------------>
 
-		<div id="overview" class="page active">
-             <!-- dito yung content  -->
+			<div id="overview" class="page active">
+			<div class="row">
+				<div class="card table-card">
+					<h3>Programs</h3>
+					<table>
+						<thead>
+							<tr>
+								<th id="left">Programs</th>
+								<th>New Users this Month</th>
+								<th>Total No. of Users</th>
+								<th>Change, %</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td id="left">BS Information Technology</td>
+								<td >0</td>
+								<td>0</td>
+								<td class="up">0 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Psychology</td>
+								<td>0</td>
+								<td>0</td>
+								<td class="up">0 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Computer Engineering</td>
+								<td>0</td>
+								<td>0</td>
+								<td class="down">0 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Information Technology</td>
+								<td >0</td>
+								<td>0</td>
+								<td class="up">0 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Psychology</td>
+								<td>0</td>
+								<td>0</td>
+								<td class="up">0 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Computer Engineering</td>
+								<td>0</td>
+								<td>0</td>
+								<td class="down">0 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Information Technology</td>
+								<td >0</td>
+								<td>0</td>
+								<td class="up">0 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Psychology</td>
+								<td>0</td>
+								<td>0</td>
+								<td class="up">0 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Computer Engineering</td>
+								<td>0</td>
+								<td>0</td>
+								<td class="down">0 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Information Technology</td>
+								<td >0</td>
+								<td>0</td>
+								<td class="up">0 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Psychology</td>
+								<td>0</td>
+								<td>0</td>
+								<td class="up">0 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Computer Engineering</td>
+								<td>0</td>
+								<td>0</td>
+								<td class="down">0 %</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="stats">
+					<div class="card stat-card">
+						<h3>Student Count</h3>
+						<h2>0</h2>
+					</div>
+					<div class="card stat-card">
+						<h3>PEERS Count</h3>
+						<h2>0</h2>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="card">
+					<h3>Engagement Breakdown</h3>
+					<canvas id="engagementChart" height="220px"></canvas>
+					<p class="chart-description">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+						Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="card">
+					<h3>User Activity</h3>
+					<canvas id="engagementChart2" height="220px"></canvas>
+					<p class="chart-description">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+						Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					</p>
+				</div>
+			</div>
 		</div>
 
 		<!---------------- TASKS ------------------------------------------------------------>
 
 		<div id="tasks" class="page">
-            <!-- dito yung content  -->
+			<div class="task-grid">
+				<!-- Technical -->
+				<div class="task-card" onclick="showPage('technical')">
+				<div class="task-icon"><img src="icons/tech.svg" alt=""></div>
+				<div class="task-info">
+					<h4>Technical</h4>
+					<p>5 tasks</p>
+				</div>
+				<span class="badge">NEW</span>
+				</div>
+
+				<!-- Editing -->
+				<div class="task-card" onclick="showPage('editing')">
+				<div class="task-icon"><img src="icons/edit.svg" alt=""></div>
+				<div class="task-info">
+					<h4>Editing</h4>
+					<p>3 tasks</p>
+				</div>
+				</div>
+
+				<!-- Account -->
+				<div class="task-card" onclick="showPage('account')">
+				<div class="task-icon"><img src="icons/user.svg" alt=""></div>
+				<div class="task-info">
+					<h4>Account</h4>
+					<p>1 task</p>
+				</div>
+				</div>
+
+				<!-- Removal -->
+				<div class="task-card" onclick="showPage('removal')">
+				<div class="task-icon"><img src="icons/trash.svg" alt=""></div>
+				<div class="task-info">
+					<h4>Removal</h4>
+					<p>2 tasks</p>
+				</div>
+				</div>
+
+				<!-- Chat History -->
+				<div class="task-card" onclick="showPage('chat-history')">
+				<div class="task-icon"><img src="icons/chat.svg" alt=""></div>
+				<div class="task-info">
+					<h4>Chat History</h4>
+					<p>1 task</p>
+				</div>
+				</div>
+
+				<!-- Update -->
+				<div class="task-card" onclick="showPage('update')">
+				<div class="task-icon"><img src="icons/update.svg" alt=""></div>
+				<div class="task-info">
+					<h4>Update</h4>
+					<p>0 task</p>
+				</div>
+				</div>
+
+				<!-- Other -->
+				<div class="task-card" onclick="showPage('other')">
+				<div class="task-icon"><img src="icons/file.svg" alt=""></div>
+				<div class="task-info">
+					<h4>Other</h4>
+					<p>0 task</p>
+				</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!---------------- TECHNICAL PAGE | TASKS ------------------------------------------------------------>
+		<div id="technical" class="page" style="display:none;">
+		  <div class="task-section-group">
+			<div class="section-header">
+			<h4>To Do</h4>
+			<div class="nav-arrows">
+				<span>&lt;</span>
+				<span>&gt;</span>
+			</div>
+			</div>
+			<div class="task-grid">
+			<div class="task-box">
+				<p>I’d like to request a removal of a Support Group named “HATID”</p>
+				<div class="task-actions">
+				<button class="btn-details">See Details</button>
+				<button class="btn-start">Start Task</button>
+				</div>
+			</div>
+			<div class="task-box">
+				<p>I’d like to request a removal of a Support Group named “HATID”</p>
+				<div class="task-actions">
+				<button class="btn-details">See Details</button>
+				<button class="btn-start">Start Task</button>
+				</div>
+			</div>
+			<div class="task-box">
+				<p>I’d like to request a removal of a Support Group named “HATID”</p>
+				<div class="task-actions">
+				<button class="btn-details">See Details</button>
+				<button class="btn-start">Start Task</button>
+				</div>
+			</div>
+			</div>
+		</div>
+
+		<!-- Pending Section -->
+		<div class="task-section-group">
+			<div class="section-header">
+			<h4>Pending</h4>
+			<div class="nav-arrows">
+				<span>&lt;</span>
+				<span>&gt;</span>
+			</div>
+			</div>
+			<div class="task-grid">
+			<div class="task-box">
+				<p>I’d like to request a removal of a Support Group named “HATID”</p>
+				<div class="task-actions">
+				<button class="btn-details">See Details</button>
+				<button class="btn-done">Done</button>
+				</div>
+			</div>
+			<div class="task-box">
+				<p>I’d like to request a removal of a Support Group named “HATID”</p>
+				<div class="task-actions">
+				<button class="btn-details">See Details</button>
+				<button class="btn-pending">Pending</button>
+				</div>
+			</div>
+			</div>
+		</div>
+
+		<!-- Complete Section -->
+		<div class="task-section-group">
+			<div class="section-header">
+			<h4>Complete</h4>
+			<div class="nav-arrows">
+				<span>&lt;</span>
+				<span>&gt;</span>
+			</div>
+			</div>
+			<div class="task-grid">
+			<div class="task-box">
+				<p>I’d like to request a removal of a Support Group named “HATID”</p>
+				<div class="task-actions">
+				<button class="btn-details">See Details</button>
+				</div>
+			</div>
+			<div class="task-box">
+				<p>I’d like to request a removal of a Support Group named “HATID”</p>
+				<div class="task-actions">
+				<button class="btn-details">See Details</button>
+				</div>
+			</div>
+			<div class="task-box">
+				<p>I’d like to request a removal of a Support Group named “HATID”</p>
+				<div class="task-actions">
+				<button class="btn-details">See Details</button>
+				</div>
+			</div>
+			</div>
+		 </div>
+		</div>
+
+		<!---------------- EDITING PAGE | TASKS ------------------------------------------------------------>
+		<div id="editing" class="page" style="display:none;">
+		</div>
+
+		<!---------------- ACCOUNT PAGE | TASKS ------------------------------------------------------------>
+		<div id="account" class="page" style="display:none;">
+		</div>
+
+		<!---------------- REMOVAL PAGE | TASKS ------------------------------------------------------------>
+		<div id="removal" class="page" style="display:none;">
+		</div>
+
+		<!---------------- CHAT HISTORY PAGE | TASKS ------------------------------------------------------------>
+		<div id="chat-history" class="page" style="display:none;">
+		</div>
+
+		<!---------------- UPDATE PAGE | TASKS ------------------------------------------------------------>
+		<div id="update" class="page" style="display:none;">
+		</div>
+
+		<!---------------- OTHER PAGE | TASKS ------------------------------------------------------------>
+		<div id="other" class="page" style="display:none;">
 		</div>
 
 		<!---------------- USER MANAGEMENT ------------------------------------------------------------>
 
 		<div id="users" class="page">
-            <!-- dito yung content  -->
+            <div class="row">
+				<div class="right-half" style="width: 100%;">
+					<div class="searchbar">
+						<img src="icons/ic_search.svg">
+						<input type="text" placeholder="Search...">
+					</div>
+					<select name="userdrop" class="userdrop">
+						<option value="All">All</option>
+						<option value="Peers">Peers</option>
+						<option value="Users">Users</option>
+					</select>
+					<div class="peer-session">
+					<button class="btn-peersession" onclick="showPage('peersession')">Create New User</button>
+				    </div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="card">
+					<h3>User List</h3>
+					<table class="user">
+						<thead>
+							<tr>
+								<th id="left">User</th>
+								<th> </th>
+								<th>Name Displayed</th>
+								<th>Type</th>
+								<th>Last Active</th>
+								<th>Date Created</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Doe, John A.<br>
+									<span>email@students.nu-fairview.edu.ph</span>
+								</td>
+								<td>John</td>
+								<td>
+									<div class="cat_IT">GCO COORDINATOR</div>
+								</td>
+								<td>Lorem Ipsum</td>
+								<td>Lorem Ipsum</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Doe, John A.<br>
+									<span>email@students.nu-fairview.edu.ph</span>
+								</td>
+								<td>John</td>
+								<td>
+									<div class="cat_peer">PEER</div>
+								</td>
+								<td>Lorem Ipsum</td>
+								<td>Lorem Ipsum</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Doe, John A.<br>
+									<span>email@students.nu-fairview.edu.ph</span>
+								</td>
+								<td>John</td>
+								<td>
+									<div class="cat_peer">PEER</div>
+								</td>
+								<td>Lorem Ipsum</td>
+								<td>Lorem Ipsum</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Doe, John A.<br>
+									<span>email@students.nu-fairview.edu.ph</span>
+								</td>
+								<td>John</td>
+								<td>
+									<div class="cat_peer">PEER</div>
+								</td>
+								<td>Lorem Ipsum</td>
+								<td>Lorem Ipsum</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Doe, John A.<br>
+									<span>email@students.nu-fairview.edu.ph</span>
+								</td>
+								<td>John</td>
+								<td>
+									<div class="cat_peer">PEER</div>
+								</td>
+								<td>Lorem Ipsum</td>
+								<td>Lorem Ipsum</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Doe, John A.<br>
+									<span>email@students.nu-fairview.edu.ph</span>
+								</td>
+								<td>John</td>
+								<td>
+									<div class="cat_peer">PEER</div>
+								</td>
+								<td>Lorem Ipsum</td>
+								<td>Lorem Ipsum</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Doe, Jane A.<br>
+									<span>email@students.nu-fairview.edu.ph</span>
+								</td>
+								<td>Jae</td>
+								<td>
+									<div class="cat_user">USER</div>
+								</td>
+								<td>Lorem Ipsum</td>
+								<td>Lorem Ipsum</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Doe, Jane A.<br>
+									<span>email@students.nu-fairview.edu.ph</span>
+								</td>
+								<td>Jae</td>
+								<td>
+									<div class="cat_user">USER</div>
+								</td>
+								<td>Lorem Ipsum</td>
+								<td>Lorem Ipsum</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Doe, Jane A.<br>
+									<span>email@students.nu-fairview.edu.ph</span>
+								</td>
+								<td>Jae</td>
+								<td>
+									<div class="cat_user">USER</div>
+								</td>
+								<td>Lorem Ipsum</td>
+								<td>Lorem Ipsum</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Doe, Jane A.<br>
+									<span>email@students.nu-fairview.edu.ph</span>
+								</td>
+								<td>Jae</td>
+								<td>
+									<div class="cat_user">USER</div>
+								</td>
+								<td>Lorem Ipsum</td>
+								<td>Lorem Ipsum</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Doe, Jane A.<br>
+									<span>email@students.nu-fairview.edu.ph</span>
+								</td>
+								<td>Jae</td>
+								<td>
+									<div class="cat_user">USER</div>
+								</td>
+								<td>Lorem Ipsum</td>
+								<td>Lorem Ipsum</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 
 		<!---------------- CHAT MANAGEMENT ------------------------------------------------------------>
 
 		<div id="chat" class="page">
-            <!-- dito yung content  -->
+		<div class="grid-two">
+			<!-- Left column, row 1 -->
+			<div class="grid-item">
+				<div class="big_btn">
+				<div class="text">
+					<h6>Support Groups</h6>
+					<p>Support Group Management</p>
+				</div>
+				<img src="icons/ic_arrow right.svg" class="setting_slider">
+				</div>
+			</div>
+
+			<!-- Right column, row 1 -->
+			<div class="grid-item">
+				<div class="big_btn">
+				<div class="text">
+					<h6>Export Chat</h6>
+					<p>Export user chat history</p>
+				</div>
+				<img src="icons/ic_arrow right.svg" class="setting_slider">
+				</div>
+			</div>
+
+			<!-- Left column, row 2 -->
+			<div class="grid-item">
+				<div class="card">
+				<h3>Flagged Word History</h3>
+				<table class="user">
+					<thead>
+					<tr>
+						<th>User</th>
+						<th>Flagged Word</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>
+						<div class="table_user"><img src="photos/panda.png"></div>
+						<div id="name">
+							Fernandez, Aaron Angelo<br>
+							<span>email@students.nu-fairview.edu.ph</span>
+						</div>
+						</td>
+						<td style="color: #e85536; font-weight: bold;">Suicide</td>
+					</tr>
+					<tr>
+						<td>
+						<div class="table_user"><img src="photos/bear.png"></div>
+						<div id="name">
+							Jose, Michael<br>
+							<span>email@students.nu-fairview.edu.ph</span>
+						</div>
+						</td>
+						<td style="color: #e85536; font-weight: bold;">Dying</td>
+					</tr>
+					<tr>
+						<td>
+						<div class="table_user"><img src="photos/wolf.png"></div>
+						<div id="name">
+							Mayo, John Mik<br>
+							<span>email@students.nu-fairview.edu.ph</span>
+						</div>
+						</td>
+						<td style="color: #e85536; font-weight: bold;">Dying</td>
+					</tr>
+					</tbody>
+				</table>
+				</div>
+			</div>
+
+			<!-- Right column, row 2 -->
+			<div class="grid-item">
+				<div class="card">
+				<h3>Chat Moderation</h3>
+				<div class="input-box">
+					<input type="text" class="custom-input" placeholder="Enter word...">
+					<button class="custom-btn">Add</button>
+				</div>
+				<p class="flagged">Flagged Words</p>
+				<div class="tags">
+					<div class="tag">Suicide | X</div>
+					<div class="tag">Rape | X</div>
+					<div class="tag">Molested | X</div>
+					<div class="tag">Whore | X</div>
+					<div class="tag">Assault | X</div>
+					<div class="tag">Binugbog | X</div>
+					<div class="tag">Die | X</div>
+					<div class="tag">Slut | X</div>
+					<div class="tag">Blackmail | X</div>
+					<div class="tag">Threaten | X</div>
+					<div class="tag">Papakamatay | X</div>
+					<div class="tag">Bully | X</div>
+				</div>
+				</div>
+			</div>
+		</div>
 		</div>
 
 		<!---------------- SETTINGS ------------------------------------------------------------>
 
 		<div id="settings" class="page">
-            <!-- dito yung content  -->
+			<div class="row">
+				<div class="big_btn" onclick="openModal('termsModal')">
+					<div class="text">
+						<h6>Terms and Conditions</h6>
+						<p>Effective Date: June 4, 2025</p>
+					</div>
+					<img src="icons/ic_arrow right.svg" class="setting_slider">
+				</div>
+				<div class="big_btn" onclick="openModal('privacyModal')">
+					<div class="text">
+						<h6>Privacy Policy</h6>
+						<p>Effective Date: June 4, 2025</p>
+					</div>
+					<img src="icons/ic_arrow right.svg" class="setting_slider">
+				</div>
+			</div>
+
+			<!-- Second row -->
+			<div class="row">
+				<div class="big_btn" onclick="openModal('emailModal')">
+					<div class="text">
+						<h6>Email Layout</h6>
+						<p>Verification and Account Confirmation</p>
+					</div>
+					<img src="icons/ic_arrow right.svg" class="setting_slider">
+				</div>
+				<div class="big_btn" onclick="openModal('programsModal')">
+					<div class="text">
+						<h6>Available Programs</h6>
+						<p>NU Fairview programs</p>
+					</div>
+					<img src="icons/ic_arrow right.svg" class="setting_slider">
+				</div>
+			</div>
+
+			<!-- Terms Modal -->
+			<div id="termsModal" class="modal">
+			<div class="modal-content">
+				<span class="close" onclick="closeModal('termsModal')">&times;</span>
+				<h3>Terms & Conditions</h3>
+				<div class="terms-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p><br>
+					<ol>
+						<li><strong>Lorem Ipsum</strong>
+							<p>Lorem ipsum dolor sit amet...</p>
+						</li>
+						<li><strong>Lorem Ipsum</strong>
+							<ul>
+								<li>Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</li>
+								<li>When there are cases of suspected abuse.</li>
+								<li>At vero eos et accusamus et iusto odio dignissimos ducimus.</li>
+							</ul>
+						</li>
+					</ol>
+				</div>
+				<div class="modal-footer">
+					<button class="save-btn" onclick="saveTerms()">Save</button>
+				</div>
+			</div>
+			</div>
+
+			<!-- Privacy Modal -->
+			<div id="privacyModal" class="modal">
+			<div class="modal-content">
+				<span class="close" onclick="closeModal('privacyModal')">&times;</span>
+				<h3>Privacy Policy</h3>
+				<div class="terms-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p><br>
+					<ol>
+						<li><strong>Lorem Ipsum</strong>
+							<p>Lorem ipsum dolor sit amet...</p>
+						</li>
+						<li><strong>Lorem Ipsum</strong>
+							<ul>
+								<li>Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</li>
+								<li>When there are cases of suspected abuse.</li>
+								<li>At vero eos et accusamus et iusto odio dignissimos ducimus.</li>
+							</ul>
+						</li>
+						<li><strong>Lorem Ipsum</strong>
+							<p>Lorem ipsum dolor sit amet...</p>
+						</li>
+					</ol>
+				</div>
+				<div class="modal-footer">
+					<button class="save-btn" onclick="saveTerms()">Save</button>
+				</div>
+			</div>
+			</div>
+
+			<div class="row">
+				<div class="card">
+					   <h3>GCO Coordinator Logs</h3>
+  					   <div class="logs-list">
+      						<div class="log-entry">
+        						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
+        						<div class="log-top">
+          							<span class="log-name">Doe, John A.</span>
+          							<span class="log-time">September 22, 2025 at 0:00 AM</span>
+        						</div>
+        						<div class="log-message">
+          							Lorem ipsum dolor sit amet, consectetur adipiscing elit
+        						</div>
+      						</div>
+
+							<div class="log-entry">
+        						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
+        						<div class="log-top">
+          							<span class="log-name">Doe, John A.</span>
+          							<span class="log-time">September 22, 2025 at 0:00 AM</span>
+        						</div>
+        						<div class="log-message">
+          							Lorem ipsum dolor sit amet, consectetur adipiscing elit
+        						</div>
+      						</div>
+							<div class="log-entry">
+        						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
+        						<div class="log-top">
+          							<span class="log-name">Doe, John A.</span>
+          							<span class="log-time">September 22, 2025 at 0:00 AM</span>
+        						</div>
+        						<div class="log-message">
+          							Lorem ipsum dolor sit amet, consectetur adipiscing elit
+        						</div>
+      						</div>
+							<div class="log-entry">
+        						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
+        						<div class="log-top">
+          							<span class="log-name">Doe, John A.</span>
+          							<span class="log-time">September 22, 2025 at 0:00 AM</span>
+        						</div>
+        						<div class="log-message">
+          							Lorem ipsum dolor sit amet, consectetur adipiscing elit
+        						</div>
+      						</div>
+					   </div>
+					</div>
+				<div class="card">
+					<h3>Peer Facilitator Logs</h3>
+					<div class="logs-list">
+      						<div class="log-entry">
+        						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
+        						<div class="log-top">
+          							<span class="log-name">Doe, John A.</span>
+          							<span class="log-time">September 22, 2025 at 0:00 AM</span>
+        						</div>
+        						<div class="log-message">
+          							Lorem ipsum dolor sit amet, consectetur adipiscing elit
+        						</div>
+      						</div>
+
+							<div class="log-entry">
+        						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
+        						<div class="log-top">
+          							<span class="log-name">Doe, John A.</span>
+          							<span class="log-time">September 22, 2025 at 0:00 AM</span>
+        						</div>
+        						<div class="log-message">
+          							Lorem ipsum dolor sit amet, consectetur adipiscing elit
+        						</div>
+      						</div>
+							<div class="log-entry">
+        						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
+        						<div class="log-top">
+          							<span class="log-name">Doe, John A.</span>
+          							<span class="log-time">September 22, 2025 at 0:00 AM</span>
+        						</div>
+        						<div class="log-message">
+          							Lorem ipsum dolor sit amet, consectetur adipiscing elit
+        						</div>
+      						</div>
+							<div class="log-entry">
+        						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
+        						<div class="log-top">
+          							<span class="log-name">Doe, John A.</span>
+          							<span class="log-time">September 22, 2025 at 0:00 AM</span>
+        						</div>
+        						<div class="log-message">
+          							Lorem ipsum dolor sit amet, consectetur adipiscing elit
+        						</div>
+      						</div>
+					   </div>
+				</div>
+			</div>
 		</div>
 
 		<!---------------- REPORTS ------------------------------------------------------------>
@@ -81,6 +859,95 @@
 	</div>
 
 	<script>
+				// Eto yung unang engagement chart ----------------------------------------------------
+		const ctx = document.getElementById('engagementChart').getContext('2d');
+		const engagementChart = new Chart(ctx, {
+		type: 'line',
+		data: {
+			labels: ['Feb', 'Mar', 'Apr', 'May', 'Jun'],
+			datasets: [{
+			label: ' Engagement',
+			data: [55, 12, 9, 28, 11], 
+			borderColor: '#0847b2',
+			borderWidth: 7,
+			fill: false,
+			pointBackgroundColor: '#0847b2',
+			pointRadius: 0
+			}]
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: true,
+			plugins: {
+			legend: {
+				display: false
+			}
+			},
+			scales: {
+			y: {
+				beginAtZero: true
+			}
+			}
+		}
+		});
+
+		// Eto yung pangalawang engagement chart ----------------------------------------------------
+
+		const ctx2 = document.getElementById('engagementChart2').getContext('2d');
+		const engagementChart2 = new Chart(ctx2, {
+			type: 'line',
+			data: {
+				labels: ['19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31',
+				'1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18'],
+				datasets: [
+					{
+						label: ' DUA',
+						data: [90, 85, 80, 95, 88, 100, 110, 78, 85, 92, 89, 95, 98, 87, 110, 95, 92, 98, 97, 94, 96, 99, 95, 93, 97, 92, 90, 95, 93, 91, 89],
+						borderColor: '#0847b2',
+						borderWidth: 5,
+						fill: false,
+						pointRadius: 0
+					},
+					{
+						label: ' WUA',
+						data: [120, 120, 121, 122, 121, 123, 125, 127, 126, 128, 129, 130, 131, 128, 126, 124, 123, 122, 121, 122, 124, 125, 126, 128, 130, 132, 133, 130, 128, 126, 120],
+						borderColor: '#e94e1b',
+						borderWidth: 5,
+						fill: false,
+						pointRadius: 0
+					},
+					{
+						label: ' MUA',
+						data: Array(31).fill(190), // flat line at 190
+						borderColor: '#f2c500',
+						borderWidth: 5,
+						fill: false,
+						pointRadius: 0
+					}
+				]
+			},
+			options: {
+				responsive: true,
+				maintainAspectRatio: true,
+				plugins: {
+					legend: {
+						display: true,
+						position: 'top',
+						labels: {
+							usePointStyle: true,
+							boxWidth: 4,
+							boxHeight: 4,
+							padding: 15,
+						}
+					}
+				},
+				scales: {
+					y: {
+						beginAtZero: true
+					}
+				}
+			}
+		});
 
 		// Pages ----------------------------- wag gagalawin ----------------------------------------
 
@@ -140,6 +1007,98 @@
 		}
 		});
 		
+		// SLIDER FOR TERMS AND CONDITIONS AND PRIVACY POLICY
+
+		function openModal(id) {
+    		document.getElementById(id).style.display = "block";
+		}
+
+		function closeModal(id) {
+    		document.getElementById(id).style.display = "none";
+		}
+
+		// Optional: Close modal if user clicks outside content
+		window.onclick = function(event) {
+    		const termsModal = document.getElementById('termsModal');
+    		const privacyModal = document.getElementById('privacyModal');
+    
+   			if (event.target === termsModal) {
+        		termsModal.style.display = "none";
+    		}
+    		if (event.target === privacyModal) {
+        		privacyModal.style.display = "none";
+    		}
+		}
+
+
+
+		function showPage(pageId, el) {
+			if (!pageId) return;
+
+			// Reset sidebar state
+			document.querySelectorAll(".sidebar a").forEach(a => {
+				a.classList.remove("active");
+				let img = a.querySelector("img.icon");
+				if (img) {
+					img.src = img.src.replace("ic_sba_", "ic_sb_");
+				}
+			});
+
+			// ✅ Check if current page is a Tasks subpage
+			const taskSubpages = ["technical", "editing", "account", "removal", "chat-history", "update", "other"];
+
+			if (taskSubpages.includes(pageId)) {
+				// Always highlight the Tasks menu item
+				const tasksLink = document.querySelector(".sidebar a[data-page='tasks']");
+				if (tasksLink) {
+					tasksLink.classList.add("active");
+					let activeImg = tasksLink.querySelector("img.icon");
+					if (activeImg) {
+						activeImg.src = activeImg.src.replace("ic_sb_", "ic_sba_");
+					}
+				}
+			} else if (el) {
+				// Normal case → highlight the clicked one
+				el.classList.add("active");
+				let activeImg = el.querySelector("img.icon");
+				if (activeImg) {
+					activeImg.src = activeImg.src.replace("ic_sb_", "ic_sba_");
+				}
+			}
+
+			// Show the right page
+			document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+			document.getElementById(pageId).classList.add("active");
+
+			// Breadcrumb / Topbar title
+			let title = "";
+			if (taskSubpages.includes(pageId)) {
+				title = `
+					<a href="#" onclick="showPage('tasks')" style="text-decoration:none; color:inherit;">
+						Tasks
+					</a>
+					<img src="icons/ic_arrow right.svg" 
+						style="width:14px; vertical-align:middle; margin:0 5px; cursor:pointer;" 
+						onclick="showPage('tasks')">
+					${formatTitle(pageId)}
+				`;
+			} else if (pageId === "tasks") {
+				title = "Tasks";
+			} else {
+				title = formatTitle(pageId);
+			}
+
+			document.getElementById("pageTitle").innerHTML = title;
+		}
+
+		function formatTitle(str) {
+			return str
+				.split('-')
+				.map(word => word.charAt(0).toUpperCase() + word.slice(1))
+				.join(' ');
+		}
+
+
 	</script>
 </body>
 </html>
