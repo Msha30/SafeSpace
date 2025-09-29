@@ -575,7 +575,7 @@ select option:focus {
 	justify-content: center;
 }
 
-.cat_IT {
+.cat_GCO {
 	font-size: 13px;
 	width: fit-content;
 	display: flex;
@@ -1876,6 +1876,7 @@ font-weight: bold;
     margin-right: 60px;  
 }
 
+/* dropdown menu */
 .dropdown-content {
     display: none;
     position: absolute;
@@ -1884,19 +1885,31 @@ font-weight: bold;
     background: #eff5f9;
     min-width: 140px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    border: 1px solid #ccc;      /* ✅ light border around the dropdown */
+    border: 1px solid #ccc;
     border-radius: 4px;
     z-index: 10;
+    opacity: 0;
+    transform: translateY(5px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
+.dropdown-content.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* menu items */
 .dropdown-content a {
     display: block;
     padding: 10px 14px;
     text-decoration: none;
     color: #333;
     font-size: 14px;
+    transition: background 0.2s ease, color 0.2s ease;
 }
 
+/* separator between links */
 .dropdown-content a + a {
     position: relative;
 }
@@ -1904,25 +1917,30 @@ font-weight: bold;
 .dropdown-content a + a::before {
     content: "";
     display: block;
-    width: 80%;                  /* ✅ adjust width (e.g. 80% of link width) */
+    width: 80%;                 
     height: 0.5px;
     background: #bdc1c4;
-    margin: 0 auto;              /* center horizontally */
+    margin: 0 auto;            
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
 }
 
+/* hover effects */
 .dropdown-content a:hover {
     background: #f0f0f0;
+    color: #000;
 }
 
-/* open on hover */
-.dropdown:hover .dropdown-content {
-    display: block;
+.dropdown-content a.remove {
+    color: red;
 }
 
+.dropdown-content a.remove:hover {
+    background: #ffe6e6;
+    color: darkred;
+}
 
 /* --------------------------------------END OF USER MANAGEMENT -------------------------------------- */
 
