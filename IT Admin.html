@@ -1304,14 +1304,73 @@
 				   </div>
                     <img src="icons/ic_arrow right.svg" class="setting_slider">
                 </div>
-				<div class="big_btn" onclick="openModal('termsModal')">
-				   <div class="text">
-                    <h6>Export Chat</h6>
-                    <p>Effective Date: June 4, 2025</p>
-				   </div>
-                    <img src="icons/ic_arrow right.svg" class="setting_slider">
-                </div>
+			<div class="big_btn" onclick="openModal('exportModal')">
+				<div class="text">
+					<h6>Export Chat</h6>
+					<p>Effective Date: June 4, 2025</p>
+				</div>
+				<img src="icons/ic_arrow right.svg" class="setting_slider">
 			</div>
+
+			</div>
+
+			<!--EXPORT CHAT MODAL-->
+
+			<div id="exportModal" class="new-modal">
+				<div class="new-modal-content">
+					
+					<!-- Close Button -->
+					<span class="close" onclick="closeModal('exportModal')">&times;</span>
+					
+					<h3>Export Chat History</h3>
+
+					<div class="new-export-form">
+						
+						<!-- User Selects -->
+						<div class="row">
+							<div class="select-group">
+								<label for="user1">Fullbright Peer Facilitator</label>
+								<select id="user1">
+									<option>User 1</option>
+									<option>User 2</option>
+									<option>User 3</option>
+									<option>User 4</option>
+									<option>User 5</option>
+								</select>
+							</div>
+
+							<div class="select-group">
+								<label for="user2">Student</label>
+								<select id="user2">
+									<option>User 1</option>
+									<option>User 2</option>
+									<option>User 3</option>
+									<option>User 4</option>
+									<option>User 5</option>
+								</select>
+							</div>
+						</div>
+						<!-- Date Range Options -->
+						<div class="new-radio-options">
+							<label><input type="radio" name="range"> Today</label>
+							<label><input type="radio" name="range"> Past 15 days</label>
+							<label><input type="radio" name="range"> Past 30 days</label>
+							<label><input type="radio" name="range"> Custom Range</label>
+						</div>
+
+						<!-- Date Pickers -->
+						<div class="row">
+							<input type="date" placeholder="Start Date">
+							<input type="date" placeholder="End Date">
+						</div>
+
+						<!-- Export Button -->
+						<button class="new-btn">Export</button>
+					</div>
+				</div>
+			</div>
+
+
 
 			<div class="row">
 					<div class="flagged-box tall-box">
@@ -1846,6 +1905,26 @@
 			});
 			}
 		});
+
+		// Open modal
+		function openModal(id) {
+		document.getElementById(id).style.display = "block";
+		}
+
+		// Close modal
+		function closeModal(id) {
+		document.getElementById(id).style.display = "none";
+		}
+
+		// Close modal when clicking outside
+		window.onclick = function(event) {
+		const openModals = document.querySelectorAll(".new-modal"); // all modals
+		openModals.forEach(modal => {
+			if (event.target === modal) {
+			modal.style.display = "none";
+			}
+		});
+		};
 	</script>
 </body>
 </html>

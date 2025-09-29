@@ -2089,3 +2089,168 @@ font-weight: bold;
 .save-btn:hover {
     background-color: #9aa0a4;; /* Darker blue */
 }
+
+
+
+
+/* -------------------------------------EXPORT CHAT -------------------------------------- */
+/* --- Export Chat Button (Card Style) --- */
+.export-btn-card {
+    background: #f9fafc;
+    border-radius: 12px;
+    padding: 22px 28px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.export-btn-card:hover {
+    background: #ffffff;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    transform: translateY(-2px);
+}
+
+.export-btn-card .text h6 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #222;
+    margin: 0;
+}
+
+.export-btn-card .text p {
+    font-size: 14px;
+    color: #777;
+    margin: 4px 0 0 0;
+}
+
+.export-btn-card img {
+    width: 22px;
+    height: 22px;
+    opacity: 0.6;
+}
+
+/* --- Modal Overlay --- */
+.new-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(1px);
+}
+
+/* --- Modal Box --- */
+.new-modal-content {
+    background: #fff;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 500px;
+    margin: 8% auto; /* ✅ center modal horizontally */
+    padding: 28px 32px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    font-family: "Segoe UI", Roboto, sans-serif;
+    animation: slideDown 0.3s ease;
+    text-align: left;  /* ✅ force all text to align left */
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Modal Title --- */
+.new-modal-content h3 {
+    margin: 0 0 16px 0;
+    font-size: 19px;
+    font-weight: 600;
+    color: #333;
+    text-align: left !important;   /* ✅ force left */
+    width: 100%;                   /* ✅ make sure it spans full row */
+    display: block;                 /* ✅ behaves like a block element */
+}
+
+
+
+/* --- Form --- */
+.new-export-form .row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.new-export-form select,
+.new-export-form input[type="date"] {
+    flex: 1;
+    padding: 11px 12px;
+    font-size: 14px;
+    border: 1px solid #d0d0d0;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    
+    /* 🎨 Custom background + text color */
+    background-color: #f9fbff; /* light blue background */
+    color: #222;               /* dark text */
+    border: 1px solid #b3d1ff; /* soft blue border */
+}
+
+/* --- Focus State --- */
+.new-export-form select:focus,
+.new-export-form input[type="date"]:focus {
+    border-color: #3399ff;
+    box-shadow: 0 0 0 2px rgba(51,153,255,0.15);
+}
+
+/* --- Dropdown Options --- */
+.new-export-form select option {
+    background-color: #ffffff; /* white background */
+    color: #333;               /* dark gray text */
+}
+
+/* --- Radio Options --- */
+.new-radio-options {
+    margin-bottom: 18px;
+    font-size: 14px;
+    color: #444;
+}
+
+.new-radio-options label {
+    display: block;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+/* --- Primary Export Button --- */
+.new-btn {
+    width: 100%;
+    background: #0066ff;
+    color: #fff;
+    border: none;
+    padding: 13px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.1s ease;
+}
+
+.new-btn:hover {
+    background: #0052cc;
+    transform: scale(1.02);
+}
+
+.select-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.select-group label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #444;
+    margin-bottom: 6px;
+}
