@@ -340,6 +340,9 @@
 					<div class="peer-session">
 					<button class="btn-peersession" onclick="showPage('peer-support-session')">Peer Support Session</button>
 				    </div>
+					<div class="peer-verification">
+					<button class="btn-peerverify" onclick="showPage('peer-account-verification')">Peer Account Verification</button>
+				    </div>
 				</div>
 			</div>
 			<div class="row">
@@ -513,8 +516,56 @@
 			</div>
 		</div>
 
+
+
+
+<!---------------- ACCOUNT VERIFICATION------------------------------------------------------------>
+			<div id="peer-account-verification" class="page">
+			<div class="row">
+			</div>
+			<div class="row">
+				<div class="card">
+					<h3>Peer Account Verification</h3>
+					<table class="user">
+						<thead>
+							<tr>
+								<th id="left">User</th>
+								<th> </th>
+								<th> </th>
+								<th>Type</th>
+								<th>Date Created</th>
+								<th>Verify</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Doe, John A.<br>
+									<span>email@students.nu-fairview.edu.ph</span>
+								</td>
+								<td>
+
+								</td>
+								<td>
+									<div class="cat_peer">PEER</div>
+								</td>
+								<td>Lorem Ipsum</td> 
+								<td class="verify-actions">
+									<button class="btn-accept">Accept</button>
+									<button class="btn-decline">Decline</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
 	<!---------------- PEER SUPPORT SESSION ------------------------------------------------------------>
-		<div id="peer-support-session" class="page" style="display:none;">
+		<div id="peer-support-session" class="page">
 			<div class="row">
 				<div class="left-half">
 				<button class="btn-white">Today</button>
@@ -530,14 +581,13 @@
 					<img src="photos/pic_placeholder.png" alt="Avatar"> 
 					<div class="session-details-left">
 					<div class="time">0:00 PM - 0:00 PM</div>
-					<div class="name">Jane Smith</div>
-					<div class="info">2023-987654</div>
-					<div class="info">Peer Mentor</div>
-					<div class="info">Support Session</div>
+					<div class="name"><strong>Peer</strong> | John Doe</div>
+					<div class="name"><strong>Student</strong> | Jane</div>
+					<div class="info">School Related</div>
+					<div class="info">Lorem ipsum</div>
 					</div>
 				</div>
 				<div class="session-btn-left">
-					<button class="btn start">Start Call</button>
 					<button class="btn details">See Details</button>
 				</div>
 			</div>
@@ -548,14 +598,13 @@
 					<img src="photos/pic_placeholder.png" alt="Avatar"> 
 					<div class="session-details-mid">
 					<div class="time">0:00 PM - 0:00 PM</div>
-					<div class="name">Mark Lee</div>
-					<div class="info">2023-654321</div>
-					<div class="info"><strong><span class="urgent">Urgent</span></strong></div>
-					<div class="info">Peer Session</div>
+					<div class="name"><strong>Peer</strong> | John Doe</div>
+					<div class="name"><strong>Student</strong> | Jane</div>
+					<div class="info">School Related</div>
+					<div class="info">Lorem ipsum</div>
 					</div>
 				</div>
 				<div class="session-btn-mid">
-					<button class="btn start">Confirmed</button>
 					<button class="btn details">See Details</button>
 				</div>
 			</div>
@@ -566,14 +615,13 @@
 					<img src="photos/pic_placeholder.png" alt="Avatar"> 
 					<div class="session-details-right">
 					<div class="time">0:00 PM - 0:00 PM</div>
-					<div class="name">Ana Cruz</div>
-					<div class="info">2023-112233</div>
-					<div class="info">Not Urgent</div>
-					<div class="info">Peer Mentor</div>
+					<div class="name"><strong>Peer</strong> | John Doe</div>
+					<div class="name"><strong>Student</strong> | Jane</div>
+					<div class="info">School Related</div>
+					<div class="info">Lorem ipsum</div>
 					</div>
 				</div>
 				<div class="session-btn-right">
-					<button class="btn start">Take Session</button>
 					<button class="btn details">See Details</button>
 				</div>
 			</div>
@@ -589,51 +637,51 @@
 
 		<div class="row" id="schedule" style="gap: 15px;">
 			<div class="card">
-			<h4 class="sched-date">23</h4>
-			<h5 style="padding-left: 30px;">MON</h5>
+			<h4 class="sched-date">DOE</h4>
+			<h5 style="padding-left: 30px;">John A.</h5>
 			<div class="sched">
-				<p class="sched-type">Face to Face</p>
+				<p class="sched-type">Monday</p>
 				<p class="sched-time">0:00 PM - 0:00 PM</p>
 			</div>
 			<div class="sched">
-				<p class="sched-type">Video Call</p>
+				<p class="sched-type">Wednesday</p>
 				<p class="sched-time">0:00 PM - 0:00 PM</p>
 			</div>
 			</div>
 
 			<div class="card">
-			<h4 class="sched-date">24</h4>
-			<h5 style="padding-left: 30px;">TUE</h5>
+			<h4 class="sched-date">DOE</h4>
+			<h5 style="padding-left: 30px;">John A.</h5>
 			<div class="sched">
-				<p class="sched-type">Call</p>
+				<p class="sched-type">Monday</p>
 				<p class="sched-time">0:00 PM - 0:00 PM</p>
 			</div>
 			<div class="sched">
-				<p class="sched-type">Face to Face</p>
-				<p class="sched-time">0:00 PM - 0:00 PM</p>
-			</div>
-			</div>
-			<div class="card">
-			<h4 class="sched-date">24</h4>
-			<h5 style="padding-left: 30px;">TUE</h5>
-			<div class="sched">
-				<p class="sched-type">Call</p>
-				<p class="sched-time">0:00 PM - 0:00 PM</p>
-			</div>
-			<div class="sched">
-				<p class="sched-type">Face to Face</p>
+				<p class="sched-type">Wednesday</p>
 				<p class="sched-time">0:00 PM - 0:00 PM</p>
 			</div>
 			</div>
 			<div class="card">
-			<h4 class="sched-date">24</h4>
-			<h5 style="padding-left: 30px;">TUE</h5>
+			<h4 class="sched-date">DOE</h4>
+			<h5 style="padding-left: 30px;">John A.</h5>
 			<div class="sched">
-				<p class="sched-type">Call</p>
+				<p class="sched-type">Monday</p>
 				<p class="sched-time">0:00 PM - 0:00 PM</p>
 			</div>
 			<div class="sched">
-				<p class="sched-type">Face to Face</p>
+				<p class="sched-type">Wednesday</p>
+				<p class="sched-time">0:00 PM - 0:00 PM</p>
+			</div>
+			</div>
+			<div class="card">
+			<h4 class="sched-date">DOE</h4>
+			<h5 style="padding-left: 30px;">John A.</h5>
+			<div class="sched">
+				<p class="sched-type">Monday</p>
+				<p class="sched-time">0:00 PM - 0:00 PM</p>
+			</div>
+			<div class="sched">
+				<p class="sched-type">Wednesday</p>
 				<p class="sched-time">0:00 PM - 0:00 PM</p>
 			</div>
 			</div>
@@ -644,13 +692,90 @@
 	<!---------------- SUPPORT ------------------------------------------------------------>
 
 		<div id="support" class="page">
+			<div class="support-container">
+				<div class="support-groups">
+
+					<div class="support-card" onclick="showPage('haven')">
+					<img src="photos/pic_placeholder.png" alt="Group">
+					<div class="support-info">
+						<h4>HAVEN Support Group</h4>
+						<span>78 Members</span>
+					</div>
+					</div>
+
+					<div class="support-card" onclick="showPage('yakap')">
+					<img src="photos/pic_placeholder.png" alt="Group">
+					<div class="support-info">
+						<h4>YAKAP Support Group</h4>
+						<span>78 Members</span>
+					</div>
+					</div>
+
+					<div class="support-card" onclick="showPage('rise')">
+					<img src="photos/pic_placeholder.png" alt="Group">
+					<div class="support-info">
+						<h4>RISE Support Group</h4>
+						<span>78 Members</span>
+					</div>
+					</div>
+				</div>
+
+				<div class="add-btn">
+					<span class="plus">+</span>
+				</div>
+			</div>
+		</div>
+
+	<!---------------- SUPPORT GROUP | HAVEN ------------------------------------------------------------>
+		<div id="haven" class="page">
 			<div class="row">
 				<div class="left">
-					<h3>Lorem Ipsum</h3>
+					<h3>Info</h3>
+				<div class="info-section">
+
+					<!-- Profile + Cover side by side -->
+					<div class="info-row-group">
+
+					<!-- Profile Picture -->
+					<div class="info-block">
+						<div class="info-row">
+						<span class="span-1">Profile Picture</span>
+						<a href="#" class="edit-link edit-1">Edit</a>
+						</div>
+						<div class="info-images">
+						<img src="photos/pic_placeholder.png" alt="Profile Picture" style="border-radius:50%;">
+						</div>
+					</div>
+
+					<!-- Cover Photo -->
+					<div class="info-block">
+						<div class="info-row">
+						<span class="span-2">Cover Photo</span>
+						<a href="#" class="edit-link edit-2">Edit</a>
+						</div>
+						<div class="info-images">
+						<img src="photos/rectangle_placeholder.png" alt="Cover Photo">
+						</div>
+					</div>
+					</div>
+
+					<!-- Description -->
+					<div class="info-row">
+					<span class="span-3">Description</span>
+					<a href="#" class="edit-link edit-3">Edit</a>
+					</div>
+					<div class="info-description">
+					<strong>Lorem Ipsum</strong><br><br>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+					Vivamus tincidunt, nunc nec faucibus fermentum, lorem mauris 
+					placerat justo, a malesuada sapien sapien sit amet neque.
+					</div>
+
+				</div>
 				</div>
 				<div class="right">
 					<div class="card">
-						<h3>Lorem Ipsum</h3>
+						<h3>Group Chat</h3>
 						<table class="user">
 							<tbody>
 								<tr>
@@ -659,14 +784,21 @@
 									</td>
 									<td id="name">
 										Lorem Ipsum<br>
-										<span>Lorem Ipsum</span>
+									</td>
+								</tr>
+								<tr>
+									<td class="table_user">
+										<img src="photos/pic_placeholder.png">
+									</td>
+									<td id="name">
+										Lorem Ipsum<br>
 									</td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
 					<div class="card">
-						<h3>Lorem Ipsum</h3>
+						<h3>Members</h3>
 						<table class="user">
 							<tbody>
 								<tr>
@@ -675,7 +807,38 @@
 									</td>
 									<td id="name">
 										Lorem Ipsum<br>
-										<span>Lorem Ipsum</span>
+									</td>
+								</tr>
+								<tr>
+									<td class="table_user">
+										<img src="photos/pic_placeholder.png">
+									</td>
+									<td id="name">
+										Lorem Ipsum<br>
+									</td>
+								</tr>
+								<tr>
+									<td class="table_user">
+										<img src="photos/pic_placeholder.png">
+									</td>
+									<td id="name">
+										Lorem Ipsum<br>
+									</td>
+								</tr>
+								<tr>
+									<td class="table_user">
+										<img src="photos/pic_placeholder.png">
+									</td>
+									<td id="name">
+										Lorem Ipsum<br>
+									</td>
+								</tr>
+								<tr>
+									<td class="table_user">
+										<img src="photos/pic_placeholder.png">
+									</td>
+									<td id="name">
+										Lorem Ipsum<br>
 									</td>
 								</tr>
 							</tbody>
@@ -684,9 +847,250 @@
 				</div>
 			</div>
 		</div>
-	<!---------------- PEER SESSION ------------------------------------------------------------>
 
+	<!---------------- SUPPORT GROUP | YAKAP ------------------------------------------------------------>
+		<div id="yakap" class="page">
+			<div class="row">
+				<div class="left">
+					<h3>Info</h3>
+				<div class="info-section">
 
+					<!-- Profile + Cover side by side -->
+					<div class="info-row-group">
+
+					<!-- Profile Picture -->
+					<div class="info-block">
+						<div class="info-row">
+						<span class="span-1">Profile Picture</span>
+						<a href="#" class="edit-link edit-1">Edit</a>
+						</div>
+						<div class="info-images">
+						<img src="photos/pic_placeholder.png" alt="Profile Picture" style="border-radius:50%;">
+						</div>
+					</div>
+
+					<!-- Cover Photo -->
+					<div class="info-block">
+						<div class="info-row">
+						<span class="span-2">Cover Photo</span>
+						<a href="#" class="edit-link edit-2">Edit</a>
+						</div>
+						<div class="info-images">
+						<img src="photos/rectangle_placeholder.png" alt="Cover Photo">
+						</div>
+					</div>
+					</div>
+
+					<!-- Description -->
+					<div class="info-row">
+					<span class="span-3">Description</span>
+					<a href="#" class="edit-link edit-3">Edit</a>
+					</div>
+					<div class="info-description">
+					<strong>Lorem Ipsum</strong><br><br>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+					Vivamus tincidunt, nunc nec faucibus fermentum, lorem mauris 
+					placerat justo, a malesuada sapien sapien sit amet neque.
+					</div>
+
+				</div>
+				</div>
+				<div class="right">
+					<div class="card">
+						<h3>Group Chat</h3>
+						<table class="user">
+							<tbody>
+								<tr>
+									<td class="table_user">
+										<img src="photos/pic_placeholder.png">
+									</td>
+									<td id="name">
+										Lorem Ipsum<br>
+									</td>
+								</tr>
+								<tr>
+									<td class="table_user">
+										<img src="photos/pic_placeholder.png">
+									</td>
+									<td id="name">
+										Lorem Ipsum<br>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="card">
+						<h3>Members</h3>
+						<table class="user">
+							<tbody>
+								<tr>
+									<td class="table_user">
+										<img src="photos/pic_placeholder.png">
+									</td>
+									<td id="name">
+										Lorem Ipsum<br>
+									</td>
+								</tr>
+								<tr>
+									<td class="table_user">
+										<img src="photos/pic_placeholder.png">
+									</td>
+									<td id="name">
+										Lorem Ipsum<br>
+									</td>
+								</tr>
+								<tr>
+									<td class="table_user">
+										<img src="photos/pic_placeholder.png">
+									</td>
+									<td id="name">
+										Lorem Ipsum<br>
+									</td>
+								</tr>
+								<tr>
+									<td class="table_user">
+										<img src="photos/pic_placeholder.png">
+									</td>
+									<td id="name">
+										Lorem Ipsum<br>
+									</td>
+								</tr>
+								<tr>
+									<td class="table_user">
+										<img src="photos/pic_placeholder.png">
+									</td>
+									<td id="name">
+										Lorem Ipsum<br>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	<!---------------- SUPPORT GROUP | RISE------------------------------------------------------------>
+		<div id="rise" class="page">
+			<div class="row">
+				<div class="left">
+					<h3>Info</h3>
+				<div class="info-section">
+
+					<!-- Profile + Cover side by side -->
+					<div class="info-row-group">
+
+					<!-- Profile Picture -->
+					<div class="info-block">
+						<div class="info-row">
+						<span class="span-1">Profile Picture</span>
+						<a href="#" class="edit-link edit-1">Edit</a>
+						</div>
+						<div class="info-images">
+						<img src="photos/pic_placeholder.png" alt="Profile Picture" style="border-radius:50%;">
+						</div>
+					</div>
+
+					<!-- Cover Photo -->
+					<div class="info-block">
+						<div class="info-row">
+						<span class="span-2">Cover Photo</span>
+						<a href="#" class="edit-link edit-2">Edit</a>
+						</div>
+						<div class="info-images">
+						<img src="photos/rectangle_placeholder.png" alt="Cover Photo">
+						</div>
+					</div>
+					</div>
+
+					<!-- Description -->
+					<div class="info-row">
+					<span class="span-3">Description</span>
+					<a href="#" class="edit-link edit-3">Edit</a>
+					</div>
+					<div class="info-description">
+					<strong>Lorem Ipsum</strong><br><br>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+					Vivamus tincidunt, nunc nec faucibus fermentum, lorem mauris 
+					placerat justo, a malesuada sapien sapien sit amet neque.
+					</div>
+
+				</div>
+				</div>
+				<div class="right">
+					<div class="card">
+						<h3>Group Chat</h3>
+						<table class="user">
+							<tbody>
+								<tr>
+									<td class="table_user">
+										<img src="photos/pic_placeholder.png">
+									</td>
+									<td id="name">
+										Lorem Ipsum<br>
+									</td>
+								</tr>
+								<tr>
+									<td class="table_user">
+										<img src="photos/pic_placeholder.png">
+									</td>
+									<td id="name">
+										Lorem Ipsum<br>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="card">
+						<h3>Members</h3>
+						<table class="user">
+							<tbody>
+								<tr>
+									<td class="table_user">
+										<img src="photos/pic_placeholder.png">
+									</td>
+									<td id="name">
+										Lorem Ipsum<br>
+									</td>
+								</tr>
+								<tr>
+									<td class="table_user">
+										<img src="photos/pic_placeholder.png">
+									</td>
+									<td id="name">
+										Lorem Ipsum<br>
+									</td>
+								</tr>
+								<tr>
+									<td class="table_user">
+										<img src="photos/pic_placeholder.png">
+									</td>
+									<td id="name">
+										Lorem Ipsum<br>
+									</td>
+								</tr>
+								<tr>
+									<td class="table_user">
+										<img src="photos/pic_placeholder.png">
+									</td>
+									<td id="name">
+										Lorem Ipsum<br>
+									</td>
+								</tr>
+								<tr>
+									<td class="table_user">
+										<img src="photos/pic_placeholder.png">
+									</td>
+									<td id="name">
+										Lorem Ipsum<br>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
 	<!---------------- ANNOUNCEMENT ------------------------------------------------------------>
 
 		<div id="announcement" class="page">
@@ -1353,99 +1757,131 @@
         		privacyModal.style.display = "none";
     		}
 		}
-		
+		//BREADCRUMB
+
 		function showPage(pageId, el) {
-			if (!pageId) return;
+		if (!pageId) return;
 
-			// Reset sidebar state
-			document.querySelectorAll(".sidebar a").forEach(a => {
-				a.classList.remove("active");
-				let img = a.querySelector("img.icon");
-				if (img) {
-					img.src = img.src.replace("ic_sba_", "ic_sb_");
-				}
-			});
-
-			// ✅ Define subpages
-			const taskSubpages = ["technical", "editing", "account", "removal", "chat-history", "update", "other"];
-			const userSubpages = ["peer-support-session"]; // add more later if needed
-
-			// --- Highlight logic ---
-			if (taskSubpages.includes(pageId)) {
-				// Always highlight the Tasks menu item
-				const tasksLink = document.querySelector(".sidebar a[data-page='tasks']");
-				if (tasksLink) {
-					tasksLink.classList.add("active");
-					let activeImg = tasksLink.querySelector("img.icon");
-					if (activeImg) {
-						activeImg.src = activeImg.src.replace("ic_sb_", "ic_sba_");
-					}
-				}
-			} else if (userSubpages.includes(pageId)) {
-				// Always highlight the Users menu item
-				const usersLink = document.querySelector(".sidebar a[data-page='users']");
-				if (usersLink) {
-					usersLink.classList.add("active");
-					let activeImg = usersLink.querySelector("img.icon");
-					if (activeImg) {
-						activeImg.src = activeImg.src.replace("ic_sb_", "ic_sba_");
-					}
-				}
-			} else if (el) {
-				// Normal case → highlight the clicked one
-				el.classList.add("active");
-				let activeImg = el.querySelector("img.icon");
-				if (activeImg) {
-					activeImg.src = activeImg.src.replace("ic_sb_", "ic_sba_");
-				}
+		// Reset sidebar state
+		document.querySelectorAll(".sidebar a").forEach(a => {
+			a.classList.remove("active");
+			let img = a.querySelector("img.icon");
+			if (img) {
+			img.src = img.src.replace("ic_sba_", "ic_sb_");
 			}
+		});
 
-			// --- Show the right page ---
-			document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-			document.getElementById(pageId).classList.add("active");
+		// ✅ Define subpages
+		const taskSubpages = ["technical", "editing", "account", "removal", "chat-history", "update", "other"];
+		const userSubpages = ["peer-support-session", "peer-account-verification"]; // added here
+		const supportSubpages = ["haven", "yakap", "rise"]; // support subpages
 
-			// --- Breadcrumb / Topbar title ---
-			let title = "";
-			if (taskSubpages.includes(pageId)) {
-				title = `
-					<a href="#" onclick="showPage('tasks')" style="text-decoration:none; color:inherit;">
-						Tasks
-					</a>
-					<img src="icons/ic_arrow right.svg" 
-						style="width:14px; vertical-align:middle; margin:0 5px; cursor:pointer;" 
-						onclick="showPage('tasks')">
-					${formatTitle(pageId)}
-				`;
-			} else if (pageId === "tasks") {
-				title = "Tasks";
-			} else if (userSubpages.includes(pageId)) {
-				title = `
-					<a href="#" onclick="showPage('users')" style="text-decoration:none; color:inherit;">
-						Users
-					</a>
-					<img src="icons/ic_arrow right.svg" 
-						style="width:14px; vertical-align:middle; margin:0 5px; cursor:pointer;" 
-						onclick="showPage('users')">
-					${formatTitle(pageId)}
-				`;
-			} else if (pageId === "users") {
-				title = "Users";
-			} else {
-				title = formatTitle(pageId);
+		// --- Highlight logic ---
+		if (taskSubpages.includes(pageId)) {
+			const tasksLink = document.querySelector(".sidebar a[data-page='tasks']");
+			if (tasksLink) {
+			tasksLink.classList.add("active");
+			let activeImg = tasksLink.querySelector("img.icon");
+			if (activeImg) {
+				activeImg.src = activeImg.src.replace("ic_sb_", "ic_sba_");
 			}
+			}
+		} else if (userSubpages.includes(pageId)) {
+			const usersLink = document.querySelector(".sidebar a[data-page='users']");
+			if (usersLink) {
+			usersLink.classList.add("active");
+			let activeImg = usersLink.querySelector("img.icon");
+			if (activeImg) {
+				activeImg.src = activeImg.src.replace("ic_sb_", "ic_sba_");
+			}
+			}
+		} else if (supportSubpages.includes(pageId)) {
+			const supportLink = document.querySelector(".sidebar a[data-page='support']");
+			if (supportLink) {
+			supportLink.classList.add("active");
+			let activeImg = supportLink.querySelector("img.icon");
+			if (activeImg) {
+				activeImg.src = activeImg.src.replace("ic_sb_", "ic_sba_");
+			}
+			}
+		} else if (el) {
+			el.classList.add("active");
+			let activeImg = el.querySelector("img.icon");
+			if (activeImg) {
+			activeImg.src = activeImg.src.replace("ic_sb_", "ic_sba_");
+			}
+		}
 
-			document.getElementById("pageTitle").innerHTML = title;
+		// --- Show the right page ---
+		document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+		document.getElementById(pageId).classList.add("active");
+
+		// --- Breadcrumb / Topbar title ---
+		let title = "";
+		if (taskSubpages.includes(pageId)) {
+			title = `
+			<a href="#" onclick="showPage('tasks')" style="text-decoration:none; color:inherit;">
+				Tasks
+			</a>
+			<img src="icons/ic_arrow right.svg" 
+				style="width:14px; vertical-align:middle; margin:0 5px; cursor:pointer;" 
+				onclick="showPage('tasks')">
+			${formatTitle(pageId)}
+			`;
+		} else if (pageId === "tasks") {
+			title = "Tasks";
+		} else if (userSubpages.includes(pageId)) {
+			title = `
+			<a href="#" onclick="showPage('users')" style="text-decoration:none; color:inherit;">
+				Users
+			</a>
+			<img src="icons/ic_arrow right.svg" 
+				style="width:14px; vertical-align:middle; margin:0 5px; cursor:pointer;" 
+				onclick="showPage('users')">
+			${formatTitle(pageId)}
+			`;
+		} else if (pageId === "users") {
+			title = "Users";
+		} else if (supportSubpages.includes(pageId)) {
+			title = `
+			<a href="#" onclick="showPage('support')" style="text-decoration:none; color:inherit;">
+				Support
+			</a>
+			<img src="icons/ic_arrow right.svg" 
+				style="width:14px; vertical-align:middle; margin:0 5px; cursor:pointer;" 
+				onclick="showPage('support')">
+			${formatSupportTitle(pageId)}
+			`;
+		} else if (pageId === "support") {
+			title = "Support";
+		} else {
+			title = formatTitle(pageId);
+		}
+
+		document.getElementById("pageTitle").innerHTML = title;
 		}
 
 		function formatTitle(str) {
+		switch (str) {
+			case "peer-account-verification": return "Peer Account Verification"; // 🆕 explicit title
+			case "peer-support-session": return "Peer Support Session";
+			default:
 			return str
 				.split('-')
 				.map(word => word.charAt(0).toUpperCase() + word.slice(1))
 				.join(' ');
 		}
+		}
 
-
-		
+		// 🆕 Custom titles for support groups
+		function formatSupportTitle(id) {
+		switch (id) {
+			case "haven": return "HAVEN Support Group";
+			case "yakap": return "YAKAP Support Group";
+			case "rise": return "RISE Support Group";
+			default: return formatTitle(id);
+		}
+		}
 	</script>
 </body>
 </html>
