@@ -173,7 +173,7 @@
 			<div class="task-grid">
 				<!-- Technical -->
 				<div class="task-card" onclick="showPage('technical')">
-				<div class="task-icon"><img src="icons/tech.svg" alt=""></div>
+				<div class="task-icon"><img src="photos/TECHNICAL.png" alt=""></div>
 				<div class="task-info">
 					<h4>Technical</h4>
 					<p>5 tasks</p>
@@ -183,7 +183,7 @@
 
 				<!-- Editing -->
 				<div class="task-card" onclick="showPage('editing')">
-				<div class="task-icon"><img src="icons/edit.svg" alt=""></div>
+				<div class="task-icon"><img src="photos/EDITING.png" alt=""></div>
 				<div class="task-info">
 					<h4>Editing</h4>
 					<p>3 tasks</p>
@@ -192,7 +192,7 @@
 
 				<!-- Account -->
 				<div class="task-card" onclick="showPage('account')">
-				<div class="task-icon"><img src="icons/user.svg" alt=""></div>
+				<div class="task-icon"><img src="photos/ACCOUNT.png" alt=""></div>
 				<div class="task-info">
 					<h4>Account</h4>
 					<p>1 task</p>
@@ -201,7 +201,7 @@
 
 				<!-- Removal -->
 				<div class="task-card" onclick="showPage('removal')">
-				<div class="task-icon"><img src="icons/trash.svg" alt=""></div>
+				<div class="task-icon"><img src="photos/REMOVAL.png" alt=""></div>
 				<div class="task-info">
 					<h4>Removal</h4>
 					<p>2 tasks</p>
@@ -210,7 +210,7 @@
 
 				<!-- Chat History -->
 				<div class="task-card" onclick="showPage('chat-history')">
-				<div class="task-icon"><img src="icons/chat.svg" alt=""></div>
+				<div class="task-icon"><img src="photos/CHAT HISTORY.png" alt=""></div>
 				<div class="task-info">
 					<h4>Chat History</h4>
 					<p>1 task</p>
@@ -219,7 +219,7 @@
 
 				<!-- Update -->
 				<div class="task-card" onclick="showPage('update')">
-				<div class="task-icon"><img src="icons/update.svg" alt=""></div>
+				<div class="task-icon"><img src="photos/UPDATE.png" alt=""></div>
 				<div class="task-info">
 					<h4>Update</h4>
 					<p>0 task</p>
@@ -228,7 +228,7 @@
 
 				<!-- Other -->
 				<div class="task-card" onclick="showPage('other')">
-				<div class="task-icon"><img src="icons/file.svg" alt=""></div>
+				<div class="task-icon"><img src="photos/OTHER.png" alt=""></div>
 				<div class="task-info">
 					<h4>Other</h4>
 					<p>0 task</p>
@@ -347,26 +347,644 @@
 
 		<!---------------- EDITING PAGE | TASKS ------------------------------------------------------------>
 		<div id="editing" class="page" style="display:none;">
+			<!-- To Do Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>To Do</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					<button class="btn-start">Start Task</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					<button class="btn-start">Start Task</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					<button class="btn-start">Start Task</button>
+					</div>
+				</div>
+				</div>
+			</div>
+
+			<!-- Pending Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>Pending</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					<button class="btn-done">Done</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					<button class="btn-pending">Pending</button>
+					</div>
+				</div>
+				</div>
+			</div>
+
+			<!-- Complete Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>Complete</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				</div>
+			</div>
 		</div>
 
 		<!---------------- ACCOUNT PAGE | TASKS ------------------------------------------------------------>
 		<div id="account" class="page" style="display:none;">
+			<!-- To Do Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>To Do</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					<button class="btn-start">Start Task</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					<button class="btn-start">Start Task</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					<button class="btn-start">Start Task</button>
+					</div>
+				</div>
+				</div>
+			</div>
+
+			<!-- Pending Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>Pending</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					<button class="btn-done">Done</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					<button class="btn-pending">Pending</button>
+					</div>
+				</div>
+				</div>
+			</div>
+
+			<!-- Complete Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>Complete</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				</div>
+			</div>
 		</div>
 
 		<!---------------- REMOVAL PAGE | TASKS ------------------------------------------------------------>
 		<div id="removal" class="page" style="display:none;">
+						<!-- To Do Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>To Do</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					<button class="btn-start">Start Task</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					<button class="btn-start">Start Task</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					<button class="btn-start">Start Task</button>
+					</div>
+				</div>
+				</div>
+			</div>
+
+			<!-- Pending Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>Pending</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					<button class="btn-done">Done</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					<button class="btn-pending">Pending</button>
+					</div>
+				</div>
+				</div>
+			</div>
+
+			<!-- Complete Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>Complete</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				</div>
+			</div>
 		</div>
 
 		<!---------------- CHAT HISTORY PAGE | TASKS ------------------------------------------------------------>
 		<div id="chat-history" class="page" style="display:none;">
+						<!-- To Do Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>To Do</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					<button class="btn-start">Start Task</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					<button class="btn-start">Start Task</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					<button class="btn-start">Start Task</button>
+					</div>
+				</div>
+				</div>
+			</div>
+
+			<!-- Pending Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>Pending</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					<button class="btn-done">Done</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					<button class="btn-pending">Pending</button>
+					</div>
+				</div>
+				</div>
+			</div>
+
+			<!-- Complete Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>Complete</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				</div>
+			</div>
 		</div>
 
 		<!---------------- UPDATE PAGE | TASKS ------------------------------------------------------------>
 		<div id="update" class="page" style="display:none;">
+						<!-- To Do Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>To Do</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					<button class="btn-start">Start Task</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					<button class="btn-start">Start Task</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					<button class="btn-start">Start Task</button>
+					</div>
+				</div>
+				</div>
+			</div>
+
+			<!-- Pending Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>Pending</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					<button class="btn-done">Done</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					<button class="btn-pending">Pending</button>
+					</div>
+				</div>
+				</div>
+			</div>
+
+			<!-- Complete Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>Complete</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				</div>
+			</div>
 		</div>
 
 		<!---------------- OTHER PAGE | TASKS ------------------------------------------------------------>
 		<div id="other" class="page" style="display:none;">
+						<!-- To Do Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>To Do</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					<button class="btn-start">Start Task</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					<button class="btn-start">Start Task</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					<button class="btn-start">Start Task</button>
+					</div>
+				</div>
+				</div>
+			</div>
+
+			<!-- Pending Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>Pending</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					<button class="btn-done">Done</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					<button class="btn-pending">Pending</button>
+					</div>
+				</div>
+				</div>
+			</div>
+
+			<!-- Complete Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>Complete</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				</div>
+			</div>
 		</div>
 
 		<!---------------- USER MANAGEMENT ------------------------------------------------------------>
