@@ -14,6 +14,11 @@
   src: url("fonts/Oswald-Regular.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "Oswald";
+  src: url("fonts/Oswald-Bold.ttf") format("truetype");
+  font-weight: bold;
+}
 
 body {
   margin: 0;
@@ -87,8 +92,8 @@ body {
 }
 
 .left h1 {
+  font-family: "Oswald", serif;
   font-weight: bolder;
-  font-family: "BoldOswald", sans-serif;
   font-size: 55px;
   line-height: 1.11;
   letter-spacing: -2.5px;
