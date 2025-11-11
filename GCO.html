@@ -15,13 +15,13 @@
 		<a href="#" class="active" onclick="showPage('overview', this)">
 		<img src="icons/ic_sba_overview.svg" class="icon"><span>Overview</span></a>
 
-		<a href="#" onclick="showPage('counseling', this)"><img src="icons/ic_sb_counseling.svg" class="icon"><span>Guidance Counseling</span></a>
+		<a href="#" onclick="showPage('guidance-counseling', this)"><img src="icons/ic_sb_counseling.svg" class="icon"><span>Guidance Counseling</span></a>
 
 		<a href="#" onclick="showPage('users', this)"><img src="icons/ic_sb_user.svg" class="icon"><span>Users</span></a>
 
 		<a href="#" onclick="showPage('peer Facilitators', this)"><img src="icons/ic_sb_support.svg" class="icon"><span>Peer Facilitators</span></a>
 
-		<a href="#" onclick="showPage('support', this)"><img src="icons/ic_sb_chat.svg" class="icon"><span>Support Group</span></a>
+		<a href="#" onclick="showPage('support-group', this)"><img src="icons/ic_sb_chat.svg" class="icon"><span>Support Group</span></a>
 
 		<a href="#" onclick="showPage('announcement', this)"><img src="icons/ic_sb_announcement.svg" class="icon"><span>Announcement</span></a>
 
@@ -183,7 +183,7 @@
 
 	<!---------------- COUNSELING ------------------------------------------------------------>
 
-		<div id="counseling" class="page">
+		<div id="guidance-counseling" class="page">
 			<div class="row">
 				<div class="left-half">
 					<button class="btn-white">Today</button>
@@ -191,7 +191,7 @@
 					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
 				</div>
 				<div class="right-half">
-					<button class="btn-blue">Edit Request Form</button>
+					<button class="btn-reqForm" onclick="showPage('edit-request-form')">Edit Request Form</button>
 				</div>
 			</div>
 			<div class="row">
@@ -326,6 +326,22 @@
 					<div class="sched">
 						<p class="sched-type">Call</p>
 						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	<!---------------- COUNSELING REQUEST FORM ------------------------------------------------------------>	
+
+		<div id="edit-request-form" class="page">
+			<div class="row">
+				<div class="card">
+					<h3>Lorem Ipsum</h3>
+				</div>
+				<div class="card2">
+					<h3>Lorem Ipsum</h3>
+					<div class="blue_bg">
+						<div class="card3">test</div>
 					</div>
 				</div>
 			</div>
@@ -658,7 +674,7 @@
 
 	<!---------------- SUPPORT ------------------------------------------------------------>
 
-		<div id="support" class="page">
+		<div id="support-group" class="page">
 			<div class="support-container">
 				<div class="support-groups">
 

@@ -358,7 +358,7 @@ td.down::after {
 	box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-.btn-blue{
+.btn-reqForm{
 	height: 30px;
 	background: #062b6b;
 	border: none;
@@ -369,7 +369,7 @@ td.down::after {
 	box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-.btn-blue:hover {
+.btn-reqForm:hover {
   background: #0b3c91;        /* lighter/darker blue on hover */
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
