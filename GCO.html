@@ -19,7 +19,7 @@
 
 		<a href="#" onclick="showPage('users', this)"><img src="icons/ic_sb_user.svg" class="icon"><span>Users</span></a>
 
-		<a href="#" onclick="showPage('peers', this)"><img src="icons/ic_sb_support.svg" class="icon"><span>Peer Facilitators</span></a>
+		<a href="#" onclick="showPage('peer Facilitators', this)"><img src="icons/ic_sb_support.svg" class="icon"><span>Peer Facilitators</span></a>
 
 		<a href="#" onclick="showPage('support', this)"><img src="icons/ic_sb_chat.svg" class="icon"><span>Support Group</span></a>
 
@@ -37,11 +37,19 @@
 	<div class="main">
 	<div class="topbar">
 		<span id="pageTitle">Overview</span>
-		<div class="dropdown" onclick="toggleDropdown()">
-			<span>GCO Coordinator</span>
-			<img src="icons/ic_dropdown.svg" style="height: 10px; margin-left: 3px;"></a>
-			<div class="dropdown-menu">
-				<a href="GCO Login.html">Sign Out</a>
+		<div class="topbar-right">
+			<div class="notification">
+				<img src="icons/ic_notif.svg" class="notif" alt="notification icon">
+			</div>
+			<div class="GCO">
+				<img src="icons/ic_GCO.svg" class="GCO_icon" alt="GCO icon"> 
+			</div>
+			<div class="dropdown" onclick="toggleDropdown()">
+				<span>GCO Coordinator</span>
+				<img src="icons/ic_dropdown.svg" style="height: 10px; margin-left: 3px;">
+				<div class="dropdown-menu">
+					<a href="GCO Login.html">Sign Out</a>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -332,17 +340,6 @@
 						<img src="icons/ic_search.svg">
 						<input type="text" placeholder="Search...">
 					</div>
-					<select name="userdrop" class="userdrop">
-						<option value="All">All</option>
-						<option value="Peers">Peers</option>
-						<option value="Users">Users</option>
-					</select>
-					<div class="peer-session">
-					<button class="btn-peersession" onclick="showPage('peer-support-session')">Peer Support Session</button>
-				    </div>
-					<div class="peer-verification">
-					<button class="btn-peerverify" onclick="showPage('peer-account-verification')">Peer Account Verification</button>
-				    </div>
 				</div>
 			</div>
 			<div class="row">
@@ -353,8 +350,8 @@
 							<tr>
 								<th id="left">User</th>
 								<th> </th>
+								<th> </th>
 								<th>Name Displayed</th>
-								<th>Type</th>
 								<th>Last Active</th>
 								<th>Date Created</th>
 							</tr>
@@ -368,10 +365,8 @@
 									Doe, John A.<br>
 									<span>email@students.nu-fairview.edu.ph</span>
 								</td>
+								<td></td>
 								<td>John</td>
-								<td>
-									<div class="cat_peer">PEER</div>
-								</td>
 								<td>Lorem Ipsum</td>
 								<td>Lorem Ipsum</td>
 							</tr>
@@ -383,10 +378,8 @@
 									Doe, John A.<br>
 									<span>email@students.nu-fairview.edu.ph</span>
 								</td>
+								<td></td>
 								<td>John</td>
-								<td>
-									<div class="cat_peer">PEER</div>
-								</td>
 								<td>Lorem Ipsum</td>
 								<td>Lorem Ipsum</td>
 							</tr>
@@ -398,10 +391,8 @@
 									Doe, John A.<br>
 									<span>email@students.nu-fairview.edu.ph</span>
 								</td>
+								<td></td>
 								<td>John</td>
-								<td>
-									<div class="cat_peer">PEER</div>
-								</td>
 								<td>Lorem Ipsum</td>
 								<td>Lorem Ipsum</td>
 							</tr>
@@ -413,10 +404,8 @@
 									Doe, John A.<br>
 									<span>email@students.nu-fairview.edu.ph</span>
 								</td>
+								<td></td>
 								<td>John</td>
-								<td>
-									<div class="cat_peer">PEER</div>
-								</td>
 								<td>Lorem Ipsum</td>
 								<td>Lorem Ipsum</td>
 							</tr>
@@ -428,10 +417,8 @@
 									Doe, John A.<br>
 									<span>email@students.nu-fairview.edu.ph</span>
 								</td>
+								<td></td>
 								<td>John</td>
-								<td>
-									<div class="cat_peer">PEER</div>
-								</td>
 								<td>Lorem Ipsum</td>
 								<td>Lorem Ipsum</td>
 							</tr>
@@ -443,10 +430,8 @@
 									Doe, Jane A.<br>
 									<span>email@students.nu-fairview.edu.ph</span>
 								</td>
+								<td></td>
 								<td>Jae</td>
-								<td>
-									<div class="cat_user">USER</div>
-								</td>
 								<td>Lorem Ipsum</td>
 								<td>Lorem Ipsum</td>
 							</tr>
@@ -458,10 +443,8 @@
 									Doe, Jane A.<br>
 									<span>email@students.nu-fairview.edu.ph</span>
 								</td>
+								<td></td>
 								<td>Jae</td>
-								<td>
-									<div class="cat_user">USER</div>
-								</td>
 								<td>Lorem Ipsum</td>
 								<td>Lorem Ipsum</td>
 							</tr>
@@ -473,10 +456,8 @@
 									Doe, Jane A.<br>
 									<span>email@students.nu-fairview.edu.ph</span>
 								</td>
+								<td></td>
 								<td>Jae</td>
-								<td>
-									<div class="cat_user">USER</div>
-								</td>
 								<td>Lorem Ipsum</td>
 								<td>Lorem Ipsum</td>
 							</tr>
@@ -488,10 +469,8 @@
 									Doe, Jane A.<br>
 									<span>email@students.nu-fairview.edu.ph</span>
 								</td>
+								<td></td>
 								<td>Jae</td>
-								<td>
-									<div class="cat_user">USER</div>
-								</td>
 								<td>Lorem Ipsum</td>
 								<td>Lorem Ipsum</td>
 							</tr>
@@ -503,10 +482,8 @@
 									Doe, Jane A.<br>
 									<span>email@students.nu-fairview.edu.ph</span>
 								</td>
+								<td></td>
 								<td>Jae</td>
-								<td>
-									<div class="cat_user">USER</div>
-								</td>
 								<td>Lorem Ipsum</td>
 								<td>Lorem Ipsum</td>
 							</tr>
@@ -518,23 +495,28 @@
 
 
 
-
-<!---------------- ACCOUNT VERIFICATION------------------------------------------------------------>
-			<div id="peer-account-verification" class="page">
+	<!---------------- PEER FACILITATORS ------------------------------------------------------------>
+		<div id="peer Facilitators" class="page">
 			<div class="row">
+				<div class="right-half" style="width: 100%;">
+					<div class="searchbar">
+						<img src="icons/ic_search.svg">
+						<input type="text" placeholder="Search...">
+					</div>
+				</div>
 			</div>
 			<div class="row">
 				<div class="card">
-					<h3>Peer Account Verification</h3>
+					<h3>Peer List</h3>
 					<table class="user">
 						<thead>
 							<tr>
 								<th id="left">User</th>
 								<th> </th>
 								<th> </th>
-								<th>Type</th>
+								<th>Peer Interactions</th>
+								<th>Last Active</th>
 								<th>Date Created</th>
-								<th>Verify</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -546,148 +528,133 @@
 									Doe, John A.<br>
 									<span>email@students.nu-fairview.edu.ph</span>
 								</td>
-								<td>
-
+								<td></td>
+								<td>0</td>
+								<td>Lorem Ipsum</td>
+								<td>Lorem Ipsum</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
 								</td>
-								<td>
-									<div class="cat_peer">PEER</div>
+								<td id="name">
+									Doe, John A.<br>
+									<span>email@students.nu-fairview.edu.ph</span>
 								</td>
-								<td>Lorem Ipsum</td> 
-								<td class="verify-actions">
-									<button class="btn-accept">Accept</button>
-									<button class="btn-decline">Decline</button>
+								<td></td>
+								<td>0</td>
+								<td>Lorem Ipsum</td>
+								<td>Lorem Ipsum</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
 								</td>
+								<td id="name">
+									Doe, John A.<br>
+									<span>email@students.nu-fairview.edu.ph</span>
+								</td>
+								<td></td>
+								<td>0</td>
+								<td>Lorem Ipsum</td>
+								<td>Lorem Ipsum</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Doe, John A.<br>
+									<span>email@students.nu-fairview.edu.ph</span>
+								</td>
+								<td></td>
+								<td>0</td>
+								<td>Lorem Ipsum</td>
+								<td>Lorem Ipsum</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Doe, John A.<br>
+									<span>email@students.nu-fairview.edu.ph</span>
+								</td>
+								<td></td>
+								<td>0</td>
+								<td>Lorem Ipsum</td>
+								<td>Lorem Ipsum</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Doe, Jane A.<br>
+									<span>email@students.nu-fairview.edu.ph</span>
+								</td>
+								<td></td>
+								<td>0</td>
+								<td>Lorem Ipsum</td>
+								<td>Lorem Ipsum</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Doe, Jane A.<br>
+									<span>email@students.nu-fairview.edu.ph</span>
+								</td>
+								<td></td>
+								<td>0</td>
+								<td>Lorem Ipsum</td>
+								<td>Lorem Ipsum</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Doe, Jane A.<br>
+									<span>email@students.nu-fairview.edu.ph</span>
+								</td>
+								<td></td>
+								<td>0</td>
+								<td>Lorem Ipsum</td>
+								<td>Lorem Ipsum</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Doe, Jane A.<br>
+									<span>email@students.nu-fairview.edu.ph</span>
+								</td>
+								<td></td>
+								<td>0</td>
+								<td>Lorem Ipsum</td>
+								<td>Lorem Ipsum</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Doe, Jane A.<br>
+									<span>email@students.nu-fairview.edu.ph</span>
+								</td>
+								<td></td>
+								<td>0</td>
+								<td>Lorem Ipsum</td>
+								<td>Lorem Ipsum</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
-
-	<!---------------- PEER SUPPORT SESSION ------------------------------------------------------------>
-		<div id="peer-support-session" class="page">
-			<div class="row">
-				<div class="left-half">
-				<button class="btn-white">Today</button>
-				<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
-				<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
-				</div>
-			</div>
-
-			<div class="row">
-			<div class="card">
-			<h3>Sept 22 - Video Call</h3> 
-				<div class="session-mode-left">
-					<img src="photos/pic_placeholder.png" alt="Avatar"> 
-					<div class="session-details-left">
-					<div class="time">0:00 PM - 0:00 PM</div>
-					<div class="name"><strong>Peer</strong> | John Doe</div>
-					<div class="name"><strong>Student</strong> | Jane</div>
-					<div class="info">School Related</div>
-					<div class="info">Lorem ipsum</div>
-					</div>
-				</div>
-				<div class="session-btn-left">
-					<button class="btn details">See Details</button>
-				</div>
-			</div>
-
-			<div class="card">
-			<h3>Sept 22 - In Person</h3> 
-				<div class="session-mode-mid">
-					<img src="photos/pic_placeholder.png" alt="Avatar"> 
-					<div class="session-details-mid">
-					<div class="time">0:00 PM - 0:00 PM</div>
-					<div class="name"><strong>Peer</strong> | John Doe</div>
-					<div class="name"><strong>Student</strong> | Jane</div>
-					<div class="info">School Related</div>
-					<div class="info">Lorem ipsum</div>
-					</div>
-				</div>
-				<div class="session-btn-mid">
-					<button class="btn details">See Details</button>
-				</div>
-			</div>
-
-			<div class="card">
-			<h3>Sept 22 - In Person</h3> 
-				<div class="session-mode-right">
-					<img src="photos/pic_placeholder.png" alt="Avatar"> 
-					<div class="session-details-right">
-					<div class="time">0:00 PM - 0:00 PM</div>
-					<div class="name"><strong>Peer</strong> | John Doe</div>
-					<div class="name"><strong>Student</strong> | Jane</div>
-					<div class="info">School Related</div>
-					<div class="info">Lorem ipsum</div>
-					</div>
-				</div>
-				<div class="session-btn-right">
-					<button class="btn details">See Details</button>
-				</div>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="left-half">
-			<button class="btn-white">Today</button>
-			<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
-			<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
-			</div>
-		</div>
-
-		<div class="row" id="schedule" style="gap: 15px;">
-			<div class="card">
-			<h4 class="sched-date">DOE</h4>
-			<h5 style="padding-left: 30px;">John A.</h5>
-			<div class="sched">
-				<p class="sched-type">Monday</p>
-				<p class="sched-time">0:00 PM - 0:00 PM</p>
-			</div>
-			<div class="sched">
-				<p class="sched-type">Wednesday</p>
-				<p class="sched-time">0:00 PM - 0:00 PM</p>
-			</div>
-			</div>
-
-			<div class="card">
-			<h4 class="sched-date">DOE</h4>
-			<h5 style="padding-left: 30px;">John A.</h5>
-			<div class="sched">
-				<p class="sched-type">Monday</p>
-				<p class="sched-time">0:00 PM - 0:00 PM</p>
-			</div>
-			<div class="sched">
-				<p class="sched-type">Wednesday</p>
-				<p class="sched-time">0:00 PM - 0:00 PM</p>
-			</div>
-			</div>
-			<div class="card">
-			<h4 class="sched-date">DOE</h4>
-			<h5 style="padding-left: 30px;">John A.</h5>
-			<div class="sched">
-				<p class="sched-type">Monday</p>
-				<p class="sched-time">0:00 PM - 0:00 PM</p>
-			</div>
-			<div class="sched">
-				<p class="sched-type">Wednesday</p>
-				<p class="sched-time">0:00 PM - 0:00 PM</p>
-			</div>
-			</div>
-			<div class="card">
-			<h4 class="sched-date">DOE</h4>
-			<h5 style="padding-left: 30px;">John A.</h5>
-			<div class="sched">
-				<p class="sched-type">Monday</p>
-				<p class="sched-time">0:00 PM - 0:00 PM</p>
-			</div>
-			<div class="sched">
-				<p class="sched-type">Wednesday</p>
-				<p class="sched-time">0:00 PM - 0:00 PM</p>
-			</div>
-			</div>
-		</div>
-	</div>
-
 
 	<!---------------- SUPPORT ------------------------------------------------------------>
 

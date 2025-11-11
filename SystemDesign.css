@@ -129,14 +129,48 @@ button {
 	position: relative;
 }
 
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 8px; 
+}
+
+.notification {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notif {
+    width: 28px;
+    height: 28x;
+    display: block;
+}
+
+.notification img {
+    transform: translateY(3px);
+}
+
+.GCO {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.GCO_icon {
+    width: 35px;
+    height: 35px;
+    display: block;
+}
 
 .dropdown {
 	position: relative;
-	display: inline-block;
+	display: flex;        
+	align-items: center;   
 	cursor: pointer;
 	color: black;
 	font-size: 15px;
-	font-family: "RegularFont", sans-serif;
+	font-family: "RegularFont", sans-serif;            
 }
 
 .dropdown-menu {
@@ -417,7 +451,6 @@ td.down::after {
 	padding: 0px 15px;
 	box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 	position: relative;
-    left: -15px;
 }
 
 .searchbar img {
@@ -477,60 +510,14 @@ select option:focus {
 	box-shadow: 0 0 4px rgba(8, 71, 178, 0.4);
 }
 
-.btn-peersession{
-	height: 30px;
-	background: #062b6b;
-	border: none;
-	border-radius: 5px;
-	font-family: "MediumFont", sans-serif;
-	color: white;
-	padding: 0px 25px;
-	box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  margin-right: 10px;
-}
-
-.btn-peersession:hover {
-  background: #0b3c91;        
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-
-.peersession {
-	display: flex;
-	justify-content: flex-end;
-	width: 50%;
-}
-
-.btn-peerverify{
-	height: 30px;
-	background: #062b6b;
-	border: none;
-	border-radius: 5px;
-	font-family: "MediumFont", sans-serif;
-	color: white;
-	padding: 0px 25px;
-	box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-.btn-peerverify:hover {
-  background: #0b3c91;        
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-
-.peerverification {
-	display: flex;
-	justify-content: flex-end;
-	width: 50%;
-}
-
-
 .table_user{
 	width: 60px;
 
 }
 
 .table_user img {
-    height: 45px; 
-    width: 45px; 
+  height: 45px; 
+  width: 45px; 
 	margin: 0px;
 	padding-left: 15px;
 }
@@ -826,7 +813,7 @@ select option:focus {
 /* -------------------------------------- ADDED BY SHAN -------------------------------------- */
 
 /* --------------------------------------COUNSELING 2 -------------------------------------- */
-/* --------------------------------------DONE -------------------------------------- */
+
 /*--------------- session-left ---------------*/
 .session-mode-left {
   display: flex;
@@ -1105,51 +1092,6 @@ select option:focus {
 .session-btn-right .btn.details:hover {
   background: #6b6a6a;
 }
-
-/* -------------------------------------- PEER ACCOUNT VERIFICATION 2 -------------------------------------- */
-.verify-actions {
-  display: flex;
-  flex-direction: column;  
-  gap: 6px;               
-  align-items: flex-start; 
-}
-
-.btn-accept,
-.btn-decline {
-  padding: 6px 14px;
-  border: none;
-  border-radius: 4px;
-  font-size: 0.85em;
-  cursor: pointer;
-  font-family: "MediumFont", sans-serif;
-  color: white;
-  width: 150px;         
-  transition: background 0.2s, box-shadow 0.2s;
-}
-
-.btn-accept {
-  background: #bdc1c4; 
-  color: #fff;
-  font-weight: bold;
-}
-.btn-accept:hover {
-  background: #9a9ea2; 
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-}
-
-.btn-decline {
-  background: #c3e1f4; 
-  color: #0847b2;
-  font-weight: bold;
-}
-.btn-decline:hover {
-  background: #91c4e6; 
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-}
-
-
-
-
 
 
 /* -------------------------------------- SUPPORT GROUP 2 -------------------------------------- */
