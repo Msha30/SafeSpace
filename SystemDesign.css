@@ -439,17 +439,7 @@ td.down::after {
 }
 
 /* -------------------------------------- USERS -------------------------------------- */
-.bar {
-  display: flex;
-  justify-content: space-between; /* distributes equal space between elements */
-  align-items: center;
-  gap: 20px; /* adds even spacing between all items */
-  width: 50%;
-}
-
 .searchbar {
-  display: flex;
-  align-items: center;
 	height: 30px;
 	width: 25%;
 	background: white;
@@ -459,11 +449,13 @@ td.down::after {
 	color: #6d6d6d;
 	padding: 0px 15px;
 	box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+	position: relative;
+    left: -15px;
 }
 
 .searchbar img {
-  height: 13px; 
-  width: 13px; 
+    height: 13px; 
+    width: 13px; 
 }
 
 .searchbar input{
@@ -500,10 +492,14 @@ select option:focus {
 	border: none;
 	border-radius: 5px;
 	font-family: "MediumFont", sans-serif;
-	color: #6d6d6d;
+	color: #000000;
+  font-weight: bold;
 	padding: 0px 25px;
 	box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  margin-left: auto;
+	margin-left: 15px;
+	padding-left: 15px;
+	position: relative;
+  left: -15px;
 }
 
 .userdrop:hover {
@@ -515,7 +511,7 @@ select option:focus {
 	box-shadow: 0 0 4px rgba(8, 71, 178, 0.4);
 }
 
-.btn-createNew{
+.btn-peersession{
 	height: 30px;
 	background: #062b6b;
 	border: none;
@@ -524,14 +520,15 @@ select option:focus {
 	color: white;
 	padding: 0px 25px;
 	box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  margin-right: 0px;
 }
 
-.btn-createNew:hover {
+.btn-peersession:hover {
   background: #0b3c91;        
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
-.new-user {
+.peersession {
 	display: flex;
 	justify-content: flex-end;
 	width: 50%;
@@ -1910,7 +1907,6 @@ small {
 
 /* --------------------------------------USER MANAGEMENT -------------------------------------- */
 
-/* -------THREE DOTS------------- */
 .dropdown {
     position: relative;
     display: inline-block;
@@ -1921,23 +1917,23 @@ small {
     border: none;
     font-weight: bold;
     color: #6d6d6d;
-    font-size: 30px;      /* bigger 3 dots */
+    font-size: 30px;      
     cursor: pointer;
     padding: 4px 8px;
-    margin-right: 60px;  
+    margin-right: 10px;  
 }
 
-/* dropdown menu */
+
 .dropdown-content {
     display: none;
     position: absolute;
-    right: 0;
-    top: 100%;
+    right: 20px;
+    top: 80%;
     background: #eff5f9;
     min-width: 140px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 1px solid #bdc1c4;
+    border-radius: 2px;
     z-index: 10;
     opacity: 0;
     transform: translateY(5px);
@@ -1950,7 +1946,6 @@ small {
     transform: translateY(0);
 }
 
-/* menu items */
 .dropdown-content a {
     display: block;
     padding: 10px 14px;
@@ -1960,7 +1955,6 @@ small {
     transition: background 0.2s ease, color 0.2s ease;
 }
 
-/* separator between links */
 .dropdown-content a + a {
     position: relative;
 }
@@ -1969,7 +1963,7 @@ small {
     content: "";
     display: block;
     width: 80%;                 
-    height: 0.5px;
+    height: 1px;
     background: #bdc1c4;
     margin: 0 auto;            
     position: absolute;
@@ -1978,9 +1972,8 @@ small {
     right: 0;
 }
 
-/* hover effects */
 .dropdown-content a:hover {
-    background: #f0f0f0;
+    font-weight: bold;
     color: #000;
 }
 
@@ -1989,8 +1982,8 @@ small {
 }
 
 .dropdown-content a.remove:hover {
-    background: #ffe6e6;
-    color: darkred;
+    font-weight: bold;
+    color: red;
 }
 
 /* --------------------------------------END OF USER MANAGEMENT -------------------------------------- */
