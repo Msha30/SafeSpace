@@ -546,14 +546,14 @@ select option:focus {
 	padding-left: 15px;
 }
 
-#name {
+.name {
 	text-align: left;
 	width: 250px;
 	padding-left: 0px;
 	line-height: 1.5;
 }
 
-#name span {
+.name span {
 	color: #6d6d6d;
 	font-style: italic;
 	padding-top: 10px;
@@ -1907,9 +1907,10 @@ small {
 
 /* --------------------------------------USER MANAGEMENT -------------------------------------- */
 
-.dropdown {
+.dpDots {
     position: relative;
     display: inline-block;
+    margin-right: 20px;
 }
 
 .menu-dots {
@@ -1925,7 +1926,6 @@ small {
 
 
 .dropdown-content {
-    display: none;
     position: absolute;
     right: 20px;
     top: 80%;
@@ -1936,13 +1936,14 @@ small {
     border-radius: 2px;
     z-index: 10;
     opacity: 0;
+    pointer-events: none;
     transform: translateY(5px);
     transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .dropdown-content.show {
-    display: block;
     opacity: 1;
+    pointer-events: auto;
     transform: translateY(0);
 }
 
@@ -1985,6 +1986,86 @@ small {
     font-weight: bold;
     color: red;
 }
+
+
+/* --------------------------------------NOTE: CSS FOR POP UP REMOVE USER -------------------------------------- */
+/* Popup background overlay */
+.removeUser {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(128, 128, 128, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+/* Hidden state */
+.hidden {
+  display: none;
+}
+
+/* Popup box */
+.popUpbox {
+  background: #fff;
+  border-radius: 8px;
+  padding: 25px 30px;
+  width: 380px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+}
+
+.popUpbox p {
+  color: #333;
+  font-size: 15px;
+  margin-bottom: 25px;
+  line-height: 1.5;
+}
+
+/* Buttons container */
+.popUpbtns {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* Buttons */
+.btn {
+  padding: 8px 22px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+/* Cancel button */
+.btn.cancel {
+  background: #e5e5e5;
+  color: #333;
+}
+
+.btn.cancel:hover {
+  background: #d8d8d8;
+}
+
+/* Remove button */
+.btn.remove {
+  background: #d9534f;
+  color: white;
+}
+
+.btn.remove:hover {
+  background: #c0392b;
+}
+
+
+
+
 
 /* --------------------------------------END OF USER MANAGEMENT -------------------------------------- */
 
