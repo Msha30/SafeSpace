@@ -38,9 +38,23 @@
 	<div class="topbar">
 		<span id="pageTitle">Overview</span>
 		<div class="topbar-right">
-			<div class="notification">
-				<img src="icons/ic_notif.svg" class="notif" alt="notification icon">
+		<div class="notification" onclick="toggleNotif()">
+			<img src="icons/ic_notif.svg" class="notif" alt="notification icon">
+			<span class="notif-badge">1</span>
+			<div class="notif-menu">
+				<div class="notif-card">
+					<h3>Peer Facilitator Verification</h3>
+					<p class="usrName">
+					   John Doe<br>
+					   <span>email@admin.nu-fairview.edu.ph</span>
+					</p>
+					<div class="notif-buttons">
+						<button class="btn-decline">Decline</button>
+						<button class="btn-accept">Accept</button>
+					</div>
+				</div>
 			</div>
+		</div>
 			<div class="GCO">
 				<img src="icons/ic_GCO.svg" class="GCO_icon" alt="GCO icon"> 
 			</div>
@@ -384,7 +398,7 @@
 								<td class="table_user">
 									<img src="photos/pic_placeholder.png">
 								</td>
-								<td id="name">
+								<td class="name">
 									Doe, John A.<br>
 									<span>email@students.nu-fairview.edu.ph</span>
 								</td>
@@ -397,7 +411,7 @@
 								<td class="table_user">
 									<img src="photos/pic_placeholder.png">
 								</td>
-								<td id="name">
+								<td class="name">
 									Doe, John A.<br>
 									<span>email@students.nu-fairview.edu.ph</span>
 								</td>
@@ -410,103 +424,12 @@
 								<td class="table_user">
 									<img src="photos/pic_placeholder.png">
 								</td>
-								<td id="name">
+								<td class="name">
 									Doe, John A.<br>
 									<span>email@students.nu-fairview.edu.ph</span>
 								</td>
 								<td></td>
 								<td>John</td>
-								<td>Lorem Ipsum</td>
-								<td>Lorem Ipsum</td>
-							</tr>
-							<tr>
-								<td class="table_user">
-									<img src="photos/pic_placeholder.png">
-								</td>
-								<td id="name">
-									Doe, John A.<br>
-									<span>email@students.nu-fairview.edu.ph</span>
-								</td>
-								<td></td>
-								<td>John</td>
-								<td>Lorem Ipsum</td>
-								<td>Lorem Ipsum</td>
-							</tr>
-							<tr>
-								<td class="table_user">
-									<img src="photos/pic_placeholder.png">
-								</td>
-								<td id="name">
-									Doe, John A.<br>
-									<span>email@students.nu-fairview.edu.ph</span>
-								</td>
-								<td></td>
-								<td>John</td>
-								<td>Lorem Ipsum</td>
-								<td>Lorem Ipsum</td>
-							</tr>
-							<tr>
-								<td class="table_user">
-									<img src="photos/pic_placeholder.png">
-								</td>
-								<td id="name">
-									Doe, Jane A.<br>
-									<span>email@students.nu-fairview.edu.ph</span>
-								</td>
-								<td></td>
-								<td>Jae</td>
-								<td>Lorem Ipsum</td>
-								<td>Lorem Ipsum</td>
-							</tr>
-							<tr>
-								<td class="table_user">
-									<img src="photos/pic_placeholder.png">
-								</td>
-								<td id="name">
-									Doe, Jane A.<br>
-									<span>email@students.nu-fairview.edu.ph</span>
-								</td>
-								<td></td>
-								<td>Jae</td>
-								<td>Lorem Ipsum</td>
-								<td>Lorem Ipsum</td>
-							</tr>
-							<tr>
-								<td class="table_user">
-									<img src="photos/pic_placeholder.png">
-								</td>
-								<td id="name">
-									Doe, Jane A.<br>
-									<span>email@students.nu-fairview.edu.ph</span>
-								</td>
-								<td></td>
-								<td>Jae</td>
-								<td>Lorem Ipsum</td>
-								<td>Lorem Ipsum</td>
-							</tr>
-							<tr>
-								<td class="table_user">
-									<img src="photos/pic_placeholder.png">
-								</td>
-								<td id="name">
-									Doe, Jane A.<br>
-									<span>email@students.nu-fairview.edu.ph</span>
-								</td>
-								<td></td>
-								<td>Jae</td>
-								<td>Lorem Ipsum</td>
-								<td>Lorem Ipsum</td>
-							</tr>
-							<tr>
-								<td class="table_user">
-									<img src="photos/pic_placeholder.png">
-								</td>
-								<td id="name">
-									Doe, Jane A.<br>
-									<span>email@students.nu-fairview.edu.ph</span>
-								</td>
-								<td></td>
-								<td>Jae</td>
 								<td>Lorem Ipsum</td>
 								<td>Lorem Ipsum</td>
 							</tr>
@@ -547,12 +470,13 @@
 								<td class="table_user">
 									<img src="photos/pic_placeholder.png">
 								</td>
-								<td id="name">
+								<td class="name">
 									Doe, John A.<br>
 									<span>email@students.nu-fairview.edu.ph</span>
 								</td>
 								<td></td>
-								<td>0</td>
+								<td class="peerInteract"><span>0</span></td>
+								</td>
 								<td>Lorem Ipsum</td>
 								<td>Lorem Ipsum</td>
 							</tr>
@@ -560,12 +484,12 @@
 								<td class="table_user">
 									<img src="photos/pic_placeholder.png">
 								</td>
-								<td id="name">
+								<td class="name">
 									Doe, John A.<br>
 									<span>email@students.nu-fairview.edu.ph</span>
 								</td>
 								<td></td>
-								<td>0</td>
+								<td class="peerInteract"><span>0</span></td>
 								<td>Lorem Ipsum</td>
 								<td>Lorem Ipsum</td>
 							</tr>
@@ -573,103 +497,12 @@
 								<td class="table_user">
 									<img src="photos/pic_placeholder.png">
 								</td>
-								<td id="name">
+								<td class="name">
 									Doe, John A.<br>
 									<span>email@students.nu-fairview.edu.ph</span>
 								</td>
 								<td></td>
-								<td>0</td>
-								<td>Lorem Ipsum</td>
-								<td>Lorem Ipsum</td>
-							</tr>
-							<tr>
-								<td class="table_user">
-									<img src="photos/pic_placeholder.png">
-								</td>
-								<td id="name">
-									Doe, John A.<br>
-									<span>email@students.nu-fairview.edu.ph</span>
-								</td>
-								<td></td>
-								<td>0</td>
-								<td>Lorem Ipsum</td>
-								<td>Lorem Ipsum</td>
-							</tr>
-							<tr>
-								<td class="table_user">
-									<img src="photos/pic_placeholder.png">
-								</td>
-								<td id="name">
-									Doe, John A.<br>
-									<span>email@students.nu-fairview.edu.ph</span>
-								</td>
-								<td></td>
-								<td>0</td>
-								<td>Lorem Ipsum</td>
-								<td>Lorem Ipsum</td>
-							</tr>
-							<tr>
-								<td class="table_user">
-									<img src="photos/pic_placeholder.png">
-								</td>
-								<td id="name">
-									Doe, Jane A.<br>
-									<span>email@students.nu-fairview.edu.ph</span>
-								</td>
-								<td></td>
-								<td>0</td>
-								<td>Lorem Ipsum</td>
-								<td>Lorem Ipsum</td>
-							</tr>
-							<tr>
-								<td class="table_user">
-									<img src="photos/pic_placeholder.png">
-								</td>
-								<td id="name">
-									Doe, Jane A.<br>
-									<span>email@students.nu-fairview.edu.ph</span>
-								</td>
-								<td></td>
-								<td>0</td>
-								<td>Lorem Ipsum</td>
-								<td>Lorem Ipsum</td>
-							</tr>
-							<tr>
-								<td class="table_user">
-									<img src="photos/pic_placeholder.png">
-								</td>
-								<td id="name">
-									Doe, Jane A.<br>
-									<span>email@students.nu-fairview.edu.ph</span>
-								</td>
-								<td></td>
-								<td>0</td>
-								<td>Lorem Ipsum</td>
-								<td>Lorem Ipsum</td>
-							</tr>
-							<tr>
-								<td class="table_user">
-									<img src="photos/pic_placeholder.png">
-								</td>
-								<td id="name">
-									Doe, Jane A.<br>
-									<span>email@students.nu-fairview.edu.ph</span>
-								</td>
-								<td></td>
-								<td>0</td>
-								<td>Lorem Ipsum</td>
-								<td>Lorem Ipsum</td>
-							</tr>
-							<tr>
-								<td class="table_user">
-									<img src="photos/pic_placeholder.png">
-								</td>
-								<td id="name">
-									Doe, Jane A.<br>
-									<span>email@students.nu-fairview.edu.ph</span>
-								</td>
-								<td></td>
-								<td>0</td>
+								<td class="peerInteract"><span>0</span></td>
 								<td>Lorem Ipsum</td>
 								<td>Lorem Ipsum</td>
 							</tr>
@@ -1705,6 +1538,38 @@
 			document.querySelector(".dropdown").classList.remove("show");
 		}
 		}
+
+
+		// NOTIFICATION ----------------------------------------------------------------
+
+		function toggleNotif() {
+			const notification = document.querySelector('.notification');
+			notification.classList.toggle('show');
+		}
+
+		//
+		document.addEventListener('click', function(event) {
+			const notification = document.querySelector('.notification');
+			if (!notification.contains(event.target)) {
+				notification.classList.remove('show');
+			}
+		});
+
+		// INCREMENTS BADGE COUNT
+		function updateNotificationBadge(count) {
+			const badge = document.querySelector('.notif-badge');
+			if (count > 0) {
+				badge.textContent = count > 99 ? '99+' : count;
+				badge.style.display = 'flex';
+			} else {
+				badge.style.display = 'none';
+			}
+		}
+
+		// Example usage:
+		updateNotificationBadge(3); // Shows "3"
+		updateNotificationBadge(150); // Shows "99+"
+		updateNotificationBadge(0); // Hides badge
 
 		// Popup logic REFERENCE ONLY------------------------------------------------------------------
 		const openBtn = document.getElementById("openPopupBtn");
