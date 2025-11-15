@@ -229,7 +229,7 @@
                     </div>
 					<div class="session-btn-left">
                          <button class="btn start">Start Call</button>
-                         <button class="btn details">See Details</button>
+                         <button class="btn details" onclick="openDetailsPopup()">See Details</button>
                     </div>
 				</div>
 				<div class="card">
@@ -246,7 +246,7 @@
                     </div>
 					<div class="session-btn-mid">
                          <button class="btn start">Confirmed</button>
-                         <button class="btn details">See Details</button>
+                         <button class="btn details" onclick="openDetailsPopup()">See Details</button>
                     </div>
 				</div>
 				<div class="card">
@@ -263,7 +263,7 @@
                     </div>
 					<div class="session-btn-right">
                          <button class="btn start">Take Session</button>
-                         <button class="btn details">See Details</button>
+                         <button class="btn details" onclick="openDetailsPopup()">See Details</button>
                     </div>
 				</div>
 			</div>
@@ -351,6 +351,82 @@
 			</div>
 		</div>
 
+	<!---------------- COUNSELING 'SEE DETAILS' BUTTON POP UP ------------------------------------------------------------>
+	<!-- Details Pop Up -->
+	<div id="detailsPopup" class="popup">
+		<div class="popup-content">
+			<span class="close" onclick="closeDetailsPopup()">&times;</span>
+			
+			<div class="popup-layout">
+				<div class="popup-left">
+					<img src="photos/pic_placeholder.png" alt="Profile" class="popup-profile-img">
+					<h2>Dominguez, Samantha Aeries</h2>
+					<div class="date-created-left">
+						<p>Date Request Created</p>
+						<strong>January 28, 2025</strong>
+					</div>
+				</div>
+				
+				<div class="popup-right">
+					<div class="detail-row">
+						<div class="detail-item">
+							<label>First Name</label>
+							<p>Lorem Ipsum</p>
+						</div>
+						<div class="detail-item">
+							<label>Last Name</label>
+							<p>Lorem Ipsum</p>
+						</div>
+					</div>
+					
+					<div class="detail-row">
+						<div class="detail-item">
+							<label>Program</label>
+							<p>Lorem Ipsum</p>
+						</div>
+						<div class="detail-item">
+							<label>Student ID</label>
+							<p>Lorem Ipsum</p>
+						</div>
+					</div>
+					
+					<div class="detail-row">
+						<div class="detail-item">
+							<label>Age</label>
+							<p>Lorem Ipsum</p>
+						</div>
+						<div class="detail-item">
+							<label>Sex assigned at birth</label>
+							<p>Lorem Ipsum</p>
+						</div>
+					</div>
+					
+					<div class="detail-row">
+						<div class="detail-item">
+							<label>Gender Identity</label>
+							<p>Lorem Ipsum</p>
+						</div>
+						<div class="detail-item">
+							<label>Preferred mode of platform</label>
+							<p>Lorem Ipsum</p>
+						</div>
+					</div>
+					
+					<div class="detail-row">
+						<div class="detail-item">
+							<label>Preferred Counselor</label>
+							<p>Lorem Ipsum</p>
+						</div>
+						<div class="detail-item">
+							<label>Is it urgent?</label>
+							<p>Lorem Ipsum</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<!---------------- COUNSELING REQUEST FORM ------------------------------------------------------------>	
 
 		<div id="edit-request-form" class="page">
@@ -398,9 +474,11 @@
 								<td class="table_user">
 									<img src="photos/pic_placeholder.png">
 								</td>
-								<td class="name">
-									Doe, John A.<br>
-									<span>email@students.nu-fairview.edu.ph</span>
+								<td>
+									<div class="name" onclick="openUsersPopup()">
+										Doe, John A.<br> 
+										<span>email@students.nu-fairview.edu.ph</span>
+									</div>
 								</td>
 								<td></td>
 								<td>John</td>
@@ -411,9 +489,11 @@
 								<td class="table_user">
 									<img src="photos/pic_placeholder.png">
 								</td>
-								<td class="name">
-									Doe, John A.<br>
-									<span>email@students.nu-fairview.edu.ph</span>
+								<td>
+									<div class="name" onclick="openUsersPopup()">
+										Doe, John A.<br> 
+										<span>email@students.nu-fairview.edu.ph</span>
+									</div>
 								</td>
 								<td></td>
 								<td>John</td>
@@ -424,9 +504,11 @@
 								<td class="table_user">
 									<img src="photos/pic_placeholder.png">
 								</td>
-								<td class="name">
-									Doe, John A.<br>
-									<span>email@students.nu-fairview.edu.ph</span>
+								<td>
+									<div class="name" onclick="openUsersPopup()">
+										Doe, John A.<br> 
+										<span>email@students.nu-fairview.edu.ph</span>
+									</div>
 								</td>
 								<td></td>
 								<td>John</td>
@@ -435,6 +517,62 @@
 							</tr>
 						</tbody>
 					</table>
+				</div>
+			</div>
+		</div>
+	
+		<!---------------- USERS INFO POP UP ------------------------------------------------------------>
+		<div id="usersInfoPopup" class="popup">
+			<div class="popup-content">
+				<span class="close" onclick="closeUsersPopup()">&times;</span>
+				
+				<div class="popup-layout">
+					<div class="popup-left">
+						<img src="photos/pic_placeholder.png" alt="Profile" class="popup-profile-img">
+						<h2>Dominguez, Samantha Aeries</h2>
+						<div class="date-created-left">
+							<p>Last Active</p>
+							<strong>January 28, 2025</strong>
+							<br>
+							<p>Date Request Created</p>
+							<strong>January 28, 2025</strong>
+						</div>
+					</div>
+					
+					<div class="popup-right">
+						<div class="detail-row">
+							<div class="detail-item">
+								<label>First Name</label>
+								<p>Lorem Ipsum</p>
+							</div>
+							<div class="detail-item">
+								<label>Last Name</label>
+								<p>Lorem Ipsum</p>
+							</div>
+						</div>
+						
+						<div class="detail-row">
+							<div class="detail-item">
+								<label>Student Email</label>
+								<p>Lorem Ipsum</p>
+							</div>
+							<div class="detail-item">
+								<label>Preferred Name</label>
+								<p>Lorem Ipsum</p>
+							</div>
+						</div>
+						
+						<div class="detail-row">
+							<div class="detail-item">
+								<label>Student ID</label>
+								<p>Lorem Ipsum</p>
+							</div>
+							<div class="detail-item">
+								<label>Program</label>
+								<p>Lorem Ipsum</p>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -470,9 +608,11 @@
 								<td class="table_user">
 									<img src="photos/pic_placeholder.png">
 								</td>
-								<td class="name">
-									Doe, John A.<br>
-									<span>email@students.nu-fairview.edu.ph</span>
+								<td>
+									<div class="name" onclick="openPeersPopup()">
+										Doe, John A.<br> 
+										<span>email@students.nu-fairview.edu.ph</span>
+									</div>
 								</td>
 								<td></td>
 								<td class="peerInteract"><span>0</span></td>
@@ -484,9 +624,11 @@
 								<td class="table_user">
 									<img src="photos/pic_placeholder.png">
 								</td>
-								<td class="name">
-									Doe, John A.<br>
-									<span>email@students.nu-fairview.edu.ph</span>
+								<td>
+									<div class="name" onclick="openPeersPopup()">
+										Doe, John A.<br> 
+										<span>email@students.nu-fairview.edu.ph</span>
+									</div>
 								</td>
 								<td></td>
 								<td class="peerInteract"><span>0</span></td>
@@ -497,9 +639,11 @@
 								<td class="table_user">
 									<img src="photos/pic_placeholder.png">
 								</td>
-								<td class="name">
-									Doe, John A.<br>
-									<span>email@students.nu-fairview.edu.ph</span>
+								<td>
+									<div class="name" onclick="openPeersPopup()">
+										Doe, John A.<br> 
+										<span>email@students.nu-fairview.edu.ph</span>
+									</div>
 								</td>
 								<td></td>
 								<td class="peerInteract"><span>0</span></td>
@@ -508,6 +652,62 @@
 							</tr>
 						</tbody>
 					</table>
+				</div>
+			</div>
+		</div>
+
+		<!---------------- PEERS INFO POP UP ------------------------------------------------------------>
+		<div id="peersInfoPopup" class="popup">
+			<div class="popup-content">
+				<span class="close" onclick="closePeersPopup()">&times;</span>
+				
+				<div class="popup-layout">
+					<div class="popup-left">
+						<img src="photos/pic_placeholder.png" alt="Profile" class="popup-profile-img">
+						<h2>Dominguez, Samantha Aeries</h2>
+						<div class="date-created-left">
+							<p>Last Active</p>
+							<strong>January 28, 2025</strong>
+							<br>
+							<p>Date Request Created</p>
+							<strong>January 28, 2025</strong>
+						</div>
+					</div>
+					
+					<div class="popup-right">
+						<div class="detail-row">
+							<div class="detail-item">
+								<label>First Name</label>
+								<p>Lorem Ipsum</p>
+							</div>
+							<div class="detail-item">
+								<label>Last Name</label>
+								<p>Lorem Ipsum</p>
+							</div>
+						</div>
+						
+						<div class="detail-row">
+							<div class="detail-item">
+								<label>Student Email</label>
+								<p>Lorem Ipsum</p>
+							</div>
+							<div class="detail-item">
+								<label>Preferred Name</label>
+								<p>Lorem Ipsum</p>
+							</div>
+						</div>
+						
+						<div class="detail-row">
+							<div class="detail-item">
+								<label>Student ID</label>
+								<p>Lorem Ipsum</p>
+							</div>
+							<div class="detail-item">
+								<label>Program</label>
+								<p>Lorem Ipsum</p>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -1540,7 +1740,7 @@
 		}
 
 
-		// NOTIFICATION ----------------------------------------------------------------
+		// NOTIFICATION  ----------------------------------------------------------------
 
 		function toggleNotif() {
 			const notification = document.querySelector('.notification');
@@ -1566,10 +1766,10 @@
 			}
 		}
 
-		// Example usage:
-		updateNotificationBadge(3); // Shows "3"
-		updateNotificationBadge(150); // Shows "99+"
-		updateNotificationBadge(0); // Hides badge
+	
+		updateNotificationBadge(3); 
+		updateNotificationBadge(150); 
+		updateNotificationBadge(0); 
 
 		// Popup logic REFERENCE ONLY------------------------------------------------------------------
 		const openBtn = document.getElementById("openPopupBtn");
@@ -1612,6 +1812,94 @@
         		privacyModal.style.display = "none";
     		}
 		}
+
+		//COUNSELING 'SEE DETAILS' BUTTON POP UP
+		function openDetailsPopup() {
+			document.getElementById('detailsPopup').style.display = 'block';
+			document.body.style.overflow = 'hidden';
+		}
+
+		function closeDetailsPopup() {
+			document.getElementById('detailsPopup').style.display = 'none';
+			document.body.style.overflow = 'auto';
+		}
+
+		// Close popup when clicking outside of it
+		window.onclick = function(event) {
+			const popup = document.getElementById('detailsPopup');
+			if (event.target == popup) {
+				closeDetailsPopup();
+			}
+		}
+
+		// Close popup with Escape key
+		document.addEventListener('keydown', function(event) {
+			if (event.key === 'Escape') {
+				closeDetailsPopup();
+			}
+		});
+
+
+		//USERS DETAILS BUTTON POP UP
+		function openUsersPopup() {
+			document.getElementById('usersInfoPopup').style.display = 'block';
+			document.body.style.overflow = 'hidden';
+		}
+
+		function closeUsersPopup() {
+			document.getElementById('usersInfoPopup').style.display = 'none';
+			document.body.style.overflow = 'auto';
+		}
+
+		// Close popup when clicking outside of it
+		window.onclick = function(event) {
+			const popup = document.getElementById('usersInfoPopup');
+			if (event.target == popup) {
+				closeUsersPopup();
+			}
+		}
+
+		// Close popup with Escape key
+		document.addEventListener('keydown', function(event) {
+			if (event.key === 'Escape') {
+				closeUsersPopup();
+			}
+		});
+
+
+		//PEERS DETAILS BUTTON POP UP
+		function openPeersPopup() {
+			document.getElementById('peersInfoPopup').style.display = 'block';
+			document.body.style.overflow = 'hidden';
+		}
+
+		function closePeersPopup() {
+			document.getElementById('peersInfoPopup').style.display = 'none';
+			document.body.style.overflow = 'auto';
+		}
+
+		// Close popup when clicking outside of it
+		window.onclick = function(event) {
+			const popup = document.getElementById('peersInfoPopup');
+			if (event.target == popup) {
+				closePeersPopup();
+			}
+		}
+
+		// Close popup with Escape key
+		document.addEventListener('keydown', function(event) {
+			if (event.key === 'Escape') {
+				closePeersPopup();
+			}
+		});
+
+
+
+
+
+
+
+
 		//BREADCRUMB
 
 		function showPage(pageId, el) {
