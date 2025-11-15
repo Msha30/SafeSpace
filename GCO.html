@@ -19,7 +19,7 @@
 
 		<a href="#" onclick="showPage('users', this)"><img src="icons/ic_sb_user.svg" class="icon"><span>Users</span></a>
 
-		<a href="#" onclick="showPage('peer Facilitators', this)"><img src="icons/ic_sb_support.svg" class="icon"><span>Peer Facilitators</span></a>
+		<a href="#" onclick="showPage('peer-facilitators', this)"><img src="icons/ic_sb_support.svg" class="icon"><span>Peer Facilitators</span></a>
 
 		<a href="#" onclick="showPage('support-group', this)"><img src="icons/ic_sb_chat.svg" class="icon"><span>Support Group</span></a>
 
@@ -580,7 +580,7 @@
 
 
 	<!---------------- PEER FACILITATORS ------------------------------------------------------------>
-		<div id="peer Facilitators" class="page">
+		<div id="peer-facilitators" class="page">
 			<div class="row">
 				<div class="right-half" style="width: 100%;">
 					<div class="searchbar">
@@ -609,7 +609,7 @@
 									<img src="photos/pic_placeholder.png">
 								</td>
 								<td>
-									<div class="name" onclick="openPeersPopup()">
+									<div class="name" onclick="showPeerPage('peer1')">
 										Doe, John A.<br> 
 										<span>email@students.nu-fairview.edu.ph</span>
 									</div>
@@ -625,7 +625,7 @@
 									<img src="photos/pic_placeholder.png">
 								</td>
 								<td>
-									<div class="name" onclick="openPeersPopup()">
+									<div class="name" onclick="showPeerPage('peer2')">
 										Doe, John A.<br> 
 										<span>email@students.nu-fairview.edu.ph</span>
 									</div>
@@ -640,7 +640,7 @@
 									<img src="photos/pic_placeholder.png">
 								</td>
 								<td>
-									<div class="name" onclick="openPeersPopup()">
+									<div class="name" onclick="showPeerPage('peer3')">
 										Doe, John A.<br> 
 										<span>email@students.nu-fairview.edu.ph</span>
 									</div>
@@ -655,6 +655,99 @@
 				</div>
 			</div>
 		</div>
+
+		<!---------------- PER PEER PAGE ------------------------------------------------------------>
+		<div id="perPeerPage" class="page">
+			<div class="row">
+				<div class="card">
+					<h3>Information</h3>
+					<!-- Profile and details content will go here -->
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="card">
+					<!-- Weekly schedule view will go here -->
+				</div>
+			</div>
+			
+			<div class="row" id="schedule" style="gap: 15px;">
+				<div class="card">
+					<h4 class="sched-date">23</h4>
+					<h5 style="padding-left: 30px;">MON</h5>
+					<div class="sched">
+						<p class="sched-type">Face to Face</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+					<div class="sched">
+						<p class="sched-type">Face to Face</p>
+						<p class="sched-time">0:00 PM - 0:00 PM/p>
+					</div>
+				</div>
+				
+				<div class="card">
+					<h4 class="sched-date">23</h4>
+					<h5 style="padding-left: 30px;">MON</h5>
+					<div class="sched">
+						<p class="sched-type">Video Call</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+					<div class="sched">
+						<p class="sched-type">Video Call</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+				</div>
+				<div class="card">
+					<h4 class="sched-date">23</h4>
+					<h5 style="padding-left: 30px;">MON</h5>
+					<div class="sched">
+						<p class="sched-type">Call</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+					<div class="sched">
+						<p class="sched-type">Call</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+				</div>
+				<div class="card">
+					<h4 class="sched-date">23</h4>
+					<h5 style="padding-left: 30px;">MON</h5>
+					<div class="sched">
+						<p class="sched-type">Face to Face</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+					<div class="sched">
+						<p class="sched-type">Face to Face</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+				</div>
+				<div class="card">
+					<h4 class="sched-date">23</h4>
+					<h5 style="padding-left: 30px;">MON</h5>
+					<div class="sched">
+						<p class="sched-type">Video Call</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+					<div class="sched">
+						<p class="sched-type">Video Call</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+				</div>
+				<div class="card">
+					<h4 class="sched-date">23</h4>
+					<h5 style="padding-left: 30px;">MON</h5>
+					<div class="sched">
+						<p class="sched-type">Call</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+					<div class="sched">
+						<p class="sched-type">Call</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
 
 		<!---------------- PEERS INFO POP UP ------------------------------------------------------------>
 		<div id="peersInfoPopup" class="popup">
@@ -1866,6 +1959,27 @@
 			}
 		});
 
+		//PER PEERS PAGE | PEER FACILITATORS-----------------------------------------------------------
+		// Show individual peer page
+		function showPeerPage(peerId) {
+			// Hide peer facilitators list page
+			document.getElementById('peer-facilitators').style.display = 'none';
+			
+			// Show individual peer page
+			document.getElementById('perPeerPage').style.display = 'block';
+			
+			// TODO: Load peer data based on peerId
+			console.log('Loading peer:', peerId);
+		}
+
+		// Go back to peer list
+		function backToPeerList() {
+			// Hide individual peer page
+			document.getElementById('perPeerPage').style.display = 'none';
+			
+			// Show peer facilitators list page
+			document.getElementById('peer-facilitators').style.display = 'block';
+		}
 
 		//PEERS DETAILS BUTTON POP UP
 		function openPeersPopup() {
