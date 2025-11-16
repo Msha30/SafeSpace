@@ -211,7 +211,7 @@
 					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
 				</div>
 				<div class="right-half">
-					<button class="btn-reqForm" onclick="showPage('edit-request-form')">Edit Request Form</button>
+					<button class="btn-reqForm" onclick="openRequestFormPopup()">Edit Request Form</button>
 				</div>
 			</div>
 			<div class="row">
@@ -429,20 +429,113 @@
 
 	<!---------------- COUNSELING REQUEST FORM ------------------------------------------------------------>	
 
-		<div id="edit-request-form" class="page">
-			<div class="row">
-				<div class="card">
-					<h3>Schedule a Guidance Counseling Session</h3>
-					<div class="reqForm-label">
-					<span>This is intended for students who wish to schedule a counseling from the Guidance and Counseling Office.</span>
-					<br><br>
-					<span>Rest assured that all details provided is kept confidential and for GCO’s perusal only.</span>
-					<br><br>
-					<span>You matter, and we want nothing but to create and provide a safe space for you!</span>
+	<div class="request-form-overlay" id="requestFormOverlay">
+		<div class="request-form-content">
+			<div class="request-form-header" onclick="enableHeaderEdit(event)">
+				<h2 contenteditable="true" class="editable-title">Schedule a Guidance Counseling Session</h2>
+				<p contenteditable="true" class="editable-text">This is intended for students who wish to schedule a counseling from the Guidance and Counseling Office.</p>
+				<p contenteditable="true" class="editable-text">Rest assured that all details provided is kept confidential and for GCO's perusal only.</p>
+				<p contenteditable="true" class="editable-text">You matter, and we want nothing but to create and provide a safe space for you!</p>
+			</div>
+
+			<div class="request-form-body">
+				<div class="request-form-section">
+					<div class="request-form-row">
+						<div class="request-form-group">
+							<label>First Name</label> 
+							<input type="text" placeholder="First Name" readonly>
+						</div>
+						<div class="request-form-group">
+							<label>Last Name</label>
+							<input type="text" placeholder="Last Name" readonly>
+						</div>
+					</div>
+					<div class="request-form-row">
+						<div class="request-form-group">
+							<label>Program</label>
+							<input type="text" placeholder="Program" readonly>
+						</div>
+						<div class="request-form-group">
+							<label>Student ID</label>
+							<input type="text" placeholder="Student ID" readonly>
+						</div>
 					</div>
 				</div>
+
+				<div id="requestQuestionsContainer">
+					<div class="request-question-card" draggable="true">
+						<div class="request-question-header">
+							<span class="request-drag-handle">
+								<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+									<path d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+								</svg>
+							</span>
+							<input type="text" class="request-question-input" placeholder="Question" value="Lorem Ipsum">
+							<select class="request-question-type" onchange="changeRequestQuestionType(this)">
+								<option value="short">Short Answer</option>
+								<option value="paragraph">Paragraph</option>
+								<option value="multiple">Multiple Choice</option>
+								<option value="checkbox">Checkboxes</option>
+								<option value="dropdown">Dropdown</option>
+								<option value="date">Date</option>
+								<option value="time">Time</option>
+							</select>
+							<button class="request-delete-btn" onclick="deleteRequestQuestion(this)">
+								<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+									<path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+								</svg>
+							</button>
+						</div>
+						<div class="request-answer-area">
+							<div class="request-answer-placeholder">Short answer text</div>
+						</div>
+					</div>
+
+					<div class="request-question-card" draggable="true">
+						<div class="request-question-header">
+							<span class="request-drag-handle">
+								<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+									<path d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+								</svg>
+							</span>
+							<input type="text" class="request-question-input" placeholder="Question" value="Lorem Ipsum">
+							<select class="request-question-type" onchange="changeRequestQuestionType(this)">
+								<option value="short">Short Answer</option>
+								<option value="paragraph">Paragraph</option>
+								<option value="multiple">Multiple Choice</option>
+								<option value="checkbox">Checkboxes</option>
+								<option value="dropdown">Dropdown</option>
+								<option value="datetime">Date - Time</option>
+							</select>
+							<button class="request-delete-btn" onclick="deleteRequestQuestion(this)">
+								<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+									<path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+								</svg>
+							</button>
+						</div>
+						<div class="request-answer-area">
+							<div class="request-option-input">
+								<span class="request-radio-icon"></span>
+								<input type="text" placeholder="Enter option" value="Option 1">
+								<button class="request-option-remove" onclick="removeRequestOption(this)">×</button>
+							</div>
+							<div class="request-option-input">
+								<span class="request-radio-icon"></span>
+								<input type="text" placeholder="Add option" onfocus="addRequestOptionOnFocus(this)">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<button class="request-add-question-btn" onclick="addNewRequestQuestion()">Add New Question</button>
+			</div>
+
+			<div class="request-form-footer">
+				<button class="request-btn-cancel" onclick="closeRequestFormPopup()">Cancel</button>
+				<button class="request-btn-save" onclick="saveRequestForm()">Save Form</button>
 			</div>
 		</div>
+	</div>
 
 	<!---------------- USER MANAGEMENT ------------------------------------------------------------>
 
@@ -609,7 +702,7 @@
 									<img src="photos/pic_placeholder.png">
 								</td>
 								<td>
-									<div class="name" onclick="showPeerPage('peer1')">
+									<div class="name" onclick="showPeerPage(this)">
 										Doe, John A.<br> 
 										<span>email@students.nu-fairview.edu.ph</span>
 									</div>
@@ -625,7 +718,7 @@
 									<img src="photos/pic_placeholder.png">
 								</td>
 								<td>
-									<div class="name" onclick="showPeerPage('peer2')">
+									<div class="name" onclick="showPeerPage(this)">
 										Doe, John A.<br> 
 										<span>email@students.nu-fairview.edu.ph</span>
 									</div>
@@ -640,7 +733,7 @@
 									<img src="photos/pic_placeholder.png">
 								</td>
 								<td>
-									<div class="name" onclick="showPeerPage('peer3')">
+									<div class="name" onclick="showPeerPage(this)">
 										Doe, John A.<br> 
 										<span>email@students.nu-fairview.edu.ph</span>
 									</div>
@@ -670,80 +763,10 @@
 					<!-- Weekly schedule view will go here -->
 				</div>
 			</div>
-			
-			<div class="row" id="schedule" style="gap: 15px;">
+
+			<div class="row">
 				<div class="card">
-					<h4 class="sched-date">23</h4>
-					<h5 style="padding-left: 30px;">MON</h5>
-					<div class="sched">
-						<p class="sched-type">Face to Face</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-					<div class="sched">
-						<p class="sched-type">Face to Face</p>
-						<p class="sched-time">0:00 PM - 0:00 PM/p>
-					</div>
-				</div>
-				
-				<div class="card">
-					<h4 class="sched-date">23</h4>
-					<h5 style="padding-left: 30px;">MON</h5>
-					<div class="sched">
-						<p class="sched-type">Video Call</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-					<div class="sched">
-						<p class="sched-type">Video Call</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-				</div>
-				<div class="card">
-					<h4 class="sched-date">23</h4>
-					<h5 style="padding-left: 30px;">MON</h5>
-					<div class="sched">
-						<p class="sched-type">Call</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-					<div class="sched">
-						<p class="sched-type">Call</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-				</div>
-				<div class="card">
-					<h4 class="sched-date">23</h4>
-					<h5 style="padding-left: 30px;">MON</h5>
-					<div class="sched">
-						<p class="sched-type">Face to Face</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-					<div class="sched">
-						<p class="sched-type">Face to Face</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-				</div>
-				<div class="card">
-					<h4 class="sched-date">23</h4>
-					<h5 style="padding-left: 30px;">MON</h5>
-					<div class="sched">
-						<p class="sched-type">Video Call</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-					<div class="sched">
-						<p class="sched-type">Video Call</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-				</div>
-				<div class="card">
-					<h4 class="sched-date">23</h4>
-					<h5 style="padding-left: 30px;">MON</h5>
-					<div class="sched">
-						<p class="sched-type">Call</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-					<div class="sched">
-						<p class="sched-type">Call</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
+					<!-- Weekly schedule view will go here -->
 				</div>
 			</div>
 		</div>
@@ -1445,22 +1468,171 @@
 		</div>
 
 	<!---------------- FEEDBACK ------------------------------------------------------------>
+	<div id="feedback" class="page">
+		<div class="row">
+			<div class="card2" style="flex: 2;">
+				<h3>Feedback</h3>
+				<div class="leftscrollFeedback">
+					<div class="feedback">
+						<div class="feedback-header">
+							<img src="photos/pic_placeholder.png" alt="User" class="feedback-avatar">
+							<div class="feedback-info">
+								<strong class="feedback-name">Fernandez, Aaron Angelo</strong>
+								<div class="feedback-stars">
+									<span class="star filled">★</span>
+									<span class="star filled">★</span>
+									<span class="star filled">★</span>
+									<span class="star filled">★</span>
+									<span class="star filled">★</span>
+								</div>
+							</div>
+							<span class="feedback-date">May 5, 2025</span>
+						</div>
+						<p class="feedback-text">I've been using SafeSpace for a couple of weeks now, and it's a great app for students who need mental health support. The platform is very easy to navigate, and I love how you can easily find and contact Peer Facilitators. The anonymity feature is really reassuring, especially when you're opening up about sensitive topics.</p>
+					</div>
 
-		<div id="feedback" class="page">
-			<div class="row">
-				<div class="card2" style="flex: 2;">
-					<h3>Feedback</h3>
-					<div class="leftscroll">
-						<div class="feedback"></div>
+					<div class="feedback">
+						<div class="feedback-header">
+							<img src="photos/pic_placeholder.png" alt="User" class="feedback-avatar">
+							<div class="feedback-info">
+								<strong class="feedback-name">Jose, Michael</strong>
+								<div class="feedback-stars">
+									<span class="star filled">★</span>
+									<span class="star filled">★</span>
+									<span class="star filled">★</span>
+									<span class="star filled">★</span>
+									<span class="star">★</span>
+								</div>
+							</div>
+							<span class="feedback-date">May 5, 2025</span>
+						</div>
+						<p class="feedback-text">I'm really impressed with how SafeSpace has been so effective in supporting students at NU Fairview. The app feels like a true lifeline, especially for anyone who needs help but isn't ready to reach out to traditional counseling services. I've used the chat feature a few times and felt completely supported every time.</p>
+					</div>
+
+					<div class="feedback">
+						<div class="feedback-header">
+							<img src="photos/pic_placeholder.png" alt="User" class="feedback-avatar">
+							<div class="feedback-info">
+								<strong class="feedback-name">Mayo, John Mik</strong>
+								<div class="feedback-stars">
+									<span class="star filled">★</span>
+									<span class="star filled">★</span>
+									<span class="star filled">★</span>
+									<span class="star filled">★</span>
+									<span class="star">★</span>
+								</div>
+							</div>
+							<span class="feedback-date">May 5, 2025</span>
+						</div>
+						<p class="feedback-text">SafeSpace is a great concept, but there are a few areas that could use improvement. The overall design is user-friendly, and I like the fact that it's built specifically for students at NU Fairview. The Peer Facilitators and counselors are available, but I've experienced some delays in getting responses during peak hours.</p>
+					</div>
+
+					<div class="feedback">
+						<div class="feedback-header">
+							<img src="photos/pic_placeholder.png" alt="User" class="feedback-avatar">
+							<div class="feedback-info">
+								<strong class="feedback-name">Santos, Sheyla May</strong>
+								<div class="feedback-stars">
+									<span class="star filled">★</span>
+									<span class="star filled">★</span>
+									<span class="star filled">★</span>
+									<span class="star filled">★</span>
+									<span class="star filled">★</span>
+								</div>
+							</div>
+							<span class="feedback-date">May 5, 2025</span>
+						</div>
+						<p class="feedback-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 					</div>
 				</div>
-				<div class="right">
-					<div class="card">
-						<h3>Lorem Ipsum</h3>
+			</div>
+
+			<div class="right">
+				<div class="card">
+					<h3>HAVEN | Hangout Corner</h3>
+					<div class="rating-section">
+						<div class="rating-header">
+							<span class="rating-label">Rating</span>
+							<span class="rating-count-label">Count</span>
+						</div>
+
+						<div class="rating-row">
+							<div class="rating-stars">
+								<span class="star filled">★</span>
+								<span class="star filled">★</span>
+								<span class="star filled">★</span>
+								<span class="star filled">★</span>
+								<span class="star filled">★</span>
+							</div>
+							<span class="rating-count" data-rating="5">110</span>
+						</div>
+
+						<div class="rating-row">
+							<div class="rating-stars">
+								<span class="star filled">★</span>
+								<span class="star filled">★</span>
+								<span class="star filled">★</span>
+								<span class="star filled">★</span>
+								<span class="star">★</span>
+							</div>
+							<span class="rating-count" data-rating="4">87</span>
+						</div>
+
+						<div class="rating-row">
+							<div class="rating-stars">
+								<span class="star filled">★</span>
+								<span class="star filled">★</span>
+								<span class="star filled">★</span>
+								<span class="star">★</span>
+								<span class="star">★</span>
+							</div>
+							<span class="rating-count" data-rating="3">20</span>
+						</div>
+
+						<div class="rating-row">
+							<div class="rating-stars">
+								<span class="star filled">★</span>
+								<span class="star filled">★</span>
+								<span class="star">★</span>
+								<span class="star">★</span>
+								<span class="star">★</span>
+							</div>
+							<span class="rating-count" data-rating="2">6</span>
+						</div>
+
+						<div class="rating-row">
+							<div class="rating-stars">
+								<span class="star filled">★</span>
+								<span class="star">★</span>
+								<span class="star">★</span>
+								<span class="star">★</span>
+								<span class="star">★</span>
+							</div>
+							<span class="rating-count" data-rating="1">0</span>
+						</div>
+					</div>
+
+					<div class="rating-summary">
+						<canvas id="ratingChart" width="200" height="200"></canvas>
+						<div class="rating-legend">
+							<div class="legend-item">
+								<span class="legend-label">5 Stars</span>
+								<span class="legend-value" id="percent5">52.4%</span>
+							</div>
+							<div class="legend-item">
+								<span class="legend-label">4 Stars</span>
+								<span class="legend-value" id="percent4">38.1%</span>
+							</div>
+							<div class="legend-item">
+								<span class="legend-label">3 Stars</span>
+								<span class="legend-value" id="percent3">9.5%</span>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 
 	<!---------------- SETTINGS ------------------------------------------------------------>
 
@@ -1933,6 +2105,283 @@
 		});
 
 
+
+		/*--------------- REQUEST FORM POPUP JS ---------------*/
+
+		// Open popup
+		function openRequestFormPopup() {
+			document.getElementById('requestFormOverlay').classList.add('active');
+		}
+
+		// Close popup
+		function closeRequestFormPopup() {
+			document.getElementById('requestFormOverlay').classList.remove('active');
+		}
+
+		// Enable header editing
+		function enableHeaderEdit(event) {
+			const target = event.target;
+			if (target.hasAttribute('contenteditable')) {
+				target.focus();
+			}
+		}
+
+		// Add new question
+		function addNewRequestQuestion() {
+			const container = document.getElementById('requestQuestionsContainer');
+			const questionCard = document.createElement('div');
+			questionCard.className = 'request-question-card';
+			questionCard.setAttribute('draggable', 'true');
+			questionCard.innerHTML = `
+				<div class="request-question-header">
+					<span class="request-drag-handle">
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+							<path d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+						</svg>
+					</span>
+					<input type="text" class="request-question-input" placeholder="Question">
+					<select class="request-question-type" onchange="changeRequestQuestionType(this)">
+						<option value="short">Short Answer</option>
+						<option value="paragraph">Paragraph</option>
+						<option value="multiple">Multiple Choice</option>
+						<option value="checkbox">Checkboxes</option>
+						<option value="dropdown">Dropdown</option>
+						<option value="date">Date</option>
+						<option value="time">Time</option>
+					</select>
+					<button class="request-delete-btn" onclick="deleteRequestQuestion(this)">
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+							<path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+						</svg>
+					</button>
+				</div>
+				<div class="request-answer-area">
+					<div class="request-answer-placeholder">Short answer text</div>
+				</div>
+			`;
+			container.appendChild(questionCard);
+			initializeDragAndDrop();
+		}
+
+		// Delete question
+		function deleteRequestQuestion(btn) {
+			btn.closest('.request-question-card').remove();
+		}
+
+		// Change question type
+		function changeRequestQuestionType(select) {
+			const answerArea = select.closest('.request-question-card').querySelector('.request-answer-area');
+			const type = select.value;
+			
+			if (type === 'short') {
+				answerArea.innerHTML = '<div class="request-answer-placeholder">Short answer text</div>';
+			} else if (type === 'paragraph') {
+				answerArea.innerHTML = '<div class="request-answer-placeholder paragraph-style">Long answer text</div>';
+			} else if (type === 'datetime') {
+				answerArea.innerHTML = `
+					<div class="request-datetime-container">
+						<input type="date" class="request-date-input" disabled>
+						<input type="time" class="request-time-input" disabled>
+					</div>
+				`;
+			} else if (type === 'multiple') {
+				answerArea.innerHTML = `
+					<div class="request-option-input">
+						<span class="request-radio-icon"></span>
+						<input type="text" placeholder="Enter option" value="Option 1">
+						<button class="request-option-remove" onclick="removeRequestOption(this)">×</button>
+					</div>
+					<div class="request-option-input">
+						<span class="request-radio-icon"></span>
+						<input type="text" placeholder="Add option" onfocus="addRequestOptionOnFocus(this)">
+					</div>
+				`;
+			} else if (type === 'checkbox') {
+				answerArea.innerHTML = `
+					<div class="request-option-input">
+						<span class="request-checkbox-icon"></span>
+						<input type="text" placeholder="Enter option" value="Option 1">
+						<button class="request-option-remove" onclick="removeRequestOption(this)">×</button>
+					</div>
+					<div class="request-option-input">
+						<span class="request-checkbox-icon"></span>
+						<input type="text" placeholder="Add option" onfocus="addRequestOptionOnFocus(this)">
+					</div>
+				`;
+			} else if (type === 'dropdown') {
+				answerArea.innerHTML = `
+					<div class="request-option-input">
+						<span class="request-option-number">1.</span>
+						<input type="text" placeholder="Enter option" value="Option 1">
+						<button class="request-option-remove" onclick="removeRequestOption(this)">×</button>
+					</div>
+					<div class="request-option-input">
+						<span class="request-option-number">2.</span>
+						<input type="text" placeholder="Add option" onfocus="addRequestOptionOnFocus(this)">
+					</div>
+				`;
+			}
+		}
+		
+		function removeRequestOption(btn) {
+			const optionInput = btn.closest('.request-option-input');
+			const answerArea = optionInput.closest('.request-answer-area');
+			optionInput.remove();
+			
+			// Update dropdown numbering
+			updateDropdownNumbers(answerArea);
+		}
+
+		// Update dropdown numbers
+		function updateDropdownNumbers(answerArea) {
+			const options = answerArea.querySelectorAll('.request-option-input');
+			options.forEach((option, index) => {
+				const numberSpan = option.querySelector('.request-option-number');
+				if (numberSpan) {
+					numberSpan.textContent = `${index + 1}.`;
+				}
+			});
+		}
+
+		// Add option on focus
+		function addRequestOptionOnFocus(input) {
+			if (input.value === '' && !input.hasAttribute('data-focused')) {
+				input.setAttribute('data-focused', 'true');
+				const optionInput = input.closest('.request-option-input');
+				const answerArea = input.closest('.request-answer-area');
+				const iconElement = optionInput.querySelector('span');
+				const iconClass = iconElement.className;
+				
+				const newOption = document.createElement('div');
+				newOption.className = 'request-option-input';
+				
+				if (iconClass === 'request-radio-icon' || iconClass === 'request-checkbox-icon') {
+					newOption.innerHTML = `
+						<span class="${iconClass}"></span>
+						<input type="text" placeholder="Add option" onfocus="addRequestOptionOnFocus(this)">
+					`;
+				} else if (iconClass === 'request-option-number') {
+					const optionNumber = answerArea.querySelectorAll('.request-option-input').length + 1;
+					newOption.innerHTML = `
+						<span class="request-option-number">${optionNumber}.</span>
+						<input type="text" placeholder="Add option" onfocus="addRequestOptionOnFocus(this)">
+					`;
+				}
+				
+				answerArea.appendChild(newOption);
+				
+				const removeBtn = document.createElement('button');
+				removeBtn.className = 'request-option-remove';
+				removeBtn.textContent = '×';
+				removeBtn.onclick = function() { removeRequestOption(this); };
+				optionInput.appendChild(removeBtn);
+				input.removeAttribute('onfocus');
+			}
+		}
+
+		// Save form
+		function saveRequestForm() {
+			alert('Form saved successfully!');
+			closeRequestFormPopup();
+		}
+
+		// Close popup when clicking outside
+		document.addEventListener('DOMContentLoaded', function() {
+			const requestFormOverlay = document.getElementById('requestFormOverlay');
+			if (requestFormOverlay) {
+				requestFormOverlay.addEventListener('click', function(e) {
+					if (e.target === this) {
+						closeRequestFormPopup();
+					}
+				});
+			}
+
+			// Initialize drag and drop
+			initializeDragAndDrop();
+		});
+
+		// Drag and Drop functionality
+		let draggedElement = null;
+
+		function initializeDragAndDrop() {
+			const questionCards = document.querySelectorAll('.request-question-card');
+			
+			questionCards.forEach(card => {
+				// Remove old listeners by cloning
+				const newCard = card.cloneNode(true);
+				card.parentNode.replaceChild(newCard, card);
+				
+				// Add new listeners
+				newCard.addEventListener('dragstart', handleDragStart);
+				newCard.addEventListener('dragend', handleDragEnd);
+				newCard.addEventListener('dragover', handleDragOver);
+				newCard.addEventListener('drop', handleDrop);
+				newCard.addEventListener('dragenter', handleDragEnter);
+				newCard.addEventListener('dragleave', handleDragLeave);
+			});
+		}
+
+		function handleDragStart(e) {
+			draggedElement = this;
+			this.classList.add('dragging');
+			e.dataTransfer.effectAllowed = 'move';
+			e.dataTransfer.setData('text/html', this.innerHTML);
+		}
+
+		function handleDragEnd(e) {
+			this.classList.remove('dragging');
+			
+			// Remove all drag-over classes
+			const questionCards = document.querySelectorAll('.request-question-card');
+			questionCards.forEach(card => {
+				card.classList.remove('drag-over');
+			});
+		}
+
+		function handleDragOver(e) {
+			if (e.preventDefault) {
+				e.preventDefault();
+			}
+			e.dataTransfer.dropEffect = 'move';
+			return false;
+		}
+
+		function handleDragEnter(e) {
+			if (this !== draggedElement) {
+				this.classList.add('drag-over');
+			}
+		}
+
+		function handleDragLeave(e) {
+			this.classList.remove('drag-over');
+		}
+
+		function handleDrop(e) {
+			if (e.stopPropagation) {
+				e.stopPropagation();
+			}
+
+			if (draggedElement !== this) {
+				const container = document.getElementById('requestQuestionsContainer');
+				const allCards = [...container.querySelectorAll('.request-question-card')];
+				const draggedIndex = allCards.indexOf(draggedElement);
+				const targetIndex = allCards.indexOf(this);
+
+				if (draggedIndex < targetIndex) {
+					this.parentNode.insertBefore(draggedElement, this.nextSibling);
+				} else {
+					this.parentNode.insertBefore(draggedElement, this);
+				}
+
+				// Reinitialize drag and drop after reordering
+				initializeDragAndDrop();
+			}
+
+			this.classList.remove('drag-over');
+			return false;
+		}
+
+
 		//USERS DETAILS BUTTON POP UP
 		function openUsersPopup() {
 			document.getElementById('usersInfoPopup').style.display = 'block';
@@ -2006,6 +2455,8 @@
 				closePeersPopup();
 			}
 		});
+
+
 
 
 
@@ -2139,6 +2590,105 @@
 			default: return formatTitle(id);
 		}
 		}
+
+
+		//FEEDBACK-----------------------------------------------------------
+		// Update ratings dynamically and draw pie chart
+		function updateRatings() {
+			// Get all rating counts
+			const rating5 = parseInt(document.querySelector('[data-rating="5"]').textContent) || 0;
+			const rating4 = parseInt(document.querySelector('[data-rating="4"]').textContent) || 0;
+			const rating3 = parseInt(document.querySelector('[data-rating="3"]').textContent) || 0;
+			const rating2 = parseInt(document.querySelector('[data-rating="2"]').textContent) || 0;
+			const rating1 = parseInt(document.querySelector('[data-rating="1"]').textContent) || 0;
+			
+			const total = rating5 + rating4 + rating3 + rating2 + rating1;
+			
+			if (total === 0) return;
+			
+			// Calculate percentages
+			const percent5 = ((rating5 / total) * 100).toFixed(1);
+			const percent4 = ((rating4 / total) * 100).toFixed(1);
+			const percent3 = ((rating3 / total) * 100).toFixed(1);
+			
+			// Update legend
+			document.getElementById('percent5').textContent = percent5 + '%';
+			document.getElementById('percent4').textContent = percent4 + '%';
+			document.getElementById('percent3').textContent = percent3 + '%';
+			
+			// Draw pie chart
+			drawPieChart(rating5, rating4, rating3);
+		}
+
+		function drawPieChart(rating5, rating4, rating3) {
+			const canvas = document.getElementById('ratingChart');
+			if (!canvas) return;
+			
+			const ctx = canvas.getContext('2d');
+			
+			const total = rating5 + rating4 + rating3;
+			if (total === 0) return;
+			
+			const centerX = canvas.width / 2;
+			const centerY = canvas.height / 2;
+			const radius = 80;
+			
+			// Colors matching the image
+			const colors = ['#3b82f6', '#60a5fa', '#93c5fd']; // Blue shades
+			
+			const data = [rating5, rating4, rating3];
+			let currentAngle = -Math.PI / 2; // Start from top
+			
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			
+			data.forEach((value, index) => {
+				const sliceAngle = (value / total) * 2 * Math.PI;
+				
+				ctx.beginPath();
+				ctx.moveTo(centerX, centerY);
+				ctx.arc(centerX, centerY, radius, currentAngle, currentAngle + sliceAngle);
+				ctx.closePath();
+				ctx.fillStyle = colors[index];
+				ctx.fill();
+				
+				currentAngle += sliceAngle;
+			});
+		}
+
+		// Call on page load
+		document.addEventListener('DOMContentLoaded', function() {
+			updateRatings();
+		});
+
+		// Function to add new feedback (for later use with database)
+		function addFeedback(name, stars, date, text) {
+			const feedbackHTML = `
+				<div class="feedback">
+					<div class="feedback-header">
+						<img src="photos/pic_placeholder.png" alt="User" class="feedback-avatar">
+						<div class="feedback-info">
+							<strong class="feedback-name">${name}</strong>
+							<div class="feedback-stars">
+								${generateStars(stars)}
+							</div>
+						</div>
+						<span class="feedback-date">${date}</span>
+					</div>
+					<p class="feedback-text">${text}</p>
+				</div>
+			`;
+			
+			document.querySelector('.leftscrollFeedback').insertAdjacentHTML('afterbegin', feedbackHTML);
+		}
+
+		function generateStars(count) {
+			let starsHTML = '';
+			for (let i = 1; i <= 5; i++) {
+				starsHTML += `<span class="star ${i <= count ? 'filled' : ''}">★</span>`;
+			}
+			return starsHTML;
+		}
+
 	</script>
 </body>
 </html>

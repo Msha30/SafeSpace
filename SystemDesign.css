@@ -858,6 +858,7 @@ select option:focus {
 	display: flex;
 	padding: 15px 30px;
 	border-bottom: 2px solid #e4f4ff;
+  margin-bottom: 15px;
 }
 
 .big_btn {
@@ -1409,6 +1410,364 @@ select option:focus {
   background: #6b6a6a;
 }
 
+/*--------------- EDIT COUNSELING FORM POP UP ---------------*/
+        .request-form-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .request-form-overlay.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .request-form-content {
+            background: #eff5f9;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 700px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            margin: auto 0;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            margin-top: 10px;
+            margin-left: 120px;
+        }
+
+
+
+      .request-form-header {
+          background: #062b6b;
+          color: white;
+          padding: 15px 30px 30px 30px;
+          border-radius: 8px 8px 0 0;
+          cursor: text;
+      }
+
+        .request-form-header h2 {
+            font-family: 'PublicSans', sans-serif;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .request-form-header p {
+          font-family: 'PublicSans', sans-serif;
+            font-size: 14px;
+            opacity: 0.9;
+            line-height: 1.5;
+            margin-bottom: 5px;
+        }
+
+        .editable-title:focus,
+        .editable-text:focus {
+            outline: 2px dashed rgba(255, 255, 255, 0.5);
+            outline-offset: 4px;
+            border-radius: 4px;
+        }
+
+        .editable-title:empty:before,
+        .editable-text:empty:before {
+            content: attr(data-placeholder);
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .request-form-body {
+            padding: 30px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        /* Form Section */
+        .request-form-section {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .request-form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .request-form-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .request-form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .request-form-group label {
+            font-size: 12px;
+            font-style: normal;
+            font-family: 'PublicSans', sans-serif;
+            color: #5f6368;
+            margin-bottom: 5px;
+        }
+
+        .request-form-group input {
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            background: #e6e6e6;
+        }
+
+        /* Question Cards */
+        .request-question-card {
+            background: white;
+            border: 1px solid #dadce0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            position: relative;
+            cursor: move;
+            transition: box-shadow 0.2s;
+        }
+
+        .request-question-card:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .request-question-card.dragging {
+            opacity: 0.5;
+            cursor: grabbing;
+        }
+
+        .request-question-card.drag-over {
+            border-top: 3px solid #c3e1f4;
+        }
+
+        .request-question-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .request-drag-handle {
+            cursor: grab;
+            color: #5f6368;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .request-drag-handle:active {
+            cursor: grabbing;
+        }
+
+        .request-question-input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-bottom: none;
+            font-size: 14px;
+            background: #eff5f9;
+        }
+
+        .request-question-input:focus {
+            outline: none;
+            border-bottom: 2px solid #1a73e8;
+        }
+
+        .request-question-type {
+            padding: 8px 12px;
+            border: 1px solid #bdc1c4;
+            border-radius: 4px;
+            background: white;
+            color: #6d6d6d;
+            font-family: 'PublicSans', sans-serif;
+            font-size: 14px;
+            cursor: pointer;
+            min-width: 150px;
+        }
+
+        .request-delete-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            color: #5f6368;
+        }
+
+        .request-delete-btn:hover {
+            color: #d93025;
+        }
+
+        .request-answer-area {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .request-answer-placeholder {
+            color: #999;
+            font-size: 14px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+
+      /*FOR OPTIONS*/
+      .request-option-input {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+
+     .request-option-input input {
+       flex: 1;
+       padding: 8px;
+       border: none;
+       border-bottom: 1px solid #c3e1f4;
+       font-size: 14px;
+    } 
+
+    .request-option-remove {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #999;
+      font-size: 18px;
+    }
+
+    .request-option-remove:hover {
+       color: #d93025;
+    }
+
+    .request-radio-icon, .request-checkbox-icon {
+      width: 16px;
+      height: 16px;
+      border: 2px solid #5f6368;
+      display: inline-block;
+    }
+
+     .request-radio-icon {
+       border-radius: 50%;
+    }
+
+     .request-checkbox-icon {
+       border-radius: 2px;
+    }
+
+    /* Date-Time Container */
+    .request-datetime-container {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+    }
+
+    .request-datetime-container .request-date-input,
+    .request-datetime-container .request-time-input {
+        flex: 1;
+        padding: 10px 12px;
+        border: 1px solid #dadce0;
+        border-radius: 4px;
+        font-size: 14px;
+        font-family: inherit;
+        color: #5f6368;
+        background-color: #f8f9fa;
+        cursor: not-allowed;
+        outline: none;
+    }
+
+    .request-datetime-container .request-date-input:hover,
+    .request-datetime-container .request-time-input:hover {
+        border-color: #dadce0;
+    }
+
+    /* When enabled */
+    .request-datetime-container .request-date-input:not([disabled]),
+    .request-datetime-container .request-time-input:not([disabled]) {
+        background-color: #ffffff;
+        cursor: text;
+    }
+
+    .request-datetime-container .request-date-input:not([disabled]):hover,
+    .request-datetime-container .request-time-input:not([disabled]):hover {
+        border-color: #1a73e8;
+    }
+
+    .request-datetime-container .request-date-input:not([disabled]):focus,
+    .request-datetime-container .request-time-input:not([disabled]):focus {
+        border-color: #1a73e8;
+        box-shadow: 0 1px 3px rgba(26, 115, 232, 0.3);
+    }
+    /* FOR BUTTONS */
+     .request-add-question-btn {
+       background: #c3e1f4;
+       border: none;
+       padding: 15px;
+       width: 100%;
+       border-radius: 8px;
+       cursor: pointer;
+       color: #0847b2;
+       font-size: 14px;
+       font-weight: bold;
+       margin-top: 20px;
+    }
+
+    .request-add-question-btn:hover {
+      background: #bbdefb;
+    }
+
+    .request-form-footer {
+      padding: 20px 30px;
+      border-top: 1px solid #dadce0;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .request-btn-cancel {
+      background: #bdc1c4;
+      color: #ffffff;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .request-btn-cancel:hover {
+      background: #d5d5d5; 
+      color: #ffffff;
+    }
+
+   .request-btn-save {
+     background: #c3e1f4;
+     color: #0847b2;
+     border: none;
+     padding: 10px 24px;
+     border-radius: 4px;
+     cursor: pointer;
+     font-size: 14px;
+     font-weight: bold;
+    }
+
+   .request-btn-save:hover {
+     background: #007bff;   
+     color: white;  
+   }
+
 
 /* -------------------------------------- SUPPORT GROUP 2 -------------------------------------- */
 
@@ -1467,7 +1826,7 @@ select option:focus {
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 
   float: left;          
-  margin: -280px 0 100px 0px; /* top right bottom left */
+  margin: -280px 0 100px 0px; 
   
   display: flex;
   justify-content: center;
@@ -1740,9 +2099,151 @@ small {
 
 /* --------------------------------------FEEDBACK 2 -------------------------------------- */
 
+/* --------------------------------------FEEDBACK -------------------------------------- */
 
+.leftscrollFeedback {
+    max-height: 600px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
 
+.feedback-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
 
+.feedback-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.feedback-info {
+    flex: 1;
+}
+
+.feedback-name {
+    font-family: 'PublicSans', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: #000;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.feedback-stars {
+    display: flex;
+    gap: 2px;
+}
+
+.star {
+    color: #d0d0d0;
+    font-size: 16px;
+}
+
+.star.filled {
+    color: #ffc107;
+}
+
+.feedback-date {
+    font-family: 'PublicSans', sans-serif;
+    font-size: 12px;
+    color: #999;
+    font-style: italic;
+}
+
+.feedback-text {
+    font-family: 'PublicSans', sans-serif;
+    font-size: 13px;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Rating Section */
+.rating-section {
+    margin-bottom: 30px;
+}
+
+.rating-header {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'PublicSans', sans-serif;
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 10px;
+    padding: 0 10px;
+}
+
+.rating-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    margin-bottom: 5px;
+}
+
+.rating-stars {
+    display: flex;
+    gap: 3px;
+}
+
+.rating-count {
+    font-family: 'PublicSans', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: #000;
+}
+
+/* Rating Summary */
+.rating-summary {
+    text-align: center;
+    padding: 20px;
+}
+
+#ratingChart {
+    max-width: 200px;
+    margin: 0 auto 20px auto;
+}
+
+.rating-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.legend-item {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'PublicSans', sans-serif;
+    font-size: 13px;
+}
+
+.legend-label {
+    color: #666;
+}
+
+.legend-value {
+    font-weight: bold;
+    color: #000;
+}
+
+/* Scrollbar styling */
+.leftscroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.leftscroll::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 3px;
+}
+
+.leftscroll::-webkit-scrollbar-track {
+    background-color: #f0f0f0;
+}
 
 
 
