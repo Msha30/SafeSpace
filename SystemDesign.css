@@ -2856,7 +2856,6 @@ small {
   display: none;
 }
 
-/* Popup box */
 .popUpbox {
   background: #fff;
   border-radius: 8px;
@@ -2874,14 +2873,12 @@ small {
   line-height: 1.5;
 }
 
-/* Buttons container */
 .popUpbtns {
   display: flex;
   justify-content: center;
   gap: 12px;
 }
 
-/* Buttons */
 .btn {
   padding: 8px 22px;
   border: none;
@@ -2901,7 +2898,6 @@ small {
   background: #d8d8d8;
 }
 
-/* Remove button */
 .btn.remove {
   background: #d9534f;
   color: white;
@@ -2912,8 +2908,255 @@ small {
 }
 
 
+/* Create User Popup */
+/* Create User Popup */
+.createUserPopup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
 
+.createUserPopup.active {
+    display: flex;
+}
 
+.createUserContent {
+    background: white;
+    border-radius: 5px;
+    padding: 30px;
+    max-width: 800px;
+    width: 90%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    margin-top: 20px;      /* Adjust top margin */
+    margin-bottom: 20px;   /* Adjust bottom margin */
+    margin-left: 320px;     /* Adjust left margin */
+    margin-right: 50px;    /* Adjust right margin */
+}
+
+.createUserContent h2 {
+    margin: 0 0 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #000000;
+}
+
+.createUserBody {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 25px;
+}
+
+.createUserLeft {
+    display: flex;
+    flex-direction: column;
+    gap: 0;  /* Remove gap so margin works properly */
+    min-width: 180px;
+}
+
+.createUserAvatar {
+    position: relative;
+    width: 120px;
+    height: 120px;
+}
+
+.createUserAvatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    object-fit: cover;
+}
+
+.createUserName {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    text-align: left;
+    margin: 15px 0 0 -10px;  /* top right bottom left */
+}
+
+.createUserRight {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.createUserRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.createUserGroup {
+    display: flex;
+    flex-direction: column;
+}
+
+.createUserGroupFull {
+    display: flex;
+    flex-direction: column;
+    max-width: 48%;
+}
+
+.createUserLabel {
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 6px;
+}
+
+.createUserInput {
+    padding: 10px 12px;
+    border: 1px solid #dadce0;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+    background-color: #ffffff;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.createUserInput:focus {
+    border-color: #1a73e8;
+}
+
+.createUserInputReadonly {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+}
+
+.createUserFooter {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding-top: 20px;
+}
+
+.createUserBtnCancel,
+.createUserBtnCreate {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.createUserBtnCancel {
+    background: #f5f5f5;
+    color: #666;
+}
+
+.createUserBtnCancel:hover {
+    background: #e0e0e0;
+}
+
+.createUserBtnCreate {
+    background: #c3e1f4;
+    color: #0067c4;
+}
+
+.createUserBtnCreate:hover {
+    background: #a0d4f0;
+}
+
+/* Confirm Popup */
+.confirmPopup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+}
+
+.confirmPopup.active {
+    display: flex;
+}
+
+.confirmContent {
+    background: white;
+    border-radius: 8px;
+    padding: 30px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.confirmText {
+    font-size: 16px;
+    color: #333;
+    margin: 0 0 25px 0;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.confirmText strong {
+    color: #000;
+    font-weight: 600;
+}
+
+.confirmButtons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.confirmBtnCancel,
+.confirmBtnConfirm {
+    padding: 10px 30px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.confirmBtnCancel {
+    background: #e0e0e0;
+    color: #666;
+}
+
+.confirmBtnCancel:hover {
+    background: #d0d0d0;
+}
+
+.confirmBtnConfirm {
+    background: #c3e1f4;
+    color: #0067c4;
+}
+
+.confirmBtnConfirm:hover {
+    background: #a0d4f0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .createUserBody {
+        flex-direction: column;
+    }
+    
+    .createUserRow {
+        grid-template-columns: 1fr;
+    }
+    
+    .createUserGroupFull {
+        max-width: 100%;
+    }
+}
 
 /* --------------------------------------END OF USER MANAGEMENT -------------------------------------- */
 
@@ -2921,16 +3164,15 @@ small {
 
 
 /* --------------------------------------SETTINGS & SYSTEM LOGS -------------------------------------- */
-/* SAVE BUTTON*/
 .modal-footer {
     display: flex;
-    justify-content: flex-end; /* push button to the right */
+    justify-content: flex-end; 
     margin-top: 15px;
-    padding: 0 20px 10px; /* some spacing inside modal */
+    padding: 0 20px 10px; 
 }
 
 .save-btn {
-    background-color: #bdc1c4; /* Blue */
+    background-color: #bdc1c4; 
     color: white;
     font-weight: bold;
     border: none;
@@ -2939,12 +3181,12 @@ small {
     font-size: 14px;
     cursor: pointer;
     transition: background 0.3s;
-    width: 120px; /* adjust this */
+    width: 120px; 
     text-align: center;
 }
 
 .save-btn:hover {
-    background-color: #9aa0a4;; /* Darker blue */
+    background-color: #9aa0a4;; 
 }
 
 

@@ -1013,8 +1013,8 @@
 						<option value="Users">Users</option>
 					</select>
 					<div class="peer-session">
-					<button class="btn-peersession" onclick="showPage('')">Create New User</button>
-				    </div>
+						<button class="btn-peersession" onclick="openCreateUserPopup()">Create New User</button>
+					</div>
 				</div>
 			</div>
 			<div class="row">
@@ -1124,6 +1124,69 @@
 				<div class="popUpbtns">
 				<button class="btn cancel" id="cancelRemove">Cancel</button>
 				<button class="btn remove" id="confirmRemove">Remove</button>
+				</div>
+			</div>
+		</div>
+
+
+		<!------------------------- Create New User Popup ----------------------------->
+		<div class="createUserPopup" id="createUserPopup">
+			<div class="createUserContent">
+				<h2>New GCO Coordinator User</h2>
+				
+				<div class="createUserBody">
+					<div class="createUserLeft">
+						<div class="createUserAvatar">
+							<img src="icons/ic_GCO.svg" alt="User Avatar" id="userAvatar">
+						</div>
+						<h3 class="createUserName" id="displayUserName">Dominguez, Samantha <br>
+																		Aeries</h3>
+					</div>
+					
+					<div class="createUserRight">
+						<div class="createUserRow">
+							<div class="createUserGroup">
+								<label class="createUserLabel">First Name</label>
+								<input type="text" class="createUserInput" id="firstName" value="Samantha Aeries" oninput="updateDisplayName()">
+							</div>
+							<div class="createUserGroup">
+								<label class="createUserLabel">Last Name</label>
+								<input type="text" class="createUserInput" id="lastName" value="Dominguez" oninput="updateDisplayName()">
+							</div>
+						</div>
+						
+						<div class="createUserRow">
+							<div class="createUserGroup">
+								<label class="createUserLabel">Work Email</label>
+								<input type="email" class="createUserInput" id="workEmail" value="email@students.nu-fairview.edu.ph">
+							</div>
+							<div class="createUserGroup">
+								<label class="createUserLabel">Access</label>
+								<input type="text" class="createUserInput createUserInputReadonly" id="access" value="GCO Coordinator" readonly>
+							</div>
+						</div>
+						
+						<div class="createUserGroupFull">
+							<label class="createUserLabel">Password</label>
+							<input type="text" class="createUserInput" id="password" value="sample">
+						</div>
+					</div>
+				</div>
+				
+				<div class="createUserFooter">
+					<button class="createUserBtnCancel" onclick="closeCreateUserPopup()">Cancel</button>
+					<button class="createUserBtnCreate" onclick="showConfirmPopup()">Create</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- Confirm Popup -->
+		<div class="confirmPopup" id="confirmPopup">
+			<div class="confirmContent">
+				<p class="confirmText">Confirm adding <strong id="confirmUserName">Dominguez, Samantha Aeries</strong> as a new GCO Coordinator?</p>
+				<div class="confirmButtons">
+					<button class="confirmBtnCancel" onclick="closeConfirmPopup()">Cancel</button>
+					<button class="confirmBtnConfirm" onclick="confirmCreateUser()">Confirm</button>
 				</div>
 			</div>
 		</div>
@@ -1428,8 +1491,92 @@
 		<!---------------- REPORTS ------------------------------------------------------------>
 
 		<div id="reports" class="page">
-            <!-- dito yung content  -->
+			<div class="row">
+				<div class="right">
+					<div class="card2">
+						<h3>GCO Reports</h3>
+						<div class="leftscroll">
+							<div class="update">
+								<div class="update-header">
+									<strong>Lorem Ipsum</strong>
+									<span>September 22, 2025 at 0:0 AM</span>
+								</div>
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+							</div>
+							<div class="update">
+								<div class="update-header">
+									<strong>Lorem Ipsum</strong>
+									<span>September 22, 2025 at 0:0 AM</span>
+								</div>
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+							</div>
+							<div class="update">
+								<div class="update-header">
+									<strong>Lorem Ipsum</strong>
+									<span>September 22, 2025 at 0:0 AM</span>
+								</div>
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+							</div>
+							<div class="update">
+								<div class="update-header">
+									<strong>Lorem Ipsum</strong>
+									<span>September 22, 2025 at 0:0 AM</span>
+								</div>
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+							</div>
+							<div class="update">
+								<div class="update-header">
+									<strong>Lorem Ipsum</strong>
+									<span>September 22, 2025 at 0:0 AM</span>
+								</div>
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card2">
+					<h3>System Updates</h3>
+					<div class="leftscroll">
+						<div class="update">
+							 <div class="update-header">
+								<strong>Lorem Ipsum</strong>
+								<span>September 22, 2025 at 0:0 AM</span>
+							</div>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+						</div>
+						<div class="update">
+							 <div class="update-header">
+								<strong>Lorem Ipsum</strong>
+								<span>September 22, 2025 at 0:0 AM</span>
+							</div>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+						</div>
+						<div class="update">
+							 <div class="update-header">
+								<strong>Lorem Ipsum</strong>
+								<span>September 22, 2025 at 0:0 AM</span>
+							</div>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+						</div>
+						<div class="update">
+							 <div class="update-header">
+								<strong>Lorem Ipsum</strong>
+								<span>September 22, 2025 at 0:0 AM</span>
+							</div>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+						</div>
+						<div class="update">
+							 <div class="update-header">
+								<strong>Lorem Ipsum</strong>
+								<span>September 22, 2025 at 0:0 AM</span>
+							</div>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
+		
 
 
 
@@ -1756,6 +1903,67 @@
 			}
 		});
 		};
+
+	//CREATE NEW USER
+
+	// Open Create User Popup
+	function openCreateUserPopup() {
+		document.getElementById('createUserPopup').classList.add('active');
+	}
+
+	// Close Create User Popup
+	function closeCreateUserPopup() {
+		document.getElementById('createUserPopup').classList.remove('active');
+	}
+
+	// Update Display Name (Camel Case)
+	function updateDisplayName() {
+		const firstName = document.getElementById('firstName').value.trim();
+		const lastName = document.getElementById('lastName').value.trim();
+		
+		if (firstName && lastName) {
+			// Convert to camel case format: "LastName, FirstName"
+			const displayName = `${toTitleCase(lastName)}, ${toTitleCase(firstName)}`;
+			document.getElementById('displayUserName').textContent = displayName;
+			document.getElementById('confirmUserName').textContent = displayName;
+		}
+	}
+
+	// Convert to Title Case (Camel Case)
+	function toTitleCase(str) {
+		return str.toLowerCase().split(' ').map(word => {
+			return word.charAt(0).toUpperCase() + word.slice(1);
+		}).join(' ');
+	}
+
+	// Show Confirm Popup
+	function showConfirmPopup() {
+		updateDisplayName(); // Update the name before showing confirm
+		document.getElementById('confirmPopup').classList.add('active');
+	}
+
+	// Close Confirm Popup
+	function closeConfirmPopup() {
+		document.getElementById('confirmPopup').classList.remove('active');
+	}
+
+	// Confirm Create User
+	function confirmCreateUser() {
+		// Here you would add the logic to actually create the user
+		alert('User created successfully!');
+		closeConfirmPopup();
+		closeCreateUserPopup();
+	}
+
+	// Close popups when clicking outside
+	document.addEventListener('click', function(e) {
+		if (e.target === document.getElementById('createUserPopup')) {
+			closeCreateUserPopup();
+		}
+		if (e.target === document.getElementById('confirmPopup')) {
+			closeConfirmPopup();
+		}
+	});
 
 	//EXPORT CHAT
 		function showPeerToPeer() {
