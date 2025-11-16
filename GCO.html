@@ -1230,244 +1230,85 @@
 				</div>
 			</div>
 		</div>
-	<!---------------- ANNOUNCEMENT ------------------------------------------------------------>
 
-		<div id="announcement" class="page">
+
+	<!-------------------------------------------------------------------------------------------->
+
+	<!---------------- ANNOUNCEMENT -------------------------------------------------------------->
+
+	<div id="announcement" class="page">
 			<div class="row">
 				<div class="card">
 					<h3>Create an Announcement</h3>
-					<div class="profile">
+					<div class="AncButtons">
+						<button class="toggle-btn active" id="announcementBtn">Announcement</button>
+						<button class="toggle-btn" id="joinableBtn">Joinable Event</button>
+					</div>
+					
+					<div class="AncProfile">
 						<img src="photos/pic_placeholder.png" alt="Profile" class="profile-img">
 						<span class="profile-name">NUFV Guidance and Counseling Office</span>
 						<img src="icons/ic_dropdown.svg" alt="dropdown" class="dropdown-icon">
 					</div>
-				    <input type="text" placeholder="Title..." class="input-title">
-      			    <textarea placeholder="Content..." class="input-content"></textarea>
-				    <div class="file-boxes">
+					<input type="text" placeholder="Title..." class="AncTitle">
+					<textarea placeholder="Content..." class="AncContent"></textarea>
+					<div class="file-boxes">
 						<div class="file"></div>
 						<div class="file"></div>
 						<div class="file add-file" id="dropArea">
-						<img src="icons/addfile_btn.svg" alt="Upload" class="add-icon">
-						Add photos/videos
+							<img src="icons/addfile_btn.svg" alt="Upload" class="add-icon">
+							Add photos/videos
 						</div>
-					<input type="file" id="fileInput" style="display:none">
-      				</div>
+						<input type="file" id="fileInput" style="display:none">
+					</div>
 					<button class="post-btn">Post</button>
 				</div>
-				<div class="card2">
-					<h3>Announcement</h3>
-					<div class="blue_bg">
-						<div class="card3">
-							<div class="announcement-header">
-								 <img src="photos/pic_placeholder.png" class="avatar">
-								<div class="announcement-title">Stellar</div>
+					<div class="card2">
+						<h3>History</h3>
+						<div class="blue_bg">
+							<div class="card3">
+								<div class="announcementHeader">
+									<img src="photos/pic_placeholder.png" class="avatar">
+									<div class="announcementTitle">Stellar</div>
+								</div>
+								<p class="announcementText">
+									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+									<br>
+									<br>
+									Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+								</p>
+								<div class="announcementImages">
+									<img src="photos/squarepic_placeholder.png" alt="">
+									<img src="photos/squarepic_placeholder.png" alt="">
+								</div>
 							</div>
-							<p class="announcement-text">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-								<br>
-								<br>
-								Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-							</p>
-							<div class="announcement-images">
-								<img src="photos/squarepic_placeholder.png" alt="">
-            					<img src="photos/squarepic_placeholder.png" alt="">
+							<small>Created on May 15, 2025 by GCO Coordinator</small>
+							<div class="card3">
+								<div class="announcementHeader">
+									<img src="photos/pic_placeholder.png" class="avatar">
+									<div class="announcementTitle">Stellar</div>
+								</div>
+								<p class="announcementText">
+									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+									<br>
+									<br>
+									Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+								</p>
+								<div class="announcementImages">
+									<img src="photos/squarepic_placeholder.png" alt="">
+									<img src="photos/squarepic_placeholder.png" alt="">
+								</div>
 							</div>
+							<small>Created on May 15, 2025 by GCO Coordinator</small>
 						</div>
-						<small>Created on May 15, 2025 by GCO Coordinator</small>
-						<div class="card3">
-							<div class="announcement-header">
-								<img src="photos/pic_placeholder.png" class="avatar">
-            					<div class="announcement-title">Stellar</div>
-							</div>
-							<p class="announcement-text">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-								<br>
-								<br>
-								Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-							</p>
-							<div class="announcement-images">
-								<img src="photos/squarepic_placeholder.png" alt="">
-            					<img src="photos/squarepic_placeholder.png" alt="">
-							</div>
-						</div>
-						<small>Created on May 15, 2025 by GCO Coordinator</small>
 					</div>
-				</div>
 			</div>
-		</div>
+	</div>
 
-	<!---------------- CHAT MANAGEMENT ------------------------------------------------------------>
 
-		<div id="chat" class="page">
-			<div class="row">
-				<div class="card">
-					<h3>Alerts</h3>
-					<table class="user">
-						<thead>
-							<tr>
-								<th id="left">User</th>
-								<th> </th>
-								<th>Source</th>
-								<th>Flagged Word</th>
-								<th>Date</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td class="table_user">
-									<img src="photos/pic_placeholder.png">
-								</td>
-								<td id="name">
-									Doe, John A.<br>
-									<span>email@students.nu-fairview.edu.ph</span>
-								</td>
-								<td>Lorem Ipsum</td>
-								<td style="color: #e85536; font-weight: bold;">Lorem Ipsum</td>
-								<td>Lorem Ipsum</td>
-							</tr>
-							<tr>
-								<td class="table_user">
-									<img src="photos/pic_placeholder.png">
-								</td>
-								<td id="name">
-									Doe, Jane A.<br>
-									<span>email@students.nu-fairview.edu.ph</span>
-								</td>
-								<td>Lorem Ipsum</td>
-								<td style="color: #e85536; font-weight: bold;">Lorem Ipsum</td>
-								<td>Lorem Ipsum</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-			<div class="row">
-				<div class="left2">
-					<div class="card">
-						<h3>Chat Moderation</h3>
-						<div class="input-box">
-						<input type="text" class="custom-input" placeholder="Enter word...">
-						<button class="custom-btn">Add</button>
-						</div>
-						<p class="flagged">Flagged Words</p>
-						<div class="tags">
-							<div class="tag">Lorem Ipsum</div>
-							<div class="tag">Lorem Ipsum</div>
-							<div class="tag">Lorem Ipsum</div>
-							<div class="tag">Lorem Ipsum</div>
-							<div class="tag">Lorem Ipsum</div>
-							<div class="tag">Lorem Ipsum</div>
-							<div class="tag">Lorem Ipsum</div>
-							<div class="tag">Lorem Ipsum</div>
-							<div class="tag">Lorem Ipsum</div>
-							<div class="tag">Lorem Ipsum</div>
-							<div class="tag">Lorem Ipsum</div>
-							<div class="tag">Lorem Ipsum</div>
-							<div class="tag">Lorem Ipsum</div>
-							<div class="tag">Lorem Ipsum</div>
-							<div class="tag">Lorem Ipsum</div>
-							<div class="tag">Lorem Ipsum</div>
-						</div>
-						</div>
-					<div class="card">
-						<h3>Flagged Word History</h3>
-						<table class="user">
-							<thead>
-								<tr>
-									<th id="left">User</th>
-									<th> </th>
-									<th>Flagged Word</th>
-									<th>Date</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td class="table_user">
-										<img src="photos/pic_placeholder.png">
-									</td>
-									<td id="name">
-										Doe, John A.<br>
-										<span>email@students.nu-fairview.edu.ph</span>
-									</td>
-									<td style="color: #e85536; font-weight: bold;">Lorem Ipsum</td>
-									<td>Lorem Ipsum</td>
-								</tr>
-								<tr>
-									<td class="table_user">
-										<img src="photos/pic_placeholder.png">
-									</td>
-									<td id="name">
-										Doe, Jane A.<br>
-										<span>email@students.nu-fairview.edu.ph</span>
-									</td>
-									<td style="color: #e85536; font-weight: bold;">Lorem Ipsum</td>
-									<td>Lorem Ipsum</td>
-								</tr>
-								<tr>
-									<td class="table_user">
-										<img src="photos/pic_placeholder.png">
-									</td>
-									<td id="name">
-										Doe, Jane A.<br>
-										<span>email@students.nu-fairview.edu.ph</span>
-									</td>
-									<td style="color: #e85536; font-weight: bold;">Lorem Ipsum</td>
-									<td>Lorem Ipsum</td>
-								</tr>
-								<tr>
-									<td class="table_user">
-										<img src="photos/pic_placeholder.png">
-									</td>
-									<td id="name">
-										Doe, Jane A.<br>
-										<span>email@students.nu-fairview.edu.ph</span>
-									</td>
-									<td style="color: #e85536; font-weight: bold;">Lorem Ipsum</td>
-									<td>Lorem Ipsum</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<div class="right2">
-					<h3>Lorem Ipsum</h3>
-					<div class="chat-message">
-						<div class="chat-name">Name</div>
-						<div class="chat-bubble">Lorem Ipsum</div>
-					</div>
+	<!-------------------------------------------------------------------------------------------->
 
-					<div class="chat-message">
-						<div class="chat-name">Name</div>
-						<div class="chat-bubble">Lorem Ipsum</div>
-					</div>
-
-					<div class="chat-message">
-						<div class="chat-name">Name</div>
-						<div class="chat-bubble">Lorem Ipsum</div>
-						<div class="chat-bubble">Lorem Ipsum</div>
-					</div>
-
-					<div class="chat-message">
-						<div class="chat-name">Name</div>
-						<div class="chat-bubble danger">Lorem Ipsum 🥺😭</div>
-					</div>
-
-					<div class="chat-message">
-						<div class="chat-name">Name</div>
-						<div class="chat-bubble">Lorem Ipsum</div>
-						<div class="chat-bubble">Lorem Ipsum</div>
-					</div>
-
-					<div class="chat-message">
-						<div class="chat-name">Name</div>
-						<div class="chat-bubble">Lorem Ipsum</div>
-						<div class="chat-bubble">Lorem Ipsum</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-	<!---------------- FEEDBACK ------------------------------------------------------------>
+	<!---------------- FEEDBACK ------------------------------------------------------------------>
 	<div id="feedback" class="page">
 		<div class="row">
 			<div class="card2" style="flex: 2;">
@@ -1634,7 +1475,9 @@
 		</div>
 	</div>
 
-	<!---------------- SETTINGS ------------------------------------------------------------>
+	<!-------------------------------------------------------------------------------------------->
+
+	<!---------------- SETTINGS & LOGS------------------------------------------------------------>
 
 		<div id="settings" class="page">
 			<div class="row">
@@ -1799,7 +1642,9 @@
 			</div>
 		</div>
 
-	<!---------------- REPORTS ------------------------------------------------------------>
+	<!-------------------------------------------------------------------------------------------->
+
+	<!---------------- REPORTS ------------------------------------------------------------------->
 
 		<div id="reports" class="page">
 			<div class="row">
@@ -1873,6 +1718,10 @@
 			</div>
 		</div>
 	</div>
+
+	<!-------------------------------------END OF LAYOUTING--------------------------------------->
+
+	<!-------------------------------------------------------------------------------------------->
 
 	<script>
 		// Eto yung unang engagement chart ----------------------------------------------------
@@ -2590,6 +2439,19 @@
 			default: return formatTitle(id);
 		}
 		}
+
+
+		//ANNOUNCEMENT-----------------------------------------------------------
+
+		document.getElementById('announcementBtn').addEventListener('click', function() {
+			this.classList.add('active');
+			document.getElementById('joinableBtn').classList.remove('active');
+		});
+
+		document.getElementById('joinableBtn').addEventListener('click', function() {
+			this.classList.add('active');
+			document.getElementById('announcementBtn').classList.remove('active');
+		});
 
 
 		//FEEDBACK-----------------------------------------------------------
