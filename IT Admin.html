@@ -1147,11 +1147,111 @@
 		<!---------------- EXPORT CHAT ------------------------------------------------------------>
 
 		<div id="export-chat" class="page">
-			<div class="row">
+			<div class="exportChatContainer">
+				<div class="exportChatButtons">
+					<button class="exportToggleBtn active" id="peerToPeerBtn" onclick="showPeerToPeer()">Peer to Peer</button>
+					<button class="exportToggleBtn" id="supportGroupBtn" onclick="showSupportGroup()">Support Group Chat</button>
+				</div>
 
+				<div class="exportChatContent" id="peerToPeerContent">
+					<div class="exportChatRow">
+						<div class="exportChatGroup">
+							<label class="exportChatLabel">Peer</label>
+							<select class="exportChatSelect">
+								<option>Select</option>
+							</select>
+						</div>
+						<div class="exportChatGroup">
+							<label class="exportChatLabel">Student</label>
+							<select class="exportChatSelect">
+								<option>Select</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="exportChatRadioGroup">
+						<label class="exportChatRadio">
+							<input type="radio" name="dateRange" value="today">
+							<span>Today</span>
+						</label>
+						<label class="exportChatRadio">
+							<input type="radio" name="dateRange" value="past15">
+							<span>Past 15 days</span>
+						</label>
+						<label class="exportChatRadio">
+							<input type="radio" name="dateRange" value="past30">
+							<span>Past 30 days</span>
+						</label>
+						<label class="exportChatRadio">
+							<input type="radio" name="dateRange" value="custom">
+							<span>Custom Range</span>
+						</label>
+					</div>
+
+					<div class="exportChatRow">
+						<div class="exportChatGroup">
+							<label class="exportChatLabel">Start Date</label>
+							<input type="date" class="exportChatDateInput">
+						</div>
+						<div class="exportChatGroup">
+							<label class="exportChatLabel">End Date</label>
+							<input type="date" class="exportChatDateInput">
+						</div>
+					</div>
+
+					<button class="exportChatBtn">Export</button>
+				</div>
+
+				
+				<div class="exportChatContent" id="supportGroupContent" style="display: none;">
+					<div class="exportChatRow">
+						<div class="exportChatGroup">
+							<label class="exportChatLabel">Support Group</label>
+							<select class="exportChatSelect">
+								<option>Select</option>
+							</select>
+						</div>
+						<div class="exportChatGroup">
+							<label class="exportChatLabel">Group Chat</label>
+							<select class="exportChatSelect">
+								<option>Select</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="exportChatRadioGroup">
+						<label class="exportChatRadio">
+							<input type="radio" name="dateRange2" value="today">
+							<span>Today</span>
+						</label>
+						<label class="exportChatRadio">
+							<input type="radio" name="dateRange2" value="past15">
+							<span>Past 15 days</span>
+						</label>
+						<label class="exportChatRadio">
+							<input type="radio" name="dateRange2" value="past30">
+							<span>Past 30 days</span>
+						</label>
+						<label class="exportChatRadio">
+							<input type="radio" name="dateRange2" value="custom">
+							<span>Custom Range</span>
+						</label>
+					</div>
+
+					<div class="exportChatRow">
+						<div class="exportChatGroup">
+							<label class="exportChatLabel">Start Date</label>
+							<input type="date" class="exportChatDateInput">
+						</div>
+						<div class="exportChatGroup">
+							<label class="exportChatLabel">End Date</label>
+							<input type="date" class="exportChatDateInput">
+						</div>
+					</div>
+
+					<button class="exportChatBtn">Export</button>
+				</div>
 			</div>
-
-			
 		</div>
 
 		<!---------------- SETTINGS ------------------------------------------------------------>
@@ -1332,8 +1432,9 @@
 		</div>
 
 
+
 	<script>
-				// Eto yung unang engagement chart ----------------------------------------------------
+	// Eto yung unang engagement chart ----------------------------------------------------
 		const ctx = document.getElementById('engagementChart').getContext('2d');
 		const engagementChart = new Chart(ctx, {
 		type: 'line',
@@ -1655,6 +1756,21 @@
 			}
 		});
 		};
+
+	//EXPORT CHAT
+		function showPeerToPeer() {
+			document.getElementById('peerToPeerBtn').classList.add('active');
+			document.getElementById('supportGroupBtn').classList.remove('active');
+			document.getElementById('peerToPeerContent').style.display = 'block';
+			document.getElementById('supportGroupContent').style.display = 'none';
+		}
+
+		function showSupportGroup() {
+			document.getElementById('supportGroupBtn').classList.add('active');
+			document.getElementById('peerToPeerBtn').classList.remove('active');
+			document.getElementById('supportGroupContent').style.display = 'block';
+			document.getElementById('peerToPeerContent').style.display = 'none';
+		}
 	</script>
 </body>
 </html>

@@ -2951,163 +2951,174 @@ small {
 
 
 /* -------------------------------------EXPORT CHAT -------------------------------------- */
-/* --- Export Chat Button (Card Style) --- */
-.export-btn-card {
-    background: #f9fafc;
-    border-radius: 12px;
-    padding: 22px 28px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-    transition: all 0.25s ease;
-}
-
-.export-btn-card:hover {
-    background: #ffffff;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
-    transform: translateY(-2px);
-}
-
-.export-btn-card .text h6 {
-    font-size: 18px;
-    font-weight: 600;
-    color: #222;
-    margin: 0;
-}
-
-.export-btn-card .text p {
-    font-size: 14px;
-    color: #777;
-    margin: 4px 0 0 0;
-}
-
-.export-btn-card img {
-    width: 22px;
-    height: 22px;
-    opacity: 0.6;
-}
-
-/* --- Modal Overlay --- */
-.new-modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    inset: 0;
-    background: rgba(0,0,0,0.55);
-    backdrop-filter: blur(1px);
-}
-
-/* --- Modal Box --- */
-.new-modal-content {
-    background: #fff;
-    border-radius: 4px;
-    width: 100%;
+.exportChatContainer {
+    background: white;
+    border-radius: 5px;
+    padding: 30px;
     max-width: 500px;
-    margin: 8% auto; /* ✅ center modal horizontally */
-    padding: 28px 32px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
-    font-family: "Segoe UI", Roboto, sans-serif;
-    animation: slideDown 0.3s ease;
-    text-align: left;  /* ✅ force all text to align left */
+    margin: 20px auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
 }
 
-@keyframes slideDown {
-    from { opacity: 0; transform: translateY(-30px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-
-/* --- Modal Title --- */
-.new-modal-content h3 {
-    margin: 0 0 16px 0;
-    font-size: 19px;
-    font-weight: 600;
-    color: #333;
-    text-align: left !important;   /* ✅ force left */
-    width: 100%;                   /* ✅ make sure it spans full row */
-    display: block;                 /* ✅ behaves like a block element */
-}
-
-
-
-/* --- Form --- */
-.new-export-form .row {
+.exportChatButtons {
     display: flex;
-    gap: 12px;
-    margin-bottom: 16px;
+    gap: 15px;
+    margin-bottom: 25px;
 }
 
-.new-export-form select,
-.new-export-form input[type="date"] {
+.exportToggleBtn {
     flex: 1;
-    padding: 11px 12px;
-    font-size: 14px;
-    border: 1px solid #d0d0d0;
-    border-radius: 8px;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    
-    /* 🎨 Custom background + text color */
-    background-color: #f9fbff; /* light blue background */
-    color: #222;               /* dark text */
-    border: 1px solid #b3d1ff; /* soft blue border */
-}
-
-/* --- Focus State --- */
-.new-export-form select:focus,
-.new-export-form input[type="date"]:focus {
-    border-color: #3399ff;
-    box-shadow: 0 0 0 2px rgba(51,153,255,0.15);
-}
-
-/* --- Dropdown Options --- */
-.new-export-form select option {
-    background-color: #ffffff; /* white background */
-    color: #333;               /* dark gray text */
-}
-
-/* --- Radio Options --- */
-.new-radio-options {
-    margin-bottom: 18px;
-    font-size: 14px;
-    color: #444;
-}
-
-.new-radio-options label {
-    display: block;
-    margin-bottom: 10px;
-    cursor: pointer;
-}
-
-/* --- Primary Export Button --- */
-.new-btn {
-    width: 100%;
-    background: #0066ff;
-    color: #fff;
+    padding: 12px 20px;
     border: none;
-    padding: 13px;
-    border-radius: 8px;
-    font-size: 15px;
-    font-weight: 600;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'PublicSans', sans-serif;
     cursor: pointer;
-    transition: background 0.25s ease, transform 0.1s ease;
+    transition: all 0.3s;
+    background: #e8e8e8;
+    color: #6d6d6d;
 }
 
-.new-btn:hover {
-    background: #0052cc;
-    transform: scale(1.02);
+.exportToggleBtn.active {
+    background: #c3e1f4;
+    color: #0067c4;
 }
 
-.select-group {
+.exportToggleBtn:hover {
+    background: #d0d0d0;
+}
+
+.exportToggleBtn.active:hover {
+    background: #a0d4f0;
+}
+
+.exportChatContent {
+    display: block;
+}
+
+.exportChatRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.exportChatGroup {
     display: flex;
     flex-direction: column;
-    flex: 1;
 }
 
-.select-group label {
+.exportChatLabel {
     font-size: 13px;
-    font-weight: 500;
-    color: #444;
-    margin-bottom: 6px;
+    font-weight: bold;
+    font-family: 'PublicSans', sans-serif;
+    color: #6d6d6d;
+    margin-bottom: 8px;
+}
+
+.exportChatSelect {
+    padding: 10px 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    background: #eff5f9;
+    color: #bdc1c4;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23999' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 12px;
+    padding-right: 35px;
+}
+
+.exportChatSelect:focus {
+    outline: none;
+    border-color: #1a73e8;
+}
+
+.exportChatRadioGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.exportChatRadio {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: 'PublicSans', sans-serif;
+    font-weight: normal;
+    color: #000000;
+}
+
+.exportChatRadio input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #1a73e8;
+    border: #bdc1c4;
+}
+
+.exportChatRadio span {
+    user-select: none;
+}
+
+.exportChatDateInput {
+    padding: 10px 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #eff5f9;
+    color: #bdc1c4;
+    cursor: pointer;
+}
+
+.exportChatDateInput:focus {
+    outline: none;
+    border-color: #1a73e8;
+}
+
+.exportChatDateInput::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+}
+
+.exportChatDateInput:invalid {
+    color: #999;
+}
+
+.exportChatBtn {
+    width: auto;
+    min-width: 100px;
+    display: block;
+    background: #c3e1f4;
+    color: #0067c4;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-left: auto;
+    margin-top: 20px;
+}
+
+.exportChatBtn:hover {
+    background: #a0d4f0;
+}
+
+@media (max-width: 600px) {
+    .exportChatRow {
+        grid-template-columns: 1fr;
+    }
+    
+    .exportChatContainer {
+        padding: 20px;
+    }
 }
