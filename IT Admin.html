@@ -1132,15 +1132,13 @@
 		<!------------------------- Create New User Popup ----------------------------->
 		<div class="createUserPopup" id="createUserPopup">
 			<div class="createUserContent">
-				<h2>New GCO Coordinator User</h2>
+				<button class="createUserCloseBtn" onclick="closeCreateUserPopup()">&times;</button>
+				<span>Create GCO Coordinator User</span>
 				
 				<div class="createUserBody">
 					<div class="createUserLeft">
-						<div class="createUserAvatar">
-							<img src="icons/ic_GCO.svg" alt="User Avatar" id="userAvatar">
-						</div>
-						<h3 class="createUserName" id="displayUserName">Dominguez, Samantha <br>
-																		Aeries</h3>
+						<img src="photos/pic_placeholder.png" class="createUserAvatar" alt="User Avatar">
+						<h2 class="createUserName" id="displayUserName">Dominguez, Samantha Aeries</h2>
 					</div>
 					
 					<div class="createUserRight">
@@ -1166,21 +1164,22 @@
 							</div>
 						</div>
 						
-						<div class="createUserGroupFull">
+						<div class="createUserRow">
+							<div class="createUserGroup">
 							<label class="createUserLabel">Password</label>
 							<input type="text" class="createUserInput" id="password" value="sample">
+							</div>
 						</div>
 					</div>
 				</div>
 				
 				<div class="createUserFooter">
-					<button class="createUserBtnCancel" onclick="closeCreateUserPopup()">Cancel</button>
 					<button class="createUserBtnCreate" onclick="showConfirmPopup()">Create</button>
 				</div>
 			</div>
 		</div>
 
-		<!-- Confirm Popup -->
+		<!------------------------- Confirm New User Popup ----------------------------->
 		<div class="confirmPopup" id="confirmPopup">
 			<div class="confirmContent">
 				<p class="confirmText">Confirm adding <strong id="confirmUserName">Dominguez, Samantha Aeries</strong> as a new GCO Coordinator?</p>
@@ -1904,66 +1903,56 @@
 		});
 		};
 
-	//CREATE NEW USER
+		//CREATE NEW USER
 
-	// Open Create User Popup
-	function openCreateUserPopup() {
-		document.getElementById('createUserPopup').classList.add('active');
-	}
-
-	// Close Create User Popup
-	function closeCreateUserPopup() {
-		document.getElementById('createUserPopup').classList.remove('active');
-	}
-
-	// Update Display Name (Camel Case)
-	function updateDisplayName() {
-		const firstName = document.getElementById('firstName').value.trim();
-		const lastName = document.getElementById('lastName').value.trim();
-		
-		if (firstName && lastName) {
-			// Convert to camel case format: "LastName, FirstName"
-			const displayName = `${toTitleCase(lastName)}, ${toTitleCase(firstName)}`;
-			document.getElementById('displayUserName').textContent = displayName;
-			document.getElementById('confirmUserName').textContent = displayName;
+		// Open Create User Popup
+		function openCreateUserPopup() {
+			document.getElementById('createUserPopup').classList.add('active');
 		}
-	}
 
-	// Convert to Title Case (Camel Case)
-	function toTitleCase(str) {
-		return str.toLowerCase().split(' ').map(word => {
-			return word.charAt(0).toUpperCase() + word.slice(1);
-		}).join(' ');
-	}
+		// Close Create User Popup
+		function closeCreateUserPopup() {
+			document.getElementById('createUserPopup').classList.remove('active');
+		}
 
-	// Show Confirm Popup
-	function showConfirmPopup() {
-		updateDisplayName(); // Update the name before showing confirm
-		document.getElementById('confirmPopup').classList.add('active');
-	}
+		// Update Display Name
+		function updateDisplayName() {
+			const firstName = document.getElementById('firstName').value.trim();
+			const lastName = document.getElementById('lastName').value.trim();
+			
+			if (firstName && lastName) {
+				const displayName = `${lastName}, ${firstName}`;
+				document.getElementById('displayUserName').textContent = displayName;
+			}
+		}
 
-	// Close Confirm Popup
-	function closeConfirmPopup() {
-		document.getElementById('confirmPopup').classList.remove('active');
-	}
+		// Show Confirm Popup
+		function showConfirmPopup() {
+			updateDisplayName();
+			document.getElementById('confirmPopup').classList.add('active');
+		}
 
-	// Confirm Create User
-	function confirmCreateUser() {
-		// Here you would add the logic to actually create the user
-		alert('User created successfully!');
-		closeConfirmPopup();
-		closeCreateUserPopup();
-	}
+		// Close Confirm Popup
+		function closeConfirmPopup() {
+			document.getElementById('confirmPopup').classList.remove('active');
+		}
 
-	// Close popups when clicking outside
-	document.addEventListener('click', function(e) {
-		if (e.target === document.getElementById('createUserPopup')) {
+		// Confirm Create User
+		function confirmCreateUser() {
+			alert('User created successfully!');
+			closeConfirmPopup();
 			closeCreateUserPopup();
 		}
-		if (e.target === document.getElementById('confirmPopup')) {
-			closeConfirmPopup();
-		}
-	});
+
+		// Close popups when clicking outside
+		document.addEventListener('click', function(e) {
+			if (e.target === document.getElementById('createUserPopup')) {
+				closeCreateUserPopup();
+			}
+			if (e.target === document.getElementById('confirmPopup')) {
+				closeConfirmPopup();
+			}
+		});
 
 	//EXPORT CHAT
 		function showPeerToPeer() {
