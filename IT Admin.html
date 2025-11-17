@@ -1904,18 +1904,14 @@
 		};
 
 		//CREATE NEW USER
-
-		// Open Create User Popup
 		function openCreateUserPopup() {
 			document.getElementById('createUserPopup').classList.add('active');
 		}
 
-		// Close Create User Popup
 		function closeCreateUserPopup() {
 			document.getElementById('createUserPopup').classList.remove('active');
 		}
 
-		// Update Display Name
 		function updateDisplayName() {
 			const firstName = document.getElementById('firstName').value.trim();
 			const lastName = document.getElementById('lastName').value.trim();
@@ -1926,25 +1922,21 @@
 			}
 		}
 
-		// Show Confirm Popup
 		function showConfirmPopup() {
 			updateDisplayName();
 			document.getElementById('confirmPopup').classList.add('active');
 		}
 
-		// Close Confirm Popup
 		function closeConfirmPopup() {
 			document.getElementById('confirmPopup').classList.remove('active');
 		}
 
-		// Confirm Create User
 		function confirmCreateUser() {
 			alert('User created successfully!');
 			closeConfirmPopup();
 			closeCreateUserPopup();
 		}
 
-		// Close popups when clicking outside
 		document.addEventListener('click', function(e) {
 			if (e.target === document.getElementById('createUserPopup')) {
 				closeCreateUserPopup();
