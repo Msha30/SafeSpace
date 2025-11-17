@@ -1054,7 +1054,7 @@
 									<button class="menu-dots" onclick="toggleDpDots(this)">⋮</button>
 									<div class="dropdown-content">
 										<a href="#" onclick="openEditUserPopup()">Edit</a>
-										<a href="#" class="remove">Remove User</a>
+										<a href="#" class="remove" onclick="openRemovePopup()">Remove User</a>
 									</div>
 								</div>
 								</td>				
@@ -1075,12 +1075,12 @@
 								</td>
 								<td>Lorem Ipsum</td>
 								<td>Lorem Ipsum</td>
-								<td class="action">
+				                <td class="action">
 								<div class="dpDots">
 									<button class="menu-dots" onclick="toggleDpDots(this)">⋮</button>
 									<div class="dropdown-content">
-										<a href="#">Edit</a>
-										<a href="#" class="remove">Remove User</a>
+										<a href="#" onclick="openEditUserPopup()">Edit</a>
+										<a href="#" class="remove" onclick="openRemovePopup()">Remove User</a>
 									</div>
 								</div>
 								</td>
@@ -1100,12 +1100,12 @@
 								</td>
 								<td>Lorem Ipsum</td>
 								<td>Lorem Ipsum</td>
-								<td class="action">
+				                <td class="action">
 								<div class="dpDots">
 									<button class="menu-dots" onclick="toggleDpDots(this)">⋮</button>
 									<div class="dropdown-content">
 										<a href="#" onclick="openEditUserPopup()">Edit</a>
-										<a href="#" class="remove">Remove User</a>
+										<a href="#" class="remove" onclick="openRemovePopup()">Remove User</a>
 									</div>
 								</div>
 								</td>
@@ -1116,18 +1116,17 @@
 			</div>
 		</div>
 
-		<!---------------- NOTE: POP UP FOR REMOVE USER -- DON'T EDIT AYAW PA GUMANA ------------------------------------------------------------>
+		<!---------------- NOTE: POP UP FOR REMOVE USER -- JS NA LANG AYAW GUMANA  ------------------------------------------------------------>
 		<!-- Remove User Popup -->
-		<div id="rmvusrPopUp" class="removeUser hidden">
-			<div class="popUpbox">
-				<p>Are you sure you want to remove <strong id="userName">User Name</strong> as a user?</p>
-				<div class="popUpbtns">
-				<button class="btn cancel" id="cancelRemove">Cancel</button>
-				<button class="btn remove" id="confirmRemove">Remove</button>
+		<div id="rmvusrPopUp" class="removePopup">
+			<div class="removeContent">
+				<p class="removeText">Are you sure you want to remove <strong id="userName">User Name</strong> as a user?</p>
+				<div class="removeButtons">
+					<button class="removeBtnCancel" id="cancelRemove">Cancel</button>
+					<button class="removeBtnConfirm" id="confirmRemove">Remove</button>
 				</div>
 			</div>
 		</div>
-
 		<!------------------------- Edit User Popup ----------------------------->
 		<div class="editUserPopup" id="editUserPopup">
 			<div class="editUserContent">
@@ -1790,26 +1789,6 @@
 		}
 		});
 		
-		// POP UP FOR REMOVE USER AYAW PA GUMANA------------------------------------------------------------------
-		const popup = document.getElementById('rmvusrPopUp');
-
-		document.querySelectorAll('.dropdown-content .remove').forEach(link => {
-			link.addEventListener('click', e => {
-			e.preventDefault();
-			popup.classList.remove('hidden'); // show popup
-			});
-		});
-
-		document.getElementById('cancelRemove').addEventListener('click', () => {
-			popup.classList.add('hidden'); // hide popup
-		});
-
-
-
-
-
-
-
 
 
 		// SLIDER FOR TERMS AND CONDITIONS AND PRIVACY POLICY
@@ -1965,26 +1944,73 @@
 			});
 		};
 
+		// Remove User Functions -- NOT WORKING 
+
+		function openRemovePopup() {
+			const removePopup = document.getElementById('rmvusrPopUp');
+			if (removePopup) {
+				removePopup.classList.add('active');
+			} else {
+				console.error('Remove popup not found!');
+			}
+		}
+
+		function closeRemovePopup() {
+			const removePopup = document.getElementById('rmvusrPopUp');
+			if (removePopup) {
+				removePopup.classList.remove('active');
+			}
+		}
+
+		document.addEventListener('DOMContentLoaded', function() {
+			
+			const removePopup = document.getElementById('rmvusrPopUp');
+			const cancelBtn = document.getElementById('cancelRemove');
+			const confirmBtn = document.getElementById('confirmRemove');
+		
+			
+			if (!removePopup || !cancelBtn || !confirmBtn) {
+				console.error('Remove popup elements not found!');
+				return;
+			}
+		
+			cancelBtn.addEventListener('click', function() {
+				closeRemovePopup();
+			});
+			
+			confirmBtn.addEventListener('click', function() {
+				
+			
+				alert('User removed successfully!');
+				
+		
+				closeRemovePopup();
+			});
+			
+			removePopup.addEventListener('click', function(e) {
+				if (e.target === removePopup) {
+					closeRemovePopup();
+				}
+			});
+			
+		});
+
 		// Edit User Functions
 
-		// Open Edit User Popup
 		function openEditUserPopup() {
 			document.getElementById('editUserPopup').classList.add('active');
 			document.getElementById('editUserFooter').style.display = 'none';
 		}
 
-		// Close Edit User Popup
 		function closeEditUserPopup() {
 			document.getElementById('editUserPopup').classList.remove('active');
 			document.getElementById('editUserFooter').style.display = 'none';
 		}
 
-		// Show Save Button when any input is focused
 		function showEditSaveBtn() {
 			document.getElementById('editUserFooter').style.display = 'flex';
 		}
 
-		// Update Display Name in Edit Popup
 		function updateEditDisplayName() {
 			const firstName = document.getElementById('editFirstName').value.trim();
 			const lastName = document.getElementById('editLastName').value.trim();
@@ -1995,20 +2021,17 @@
 			}
 		}
 
-		// Save Edit User
 		function saveEditUser() {
 			alert('User information saved successfully!');
 			closeEditUserPopup();
 		}
 
-		// Close popup when clicking outside
 		document.addEventListener('click', function(e) {
 			if (e.target === document.getElementById('editUserPopup')) {
 				closeEditUserPopup();
 			}
 		});
 
-		//CREATE NEW USER
 		function openCreateUserPopup() {
 			document.getElementById('createUserPopup').classList.add('active');
 		}
