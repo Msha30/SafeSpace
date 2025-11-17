@@ -3035,6 +3035,7 @@ small {
     font-family: 'PublicSans', sans-serif;
     margin-bottom: 0px;
     transform: translate(-30px, -135px);  
+    width: 130px;
 }
 
 .createUserBtnCreate {
