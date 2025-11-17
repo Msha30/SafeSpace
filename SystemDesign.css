@@ -365,7 +365,7 @@ button {
 }
 
 .table-card {
-	flex: 3.5; /* LEFT COLUMN OF ROW */
+	flex: 3.5; 
 }
 
 table {
@@ -488,7 +488,7 @@ td.down::after {
 }
 
 .btn-reqForm:hover {
-  background: #0b3c91;        /* lighter/darker blue on hover */
+  background: #0b3c91;        
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
@@ -1667,7 +1667,6 @@ select option:focus {
        border-radius: 2px;
     }
 
-    /* Date-Time Container */
     .request-datetime-container {
         display: flex;
         gap: 12px;
@@ -1693,7 +1692,6 @@ select option:focus {
         border-color: #dadce0;
     }
 
-    /* When enabled */
     .request-datetime-container .request-date-input:not([disabled]),
     .request-datetime-container .request-time-input:not([disabled]) {
         background-color: #ffffff;
@@ -1805,7 +1803,6 @@ select option:focus {
   object-fit: cover;
 }
 
-/* Text */
 .support-info h4 {
   margin: 0;
   font-size: 16px;
@@ -1862,19 +1859,16 @@ select option:focus {
   margin: 6px 0;
 }
 
-/* Spans individually */
 .span-1 { font-weight: 600; color: #333; margin-left: 30px; position: relative; top: 0px; }
 .span-2 { font-weight: 600; color: #333; margin-left: 2px; position: relative; top: 2px; }
 .span-3 { font-weight: 600; color: #333; margin-left: 30px; position: relative; bottom: -20px; }
 
-/* Edit links individually */
 .edit-1 { font-size: 0.9em; color: #1877f2; text-decoration: none; margin-right: 15px; position: relative; top: 0px; }
 .edit-2 { font-size: 0.9em; color: #1877f2; text-decoration: none; margin-right: 20px; position: relative; top: 2px; }
 .edit-3 { font-size: 0.9em; color: #1877f2; text-decoration: none; margin-right: 20px; position: relative; bottom: -20px; }
 
 .edit-link:hover { text-decoration: underline; }
 
-/* Images */
 .info-images img[alt="Profile Picture"] {
   width: 100px;
   height: 100px;
@@ -1892,7 +1886,6 @@ select option:focus {
   border: 1px solid #ccc;
 }
 
-/* Description */
 .info-description {
   background: #f0f2f5;
   border-radius: 4px;
@@ -1908,7 +1901,6 @@ select option:focus {
 
 
 /* -------------------------------------- ANNOUNCEMENT 2 -------------------------------------- */
-/* -------------------------------------- DONE -------------------------------------- */
 
 .AncButtons {
     display: flex;
@@ -2138,8 +2130,6 @@ small {
 
 /* --------------------------------------FEEDBACK 2 -------------------------------------- */
 
-/* --------------------------------------FEEDBACK -------------------------------------- */
-
 .leftscrollFeedback {
     max-height: 600px;
     overflow-y: auto;
@@ -2202,7 +2192,6 @@ small {
     margin: 0;
 }
 
-/* Rating Section */
 .rating-section {
     margin-bottom: 30px;
 }
@@ -2237,7 +2226,6 @@ small {
     color: #000;
 }
 
-/* Rating Summary */
 .rating-summary {
     text-align: center;
     padding: 20px;
@@ -2270,7 +2258,6 @@ small {
     color: #000;
 }
 
-/* Scrollbar styling */
 .leftscroll::-webkit-scrollbar {
     width: 6px;
 }
@@ -2285,30 +2272,13 @@ small {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* -------------------------------------- SYSTEM AND LOGS 2 -------------------------------------- */
-/* -------------------------------------- DONE 2 -------------------------------------- */
 .logs-list {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 20px 20px 10px 20px;  /* top right bottom left */
-  margin: 0;                      /* No margin */
+  padding: 20px 20px 10px 20px;  
+  margin: 0;                      
   width: 100%;
   box-sizing: border-box;
   overflow: hidden;
@@ -2623,7 +2593,7 @@ small {
 .badge {
   position: absolute;
   right: 25px;
-  margin-top: -10px;   /* pushes it down */
+  margin-top: -10px;   
   background: #ffdad2;
   color: #e85536;
   font-size: 11px;
@@ -2632,20 +2602,19 @@ small {
   border-radius: 9px;
 }
 
-/* Section wrapper */
+
 .task-section-group {
   margin-bottom: 10px;
   padding: 5px;
-  background: #f2f7fb; /* light blueish background per section */
+  background: #f2f7fb; 
   border-radius: 4px;
 }
 
-/* Section header */
 .section-header {
     display: flex;
-    align-items: center;   /* vertical alignment */
-    justify-content: flex-start; /* left alignment */
-    gap: 15px;             /* spacing between h4 and arrows */
+    align-items: center;   
+    justify-content: flex-start;
+    gap: 15px;             
     margin-left: 0;
     margin-bottom: 20px;
 }
@@ -2660,12 +2629,10 @@ small {
 /* SLIDER */
 .nav-arrows {
     display: flex;
-    align-items: center;   /* vertical alignment inside arrows container */
-    gap: 5px;             /* spacing between the two arrows */
+    align-items: center;   
+    gap: 5px;            
 }
 
-
-/* Task box card */
 .task-box {
   background: #fff;
   border-radius: 4px;
@@ -2674,7 +2641,7 @@ small {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-bottom: 10px; /* vertical space between cards */
+  margin-bottom: 10px; 
 }
 
 .task-box p {
@@ -2684,18 +2651,16 @@ small {
   line-height: 1.4;
 }
 
-/* Actions inside the card */
 .task-actions {
   display: flex;
   gap: 10px;
   justify-content: center;
 }
 
-/* Buttons */
 .task-actions button {
-  flex: 1;              /* all buttons take equal width */
-  width: 120px;     /* optional: limit width if needed */
-  text-align: center;   /* center text inside button */
+  flex: 1;            
+  width: 120px;    
+  text-align: center;  
   height: 40px; 
   padding: 6px 14px;
   border-radius: 4px;
@@ -2724,8 +2689,8 @@ small {
 }
 
 .btn-start:hover {
-  background: #b3d9f2; /* slightly darker blue */
-  color: #004a8f;      /* darker text for contrast */
+  background: #b3d9f2; 
+  color: #004a8f;      
 }
 
 .btn-done {
@@ -2736,7 +2701,7 @@ small {
 }
 
 .btn-done:hover {
-  background: #218838; /* darker green */
+  background: #218838; 
 }
 
 .btn-pending {
@@ -2749,8 +2714,8 @@ small {
 }
 
 .btn-pending:hover {
-  background: #007bff; /* fill blue */
-  color: #fff;          /* text becomes white */
+  background: #007bff; 
+  color: #fff;        
 }
 
 /* --------------------------------------USER MANAGEMENT -------------------------------------- */
@@ -2837,7 +2802,6 @@ small {
 
 
 /* --------------------------------------NOTE: CSS FOR POP UP REMOVE USER -------------------------------------- */
-/* Popup background overlay */
 .removeUser {
   position: fixed;
   top: 0;
@@ -2851,7 +2815,6 @@ small {
   z-index: 2000;
 }
 
-/* Hidden state */
 .hidden {
   display: none;
 }
@@ -2888,7 +2851,6 @@ small {
   transition: background 0.2s ease;
 }
 
-/* Cancel button */
 .btn.cancel {
   background: #e5e5e5;
   color: #333;
@@ -2907,9 +2869,6 @@ small {
   background: #c0392b;
 }
 
-
-/* Create User Popup */
-/* Create User Popup */
 .createUserPopup {
     position: fixed;
     top: 0;
@@ -2934,10 +2893,10 @@ small {
     max-width: 800px;
     width: 90%;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    margin-top: 20px;      /* Adjust top margin */
-    margin-bottom: 20px;   /* Adjust bottom margin */
-    margin-left: 320px;     /* Adjust left margin */
-    margin-right: 50px;    /* Adjust right margin */
+    margin-top: 20px;      
+    margin-bottom: 20px;   
+    margin-left: 320px;    
+    margin-right: 50px;    
 }
 
 .createUserContent h2 {
@@ -2956,7 +2915,7 @@ small {
 .createUserLeft {
     display: flex;
     flex-direction: column;
-    gap: 0;  /* Remove gap so margin works properly */
+    gap: 0;  
     min-width: 180px;
 }
 
@@ -2978,7 +2937,7 @@ small {
     font-weight: 600;
     color: #333;
     text-align: left;
-    margin: 15px 0 0 -10px;  /* top right bottom left */
+    margin: 15px 0 0 -10px; 
 }
 
 .createUserRight {
@@ -3068,7 +3027,6 @@ small {
     background: #a0d4f0;
 }
 
-/* Confirm Popup */
 .confirmPopup {
     position: fixed;
     top: 0;
@@ -3143,7 +3101,6 @@ small {
     background: #a0d4f0;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
     .createUserBody {
         flex-direction: column;
