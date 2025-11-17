@@ -1053,7 +1053,7 @@
 								<div class="dpDots">
 									<button class="menu-dots" onclick="toggleDpDots(this)">⋮</button>
 									<div class="dropdown-content">
-										<a href="#">Edit</a>
+										<a href="#" onclick="openEditUserPopup()">Edit</a>
 										<a href="#" class="remove">Remove User</a>
 									</div>
 								</div>
@@ -1104,7 +1104,7 @@
 								<div class="dpDots">
 									<button class="menu-dots" onclick="toggleDpDots(this)">⋮</button>
 									<div class="dropdown-content">
-										<a href="#">Edit</a>
+										<a href="#" onclick="openEditUserPopup()">Edit</a>
 										<a href="#" class="remove">Remove User</a>
 									</div>
 								</div>
@@ -1124,6 +1124,68 @@
 				<div class="popUpbtns">
 				<button class="btn cancel" id="cancelRemove">Cancel</button>
 				<button class="btn remove" id="confirmRemove">Remove</button>
+				</div>
+			</div>
+		</div>
+
+		<!------------------------- Edit User Popup ----------------------------->
+		<div class="editUserPopup" id="editUserPopup">
+			<div class="editUserContent">
+				<button class="editUserCloseBtn" onclick="closeEditUserPopup()">&times;</button>
+				
+				<div class="editUserBody">
+					<div class="editUserLeft">
+						<img src="photos/pic_placeholder.png" class="editUserAvatar" alt="User Avatar">
+						<h2 class="editUserName" id="editDisplayUserName">Dominguez, Samantha Aeries</h2>
+						<p class="editUserLastActive">Last Active<br><span>May 15, 2025</span></p>
+						<p class="editUserDateCreated">Date Account Created<br><span>January 28, 2025</span></p>
+					</div>
+					
+					<div class="editUserRight">
+						<div class="editUserRow">
+							<div class="editUserGroup">
+								<label class="editUserLabel">First Name</label>
+								<input type="text" class="editUserInput" id="editFirstName" value="Samantha Aeries" oninput="updateEditDisplayName()" onfocus="showEditSaveBtn()">
+							</div>
+							<div class="editUserGroup">
+								<label class="editUserLabel">Last Name</label>
+								<input type="text" class="editUserInput" id="editLastName" value="Dominguez" oninput="updateEditDisplayName()" onfocus="showEditSaveBtn()">
+							</div>
+						</div>
+						
+						<div class="editUserRow">
+							<div class="editUserGroup">
+								<label class="editUserLabel">School Email</label>
+								<input type="email" class="editUserInput" id="editSchoolEmail" value="email@students.nu-fairview.edu.ph" onfocus="showEditSaveBtn()">
+							</div>
+							<div class="editUserGroup">
+								<label class="editUserLabel">Access</label>
+								<input type="text" class="editUserInput editUserInputReadonly" id="editAccess" value="PEERS" readonly>
+							</div>
+						</div>
+						
+						<div class="editUserRow">
+							<div class="editUserGroup">
+								<label class="editUserLabel">Student ID</label>
+								<input type="text" class="editUserInput" id="editStudentNo" value="2022-123456" onfocus="showEditSaveBtn()">
+							</div>
+							<div class="editUserGroup">
+								<label class="editUserLabel">Program</label>
+								<input type="text" class="editUserInput" id="editProgram" value="B.S. Psychology" onfocus="showEditSaveBtn()">
+							</div>
+						</div>
+						
+						<div class="editUserRow">
+							<div class="editUserGroup">
+								<label class="editUserLabel">Preferred Name</label>
+								<input type="text" class="editUserInput" id="editPreferredName" value="- - - - - - -" onfocus="showEditSaveBtn()">
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="editUserFooter" id="editUserFooter" style="display: none;">
+					<button class="editUserBtnSave" onclick="saveEditUser()">Save</button>
 				</div>
 			</div>
 		</div>
@@ -1867,7 +1929,7 @@
 
 			// Close any other open dropdowns
 			document.querySelectorAll('.dropdown-content.show').forEach(menu => {
-			if (menu !== dpDots) menu.classList.remove('show');
+				if (menu !== dpDots) menu.classList.remove('show');
 			});
 
 			// Toggle current dropdown
@@ -1877,31 +1939,74 @@
 		// Close dropdown if clicking outside
 		document.addEventListener('click', function(event) {
 			if (!event.target.closest('.dpDots')) {
-			document.querySelectorAll('.dropdown-content.show').forEach(menu => {
-				menu.classList.remove('show');
-			});
+				document.querySelectorAll('.dropdown-content.show').forEach(menu => {
+					menu.classList.remove('show');
+				});
 			}
 		});
 
 		// Open modal
 		function openModal(id) {
-		document.getElementById(id).style.display = "block";
+			document.getElementById(id).style.display = "block";
 		}
 
 		// Close modal
 		function closeModal(id) {
-		document.getElementById(id).style.display = "none";
+			document.getElementById(id).style.display = "none";
 		}
 
 		// Close modal when clicking outside
 		window.onclick = function(event) {
-		const openModals = document.querySelectorAll(".new-modal"); // all modals
-		openModals.forEach(modal => {
-			if (event.target === modal) {
-			modal.style.display = "none";
+			const openModals = document.querySelectorAll(".new-modal");
+			openModals.forEach(modal => {
+				if (event.target === modal) {
+					modal.style.display = "none";
+				}
+			});
+		};
+
+		// Edit User Functions
+
+		// Open Edit User Popup
+		function openEditUserPopup() {
+			document.getElementById('editUserPopup').classList.add('active');
+			document.getElementById('editUserFooter').style.display = 'none';
+		}
+
+		// Close Edit User Popup
+		function closeEditUserPopup() {
+			document.getElementById('editUserPopup').classList.remove('active');
+			document.getElementById('editUserFooter').style.display = 'none';
+		}
+
+		// Show Save Button when any input is focused
+		function showEditSaveBtn() {
+			document.getElementById('editUserFooter').style.display = 'flex';
+		}
+
+		// Update Display Name in Edit Popup
+		function updateEditDisplayName() {
+			const firstName = document.getElementById('editFirstName').value.trim();
+			const lastName = document.getElementById('editLastName').value.trim();
+			
+			if (firstName && lastName) {
+				const displayName = `${lastName}, ${firstName}`;
+				document.getElementById('editDisplayUserName').textContent = displayName;
+			}
+		}
+
+		// Save Edit User
+		function saveEditUser() {
+			alert('User information saved successfully!');
+			closeEditUserPopup();
+		}
+
+		// Close popup when clicking outside
+		document.addEventListener('click', function(e) {
+			if (e.target === document.getElementById('editUserPopup')) {
+				closeEditUserPopup();
 			}
 		});
-		};
 
 		//CREATE NEW USER
 		function openCreateUserPopup() {
