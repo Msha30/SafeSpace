@@ -1984,6 +1984,7 @@ select option:focus {
 
 
 /* -------------------------------------- SUPPORT GROUP 2 | SPECIFIC SUPPORT GROUPS -------------------------------------- */
+/* -------------------------------------- SUPPORT GROUP 2 | SPECIFIC SUPPORT GROUPS -------------------------------------- */
 .info-row-group {
   display: flex;
   align-items: flex-start;
@@ -2014,13 +2015,27 @@ select option:focus {
 
 .edit-link:hover { text-decoration: underline; }
 
-.info-images img[alt="Profile Picture"] {
+.info-images {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.profile-circle {
   width: 100px;
   height: 100px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1px solid #ccc;
-  margin-left: 150px;
+  border: 2px solid #ddd;
+}
+
+.profile-square {
+  width: 100px;
+  height: 100px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 2px solid #ddd;
 }
 
 .info-images img[alt="Cover Photo"] {
