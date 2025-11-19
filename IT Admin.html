@@ -1812,7 +1812,7 @@
 		}
 
 
-		//FOR TASKS
+		// FOR TASKS
 		function showPage(pageId, el) {
 			if (!pageId) return;
 
@@ -1824,8 +1824,10 @@
 
 			// Show the target page
 			const page = document.getElementById(pageId);
-			page.style.display = "block";
-			page.classList.add("active");
+			if (page) {
+				page.style.display = "block";
+				page.classList.add("active");
+			}
 
 			// Reset sidebar highlights
 			document.querySelectorAll(".sidebar a").forEach(a => {
@@ -1836,16 +1838,17 @@
 
 			const taskSubpages = ["technical", "editing", "account", "removal", "chat-history", "update", "other"];
 
-			if (taskSubpages.includes(pageId)) {
-				// Highlight Tasks menu
-				const tasksLink = document.querySelector(".sidebar a[data-page='tasks']");
+			// Highlight Tasks menu for subpages OR main tasks page
+			if (taskSubpages.includes(pageId) || pageId === "tasks") {
+				const tasksLink = document.querySelector(".sidebar a[data-page='tasks']") ||
+								document.querySelector(".sidebar a[onclick*='tasks']");
 				if (tasksLink) {
 					tasksLink.classList.add("active");
 					let activeImg = tasksLink.querySelector("img.icon");
 					if (activeImg) activeImg.src = activeImg.src.replace("ic_sb_", "ic_sba_");
 				}
 			} else if (el) {
-				// Highlight clicked menu
+				// Highlight clicked menu for other pages
 				el.classList.add("active");
 				let activeImg = el.querySelector("img.icon");
 				if (activeImg) activeImg.src = activeImg.src.replace("ic_sb_", "ic_sba_");
@@ -1872,6 +1875,7 @@
 			document.getElementById("pageTitle").innerHTML = title;
 		}
 
+		// Format title for general pages
 		function formatTitle(str) {
 			return str
 				.split('-')
@@ -1879,25 +1883,7 @@
 				.join(' ');
 		}
 
-
-		function addChatTag() {
-			const input = document.querySelector('.chat-input'); 
-			const value = input.value.trim();
-			if (value !== '') {
-				const tagContainer = document.getElementById('chatTags');
-				const newTag = document.createElement('div');
-				newTag.className = 'chat-tag';
-				newTag.innerHTML = `${value} <span class="remove-chat" onclick="removeChatTag(this)">×</span>`;
-				tagContainer.appendChild(newTag);
-				input.value = '';
-			}
-		}
-
-		function removeChatTag(element) {
-			element.parentElement.remove();
-		}
-
-
+		
 		//DROPDOWN DOTS FOR USER MANAGEMENT
 		// Toggle dropdown when clicking the dots
 		function toggleDpDots(button) {
