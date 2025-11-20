@@ -1950,23 +1950,59 @@
 			const removePopup = document.getElementById('rmvusrPopUp');
 			const cancelBtn = document.getElementById('cancelRemove');
 			const confirmBtn = document.getElementById('confirmRemove');
-		
+
 			
 			if (!removePopup || !cancelBtn || !confirmBtn) {
 				console.error('Remove popup elements not found!');
 				return;
 			}
-		
+
 			cancelBtn.addEventListener('click', function() {
 				closeRemovePopup();
 			});
 			
 			confirmBtn.addEventListener('click', function() {
 				
-			
 				alert('User removed successfully!');
 				
-		
+				closeRemovePopup();
+			});
+			
+			removePopup.addEventListener('click', function(e) {
+				if (e.target === removePopup) {
+					closeRemovePopup();
+				}
+			});
+			
+		});
+
+		function closeRemovePopup() {
+			const removePopup = document.getElementById('rmvusrPopUp');
+			if (removePopup) {
+				removePopup.style.display = 'none';
+			}
+		}
+
+		document.addEventListener('DOMContentLoaded', function() {
+			
+			const removePopup = document.getElementById('rmvusrPopUp');
+			const cancelBtn = document.getElementById('cancelRemove');
+			const confirmBtn = document.getElementById('confirmRemove');
+
+			
+			if (!removePopup || !cancelBtn || !confirmBtn) {
+				console.error('Remove popup elements not found!');
+				return;
+			}
+
+			cancelBtn.addEventListener('click', function() {
+				closeRemovePopup();
+			});
+			
+			confirmBtn.addEventListener('click', function() {
+				
+				alert('User removed successfully!');
+				
 				closeRemovePopup();
 			});
 			
