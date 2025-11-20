@@ -768,25 +768,151 @@
 			<div class="row">
 				<div class="card">
 					<h3>Information</h3>
-					<!-- Profile and details content will go here -->
+					<div class="informationLayout">
+						<div class="informationLeft">
+							<img src="photos/pic_placeholder.png" alt="Profile" class="informationProfileImg">
+							<h2 id="peerNameTitle">Dominguez, Samantha Aeries</h2>
+							<div class="informationDateLeft">
+								<p>Last Active</p>
+								<strong>May 15, 2025</strong>
+								<br><br>
+								<p>Date Account Created</p>
+								<strong>January 28, 2025</strong>
+							</div>
+						</div>
+						
+						<div class="informationRight">
+							<div class="informationDetailRow">
+								<div class="informationDetailItem">
+									<label>First Name</label>
+									<p id="peerFirstName">Samantha Aeries</p>
+								</div>
+								<div class="informationDetailItem">
+									<label>Last Name</label>
+									<p id="peerLastName">Dominguez</p>
+								</div>
+							</div>
+							
+							<div class="informationDetailRow">
+								<div class="informationDetailItem">
+									<label>School Email</label>
+									<p id="peerEmail">email@students.nu-fairview.edu.ph</p>
+								</div>
+								<div class="informationDetailItem">
+									<label>Year Level</label>
+									<p>PEERS</p>
+								</div>
+							</div>
+							
+							<div class="informationDetailRow">
+								<div class="informationDetailItem">
+									<label>Student No.</label>
+									<p>2022-123456</p>
+								</div>
+								<div class="informationDetailItem">
+									<label>Program</label>
+									<p>B.S. Psychology</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="card">
+					<div class="peerScheduleHeader">
+						<h4 class="peerScheduleDay">MONDAY</h4>
+					</div>
+					<div class="peerScheduleSlot">
+						<p class="peerScheduleTime">00:00 AM - 00:00 PM</p>
+					</div>
+					<div class="peerScheduleSlot">
+						<p class="peerScheduleTime">00:00 AM - 00:00 PM</p>
+					</div>
+					<div class="peerScheduleSlot">
+						<p class="peerScheduleTime">00:00 AM - 00:00 PM</p>
+					</div>
+				</div>
+				
+				<div class="card">
+					<div class="peerScheduleHeader">
+						<h4 class="peerScheduleDay">TUESDAY</h4>
+					</div>
+					<div class="peerScheduleSlot">
+						<p class="peerScheduleTime">00:00 AM - 00:00 PM</p>
+					</div>
+					<div class="peerScheduleSlot">
+						<p class="peerScheduleTime">00:00 AM - 00:00 PM</p>
+					</div>
+					<div class="peerScheduleSlot">
+						<p class="peerScheduleTime">00:00 AM - 00:00 PM</p>
+					</div>
+				</div>
+				
+				<div class="card">
+					<div class="peerScheduleHeader">
+						<h4 class="peerScheduleDay">WEDNESDAY</h4>
+					</div>
+					<div class="peerScheduleSlot">
+						<p class="peerScheduleTime">00:00 AM - 00:00 PM</p>
+					</div>
+					<div class="peerScheduleSlot">
+						<p class="peerScheduleTime">00:00 AM - 00:00 PM</p>
+					</div>
+					<div class="peerScheduleSlot">
+						<p class="peerScheduleTime">00:00 AM - 00:00 PM</p>
+					</div>
+				</div>
+				
+				<div class="card">
+					<div class="peerScheduleHeader">
+						<h4 class="peerScheduleDay">THURSDAY</h4>
+					</div>
+					<div class="peerScheduleSlot">
+						<p class="peerScheduleTime">00:00 AM - 00:00 PM</p>
+					</div>
+					<div class="peerScheduleSlot">
+						<p class="peerScheduleTime">00:00 AM - 00:00 PM</p>
+					</div>
+					<div class="peerScheduleSlot">
+						<p class="peerScheduleTime">00:00 AM - 00:00 PM</p>
+					</div>
+				</div>
+				
+				<div class="card">
+					<div class="peerScheduleHeader">
+						<h4 class="peerScheduleDay">FRIDAY</h4>
+					</div>
+					<div class="peerScheduleSlot">
+						<p class="peerScheduleTime">00:00 AM - 00:00 PM</p>
+					</div>
+					<div class="peerScheduleSlot">
+						<p class="peerScheduleTime">00:00 AM - 00:00 PM</p>
+					</div>
+					<div class="peerScheduleSlot">
+						<p class="peerScheduleTime">00:00 AM - 00:00 PM</p>
+					</div>
 				</div>
 			</div>
 			
+
 			<div class="row">
-				<div class="card">
-					<!-- Weekly schedule view will go here -->
+				<div class="left-half">
+					<button class="btn-white">Today</button>
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
 				</div>
 			</div>
-
+			
 			<div class="row" id="schedule" style="gap: 15px;">
 				<div class="card">
 					<h4 class="sched-date">23</h4>
 					<h5 style="padding-left: 30px;">MON</h5>
-					<div class="sched">
+					<div class="sched" onclick="openPeersPopup()">
 						<p class="sched-type">Face to Face</p>
 						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
-					<div class="sched">
+					<div class="sched" onclick="openPeersPopup()">
 						<p class="sched-type">Face to Face</p>
 						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
@@ -795,11 +921,11 @@
 				<div class="card">
 					<h4 class="sched-date">23</h4>
 					<h5 style="padding-left: 30px;">MON</h5>
-					<div class="sched">
+					<div class="sched" onclick="openPeersPopup()">
 						<p class="sched-type">Video Call</p>
 						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
-					<div class="sched">
+					<div class="sched" onclick="openPeersPopup()">
 						<p class="sched-type">Video Call</p>
 						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
@@ -807,11 +933,11 @@
 				<div class="card">
 					<h4 class="sched-date">23</h4>
 					<h5 style="padding-left: 30px;">MON</h5>
-					<div class="sched">
+					<div class="sched" onclick="openPeersPopup()">
 						<p class="sched-type">Call</p>
 						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
-					<div class="sched">
+					<div class="sched" onclick="openPeersPopup()">
 						<p class="sched-type">Call</p>
 						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
@@ -819,11 +945,11 @@
 				<div class="card">
 					<h4 class="sched-date">23</h4>
 					<h5 style="padding-left: 30px;">MON</h5>
-					<div class="sched">
+					<div class="sched" onclick="openPeersPopup()">
 						<p class="sched-type">Face to Face</p>
 						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
-					<div class="sched">
+					<div class="sched" onclick="openPeersPopup()">
 						<p class="sched-type">Face to Face</p>
 						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
@@ -831,11 +957,11 @@
 				<div class="card">
 					<h4 class="sched-date">23</h4>
 					<h5 style="padding-left: 30px;">MON</h5>
-					<div class="sched">
+					<div class="sched" onclick="openPeersPopup()">
 						<p class="sched-type">Video Call</p>
 						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
-					<div class="sched">
+					<div class="sched" onclick="openPeersPopup()">
 						<p class="sched-type">Video Call</p>
 						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
@@ -843,11 +969,11 @@
 				<div class="card">
 					<h4 class="sched-date">23</h4>
 					<h5 style="padding-left: 30px;">MON</h5>
-					<div class="sched">
+					<div class="sched" onclick="openPeersPopup()">
 						<p class="sched-type">Call</p>
 						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
-					<div class="sched">
+					<div class="sched" onclick="openPeersPopup()">
 						<p class="sched-type">Call</p>
 						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
@@ -866,9 +992,6 @@
 						<img src="photos/pic_placeholder.png" alt="Profile" class="popup-profile-img">
 						<h2>Dominguez, Samantha Aeries</h2>
 						<div class="date-created-left">
-							<p>Last Active</p>
-							<strong>January 28, 2025</strong>
-							<br>
 							<p>Date Request Created</p>
 							<strong>January 28, 2025</strong>
 						</div>
@@ -888,22 +1011,44 @@
 						
 						<div class="detail-row">
 							<div class="detail-item">
-								<label>Student Email</label>
+								<label>Program</label>
 								<p>Lorem Ipsum</p>
 							</div>
 							<div class="detail-item">
-								<label>Preferred Name</label>
+								<label>Student ID</label>
 								<p>Lorem Ipsum</p>
 							</div>
 						</div>
 						
 						<div class="detail-row">
 							<div class="detail-item">
-								<label>Student ID</label>
+								<label>Age</label>
 								<p>Lorem Ipsum</p>
 							</div>
 							<div class="detail-item">
-								<label>Program</label>
+								<label>Sex assigned at birth</label>
+								<p>Lorem Ipsum</p>
+							</div>
+						</div>
+						
+						<div class="detail-row">
+							<div class="detail-item">
+								<label>Gender Identity</label>
+								<p>Lorem Ipsum</p>
+							</div>
+							<div class="detail-item">
+								<label>Preferred mode of platform</label>
+								<p>Lorem Ipsum</p>
+							</div>
+						</div>
+						
+						<div class="detail-row">
+							<div class="detail-item">
+								<label>Preferred Counselor</label>
+								<p>Lorem Ipsum</p>
+							</div>
+							<div class="detail-item">
+								<label>Is it urgent?</label>
 								<p>Lorem Ipsum</p>
 							</div>
 						</div>
@@ -989,7 +1134,7 @@
 	<div id="haven" class="page">
 		<div class="row">
 			<div class="left">
-				<h3>Info</h3>
+				<h3>Information</h3>
 				<div class="info-section">
 
 					<div class="info-row-group">
@@ -1133,12 +1278,13 @@
 				</div>
 			</div>
 		</div>
+
 	<!---------------------------------------------------------------------------------------->	
 	<!---------------- SUPPORT GROUP | YAKAP ------------------------------------------------->
 	<div id="yakap" class="page">
 		<div class="row">
 			<div class="left">
-				<h3>Info</h3>
+				<h3>Information</h3>
 				<div class="info-section">
 
 					<div class="info-row-group">
@@ -1288,7 +1434,7 @@
 		<div id="rise" class="page">
 			<div class="row">
 				<div class="left">
-					<h3>Info</h3>
+					<h3>Information</h3>
 					<div class="info-section">
 
 						<div class="info-row-group">
@@ -2464,7 +2610,7 @@
 			}
 		});
 
-				// PER PEER PAGE
+		// PER PEER PAGE
 		function showPeerPage(element) {
 			const nameDiv = element.closest('.name');
 			
