@@ -990,48 +990,43 @@
 		<div class="row">
 			<div class="left">
 				<h3>Info</h3>
-			<div class="info-section">
+				<div class="info-section">
 
-				<!-- Profile + Cover side by side -->
-				<div class="info-row-group">
+					<div class="info-row-group">
 
-				<!-- Profile Picture -->
-				<div class="info-block">
+					<div class="info-block">
+						<div class="info-row">
+						<span class="span-1">Profile Picture</span>
+						<a href="#" class="edit-link edit-1">Edit</a>
+						</div>
+						<div class="info-images">
+						<img src="photos/pic_placeholder.png" alt="Profile Picture Circle" class="profile-circle">
+						<img src="photos/suppGroup_placeholder.png" alt="Profile Picture Square" class="profile-square">
+						</div>
+					</div>
+
+					<div class="info-block">
+						<div class="info-row">
+						<span class="span-2">Cover Photo</span>
+						<a href="#" class="edit-link edit-2">Edit</a>
+						</div>
+						<div class="info-images">
+						<img src="photos/rectangle_placeholder.png" alt="Cover Photo">
+						</div>
+					</div>
+					</div>
+
 					<div class="info-row">
-					<span class="span-1">Profile Picture</span>
-					<a href="#" class="edit-link edit-1">Edit</a>
+					<span class="span-3">Description</span>
+					<a href="#" class="edit-link edit-3">Edit</a>
 					</div>
-					<div class="info-images">
-					<img src="photos/pic_placeholder.png" alt="Profile Picture Circle" class="profile-circle">
-					<img src="photos/pic_placeholder.png" alt="Profile Picture Square" class="profile-square">
-					</div>
-				</div>
-
-				<!-- Cover Photo -->
-				<div class="info-block">
-					<div class="info-row">
-					<span class="span-2">Cover Photo</span>
-					<a href="#" class="edit-link edit-2">Edit</a>
-					</div>
-					<div class="info-images">
-					<img src="photos/rectangle_placeholder.png" alt="Cover Photo">
+					<div class="info-description">
+					<strong>Lorem Ipsum</strong><br><br>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+					Vivamus tincidunt, nunc nec faucibus fermentum, lorem mauris 
+					placerat justo, a malesuada sapien sapien sit amet neque.
 					</div>
 				</div>
-				</div>
-
-				<!-- Description -->
-				<div class="info-row">
-				<span class="span-3">Description</span>
-				<a href="#" class="edit-link edit-3">Edit</a>
-				</div>
-				<div class="info-description">
-				<strong>Lorem Ipsum</strong><br><br>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-				Vivamus tincidunt, nunc nec faucibus fermentum, lorem mauris 
-				placerat justo, a malesuada sapien sapien sit amet neque.
-				</div>
-
-			</div>
 			</div>
 			<div class="right">
 				<div class="card">
@@ -1042,7 +1037,7 @@
 								<td class="table_user">
 									<img src="photos/pic_placeholder.png">
 								</td>
-								<td id="name">
+								<td id="name" onclick="openGroupChatEditModal()" style="cursor: pointer;">
 									Lorem Ipsum<br>
 								</td>
 							</tr>
@@ -1050,7 +1045,7 @@
 								<td class="table_user">
 									<img src="photos/pic_placeholder.png">
 								</td>
-								<td id="name">
+								<td id="name" onclick="openGroupChatEditModal()" style="cursor: pointer;">
 									Lorem Ipsum<br>
 								</td>
 							</tr>
@@ -1107,12 +1102,43 @@
 			</div>
 		</div>
 	</div>
+
+	<!---------------- GROUP CHAT EDIT MODAL ---------------------------------------------->
+		<div id="groupChatEditModal" class="groupChatEditModal">
+			<div class="groupChatEditContent">
+				<span class="groupChatEditClose" onclick="closeGroupChatEditModal()">&times;</span>
+				<h3>Lorem Ipsum</h3>
+				
+				<div class="groupChatEditFormGroup">
+					<div class="groupChatEditFormLabel">
+						<span>Group Chat Name</span>
+						<span class="groupChatEditLink">Edit</span>
+					</div>
+					<input type="text" id="groupChatNameInput" class="groupChatEditInput" placeholder="Lorem Ipsum" value="Lorem Ipsum">
+				</div>
+
+				<div class="groupChatEditFormGroup">
+					<div class="groupChatEditFormLabel">
+						<span>Group Chat Picture</span>
+						<span class="groupChatEditLink">Edit</span>
+					</div>
+					<div class="groupChatEditPictureOptions">
+						<div class="groupChatEditPictureOption groupChatEditCircle">
+							<img src="photos/pic_placeholder.png" alt="Circle">
+						</div>
+						<div class="groupChatEditPictureOption groupChatEditSquare">
+							<img src="photos/suppGroup_placeholder.png" alt="Square">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	<!---------------------------------------------------------------------------------------->	
 	<!---------------- SUPPORT GROUP | YAKAP ------------------------------------------------->
-		<div id="yakap" class="page">
-			<div class="row">
-				<div class="left">
-					<h3>Info</h3>
+	<div id="yakap" class="page">
+		<div class="row">
+			<div class="left">
+				<h3>Info</h3>
 				<div class="info-section">
 
 					<div class="info-row-group">
@@ -1123,7 +1149,8 @@
 						<a href="#" class="edit-link edit-1">Edit</a>
 						</div>
 						<div class="info-images">
-						<img src="photos/pic_placeholder.png" alt="Profile Picture" style="border-radius:50%;">
+						<img src="photos/pic_placeholder.png" alt="Profile Picture Circle" class="profile-circle">
+						<img src="photos/suppGroup_placeholder.png" alt="Profile Picture Square" class="profile-square">
 						</div>
 					</div>
 
@@ -1148,79 +1175,109 @@
 					Vivamus tincidunt, nunc nec faucibus fermentum, lorem mauris 
 					placerat justo, a malesuada sapien sapien sit amet neque.
 					</div>
+				</div>
+			</div>
+			<div class="right">
+				<div class="card">
+					<h3>Group Chat</h3>
+					<table class="user">
+						<tbody>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name" onclick="openGroupChatEditModal()" style="cursor: pointer;">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name" onclick="openGroupChatEditModal()" style="cursor: pointer;">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="card">
+					<h3>Members</h3>
+					<table class="user">
+						<tbody>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 
-				</div>
-				</div>
-				<div class="right">
-					<div class="card">
-						<h3>Group Chat</h3>
-						<table class="user">
-							<tbody>
-								<tr>
-									<td class="table_user">
-										<img src="photos/pic_placeholder.png">
-									</td>
-									<td id="name">
-										Lorem Ipsum<br>
-									</td>
-								</tr>
-								<tr>
-									<td class="table_user">
-										<img src="photos/pic_placeholder.png">
-									</td>
-									<td id="name">
-										Lorem Ipsum<br>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+	<!---------------- GROUP CHAT EDIT MODAL ---------------------------------------------->
+		<div id="groupChatEditModal" class="groupChatEditModal">
+			<div class="groupChatEditContent">
+				<span class="groupChatEditClose" onclick="closeGroupChatEditModal()">&times;</span>
+				<h3>Yakap Updates</h3>
+				
+				<div class="groupChatEditFormGroup">
+					<div class="groupChatEditFormLabel">
+						<span>Group Chat Name</span>
+						<span class="groupChatEditLink">Edit</span>
 					</div>
-					<div class="card">
-						<h3>Members</h3>
-						<table class="user">
-							<tbody>
-								<tr>
-									<td class="table_user">
-										<img src="photos/pic_placeholder.png">
-									</td>
-									<td id="name">
-										Lorem Ipsum<br>
-									</td>
-								</tr>
-								<tr>
-									<td class="table_user">
-										<img src="photos/pic_placeholder.png">
-									</td>
-									<td id="name">
-										Lorem Ipsum<br>
-									</td>
-								</tr>
-								<tr>
-									<td class="table_user">
-										<img src="photos/pic_placeholder.png">
-									</td>
-									<td id="name">
-										Lorem Ipsum<br>
-									</td>
-								</tr>
-								<tr>
-									<td class="table_user">
-										<img src="photos/pic_placeholder.png">
-									</td>
-									<td id="name">
-										Lorem Ipsum<br>
-									</td>
-								</tr>
-								<tr>
-									<td class="table_user">
-										<img src="photos/pic_placeholder.png">
-									</td>
-									<td id="name">
-										Lorem Ipsum<br>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+					<input type="text" id="groupChatNameInput" class="groupChatEditInput" placeholder="Yakap Updates" value="Yakap Updates">
+				</div>
+
+				<div class="groupChatEditFormGroup">
+					<div class="groupChatEditFormLabel">
+						<span>Group Chat Picture</span>
+						<span class="groupChatEditLink">Edit</span>
+					</div>
+					<div class="groupChatEditPictureOptions">
+						<div class="groupChatEditPictureOption groupChatEditCircle">
+							<img src="photos/pic_placeholder.png" alt="Circle">
+						</div>
+						<div class="groupChatEditPictureOption groupChatEditSquare">
+							<img src="photos/suppGroup_placeholder.png" alt="Square">
+						</div>
 					</div>
 				</div>
 			</div>
@@ -1232,47 +1289,43 @@
 			<div class="row">
 				<div class="left">
 					<h3>Info</h3>
-				<div class="info-section">
+					<div class="info-section">
 
-					<!-- Profile + Cover side by side -->
-					<div class="info-row-group">
+						<div class="info-row-group">
 
-					<!-- Profile Picture -->
-					<div class="info-block">
+						<div class="info-block">
+							<div class="info-row">
+							<span class="span-1">Profile Picture</span>
+							<a href="#" class="edit-link edit-1">Edit</a>
+							</div>
+							<div class="info-images">
+							<img src="photos/pic_placeholder.png" alt="Profile Picture Circle" class="profile-circle">
+							<img src="photos/suppGroup_placeholder.png" alt="Profile Picture Square" class="profile-square">
+							</div>
+						</div>
+
+						<div class="info-block">
+							<div class="info-row">
+							<span class="span-2">Cover Photo</span>
+							<a href="#" class="edit-link edit-2">Edit</a>
+							</div>
+							<div class="info-images">
+							<img src="photos/rectangle_placeholder.png" alt="Cover Photo">
+							</div>
+						</div>
+						</div>
+
 						<div class="info-row">
-						<span class="span-1">Profile Picture</span>
-						<a href="#" class="edit-link edit-1">Edit</a>
+						<span class="span-3">Description</span>
+						<a href="#" class="edit-link edit-3">Edit</a>
 						</div>
-						<div class="info-images">
-						<img src="photos/pic_placeholder.png" alt="Profile Picture" style="border-radius:50%;">
-						</div>
-					</div>
-
-					<!-- Cover Photo -->
-					<div class="info-block">
-						<div class="info-row">
-						<span class="span-2">Cover Photo</span>
-						<a href="#" class="edit-link edit-2">Edit</a>
-						</div>
-						<div class="info-images">
-						<img src="photos/rectangle_placeholder.png" alt="Cover Photo">
+						<div class="info-description">
+						<strong>Lorem Ipsum</strong><br><br>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+						Vivamus tincidunt, nunc nec faucibus fermentum, lorem mauris 
+						placerat justo, a malesuada sapien sapien sit amet neque.
 						</div>
 					</div>
-					</div>
-
-					<!-- Description -->
-					<div class="info-row">
-					<span class="span-3">Description</span>
-					<a href="#" class="edit-link edit-3">Edit</a>
-					</div>
-					<div class="info-description">
-					<strong>Lorem Ipsum</strong><br><br>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-					Vivamus tincidunt, nunc nec faucibus fermentum, lorem mauris 
-					placerat justo, a malesuada sapien sapien sit amet neque.
-					</div>
-
-				</div>
 				</div>
 				<div class="right">
 					<div class="card">
@@ -1283,7 +1336,7 @@
 									<td class="table_user">
 										<img src="photos/pic_placeholder.png">
 									</td>
-									<td id="name">
+									<td id="name" onclick="openGroupChatEditModal()" style="cursor: pointer;">
 										Lorem Ipsum<br>
 									</td>
 								</tr>
@@ -1291,7 +1344,7 @@
 									<td class="table_user">
 										<img src="photos/pic_placeholder.png">
 									</td>
-									<td id="name">
+									<td id="name" onclick="openGroupChatEditModal()" style="cursor: pointer;">
 										Lorem Ipsum<br>
 									</td>
 								</tr>
@@ -1348,6 +1401,40 @@
 				</div>
 			</div>
 		</div>
+
+
+		<!---------------- GROUP CHAT EDIT MODAL ---------------------------------------------->
+		<div id="groupChatEditModal" class="groupChatEditModal">
+			<div class="groupChatEditContent">
+				<span class="groupChatEditClose" onclick="closeGroupChatEditModal()">&times;</span>
+				<h3>Lorem Ipsum</h3>
+				
+				<div class="groupChatEditFormGroup">
+					<div class="groupChatEditFormLabel">
+						<span>Group Chat Name</span>
+						<span class="groupChatEditLink">Edit</span>
+					</div>
+					<input type="text" id="groupChatNameInput" class="groupChatEditInput" placeholder="Lorem Ipsum" value="Lorem Ipsum">
+				</div>
+
+				<div class="groupChatEditFormGroup">
+					<div class="groupChatEditFormLabel">
+						<span>Group Chat Picture</span>
+						<span class="groupChatEditLink">Edit</span>
+					</div>
+					<div class="groupChatEditPictureOptions">
+						<div class="groupChatEditPictureOption groupChatEditCircle">
+							<img src="photos/pic_placeholder.png" alt="Circle">
+						</div>
+						<div class="groupChatEditPictureOption groupChatEditSquare">
+							<img src="photos/suppGroup_placeholder.png" alt="Square">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
 
 
 	<!---------------------------------------------------------------------------------------->
@@ -2710,7 +2797,18 @@
 			return starsHTML;
 		}
 
-				
+		//TRY
+
+		// Open Group Chat Edit Modal
+		function openGroupChatEditModal() {
+			document.getElementById('groupChatEditModal').style.display = 'flex';
+		}
+
+		// Close Group Chat Edit Modal
+		function closeGroupChatEditModal() {
+			document.getElementById('groupChatEditModal').style.display = 'none';
+		}
+						
 
 	</script>
 </body>

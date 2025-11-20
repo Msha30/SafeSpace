@@ -2009,41 +2009,43 @@ select option:focus {
 .span-2 { font-weight: 600; color: #333; margin-left: 2px; position: relative; top: 2px; }
 .span-3 { font-weight: 600; color: #333; margin-left: 30px; position: relative; bottom: -20px; }
 
-.edit-1 { font-size: 0.9em; color: #1877f2; text-decoration: none; margin-right: 15px; position: relative; top: 0px; }
-.edit-2 { font-size: 0.9em; color: #1877f2; text-decoration: none; margin-right: 20px; position: relative; top: 2px; }
-.edit-3 { font-size: 0.9em; color: #1877f2; text-decoration: none; margin-right: 20px; position: relative; bottom: -20px; }
+.edit-1 { font-size: 0.9em; color: #0847b2; text-decoration: none; margin-right: 15px; position: relative; top: 0px;  font-weight: bold;}
+.edit-2 { font-size: 0.9em; color: #0847b2; text-decoration: none; margin-right: 20px; position: relative; top: 2px; font-weight: bold;}
+.edit-3 { font-size: 0.9em; color: #0847b2; text-decoration: none; margin-right: 20px; position: relative; bottom: -20px; font-weight: bold;}
 
 .edit-link:hover { text-decoration: underline; }
 
 .info-images {
   display: flex;
-  gap: 15px;
+  gap: 20px;
   justify-content: center;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 .profile-circle {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #ddd;
+  border: none;
 }
 
 .profile-square {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   border-radius: 12px;
   object-fit: cover;
-  border: 2px solid #ddd;
+  border: none;
 }
 
 .info-images img[alt="Cover Photo"] {
-  width: 300px;
-  height: 100px;
+  width: 330px;
+  height: 120px;
   border-radius: 6px;
   object-fit: cover;
-  border: 1px solid #ccc;
+  border: none;
+  position: relative;
+  right: 8px;
 }
 
 .info-description {
@@ -2054,11 +2056,135 @@ select option:focus {
   line-height: 1.5;
   margin-top: 40px;
   margin-left: 28px;
-  width: 620px;   
-  height: 300px;  
+  margin-right: 28px;
+  height: 330px;  
   overflow-y: auto; 
+  box-sizing: border-box;
 }
 
+
+/* Group Chat Edit Modal Styles */
+.groupChatEditModal {
+	display: none;
+	position: fixed;
+	z-index: 1000;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	justify-content: center;
+	align-items: center;
+}
+
+.groupChatEditContent {
+	background-color: white;
+	border-radius: 5px;
+	padding: 30px;
+	width: 100%;
+	max-width: 350px;
+	position: relative;
+	margin-left: 200px;
+	margin-top: 70px;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.groupChatEditClose {
+	position: absolute;
+	top: 15px;
+	right: 20px;
+	font-size: 28px;
+	font-weight: normal;
+	color: #666;
+	cursor: pointer;
+	line-height: 1;
+	transition: color 0.2s;
+}
+
+.groupChatEditClose:hover {
+	color: #000;
+}
+
+.groupChatEditContent h3 {
+	margin: 0 0 15px 0;
+	font-size: 20px;
+	font-weight: bold;
+	font-family: 'PublicSans', sans-serif;
+	color: #000000;
+	position: relative;
+	bottom: 10px;
+	right: 30px;
+	border-bottom: none; 
+	padding-bottom: 0; 
+}
+
+.groupChatEditFormGroup {
+	margin-bottom: 25px;
+}
+
+.groupChatEditFormLabel {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 10px;
+	font-size: 14px;
+	font-family: 'PublicSans', sans-serif;
+	font-weight: bold;
+	color: #6d6d6d;
+}
+
+.groupChatEditLink {
+	color: #0847b2;
+	cursor: pointer;
+	font-size: 14px;
+}
+
+.groupChatEditLink:hover {
+	text-decoration: underline;
+}
+
+.groupChatEditInput {
+	width: 100%;
+	padding: 12px;
+	border: none;
+	border-radius: 8px;
+	font-size: 14px;
+	box-sizing: border-box;
+	background-color: #eff5f9;
+}
+
+.groupChatEditInput:focus {
+	outline: 1px solid #000000;
+}
+
+.groupChatEditPictureOptions {
+	display: flex;
+	gap: 20px;
+	justify-content: center;
+	margin-top: 20px;
+}
+
+.groupChatEditPictureOption {
+	width: 110px;
+	height: 110px;
+	cursor: pointer;
+	overflow: hidden;
+	transition: border-color 0.2s;
+}
+
+.groupChatEditCircle {
+	border-radius: 50%;
+}
+
+.groupChatEditSquare {
+	border-radius: 12px;
+}
+
+.groupChatEditPictureOption img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
 
 /* -------------------------------------- ANNOUNCEMENT 2 -------------------------------------- */
 
