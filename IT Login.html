@@ -53,6 +53,9 @@
     </div>
 
     <div class="right">
+      <!--   <div class="back">
+        <a onclick="showLogin()">Back</a>
+        </div> --> 
       <h2>Verification</h2>
       <p class="verification-text">
         A verification code has been sent to 
@@ -140,6 +143,12 @@
       }
       document.getElementById('code1').focus();
     }
+
+    function showLogin() {
+      document.getElementById("ITVerification").classList.add("hidden");
+      document.getElementById("ITLogIn").classList.remove("hidden");
+    }
+    
 
     // Move to next input for OTP
     function moveToNext(current, nextId) {
