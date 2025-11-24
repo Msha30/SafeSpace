@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -59,10 +60,10 @@
 				<img src="icons/ic_GCO.svg" class="GCO_icon" alt="GCO icon"> 
 			</div>
 			<div class="dropdown" onclick="toggleDropdown()">
-				<span>GCO Coordinator</span>
+				<span id="userDisplayName">GCO Coordinator</span>
 				<img src="icons/ic_dropdown.svg" style="height: 10px; margin-left: 3px;">
 				<div class="dropdown-menu">
-					<a href="GCO Login.html">Sign Out</a>
+					<a href="#" id="signOutLink">Sign Out</a>
 				</div>
 			</div>
 		</div>
@@ -2076,6 +2077,24 @@
 	<!---------------------------------------------------------------------------------------->	
 	<!---------------------------------------------------------------------------------------->	
 	<!---------------------------------------------------------------------------------------->
+	<script type="module">
+	import { protectDashboard, logout } from "./auth.js";
+
+	window.addEventListener('DOMContentLoaded', () => {
+	// Protect dashboard and update user name
+	protectDashboard(['gco']); // or ['admin'] depending on dashboard
+
+	// Attach Sign Out handler
+	const signOutLink = document.getElementById('signOutLink');
+	if (signOutLink) {
+		signOutLink.addEventListener('click', async (e) => {
+		e.preventDefault();
+		await logout();
+		});
+	}
+	});
+	</script>
+
 	<script>
 		// Eto yung unang engagement chart ----------------------------------------------------
 		const ctx = document.getElementById('engagementChart').getContext('2d');
@@ -2954,8 +2973,6 @@
 		function closeGroupChatEditModal() {
 			document.getElementById('groupChatEditModal').style.display = 'none';
 		}
-						
-
 	</script>
 </body>
 </html>
