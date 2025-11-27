@@ -27,96 +27,51 @@
         <div class="input-box">
           <input type="password" id="loginPassword" placeholder="Password" required>
           <span class="toggle-password" onclick="togglePassword('loginPassword','loginEye')">
-            <svg id="loginEye" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#888" viewBox="0 0 24 24">
-              <path d="M12 5c-7.633 0-12 7-12 7s4.367 7 12 7 12-7 12-7-4.367-7-12-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/>
-              <circle cx="12" cy="12" r="2.5"/>
-            </svg>
+          <svg id="loginEye" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#888" viewBox="0 0 24 24" style="transform: translateY(3px);">
+            <path d="M12 5c-7.633 0-12 7-12 7s4.367 7 12 7 12-7 12-7-4.367-7-12-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/>
+            <circle cx="12" cy="12" r="2.5"/>
+          </svg>
           </span>
         </div>
         <button type="submit" class="btn">Log In</button>
         <div class="forgot">
-          <a href="#" onclick="showVerification()">Forgot Password?</a>
+          <a href="#" onclick="showResetPassword()">Forgot Password?</a>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- ================= VERIFICATION ================= -->
-  <div id="ITVerification" class="login hidden">
+ <!-- ================= RESET PASSWORD ================= -->
+  <div id="ITResetPassword" class="login hidden">
     <div class="left">
       <div class="logos">
         <img src="icons/NU FV logo.svg" alt="NU Fairview Logo" class="logo-nufv">
         <img src="icons/Peers logo.svg" alt="NU Fairview Peers Logo" class="logo-peer">
       </div>
+
       <img src="photos/pic_logo2.png" alt="SafeSpace Logo" class="SafeSpaceLogo">
       <h1>Creating<br>Safe Spaces!</h1>
     </div>
 
     <div class="right">
-      <h2>Verification</h2>
-      <p class="verification-text">
-        A verification code has been sent to 
-        <span class="verification-email" id="userEmail">abcd@students.nu-fairview.edu.ph</span>.<br>
-        Please check your inbox and enter the verification code below.<br>
-        The code will expire in 2 minutes.
-      </p>
-
-      <div class="code-inputs">
-        <input type="text" maxlength="1" class="code-input" id="code1" oninput="moveToNext(this, 'code2')" onkeydown="handleBackspace(event, this, null)">
-        <input type="text" maxlength="1" class="code-input" id="code2" oninput="moveToNext(this, 'code3')" onkeydown="handleBackspace(event, this, 'code1')">
-        <input type="text" maxlength="1" class="code-input" id="code3" oninput="moveToNext(this, 'code4')" onkeydown="handleBackspace(event, this, 'code2')">
-        <input type="text" maxlength="1" class="code-input" id="code4" oninput="moveToNext(this, 'code5')" onkeydown="handleBackspace(event, this, 'code3')">
-        <input type="text" maxlength="1" class="code-input" id="code5" oninput="moveToNext(this, 'code6')" onkeydown="handleBackspace(event, this, 'code4')">
-        <input type="text" maxlength="1" class="code-input" id="code6" oninput="moveToNext(this, null)" onkeydown="handleBackspace(event, this, 'code5')">
-      </div>
-
-      <button class="btn" onclick="verifyCode()">Verify</button>
-      <div class="resend">
-        <a onclick="resendCode()">Resend code</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= NEW PASSWORD ================= -->
-  <div id="ITNewPass" class="login hidden">
-    <div class="left">
-      <div class="logos">
-        <img src="icons/NU FV logo.svg" alt="NU Fairview Logo" class="logo-nufv">
-        <img src="icons/Peers logo.svg" alt="NU Fairview Peers Logo" class="logo-peer">
-      </div>
-      <img src="photos/pic_logo2.png" alt="SafeSpace Logo" class="SafeSpaceLogo">
-      <h1>Creating<br>Safe Spaces!</h1>
-    </div>
-    <div class="right">
-      <h2>New Password</h2>
-      <form onsubmit="return confirmNewPassword(event)">
+         <h2>Reset Password</h2>
+      <form onsubmit="return sendResetEmail(event)">
         <div class="input-box">
-          <input type="password" id="newPassword" placeholder="New Password" required>
-          <span class="toggle-password" onclick="togglePassword('newPassword','newEye')">
-            <svg id="newEye" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#888" viewBox="0 0 24 24">
-              <path d="M12 5c-7.633 0-12 7-12 7s4.367 7 12 7 12-7 12-7-4.367-7-12-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/>
-              <circle cx="12" cy="12" r="2.5"/>
-            </svg>
-          </span>
+          <input type="email" id="resetEmail" placeholder="Email" required>
         </div>
-        <div class="input-box">
-          <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
-          <span class="toggle-password" onclick="togglePassword('confirmPassword','confirmEye')">
-            <svg id="confirmEye" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#888" viewBox="0 0 24 24">
-              <path d="M12 5c-7.633 0-12 7-12 7s4.367 7 12 7 12-7 12-7-4.367-7-12-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/>
-              <circle cx="12" cy="12" r="2.5"/>
-            </svg>
-          </span>
+
+        <button type="submit" class="btn">Send Reset Email</button>
+
+        <div class="forgot">
+          <a href="#" onclick="resendEmail()">Resend Email</a>
         </div>
-        <button type="submit" class="btn">Confirm</button>
       </form>
     </div>
   </div>
+
 
   <!-- ================= JS ================= -->
   <script>
-    let userEmail = 'abcd@students.nu-fairview.edu.ph';
-
     // Toggle password visibility
     function togglePassword(inputId, eyeId) {
       const passwordInput = document.getElementById(inputId);
@@ -131,70 +86,36 @@
       }
     }
 
-    // Show Verification Page
-    function showVerification() {
+    // Show Reset Password Page
+    function showResetPassword() {
       document.getElementById('ITLogIn').classList.add('hidden');
-      document.getElementById('ITVerification').classList.remove('hidden');
-      for (let i = 1; i <= 6; i++) {
-        document.getElementById('code' + i).value = '';
-      }
-      document.getElementById('code1').focus();
+      document.getElementById('ITResetPassword').classList.remove('hidden');
+      document.getElementById('resetEmail').value = '';
+      document.getElementById('resetEmail').focus();
     }
 
-    // Move to next input for OTP
-    function moveToNext(current, nextId) {
-      if (current.value.length === 1 && nextId) {
-        document.getElementById(nextId).focus();
-      }
+    // Show Login Page
+    function showLogin() {
+      document.getElementById("ITResetPassword").classList.add("hidden");
+      document.getElementById("ITLogIn").classList.remove("hidden");
     }
 
-    // Backspace handling for OTP
-    function handleBackspace(event, current, prevId) {
-      if (event.key === 'Backspace' && current.value === '' && prevId) {
-        event.preventDefault();
-        document.getElementById(prevId).focus();
-      }
-    }
-
-    // Verify Code → Go to New Password
-    function verifyCode() {
-      let code = '';
-      for (let i = 1; i <= 6; i++) {
-        code += document.getElementById('code' + i).value;
-      }
-
-      if (code.length === 6) {
-        document.getElementById('ITVerification').classList.add('hidden');
-        document.getElementById('ITNewPass').classList.remove('hidden');
-      } else {
-        alert('Please enter all 6 digits of the verification code.');
-      }
-    }
-
-    // Resend OTP
-    function resendCode() {
-      alert('Verification code has been resent to ' + userEmail);
-      for (let i = 1; i <= 6; i++) {
-        document.getElementById('code' + i).value = '';
-      }
-      document.getElementById('code1').focus();
-    }
-
-    // Confirm new password → Back to login
-    function confirmNewPassword(event) {
+    // Send Reset Email
+    function sendResetEmail(event) {
       event.preventDefault();
-      const newPass = document.getElementById('newPassword').value;
-      const confirmPass = document.getElementById('confirmPassword').value;
+      const email = document.getElementById('resetEmail').value;
+      alert('A reset password link has been sent to ' + email);
+      return false;
+    }
 
-      if (newPass !== confirmPass) {
-        alert("Passwords don't match!");
-        return false;
+    // Resend Email
+    function resendEmail() {
+      const email = document.getElementById('resetEmail').value;
+      if (email) {
+        alert('Reset email has been resent to ' + email);
+      } else {
+        alert('Please enter your email address first.');
       }
-
-      alert("Password has been reset successfully!");
-      document.getElementById('ITNewPass').classList.add('hidden');
-      document.getElementById('ITLogIn').classList.remove('hidden');
-      return true;
     }
   </script>
 </body>
