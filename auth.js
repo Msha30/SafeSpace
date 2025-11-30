@@ -29,7 +29,7 @@ export const db = getFirestore(app);
 
 // ----- Role-based redirects -----
 const roleRedirects = {
-  "admin": "ITAdmin.html",
+  "admin": "IT Admin.html",
   "gco": "GCO.html",
 };
 
