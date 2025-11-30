@@ -27,7 +27,7 @@ export const db = getFirestore(app);
   await setPersistence(auth, browserSessionPersistence);
 })();
 
-// 🔹 Role → Dashboard mapping
+// ----- Role-based redirects -----
 const roleRedirects = {
   "admin": "ITAdmin.html",
   "gco": "GCO.html",
