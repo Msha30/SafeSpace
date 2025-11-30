@@ -4,97 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sign In</title>
-  <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, setPersistence, browserSessionPersistence, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-// Firebase config
-const firebaseConfig = {
-  apiKey: "AIzaSyCGEuf2N9t6P4uh1RQdgx3Z4c5L0IwkXqw",
-  authDomain: "safespace-af7ec.firebaseapp.com",
-  projectId: "safespace-af7ec",
-  storageBucket: "safespace-af7ec.firebasestorage.app",
-  messagingSenderId: "991289668478",
-  appId: "1:991289668478:web:3801f6f457dcd05669392f",
-  measurementId: "G-Y15M17H93J"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-
-// Session-only persistence
-await setPersistence(auth, browserSessionPersistence);
-
-let loggingOut = false;
-
-// Redirect if user is already logged in
-onAuthStateChanged(auth, async (user) => {
-  if (loggingOut) return;
-
-  if (user) {
-    // Fetch role from Firestore
-    const ref = doc(db, "account_details", user.uid);
-    const snap = await getDoc(ref);
-    if (!snap.exists()) {
-      await signOut(auth);
-      return;
-    }
-    const role = snap.data().role;
-    if (role === "admin") window.location.href = "IT Admin.html";
-    else if (role === "gco") window.location.href = "GCO.html";
-    else {
-      alert("Unknown role: " + role);
-      await signOut(auth);
-    }
-  }
-});
-
-// LOGIN HANDLER
-window.handleLogin = async function(event) {
-  event.preventDefault();
-  const email = document.getElementById("loginEmail").value;
-  const password = document.getElementById("loginPassword").value;
-
-  try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
-    const ref = doc(db, "account_details", user.uid);
-    const snap = await getDoc(ref);
-
-    if (!snap.exists()) {
-      alert("User exists but no role found in Firestore");
-      await signOut(auth);
-      return;
-    }
-
-    const role = snap.data().role;
-    if (role === "admin") window.location.href = "IT Admin.html";
-    else if (role === "gco") window.location.href = "GCO.html";
-    else {
-      alert("Unknown role: " + role);
-      await signOut(auth);
-    }
-  } catch (e) {
-    alert("Login failed: " + e.message);
-    console.log(e);
-  }
-};
-
-// LOGOUT FUNCTION
-window.logout = async function() {
-  loggingOut = true;
-  try {
-    await signOut(auth);
-    window.location.href = "index.html";
-  } finally {
-    loggingOut = false;
-  }
-};
-</script>
-
 
   <link rel="icon" type="image/png" href="photos/pic_logo2.png">
   <link rel="stylesheet" href="IT Login.css">
@@ -147,7 +56,7 @@ window.logout = async function() {
 
     <div class="right">
          <h2>Reset Password</h2>
-      <form onsubmit="return sendResetEmail(event)">
+      <form onsubmit="return sendResetEmailHandler(event)">
         <div class="input-box">
           <input type="email" id="resetEmail" placeholder="Email" required>
         </div>
@@ -163,52 +72,48 @@ window.logout = async function() {
 
 
   <!-- ================= JS ================= -->
+  <script type="module" src="auth.js"></script>
   <script>
-    // Toggle password visibility
     function togglePassword(inputId, eyeId) {
       const passwordInput = document.getElementById(inputId);
       const eyeIcon = document.getElementById(eyeId);
-
-      if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-        eyeIcon.setAttribute("fill", "#0067c4");
-      } else {
-        passwordInput.type = "password";
-        eyeIcon.setAttribute("fill", "#888");
-      }
+      passwordInput.type = passwordInput.type === "password" ? "text" : "password";
+      eyeIcon.setAttribute("fill", passwordInput.type === "password" ? "#888" : "#0067c4");
     }
 
     // Show Reset Password Page
-    function showResetPassword() {
+    window.showResetPassword = function () {
       document.getElementById('ITLogIn').classList.add('hidden');
       document.getElementById('ITResetPassword').classList.remove('hidden');
       document.getElementById('resetEmail').value = '';
-      document.getElementById('resetEmail').focus();
-    }
+    };
 
     // Show Login Page
-    function showLogin() {
+    window.showLogin = function () {
       document.getElementById("ITResetPassword").classList.add("hidden");
       document.getElementById("ITLogIn").classList.remove("hidden");
-    }
+    };
 
-    // Send Reset Email
-    function sendResetEmail(event) {
+    // Login submit
+    window.handleLogin = async function(event) {
       event.preventDefault();
-      const email = document.getElementById('resetEmail').value;
-      alert('A reset password link has been sent to ' + email);
-      return false;
-    }
+      const email = document.getElementById("loginEmail").value;
+      const password = document.getElementById("loginPassword").value;
+      await loginUser(email, password);
+    };
 
-    // Resend Email
-    function resendEmail() {
-      const email = document.getElementById('resetEmail').value;
-      if (email) {
-        alert('Reset email has been resent to ' + email);
-      } else {
-        alert('Please enter your email address first.');
-      }
-    }
+    // Reset Password submit
+    window.sendResetEmailHandler = async function(event) {
+      event.preventDefault();
+      const email = document.getElementById("resetEmail").value;
+      await sendResetEmail(email);
+    };
+
+    // Resend Reset Email
+    window.resendEmail = async function() {
+      const email = document.getElementById("resetEmail").value;
+      await resendResetEmail(email);
+    };
   </script>
 </body>
 </html>

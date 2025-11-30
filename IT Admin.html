@@ -1639,20 +1639,21 @@
 	<script type="module">
 	import { protectDashboard, logout } from "./auth.js";
 
-	window.addEventListener('DOMContentLoaded', () => {
-	// Protect dashboard and update user name
-	protectDashboard(['admin']); // or ['gco'] depending on dashboard
+	window.addEventListener("DOMContentLoaded", () => {
+	// Allow only authenticated IT Admin users
+	protectDashboard(["IT Admin"]);
 
-	// Attach Sign Out handler
-	const signOutLink = document.getElementById('signOutLink');
+	// Logout handler
+	const signOutLink = document.getElementById("signOutLink");
 	if (signOutLink) {
-		signOutLink.addEventListener('click', async (e) => {
+		signOutLink.addEventListener("click", async (e) => {
 		e.preventDefault();
 		await logout();
 		});
 	}
 	});
 	</script>
+
 	
 	<script>
 	// Eto yung unang engagement chart ----------------------------------------------------

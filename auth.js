@@ -1,7 +1,8 @@
 // ----- Firebase imports -----
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { 
-  getAuth, onAuthStateChanged, signOut, browserSessionPersistence, setPersistence 
+  getAuth, onAuthStateChanged, signOut, browserSessionPersistence,
+  setPersistence, signInWithEmailAndPassword, sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
@@ -18,65 +19,77 @@ const firebaseConfig = {
 
 // ----- Initialize Firebase -----
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+export const auth = getAuth(app);
+export const db = getFirestore(app);
 
 // ----- Force session-only persistence -----
-async function initAuth() {
+(async () => {
   await setPersistence(auth, browserSessionPersistence);
-}
-initAuth();
+})();
 
-let loggingOut = false;
+// 🔹 Role → Dashboard mapping
+const roleRedirects = {
+  "admin": "ITAdmin.html",
+  "gco": "GCO.html",
+};
 
-// ----- Logout function -----
-export async function logout() {
-  loggingOut = true;
+// ----- Login -----
+export async function loginUser(email, password) {
   try {
-    await signOut(auth);
-    sessionStorage.clear();
-    localStorage.clear();
-    window.location.href = "index.html";
+    const userCred = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCred.user;
+    
+    const ref = doc(db, "account_details", user.uid);
+    const snap = await getDoc(ref);
+
+    if (!snap.exists() || !snap.data().role) {
+      throw new Error("No role assigned to this user.");
+    }
+
+    const data = snap.data();
+    sessionStorage.setItem("userData", JSON.stringify(data));
+
+    const redirectPage = roleRedirects[data.role];
+    if (!redirectPage) throw new Error("Invalid assigned role.");
+
+    window.location.href = redirectPage;
+
   } catch (err) {
-    console.error("Sign-out error:", err);
-  } finally {
-    loggingOut = false;
+    alert(err.message);
+    console.error("Login error:", err);
   }
 }
 
+// ----- Logout -----
+export async function logout() {
+  await signOut(auth);
+  sessionStorage.clear();
+  localStorage.clear();
+  window.location.href = "index.html";
+}
 window.logout = logout;
 
-// ----- Protect dashboard & update user name with caching -----
+// ----- Protect Dashboard -----
 export function protectDashboard(allowedRoles = []) {
   onAuthStateChanged(auth, async (user) => {
-    if (loggingOut) return;
-
     if (!user) {
       window.location.href = "index.html";
       return;
     }
 
-    let data;
-    const cached = sessionStorage.getItem("userData");
-    if (cached) {
-      try { data = JSON.parse(cached); } catch { data = null; }
-    }
+    let data = JSON.parse(sessionStorage.getItem("userData") || "null");
 
     if (!data) {
-      try {
-        const ref = doc(db, "account_details", user.uid);
-        const snap = await getDoc(ref);
-        if (!snap.exists() || !snap.data().role) {
-          await logout();
-          return;
-        }
-        data = snap.data();
-        sessionStorage.setItem("userData", JSON.stringify(data));
-      } catch (err) {
-        console.error(err);
+      const ref = doc(db, "account_details", user.uid);
+      const snap = await getDoc(ref);
+
+      if (!snap.exists()) {
         await logout();
         return;
       }
+
+      data = snap.data();
+      sessionStorage.setItem("userData", JSON.stringify(data));
     }
 
     if (!allowedRoles.includes(data.role)) {
@@ -84,7 +97,26 @@ export function protectDashboard(allowedRoles = []) {
       return;
     }
 
-    const dropdownSpan = document.getElementById("userDisplayName");
-    if (dropdownSpan) dropdownSpan.textContent = data.name || data.role || "User";
+    const nameElem = document.getElementById("userDisplayName");
+    if (nameElem) nameElem.textContent = data.name || data.role || "User";
   });
 }
+
+// ----- Password Reset -----
+export async function sendResetEmail(email) {
+  try {
+    await sendPasswordResetEmail(auth, email);
+    alert(`Password reset email sent to ${email}`);
+  } catch (err) {
+    alert(err.message);
+  }
+}
+
+export async function resendResetEmail(email) {
+  if (!email) return alert("Enter email first");
+  return sendResetEmail(email);
+}
+
+window.sendResetEmail = sendResetEmail;
+window.resendResetEmail = resendResetEmail;
+window.loginUser = loginUser;
