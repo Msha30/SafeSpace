@@ -41,52 +41,8 @@
     </div>
   </div>
 
-<<<<<<< HEAD
-  <!-- ================= VERIFICATION ================= -->
-  <div id="ITVerification" class="login hidden">
-    <div class="left">
-      <div class="logos">
-        <img src="icons/NU FV logo.svg" alt="NU Fairview Logo" class="logo-nufv">
-        <img src="icons/Peers logo.svg" alt="NU Fairview Peers Logo" class="logo-peer">
-      </div>
-      <img src="photos/pic_logo2.png" alt="SafeSpace Logo" class="SafeSpaceLogo">
-      <h1>Creating<br>Safe Spaces!</h1>
-    </div>
-
-    <div class="right">
-      <!--   <div class="back">
-        <a onclick="showLogin()">Back</a>
-        </div> --> 
-      <h2>Verification</h2>
-      <p class="verification-text">
-        A verification code has been sent to 
-        <span class="verification-email" id="userEmail">abcd@students.nu-fairview.edu.ph</span>.<br>
-        Please check your inbox and enter the verification code below.<br>
-        The code will expire in 2 minutes.
-      </p>
-
-      <div class="code-inputs">
-        <input type="text" maxlength="1" class="code-input" id="code1" oninput="moveToNext(this, 'code2')" onkeydown="handleBackspace(event, this, null)">
-        <input type="text" maxlength="1" class="code-input" id="code2" oninput="moveToNext(this, 'code3')" onkeydown="handleBackspace(event, this, 'code1')">
-        <input type="text" maxlength="1" class="code-input" id="code3" oninput="moveToNext(this, 'code4')" onkeydown="handleBackspace(event, this, 'code2')">
-        <input type="text" maxlength="1" class="code-input" id="code4" oninput="moveToNext(this, 'code5')" onkeydown="handleBackspace(event, this, 'code3')">
-        <input type="text" maxlength="1" class="code-input" id="code5" oninput="moveToNext(this, 'code6')" onkeydown="handleBackspace(event, this, 'code4')">
-        <input type="text" maxlength="1" class="code-input" id="code6" oninput="moveToNext(this, null)" onkeydown="handleBackspace(event, this, 'code5')">
-      </div>
-
-      <button class="btn" onclick="verifyCode()">Verify</button>
-      <div class="resend">
-        <a onclick="resendCode()">Resend code</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= NEW PASSWORD ================= -->
-  <div id="ITNewPass" class="login hidden">
-=======
  <!-- ================= RESET PASSWORD ================= -->
   <div id="ITResetPassword" class="login hidden">
->>>>>>> 368dfc6 (UPDATED)
     <div class="left">
       <div class="logos">
         <img src="icons/NU FV logo.svg" alt="NU Fairview Logo" class="logo-nufv">
@@ -143,55 +99,9 @@
       document.getElementById("ITResetPassword").classList.add("hidden");
       document.getElementById("ITLogIn").classList.remove("hidden");
     }
-<<<<<<< HEAD
-    
-
-    // Move to next input for OTP
-    function moveToNext(current, nextId) {
-      if (current.value.length === 1 && nextId) {
-        document.getElementById(nextId).focus();
-      }
-    }
-
-    // Backspace handling for OTP
-    function handleBackspace(event, current, prevId) {
-      if (event.key === 'Backspace' && current.value === '' && prevId) {
-        event.preventDefault();
-        document.getElementById(prevId).focus();
-      }
-    }
-
-    // Verify Code → Go to New Password
-    function verifyCode() {
-      let code = '';
-      for (let i = 1; i <= 6; i++) {
-        code += document.getElementById('code' + i).value;
-      }
-
-      if (code.length === 6) {
-        document.getElementById('ITVerification').classList.add('hidden');
-        document.getElementById('ITNewPass').classList.remove('hidden');
-      } else {
-        alert('Please enter all 6 digits of the verification code.');
-      }
-    }
-
-    // Resend OTP
-    function resendCode() {
-      alert('Verification code has been resent to ' + userEmail);
-      for (let i = 1; i <= 6; i++) {
-        document.getElementById('code' + i).value = '';
-      }
-      document.getElementById('code1').focus();
-    }
-
-    // Confirm new password → Back to login
-    function confirmNewPassword(event) {
-=======
 
     // Send Reset Email
     function sendResetEmail(event) {
->>>>>>> 368dfc6 (UPDATED)
       event.preventDefault();
       const email = document.getElementById('resetEmail').value;
       alert('A reset password link has been sent to ' + email);

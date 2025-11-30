@@ -54,51 +54,8 @@
     </div>
 
     <div class="right">
-<<<<<<< HEAD
-      <!--   <div class="back">
-        <a onclick="showLogin()">Back</a>
-        </div> --> 
-      <h2>Verification</h2>
-      <p class="verification-text">
-        A verification code has been sent to 
-        <span class="verification-email" id="userEmail">abcd@students.nu-fairview.edu.ph</span>.<br>
-        Please check your inbox and enter the verification code below.<br>
-        The code will expire in 2 minutes.
-      </p>
-
-      <div class="code-inputs">
-        <input type="text" maxlength="1" class="code-input" id="code1" oninput="moveToNext(this, 'code2')" onkeydown="handleBackspace(event, this, null)">
-        <input type="text" maxlength="1" class="code-input" id="code2" oninput="moveToNext(this, 'code3')" onkeydown="handleBackspace(event, this, 'code1')">
-        <input type="text" maxlength="1" class="code-input" id="code3" oninput="moveToNext(this, 'code4')" onkeydown="handleBackspace(event, this, 'code2')">
-        <input type="text" maxlength="1" class="code-input" id="code4" oninput="moveToNext(this, 'code5')" onkeydown="handleBackspace(event, this, 'code3')">
-        <input type="text" maxlength="1" class="code-input" id="code5" oninput="moveToNext(this, 'code6')" onkeydown="handleBackspace(event, this, 'code4')">
-        <input type="text" maxlength="1" class="code-input" id="code6" oninput="moveToNext(this, null)" onkeydown="handleBackspace(event, this, 'code5')">
-      </div>
-
-      <button class="btn" onclick="verifyCode()">Verify</button>
-      <div class="resend">
-        <a onclick="resendCode()">Resend code</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= NEW PASSWORD ================= -->
-  <div id="ITNewPass" class="login hidden">
-    <div class="left">
-      <div class="logos">
-        <img src="icons/NU FV logo.svg" alt="NU Fairview Logo" class="logo-nufv">
-        <img src="icons/Peers logo.svg" alt="NU Fairview Peers Logo" class="logo-peer">
-      </div>
-      <img src="photos/pic_logo2.png" alt="SafeSpace Logo" class="SafeSpaceLogo">
-      <h1>Creating<br>Safe Spaces!</h1>
-    </div>
-    <div class="right">
-      <h2>New Password</h2>
-      <form onsubmit="return confirmNewPassword(event)">
-=======
          <h2>Reset Password</h2>
       <form onsubmit="return sendResetEmail(event)">
->>>>>>> 368dfc6 (UPDATED)
         <div class="input-box">
           <input type="email" id="resetEmail" placeholder="Email" required>
         </div>
@@ -137,24 +94,10 @@
       document.getElementById('resetEmail').focus();
     }
 
-<<<<<<< HEAD
-    function showLogin() {
-      document.getElementById("ITVerification").classList.add("hidden");
-      document.getElementById("ITLogIn").classList.remove("hidden");
-    }
-    
-
-    // Move to next input for OTP
-    function moveToNext(current, nextId) {
-      if (current.value.length === 1 && nextId) {
-        document.getElementById(nextId).focus();
-      }
-=======
     // Show Login Page
     function showLogin() {
       document.getElementById("ITResetPassword").classList.add("hidden");
       document.getElementById("ITLogIn").classList.remove("hidden");
->>>>>>> 368dfc6 (UPDATED)
     }
 
     // Send Reset Email
