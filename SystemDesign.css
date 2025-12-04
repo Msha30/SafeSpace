@@ -3816,16 +3816,35 @@ small {
 }
 
 
+/* -------------------------------------EXPORT CHAT-------------------------------------- */
+#exportChatModal .modal-content {
+    max-width: 550px;
+    padding: 0;
+}
 
+.exportChatModalContent {
+    position: relative;
+}
 
-/* -------------------------------------EXPORT CHAT -------------------------------------- */
+#exportChatModal .close {
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #6d6d6d;
+    z-index: 10;
+}
+
+#exportChatModal .close:hover,
+#exportChatModal .close:focus {
+    color: #000;
+}
+
 .exportChatContainer {
     background: white;
     border-radius: 5px;
     padding: 30px;
-    max-width: 500px;
-    margin: 20px auto;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
 }
 
@@ -3863,7 +3882,11 @@ small {
 }
 
 .exportChatContent {
-    display: block;
+    display: none; 
+}
+
+#peerToPeerContent {
+    display: block; 
 }
 
 .exportChatRow {

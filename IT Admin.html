@@ -19,8 +19,6 @@
 
 		<a href="#" onclick="showPage('users', this)"><img src="icons/ic_sb_user.svg" class="icon"><span>User Management</span></a>
 
-		<a href="#" onclick="showPage('export-chat', this)"><img src="icons/ic_sb_chat.svg" class="icon"><span>Export Chat</span></a>
-
 		<a href="#" onclick="showPage('settings', this)"><img src="icons/ic_sb_settings.svg" class="icon"><span>Settings and System Logs</span></a>
 
 		<a href="#" onclick="showPage('reports', this)"><img src="icons/ic_sb_report.svg" class="icon"><span>Reports</span></a>
@@ -1252,118 +1250,6 @@
 		</div>
 
 
-		<!---------------------------------------------------------------------------------------->	
-		<!---------------------------------------------------------------------------------------->	
-		<!---------------- EXPORT CHAT ------------------------------------------------------------>
-
-		<div id="export-chat" class="page">
-			<div class="exportChatContainer">
-				<div class="exportChatButtons">
-					<button class="exportToggleBtn active" id="peerToPeerBtn" onclick="showPeerToPeer()">Peer to Peer</button>
-					<button class="exportToggleBtn" id="supportGroupBtn" onclick="showSupportGroup()">Support Group Chat</button>
-				</div>
-
-				<div class="exportChatContent" id="peerToPeerContent">
-					<div class="exportChatRow">
-						<div class="exportChatGroup">
-							<label class="exportChatLabel">Peer</label>
-							<select class="exportChatSelect">
-								<option>Select</option>
-							</select>
-						</div>
-						<div class="exportChatGroup">
-							<label class="exportChatLabel">Student</label>
-							<select class="exportChatSelect">
-								<option>Select</option>
-							</select>
-						</div>
-					</div>
-
-					<div class="exportChatRadioGroup">
-						<label class="exportChatRadio">
-							<input type="radio" name="dateRange" value="today">
-							<span>Today</span>
-						</label>
-						<label class="exportChatRadio">
-							<input type="radio" name="dateRange" value="past15">
-							<span>Past 15 days</span>
-						</label>
-						<label class="exportChatRadio">
-							<input type="radio" name="dateRange" value="past30">
-							<span>Past 30 days</span>
-						</label>
-						<label class="exportChatRadio">
-							<input type="radio" name="dateRange" value="custom">
-							<span>Custom Range</span>
-						</label>
-					</div>
-
-					<div class="exportChatRow">
-						<div class="exportChatGroup">
-							<label class="exportChatLabel">Start Date</label>
-							<input type="date" class="exportChatDateInput">
-						</div>
-						<div class="exportChatGroup">
-							<label class="exportChatLabel">End Date</label>
-							<input type="date" class="exportChatDateInput">
-						</div>
-					</div>
-
-					<button class="exportChatBtn">Export</button>
-				</div>
-
-				
-				<div class="exportChatContent" id="supportGroupContent" style="display: none;">
-					<div class="exportChatRow">
-						<div class="exportChatGroup">
-							<label class="exportChatLabel">Support Group</label>
-							<select class="exportChatSelect">
-								<option>Select</option>
-							</select>
-						</div>
-						<div class="exportChatGroup">
-							<label class="exportChatLabel">Group Chat</label>
-							<select class="exportChatSelect">
-								<option>Select</option>
-							</select>
-						</div>
-					</div>
-
-					<div class="exportChatRadioGroup">
-						<label class="exportChatRadio">
-							<input type="radio" name="dateRange2" value="today">
-							<span>Today</span>
-						</label>
-						<label class="exportChatRadio">
-							<input type="radio" name="dateRange2" value="past15">
-							<span>Past 15 days</span>
-						</label>
-						<label class="exportChatRadio">
-							<input type="radio" name="dateRange2" value="past30">
-							<span>Past 30 days</span>
-						</label>
-						<label class="exportChatRadio">
-							<input type="radio" name="dateRange2" value="custom">
-							<span>Custom Range</span>
-						</label>
-					</div>
-
-					<div class="exportChatRow">
-						<div class="exportChatGroup">
-							<label class="exportChatLabel">Start Date</label>
-							<input type="date" class="exportChatDateInput">
-						</div>
-						<div class="exportChatGroup">
-							<label class="exportChatLabel">End Date</label>
-							<input type="date" class="exportChatDateInput">
-						</div>
-					</div>
-
-					<button class="exportChatBtn">Export</button>
-				</div>
-			</div>
-		</div>
-
 
 		<!---------------------------------------------------------------------------------------->	
 		<!---------------------------------------------------------------------------------------->	
@@ -1381,6 +1267,14 @@
 				<div class="big_btn" onclick="openModal('privacyModal')">
 					<div class="text">
 						<h6>Privacy Policy</h6>
+						<p>Effective Date: June 4, 2025</p>
+					</div>
+					<img src="icons/ic_arrow right.svg" class="setting_slider">
+				</div>
+				<!-- Button to open modal -->
+				<div class="big_btn" onclick="openExportChatModal()">
+					<div class="text">
+						<h6>Export Chat</h6>
 						<p>Effective Date: June 4, 2025</p>
 					</div>
 					<img src="icons/ic_arrow right.svg" class="setting_slider">
@@ -1440,6 +1334,117 @@
 					<button class="save-btn" onclick="saveTerms()">Save</button>
 				</div>
 			</div>
+			</div>
+
+			<!-- Export Chat Modal -->
+			<div id="exportChatModal" class="modal">
+				<div class="modal-content exportChatModalContent">
+					<span class="close" onclick="closeExportChatModal()">&times;</span>
+					<div class="exportChatContainer">
+						<div class="exportChatButtons">
+							<button class="exportToggleBtn active" id="peerToPeerBtn" onclick="showPeerToPeer()">Peer to Peer</button>
+							<button class="exportToggleBtn" id="supportGroupBtn" onclick="showSupportGroup()">Support Group Chat</button>
+						</div>
+
+						<div class="exportChatContent" id="peerToPeerContent">
+							<div class="exportChatRow">
+								<div class="exportChatGroup">
+									<label class="exportChatLabel">Peer</label>
+									<select class="exportChatSelect">
+										<option>Select</option>
+									</select>
+								</div>
+								<div class="exportChatGroup">
+									<label class="exportChatLabel">Student</label>
+									<select class="exportChatSelect">
+										<option>Select</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="exportChatRadioGroup">
+								<label class="exportChatRadio">
+									<input type="radio" name="dateRange" value="today">
+									<span>Today</span>
+								</label>
+								<label class="exportChatRadio">
+									<input type="radio" name="dateRange" value="past15">
+									<span>Past 15 days</span>
+								</label>
+								<label class="exportChatRadio">
+									<input type="radio" name="dateRange" value="past30">
+									<span>Past 30 days</span>
+								</label>
+								<label class="exportChatRadio">
+									<input type="radio" name="dateRange" value="custom">
+									<span>Custom Range</span>
+								</label>
+							</div>
+
+							<div class="exportChatRow">
+								<div class="exportChatGroup">
+									<label class="exportChatLabel">Start Date</label>
+									<input type="date" class="exportChatDateInput">
+								</div>
+								<div class="exportChatGroup">
+									<label class="exportChatLabel">End Date</label>
+									<input type="date" class="exportChatDateInput">
+								</div>
+							</div>
+
+							<button class="exportChatBtn">Export</button>
+						</div>
+
+						<div class="exportChatContent" id="supportGroupContent" style="display: none;">
+							<div class="exportChatRow">
+								<div class="exportChatGroup">
+									<label class="exportChatLabel">Support Group</label>
+									<select class="exportChatSelect">
+										<option>Select</option>
+									</select>
+								</div>
+								<div class="exportChatGroup">
+									<label class="exportChatLabel">Group Chat</label>
+									<select class="exportChatSelect">
+										<option>Select</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="exportChatRadioGroup">
+								<label class="exportChatRadio">
+									<input type="radio" name="dateRange2" value="today">
+									<span>Today</span>
+								</label>
+								<label class="exportChatRadio">
+									<input type="radio" name="dateRange2" value="past15">
+									<span>Past 15 days</span>
+								</label>
+								<label class="exportChatRadio">
+									<input type="radio" name="dateRange2" value="past30">
+									<span>Past 30 days</span>
+								</label>
+								<label class="exportChatRadio">
+									<input type="radio" name="dateRange2" value="custom">
+									<span>Custom Range</span>
+								</label>
+							</div>
+
+							<div class="exportChatRow">
+								<div class="exportChatGroup">
+									<label class="exportChatLabel">Start Date</label>
+									<input type="date" class="exportChatDateInput">
+								</div>
+								<div class="exportChatGroup">
+									<label class="exportChatLabel">End Date</label>
+									<input type="date" class="exportChatDateInput">
+								</div>
+							</div>
+
+							<button class="exportChatBtn">Export</button>
+						</div>
+					</div>
+				</div>
 			</div>
 
 			<div class="row">
@@ -2092,8 +2097,18 @@
 				closeConfirmPopup();
 			}
 		});
+		
+		//EXPORT CHAT MODAL
+		function openExportChatModal() {
+			document.getElementById('exportChatModal').style.display = 'block';
+			// Reset to Peer to Peer view when opening modal
+			showPeerToPeer();
+		}
 
-	//EXPORT CHAT
+		function closeExportChatModal() {
+			document.getElementById('exportChatModal').style.display = 'none';
+		}
+
 		function showPeerToPeer() {
 			document.getElementById('peerToPeerBtn').classList.add('active');
 			document.getElementById('supportGroupBtn').classList.remove('active');
@@ -2106,6 +2121,14 @@
 			document.getElementById('peerToPeerBtn').classList.remove('active');
 			document.getElementById('supportGroupContent').style.display = 'block';
 			document.getElementById('peerToPeerContent').style.display = 'none';
+		}
+
+		// Close modal when clicking outside
+		window.onclick = function(event) {
+			const modal = document.getElementById('exportChatModal');
+			if (event.target == modal) {
+				modal.style.display = 'none';
+			}
 		}
 	</script>
 </body>
