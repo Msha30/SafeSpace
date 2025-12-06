@@ -60,11 +60,8 @@
 				<img src="icons/ic_GCO.svg" class="GCO_icon" alt="GCO icon"> 
 			</div>
 			<div class="dropdown" onclick="toggleDropdown()">
-<<<<<<< HEAD
-				<span id="userDisplayName">GCO Coordinator</span>
-=======
-				<span>GCO Admin</span>
->>>>>>> 8aa859f (UPDATED)
+				<span id="userDisplayName">GCO Admin</span>
+				
 				<img src="icons/ic_dropdown.svg" style="height: 10px; margin-left: 3px;">
 				<div class="dropdown-menu">
 					<a href="#" id="signOutLink">Sign Out</a>
@@ -2810,81 +2807,6 @@
 		}
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-		// Open Group Chat Edit Modal
-		function openGroupChatEditModal() {
-			document.getElementById('groupChatEditModal').style.display = 'flex';
-		}
-=======
-		//TRY
-
-		let autoCloseTimer;
-
-		// Show success popup after saving form
-		function showSavedFormPopup() {
-		const popup = document.getElementById('successPopup');
-		popup.classList.add('active');
-		
-		// Auto-close after 5 seconds
-		autoCloseTimer = setTimeout(() => {
-			closeSavedFormPopup();
-		}, 10000);
-		}
-
-		// Close popup
-		function closeSavedFormPopup() {
-		const popup = document.getElementById('successPopup');
-		popup.classList.remove('active');
-		
-		// Clear timer
-		if (autoCloseTimer) {
-			clearTimeout(autoCloseTimer);
-		}
-		}
-
-		// Save request form function
-		function saveRequestForm() {
-		// Your form saving logic here
-		
-		// Close the request form
-		closeRequestFormPopup();
-		
-		// Show success popup
-		showSavedFormPopup();
-		}
-
-		// Close popup when clicking outside
-		window.addEventListener('DOMContentLoaded', function() {
-		const successPopup = document.getElementById('successPopup');
-		if (successPopup) {
-			successPopup.addEventListener('click', function(e) {
-			if (e.target === this) {
-				closeSavedFormPopup();
-			}
-			});
-		}
-		});
-
-		// Close on Escape key
-		document.addEventListener('keydown', function(e) {
-		if (e.key === 'Escape') {
-			const popup = document.getElementById('successPopup');
-			if (popup && popup.classList.contains('active')) {
-			closeSavedFormPopup();
-			}
-		}
-		});
-
->>>>>>> 7a3f9ce (UPDATED)
-
-		// Close Group Chat Edit Modal
-		function closeGroupChatEditModal() {
-			document.getElementById('groupChatEditModal').style.display = 'none';
-		}
-=======
-
->>>>>>> 8aa859f (UPDATED)
 	</script>
 </body>
 </html>
