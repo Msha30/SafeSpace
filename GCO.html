@@ -28,7 +28,7 @@
 
 		<a href="#" onclick="showPage('feedback', this)"><img src="icons/ic_sb_feedback.svg" class="icon"><span>Feedback</span></a>
 
-		<a href="#" onclick="showPage('settings', this)"><img src="icons/ic_sb_settings.svg" class="icon"><span>Settings and System Logs</span></a>
+		<a href="#" onclick="showPage('settings and-system-logs', this)"><img src="icons/ic_sb_settings.svg" class="icon"><span>Settings and System Logs</span></a>
 
 		<a href="#" onclick="showPage('reports', this)"><img src="icons/ic_sb_report.svg" class="icon"><span>Reports</span></a>
 	</div>
@@ -60,7 +60,11 @@
 				<img src="icons/ic_GCO.svg" class="GCO_icon" alt="GCO icon"> 
 			</div>
 			<div class="dropdown" onclick="toggleDropdown()">
+<<<<<<< HEAD
 				<span id="userDisplayName">GCO Coordinator</span>
+=======
+				<span>GCO Admin</span>
+>>>>>>> 8aa859f (UPDATED)
 				<img src="icons/ic_dropdown.svg" style="height: 10px; margin-left: 3px;">
 				<div class="dropdown-menu">
 					<a href="#" id="signOutLink">Sign Out</a>
@@ -292,7 +296,7 @@
 					</div>
 					<div class="sched">
 						<p class="sched-type">Face to Face</p>
-						<p class="sched-time">0:00 PM - 0:00 PM/p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
 				</div>
 				
@@ -440,11 +444,9 @@
 
 	<div class="request-form-overlay" id="requestFormOverlay">
 		<div class="request-form-content">
-			<div class="request-form-header" onclick="enableHeaderEdit(event)">
-				<h2 contenteditable="true" class="editable-title">Schedule a Guidance Counseling Session</h2>
-				<p contenteditable="true" class="editable-text">This is intended for students who wish to schedule a counseling from the Guidance and Counseling Office.</p>
-				<p contenteditable="true" class="editable-text">Rest assured that all details provided is kept confidential and for GCO's perusal only.</p>
-				<p contenteditable="true" class="editable-text">You matter, and we want nothing but to create and provide a safe space for you!</p>
+			<div class="request-form-header">
+				<input type="text" class="request-form-title" placeholder="Form Title">
+				<textarea class="request-form-description" placeholder="Form Description" rows="2"></textarea>
 			</div>
 
 			<div class="request-form-body">
@@ -472,22 +474,16 @@
 				</div>
 
 				<div id="requestQuestionsContainer">
-					<div class="request-question-card" draggable="true">
+					<div class="request-question-card">
 						<div class="request-question-header">
-							<span class="request-drag-handle">
-								<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-									<path d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
-								</svg>
-							</span>
-							<input type="text" class="request-question-input" placeholder="Question" value="Lorem Ipsum">
+							<input type="text" class="request-question-input" placeholder="Question">
 							<select class="request-question-type" onchange="changeRequestQuestionType(this)">
 								<option value="short">Short Answer</option>
 								<option value="paragraph">Paragraph</option>
 								<option value="multiple">Multiple Choice</option>
 								<option value="checkbox">Checkboxes</option>
 								<option value="dropdown">Dropdown</option>
-								<option value="date">Date</option>
-								<option value="time">Time</option>
+								<option value="datetime">Date & Time</option>
 							</select>
 							<button class="request-delete-btn" onclick="deleteRequestQuestion(this)">
 								<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -495,26 +491,22 @@
 								</svg>
 							</button>
 						</div>
+						<input type="text" class="request-question-subtext" placeholder="Description (optional)">
 						<div class="request-answer-area">
-							<div class="request-answer-placeholder">Short answer text</div>
+							<div class="request-answer-placeholder">Enter your Answer</div>
 						</div>
 					</div>
 
-					<div class="request-question-card" draggable="true">
+					<div class="request-question-card">
 						<div class="request-question-header">
-							<span class="request-drag-handle">
-								<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-									<path d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
-								</svg>
-							</span>
-							<input type="text" class="request-question-input" placeholder="Question" value="Lorem Ipsum">
+							<input type="text" class="request-question-input" placeholder="Question">
 							<select class="request-question-type" onchange="changeRequestQuestionType(this)">
 								<option value="short">Short Answer</option>
 								<option value="paragraph">Paragraph</option>
 								<option value="multiple">Multiple Choice</option>
 								<option value="checkbox">Checkboxes</option>
 								<option value="dropdown">Dropdown</option>
-								<option value="datetime">Date - Time</option>
+								<option value="datetime">Date & Time</option>
 							</select>
 							<button class="request-delete-btn" onclick="deleteRequestQuestion(this)">
 								<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -522,6 +514,7 @@
 								</svg>
 							</button>
 						</div>
+						<input type="text" class="request-question-subtext" placeholder="Description (optional)">
 						<div class="request-answer-area">
 							<div class="request-option-input">
 								<span class="request-radio-icon"></span>
@@ -1114,18 +1107,18 @@
 			<div class="createSupportGroupFormGroup">
 				<div class="createSupportGroupFormLabel">
 					<span>Support Group Picture</span>
-					<span class="createSupportGroupEditLink">Edit</span>
+					<span class="createSupportGroupEditLink" onclick="triggerImageUpload()">Edit</span>
 				</div>
+				<input type="file" id="supportGroupImageUpload" accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
 				<div class="createSupportGroupPictureOptions">
 					<div class="createSupportGroupPictureOption createSupportGroupCircle">
-						<img src="photos/pic_placeholder.png" alt="Circle">
+						<img id="circlePreview" src="photos/pic_placeholder.png" alt="Circle">
 					</div>
 					<div class="createSupportGroupPictureOption createSupportGroupSquare">
-						<img src="photos/suppGroup_placeholder.png" alt="Square">
+						<img id="squarePreview" src="photos/suppGroup_placeholder.png" alt="Square">
 					</div>
 				</div>
 			</div>
-
 			<button class="createSupportGroupDoneBtn" onclick="createSupportGroup()">Done</button>
 		</div>
 	</div>
@@ -1134,46 +1127,50 @@
 	<!---------------- SUPPORT GROUP | HAVEN ------------------------------------------------->
 	<div id="haven" class="page">
 		<div class="row">
-			<div class="left">
-				<h3>Information</h3>
-				<div class="info-section">
-
-					<div class="info-row-group">
+		<div class="left">
+			<h3>Information</h3>
+			<div class="info-section">
+				<div class="info-row-group">
+					<div class="info-block">
+						<div class="info-row">
+							<span class="span-1">Profile Picture</span>
+							<a href="#" class="edit-link edit-1" onclick="event.preventDefault(); triggerProfilePictureUpload()">Edit</a>
+						</div>
+						<input type="file" id="profilePictureUpload" class="hidden-file-input" accept="image/*" onchange="handleProfilePictureUpload(event)">
+						<div class="info-images">
+							<img id="profileCircle" src="photos/pic_placeholder.png" alt="Profile Picture Circle" class="profile-circle">
+							<img id="profileSquare" src="photos/suppGroup_placeholder.png" alt="Profile Picture Square" class="profile-square">
+						</div>
+					</div>
 
 					<div class="info-block">
 						<div class="info-row">
-						<span class="span-1">Profile Picture</span>
-						<a href="#" class="edit-link edit-1">Edit</a>
+							<span class="span-2">Cover Photo</span>
+							<a href="#" class="edit-link edit-2" onclick="event.preventDefault(); triggerCoverPhotoUpload()">Edit</a>
 						</div>
+						<input type="file" id="coverPhotoUpload" class="hidden-file-input" accept="image/*" onchange="handleCoverPhotoUpload(event)">
 						<div class="info-images">
-						<img src="photos/pic_placeholder.png" alt="Profile Picture Circle" class="profile-circle">
-						<img src="photos/suppGroup_placeholder.png" alt="Profile Picture Square" class="profile-square">
+							<img id="coverPhoto" src="photos/rectangle_placeholder.png" alt="Cover Photo">
 						</div>
 					</div>
+				</div>
 
-					<div class="info-block">
-						<div class="info-row">
-						<span class="span-2">Cover Photo</span>
-						<a href="#" class="edit-link edit-2">Edit</a>
-						</div>
-						<div class="info-images">
-						<img src="photos/rectangle_placeholder.png" alt="Cover Photo">
-						</div>
-					</div>
-					</div>
-
-					<div class="info-row">
+				<div class="info-row">
 					<span class="span-3">Description</span>
-					<a href="#" class="edit-link edit-3">Edit</a>
-					</div>
-					<div class="info-description">
+					<a href="#" class="edit-link edit-3" onclick="event.preventDefault(); toggleDescriptionEdit()">Edit</a>
+				</div>
+				<div class="info-description" id="descriptionDisplay" contenteditable="false">
 					<strong>Lorem Ipsum</strong><br><br>
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
 					Vivamus tincidunt, nunc nec faucibus fermentum, lorem mauris 
 					placerat justo, a malesuada sapien sapien sit amet neque.
-					</div>
+				</div>
+				<div id="descriptionButtons" class="description-buttons hidden">
+					<button onclick="saveDescription()" class="save-btn">Save</button>
+					<button onclick="discardChanges()" class="discard-btn">Discard Changes</button>
 				</div>
 			</div>
+		</div>
 			<div class="right">
 				<div class="card">
 					<h3>Group Chat</h3>
@@ -1443,34 +1440,40 @@
 						<div class="info-block">
 							<div class="info-row">
 							<span class="span-1">Profile Picture</span>
-							<a href="#" class="edit-link edit-1">Edit</a>
+							<a href="#" class="edit-link edit-1" onclick="event.preventDefault(); triggerProfilePictureUpload()">Edit</a>
 							</div>
+							<input type="file" id="profilePictureUpload" accept="image/*" style="display: none;" onchange="handleProfilePictureUpload(event)">
 							<div class="info-images">
-							<img src="photos/pic_placeholder.png" alt="Profile Picture Circle" class="profile-circle">
-							<img src="photos/suppGroup_placeholder.png" alt="Profile Picture Square" class="profile-square">
+							<img id="profileCircle" src="photos/pic_placeholder.png" alt="Profile Picture Circle" class="profile-circle">
+							<img id="profileSquare" src="photos/suppGroup_placeholder.png" alt="Profile Picture Square" class="profile-square">
 							</div>
 						</div>
 
 						<div class="info-block">
 							<div class="info-row">
 							<span class="span-2">Cover Photo</span>
-							<a href="#" class="edit-link edit-2">Edit</a>
+							<a href="#" class="edit-link edit-2" onclick="event.preventDefault(); triggerCoverPhotoUpload()">Edit</a>
 							</div>
+							<input type="file" id="coverPhotoUpload" accept="image/*" style="display: none;" onchange="handleCoverPhotoUpload(event)">
 							<div class="info-images">
-							<img src="photos/rectangle_placeholder.png" alt="Cover Photo">
+							<img id="coverPhoto" src="photos/rectangle_placeholder.png" alt="Cover Photo">
 							</div>
 						</div>
 						</div>
 
 						<div class="info-row">
-						<span class="span-3">Description</span>
-						<a href="#" class="edit-link edit-3">Edit</a>
+							<span class="span-3">Description</span>
+							<a href="#" class="edit-link edit-3" id="editBtn">Edit</a>
 						</div>
-						<div class="info-description">
-						<strong>Lorem Ipsum</strong><br><br>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-						Vivamus tincidunt, nunc nec faucibus fermentum, lorem mauris 
-						placerat justo, a malesuada sapien sapien sit amet neque.
+						<div class="info-description" id="descriptionDisplay" contenteditable="false">
+							<strong>Lorem Ipsum</strong><br><br>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+							Vivamus tincidunt, nunc nec faucibus fermentum, lorem mauris 
+							placerat justo, a malesuada sapien sapien sit amet neque.
+						</div>
+						<div id="descriptionButtons" class="description-buttons hidden">
+							<button id="saveBtn" class="save-btn">Save</button>
+							<button id="discardBtn" class="discard-btn">Discard Changes</button>
 						</div>
 					</div>
 				</div>
@@ -1589,32 +1592,32 @@
 	<!---------------- ANNOUNCEMENT ---------------------------------------------------------->
 		<div id="announcement" class="page">
 			<div class="row">
-					<div class="card">
-						<h3>Create an Announcement</h3>
-						<div class="AncButtons">
-							<button class="toggle-btn active" id="announcementBtn">Announcement</button>
-							<button class="toggle-btn" id="joinableBtn">Joinable Event</button>
-						</div>
-						
-						<div class="AncProfile">
-							<img src="photos/pic_placeholder.png" alt="Profile" class="profile-img">
-							<span class="profile-name">NUFV Guidance and Counseling Office</span>
-							<img src="icons/ic_dropdown.svg" alt="dropdown" class="dropdown-icon">
-						</div>
-						<input type="text" placeholder="Title..." class="AncTitle">
-						<textarea placeholder="Content..." class="AncContent"></textarea>
-						<div class="file-boxes">
-							<div class="file"></div>
-							<div class="file"></div>
-							<div class="file add-file" id="dropArea">
-								<img src="icons/addfile_btn.svg" alt="Upload" class="add-icon">
-								Add photos/videos
-							</div>
-							<input type="file" id="fileInput" style="display:none">
-						</div>
-						<button class="post-btn">Post</button>
+				<div class="card">
+					<h3>Create an Announcement</h3>
+					<div class="AncButtons">
+						<button class="toggle-btn active" id="announcementBtn">Announcement</button>
+						<button class="toggle-btn" id="joinableBtn">Joinable Event</button>
 					</div>
-					<div class="card2">
+					
+					<div class="AncProfile">
+						<img src="photos/pic_placeholder.png" alt="Profile" class="profile-img">
+						<span class="profile-name">NUFV Guidance and Counseling Office</span>
+						<img src="icons/ic_dropdown.svg" alt="dropdown" class="dropdown-icon">
+					</div>
+					<input type="text" placeholder="Title..." class="AncTitle">
+					<textarea placeholder="Content..." class="AncContent"></textarea>
+					<div class="file-boxes">
+						<div class="file"></div>
+						<div class="file"></div>
+						<div class="file add-file" id="dropArea" onclick="document.getElementById('fileInput').click();">
+							<img src="icons/addfile_btn.svg" alt="Upload" class="add-icon">
+							Add photos/videos
+						</div>
+					</div>
+					<input type="file" id="fileInput" accept="image/*,video/*" multiple style="display:none" onchange="handleFileUpload(this.files)">
+					<button class="post-btn">Post</button>
+				</div>
+				<div class="card2">
 						<h3>History</h3>
 						<div class="blue_bg">
 							<div class="card3">
@@ -1657,181 +1660,16 @@
 			</div>
 
 
-	<!---------------------------------------------------------------------------------------->
-	<!---------------------------------------------------------------------------------------->	
-	<!---------------- FEEDBACK -- DI PA TAPOS ----------------------------------------------->
-	<div id="feedback" class="page">
-		<div class="row">
-			<div class="card2" style="flex: 2;">
-				<h3>Feedback</h3>
-				<div class="leftscrollFeedback">
-					<div class="feedback">
-						<div class="feedback-header">
-							<img src="photos/pic_placeholder.png" alt="User" class="feedback-avatar">
-							<div class="feedback-info">
-								<strong class="feedback-name">Fernandez, Aaron Angelo</strong>
-								<div class="feedback-stars">
-									<span class="star filled">★</span>
-									<span class="star filled">★</span>
-									<span class="star filled">★</span>
-									<span class="star filled">★</span>
-									<span class="star filled">★</span>
-								</div>
-							</div>
-							<span class="feedback-date">May 5, 2025</span>
-						</div>
-						<p class="feedback-text">I've been using SafeSpace for a couple of weeks now, and it's a great app for students who need mental health support. The platform is very easy to navigate, and I love how you can easily find and contact Peer Facilitators. The anonymity feature is really reassuring, especially when you're opening up about sensitive topics.</p>
-					</div>
-
-					<div class="feedback">
-						<div class="feedback-header">
-							<img src="photos/pic_placeholder.png" alt="User" class="feedback-avatar">
-							<div class="feedback-info">
-								<strong class="feedback-name">Jose, Michael</strong>
-								<div class="feedback-stars">
-									<span class="star filled">★</span>
-									<span class="star filled">★</span>
-									<span class="star filled">★</span>
-									<span class="star filled">★</span>
-									<span class="star">★</span>
-								</div>
-							</div>
-							<span class="feedback-date">May 5, 2025</span>
-						</div>
-						<p class="feedback-text">I'm really impressed with how SafeSpace has been so effective in supporting students at NU Fairview. The app feels like a true lifeline, especially for anyone who needs help but isn't ready to reach out to traditional counseling services. I've used the chat feature a few times and felt completely supported every time.</p>
-					</div>
-
-					<div class="feedback">
-						<div class="feedback-header">
-							<img src="photos/pic_placeholder.png" alt="User" class="feedback-avatar">
-							<div class="feedback-info">
-								<strong class="feedback-name">Mayo, John Mik</strong>
-								<div class="feedback-stars">
-									<span class="star filled">★</span>
-									<span class="star filled">★</span>
-									<span class="star filled">★</span>
-									<span class="star filled">★</span>
-									<span class="star">★</span>
-								</div>
-							</div>
-							<span class="feedback-date">May 5, 2025</span>
-						</div>
-						<p class="feedback-text">SafeSpace is a great concept, but there are a few areas that could use improvement. The overall design is user-friendly, and I like the fact that it's built specifically for students at NU Fairview. The Peer Facilitators and counselors are available, but I've experienced some delays in getting responses during peak hours.</p>
-					</div>
-
-					<div class="feedback">
-						<div class="feedback-header">
-							<img src="photos/pic_placeholder.png" alt="User" class="feedback-avatar">
-							<div class="feedback-info">
-								<strong class="feedback-name">Santos, Sheyla May</strong>
-								<div class="feedback-stars">
-									<span class="star filled">★</span>
-									<span class="star filled">★</span>
-									<span class="star filled">★</span>
-									<span class="star filled">★</span>
-									<span class="star filled">★</span>
-								</div>
-							</div>
-							<span class="feedback-date">May 5, 2025</span>
-						</div>
-						<p class="feedback-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="right">
-				<div class="card">
-					<h3>HAVEN | Hangout Corner</h3>
-					<div class="rating-section">
-						<div class="rating-header">
-							<span class="rating-label">Rating</span>
-							<span class="rating-count-label">Count</span>
-						</div>
-
-						<div class="rating-row">
-							<div class="rating-stars">
-								<span class="star filled">★</span>
-								<span class="star filled">★</span>
-								<span class="star filled">★</span>
-								<span class="star filled">★</span>
-								<span class="star filled">★</span>
-							</div>
-							<span class="rating-count" data-rating="5">110</span>
-						</div>
-
-						<div class="rating-row">
-							<div class="rating-stars">
-								<span class="star filled">★</span>
-								<span class="star filled">★</span>
-								<span class="star filled">★</span>
-								<span class="star filled">★</span>
-								<span class="star">★</span>
-							</div>
-							<span class="rating-count" data-rating="4">87</span>
-						</div>
-
-						<div class="rating-row">
-							<div class="rating-stars">
-								<span class="star filled">★</span>
-								<span class="star filled">★</span>
-								<span class="star filled">★</span>
-								<span class="star">★</span>
-								<span class="star">★</span>
-							</div>
-							<span class="rating-count" data-rating="3">20</span>
-						</div>
-
-						<div class="rating-row">
-							<div class="rating-stars">
-								<span class="star filled">★</span>
-								<span class="star filled">★</span>
-								<span class="star">★</span>
-								<span class="star">★</span>
-								<span class="star">★</span>
-							</div>
-							<span class="rating-count" data-rating="2">6</span>
-						</div>
-
-						<div class="rating-row">
-							<div class="rating-stars">
-								<span class="star filled">★</span>
-								<span class="star">★</span>
-								<span class="star">★</span>
-								<span class="star">★</span>
-								<span class="star">★</span>
-							</div>
-							<span class="rating-count" data-rating="1">0</span>
-						</div>
-					</div>
-
-					<div class="rating-summary">
-						<canvas id="ratingChart" width="200" height="200"></canvas>
-						<div class="rating-legend">
-							<div class="legend-item">
-								<span class="legend-label">5 Stars</span>
-								<span class="legend-value" id="percent5">52.4%</span>
-							</div>
-							<div class="legend-item">
-								<span class="legend-label">4 Stars</span>
-								<span class="legend-value" id="percent4">38.1%</span>
-							</div>
-							<div class="legend-item">
-								<span class="legend-label">3 Stars</span>
-								<span class="legend-value" id="percent3">9.5%</span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+		<!---------------------------------------------------------------------------------------->
+		<!---------------------------------------------------------------------------------------->	
+		<!---------------- FEEDBACK ---------------------------------------------------------->
 
 
-	<!---------------------------------------------------------------------------------------->
-	<!---------------------------------------------------------------------------------------->	
-	<!---------------- SETTINGS & LOGS-------------------------------------------------------->
+		<!---------------------------------------------------------------------------------------->
+		<!---------------------------------------------------------------------------------------->	
+		<!---------------- SETTINGS & LOGS-------------------------------------------------------->
 
-		<div id="settings" class="page">
+		<div id="settings and-system-logs" class="page">
 			<div class="row">
 				<div class="big_btn" onclick="openModal('termsModal')">
 				   <div class="text">
@@ -2014,16 +1852,16 @@
 								<label><input type="radio" name="type"> Other</label>
 								<label><input type="radio" name="type"> Update</label>
 							 </div>
-							 <textarea placeholder="Report Description" class="report"></textarea>
-							 <div class="file-boxes2">
+							 <textarea placeholder="Report Description..." class="report"></textarea>
+							<div class="file-boxes2">
 								<div class="file2"></div>
 								<div class="file2"></div>
-								<div class="file add-file2" id="dropArea2">
-									 <img src="icons/addfile_btn.svg" alt="Upload" class="add-icon2">
- 									 Add file<br>or drag and drop
+								<div class="file2 add-file2" id="dropArea2" onclick="document.getElementById('fileInput2').click();">
+									<img src="icons/addfile_btn.svg" alt="Upload" class="add-icon2">
+									Add file<br>or drag and drop
 								</div>
-								<input type="file2" id="fileInput2" style="display:none">
 							</div>
+							<input type="file" id="fileInput2" accept="image/*" multiple style="display:none" onchange="handleFileUpload2(this.files)">
 							<button type="submit" class="report-btn">Report</button>
 						</form>
 					</div>
@@ -2340,27 +2178,13 @@
 			document.getElementById('requestFormOverlay').classList.remove('active');
 		}
 
-		// Enable header editing
-		function enableHeaderEdit(event) {
-			const target = event.target;
-			if (target.hasAttribute('contenteditable')) {
-				target.focus();
-			}
-		}
-
 		// Add new question
 		function addNewRequestQuestion() {
 			const container = document.getElementById('requestQuestionsContainer');
 			const questionCard = document.createElement('div');
 			questionCard.className = 'request-question-card';
-			questionCard.setAttribute('draggable', 'true');
 			questionCard.innerHTML = `
 				<div class="request-question-header">
-					<span class="request-drag-handle">
-						<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-							<path d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
-						</svg>
-					</span>
 					<input type="text" class="request-question-input" placeholder="Question">
 					<select class="request-question-type" onchange="changeRequestQuestionType(this)">
 						<option value="short">Short Answer</option>
@@ -2368,8 +2192,7 @@
 						<option value="multiple">Multiple Choice</option>
 						<option value="checkbox">Checkboxes</option>
 						<option value="dropdown">Dropdown</option>
-						<option value="date">Date</option>
-						<option value="time">Time</option>
+						<option value="datetime">Date & Time</option>
 					</select>
 					<button class="request-delete-btn" onclick="deleteRequestQuestion(this)">
 						<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -2377,12 +2200,12 @@
 						</svg>
 					</button>
 				</div>
+				<input type="text" class="request-question-subtext" placeholder="Description (optional)">
 				<div class="request-answer-area">
-					<div class="request-answer-placeholder">Short answer text</div>
+					<div class="request-answer-placeholder">Enter your Answer</div>
 				</div>
 			`;
 			container.appendChild(questionCard);
-			initializeDragAndDrop();
 		}
 
 		// Delete question
@@ -2396,21 +2219,21 @@
 			const type = select.value;
 			
 			if (type === 'short') {
-				answerArea.innerHTML = '<div class="request-answer-placeholder">Short answer text</div>';
+				answerArea.innerHTML = '<div class="request-answer-placeholder">Enter your Answer</div>';
 			} else if (type === 'paragraph') {
-				answerArea.innerHTML = '<div class="request-answer-placeholder paragraph-style">Long answer text</div>';
+				answerArea.innerHTML = '<div class="request-answer-placeholder paragraph-style">Enter your Answer</div>';
 			} else if (type === 'datetime') {
 				answerArea.innerHTML = `
 					<div class="request-datetime-container">
-						<input type="date" class="request-date-input" disabled>
-						<input type="time" class="request-time-input" disabled>
+						<input type="date" class="request-date-input" placeholder="Select date">
+						<input type="time" class="request-time-input" placeholder="Select time">
 					</div>
 				`;
 			} else if (type === 'multiple') {
 				answerArea.innerHTML = `
 					<div class="request-option-input">
 						<span class="request-radio-icon"></span>
-						<input type="text" placeholder="Enter option" value="Option 1">
+						<input type="text" placeholder="Enter option">
 						<button class="request-option-remove" onclick="removeRequestOption(this)">×</button>
 					</div>
 					<div class="request-option-input">
@@ -2422,7 +2245,7 @@
 				answerArea.innerHTML = `
 					<div class="request-option-input">
 						<span class="request-checkbox-icon"></span>
-						<input type="text" placeholder="Enter option" value="Option 1">
+						<input type="text" placeholder="Enter option">
 						<button class="request-option-remove" onclick="removeRequestOption(this)">×</button>
 					</div>
 					<div class="request-option-input">
@@ -2434,7 +2257,7 @@
 				answerArea.innerHTML = `
 					<div class="request-option-input">
 						<span class="request-option-number">1.</span>
-						<input type="text" placeholder="Enter option" value="Option 1">
+						<input type="text" placeholder="Enter option">
 						<button class="request-option-remove" onclick="removeRequestOption(this)">×</button>
 					</div>
 					<div class="request-option-input">
@@ -2444,7 +2267,7 @@
 				`;
 			}
 		}
-		
+
 		function removeRequestOption(btn) {
 			const optionInput = btn.closest('.request-option-input');
 			const answerArea = optionInput.closest('.request-answer-area');
@@ -2517,92 +2340,7 @@
 					}
 				});
 			}
-
-			// Initialize drag and drop
-			initializeDragAndDrop();
 		});
-
-		// Drag and Drop functionality
-		let draggedElement = null;
-
-		function initializeDragAndDrop() {
-			const questionCards = document.querySelectorAll('.request-question-card');
-			
-			questionCards.forEach(card => {
-				// Remove old listeners by cloning
-				const newCard = card.cloneNode(true);
-				card.parentNode.replaceChild(newCard, card);
-				
-				// Add new listeners
-				newCard.addEventListener('dragstart', handleDragStart);
-				newCard.addEventListener('dragend', handleDragEnd);
-				newCard.addEventListener('dragover', handleDragOver);
-				newCard.addEventListener('drop', handleDrop);
-				newCard.addEventListener('dragenter', handleDragEnter);
-				newCard.addEventListener('dragleave', handleDragLeave);
-			});
-		}
-
-		function handleDragStart(e) {
-			draggedElement = this;
-			this.classList.add('dragging');
-			e.dataTransfer.effectAllowed = 'move';
-			e.dataTransfer.setData('text/html', this.innerHTML);
-		}
-
-		function handleDragEnd(e) {
-			this.classList.remove('dragging');
-			
-			// Remove all drag-over classes
-			const questionCards = document.querySelectorAll('.request-question-card');
-			questionCards.forEach(card => {
-				card.classList.remove('drag-over');
-			});
-		}
-
-		function handleDragOver(e) {
-			if (e.preventDefault) {
-				e.preventDefault();
-			}
-			e.dataTransfer.dropEffect = 'move';
-			return false;
-		}
-
-		function handleDragEnter(e) {
-			if (this !== draggedElement) {
-				this.classList.add('drag-over');
-			}
-		}
-
-		function handleDragLeave(e) {
-			this.classList.remove('drag-over');
-		}
-
-		function handleDrop(e) {
-			if (e.stopPropagation) {
-				e.stopPropagation();
-			}
-
-			if (draggedElement !== this) {
-				const container = document.getElementById('requestQuestionsContainer');
-				const allCards = [...container.querySelectorAll('.request-question-card')];
-				const draggedIndex = allCards.indexOf(draggedElement);
-				const targetIndex = allCards.indexOf(this);
-
-				if (draggedIndex < targetIndex) {
-					this.parentNode.insertBefore(draggedElement, this.nextSibling);
-				} else {
-					this.parentNode.insertBefore(draggedElement, this);
-				}
-
-				// Reinitialize drag and drop after reordering
-				initializeDragAndDrop();
-			}
-
-			this.classList.remove('drag-over');
-			return false;
-		}
-
 
 		//USERS DETAILS BUTTON POP UP
 		function openUsersPopup() {
@@ -2846,6 +2584,38 @@
 			}
 		}
 
+		// FOR UPLOADING IMAGES FOR CREATE NEW SUPPORT GROUP
+
+		function triggerImageUpload() {
+			document.getElementById('supportGroupImageUpload').click();
+		}
+
+		function handleImageUpload(event) {
+			const file = event.target.files[0];
+			if (file && file.type.startsWith('image/')) {
+				const reader = new FileReader();
+				reader.onload = function(e) {
+					const imageUrl = e.target.result;
+					// Update both preview images
+					document.getElementById('circlePreview').src = imageUrl;
+					document.getElementById('squarePreview').src = imageUrl;
+				};
+				reader.readAsDataURL(file);
+			}
+		}
+
+		//GROUP CHAT EDIT MODAL
+
+		// Open Group Chat Edit Modal
+		function openGroupChatEditModal() {
+			document.getElementById('groupChatEditModal').style.display = 'flex';
+		}
+
+		// Close Group Chat Edit Modal
+		function closeGroupChatEditModal() {
+			document.getElementById('groupChatEditModal').style.display = 'none';
+		}
+
 
 
 
@@ -2866,105 +2636,172 @@
 		});
 
 
-		//FEEDBACK-----------------------------------------------------------
-		// Update ratings dynamically and draw pie chart
-		function updateRatings() {
-			// Get all rating counts
-			const rating5 = parseInt(document.querySelector('[data-rating="5"]').textContent) || 0;
-			const rating4 = parseInt(document.querySelector('[data-rating="4"]').textContent) || 0;
-			const rating3 = parseInt(document.querySelector('[data-rating="3"]').textContent) || 0;
-			const rating2 = parseInt(document.querySelector('[data-rating="2"]').textContent) || 0;
-			const rating1 = parseInt(document.querySelector('[data-rating="1"]').textContent) || 0;
-			
-			const total = rating5 + rating4 + rating3 + rating2 + rating1;
-			
-			if (total === 0) return;
-			
-			// Calculate percentages
-			const percent5 = ((rating5 / total) * 100).toFixed(1);
-			const percent4 = ((rating4 / total) * 100).toFixed(1);
-			const percent3 = ((rating3 / total) * 100).toFixed(1);
-			
-			// Update legend
-			document.getElementById('percent5').textContent = percent5 + '%';
-			document.getElementById('percent4').textContent = percent4 + '%';
-			document.getElementById('percent3').textContent = percent3 + '%';
-			
-			// Draw pie chart
-			drawPieChart(rating5, rating4, rating3);
-		}
+		// FOR UPLOADING IMAGES & VIDEOS IN ANNOUNCEMENT
 
-		function drawPieChart(rating5, rating4, rating3) {
-			const canvas = document.getElementById('ratingChart');
-			if (!canvas) return;
+		function handleFileUpload(files) {
+			console.log('Files uploaded:', files.length);
+			const fileBoxesContainer = document.querySelector('.file-boxes');
+			const dropArea = document.getElementById('dropArea');
 			
-			const ctx = canvas.getContext('2d');
+			const emptyFileBoxes = Array.from(fileBoxesContainer.querySelectorAll('.file:not(.add-file)')).filter(box => {
+				return !box.querySelector('img') && !box.querySelector('video');
+			});
 			
-			const total = rating5 + rating4 + rating3;
-			if (total === 0) return;
-			
-			const centerX = canvas.width / 2;
-			const centerY = canvas.height / 2;
-			const radius = 80;
-			
-			// Colors matching the image
-			const colors = ['#3b82f6', '#60a5fa', '#93c5fd']; // Blue shades
-			
-			const data = [rating5, rating4, rating3];
-			let currentAngle = -Math.PI / 2; // Start from top
-			
-			ctx.clearRect(0, 0, canvas.width, canvas.height);
-			
-			data.forEach((value, index) => {
-				const sliceAngle = (value / total) * 2 * Math.PI;
-				
-				ctx.beginPath();
-				ctx.moveTo(centerX, centerY);
-				ctx.arc(centerX, centerY, radius, currentAngle, currentAngle + sliceAngle);
-				ctx.closePath();
-				ctx.fillStyle = colors[index];
-				ctx.fill();
-				
-				currentAngle += sliceAngle;
+			[...files].forEach((file, index) => {
+				if (file.type.startsWith('image/') || file.type.startsWith('video/')) {
+					let targetBox;
+					
+					if (emptyFileBoxes[index]) {
+						targetBox = emptyFileBoxes[index];
+					} else {
+						targetBox = document.createElement('div');
+						targetBox.className = 'file';
+						fileBoxesContainer.insertBefore(targetBox, dropArea);
+					}
+					
+					const reader = new FileReader();
+					reader.onload = function(e) {
+						if (file.type.startsWith('image/')) {
+							targetBox.innerHTML = `
+								<img src="${e.target.result}" alt="Preview" class="file-preview">
+								<button class="remove-file-btn" onclick="removeFile(this)">×</button>
+							`;
+						} else if (file.type.startsWith('video/')) {
+							targetBox.innerHTML = `
+								<video src="${e.target.result}" class="file-preview" controls></video>
+								<button class="remove-file-btn" onclick="removeFile(this)">×</button>
+							`;
+						}
+					};
+					reader.readAsDataURL(file);
+				}
 			});
 		}
 
-		// Call on page load
-		document.addEventListener('DOMContentLoaded', function() {
-			updateRatings();
+		function removeFile(btn) {
+			btn.closest('.file').remove();
+		}
+
+
+		// FEEDBACK-----------------------------------------------------------
+
+
+		//TRY FOR SUPPORT GROUP -- NOT YET WORKING
+
+		function triggerProfilePictureUpload() {
+			document.getElementById('profilePictureUpload').click();
+		}
+
+		function handleProfilePictureUpload(event) {
+			const file = event.target.files[0];
+			if (file && file.type.startsWith('image/')) {
+				const reader = new FileReader();
+				reader.onload = function(e) {
+					const imageUrl = e.target.result;
+					document.getElementById('profileCircle').src = imageUrl;
+					document.getElementById('profileSquare').src = imageUrl;
+				};
+				reader.readAsDataURL(file);
+			}
+		}
+
+		// Cover Photo Upload
+		function triggerCoverPhotoUpload() {
+			document.getElementById('coverPhotoUpload').click();
+		}
+
+		function handleCoverPhotoUpload(event) {
+			const file = event.target.files[0];
+			if (file && file.type.startsWith('image/')) {
+				const reader = new FileReader();
+				reader.onload = function(e) {
+					const imageUrl = e.target.result;
+					document.getElementById('coverPhoto').src = imageUrl;
+				};
+				reader.readAsDataURL(file);
+			}
+		}
+
+		// Description Edit
+		let originalDesc = '';
+
+		document.getElementById('editBtn').addEventListener('click', function(e) {
+			e.preventDefault();
+			const desc = document.getElementById('descriptionDisplay');
+			const btns = document.getElementById('descriptionButtons');
+			
+			originalDesc = desc.innerHTML;
+			desc.contentEditable = 'true';
+			desc.focus();
+			btns.classList.remove('hidden');
+			this.classList.add('hidden');
 		});
 
-		// Function to add new feedback (for later use with database)
-		function addFeedback(name, stars, date, text) {
-			const feedbackHTML = `
-				<div class="feedback">
-					<div class="feedback-header">
-						<img src="photos/pic_placeholder.png" alt="User" class="feedback-avatar">
-						<div class="feedback-info">
-							<strong class="feedback-name">${name}</strong>
-							<div class="feedback-stars">
-								${generateStars(stars)}
-							</div>
-						</div>
-						<span class="feedback-date">${date}</span>
-					</div>
-					<p class="feedback-text">${text}</p>
-				</div>
-			`;
+		document.getElementById('saveBtn').addEventListener('click', function() {
+			const desc = document.getElementById('descriptionDisplay');
+			const btns = document.getElementById('descriptionButtons');
+			const editBtn = document.getElementById('editBtn');
 			
-			document.querySelector('.leftscrollFeedback').insertAdjacentHTML('afterbegin', feedbackHTML);
+			desc.contentEditable = 'false';
+			btns.classList.add('hidden');
+			editBtn.classList.remove('hidden');
+		});
+
+		document.getElementById('discardBtn').addEventListener('click', function() {
+			const desc = document.getElementById('descriptionDisplay');
+			const btns = document.getElementById('descriptionButtons');
+			const editBtn = document.getElementById('editBtn');
+			
+			desc.innerHTML = originalDesc;
+			desc.contentEditable = 'false';
+			btns.classList.add('hidden');
+			editBtn.classList.remove('hidden');
+		});
+
+
+
+		//TRYY
+
+		// FOR UPLOADING IMAGES IN FILE-BOXES2
+		function handleFileUpload2(files) {
+			console.log('Files uploaded:', files.length);
+			const fileBoxesContainer = document.querySelector('.file-boxes2');
+			const dropArea = document.getElementById('dropArea2');
+			
+			const emptyFileBoxes = Array.from(fileBoxesContainer.querySelectorAll('.file2:not(.add-file2)')).filter(box => {
+				return !box.querySelector('img');
+			});
+			
+			[...files].forEach((file, index) => {
+				if (file.type.startsWith('image/')) {
+					let targetBox;
+					
+					if (emptyFileBoxes[index]) {
+						targetBox = emptyFileBoxes[index];
+					} else {
+						targetBox = document.createElement('div');
+						targetBox.className = 'file2';
+						fileBoxesContainer.insertBefore(targetBox, dropArea);
+					}
+					
+					const reader = new FileReader();
+					reader.onload = function(e) {
+						targetBox.innerHTML = `
+							<img src="${e.target.result}" alt="Preview" class="file-preview2">
+							<button class="remove-file-btn2" onclick="removeFile2(this)">×</button>
+						`;
+					};
+					reader.readAsDataURL(file);
+				}
+			});
 		}
 
-		function generateStars(count) {
-			let starsHTML = '';
-			for (let i = 1; i <= 5; i++) {
-				starsHTML += `<span class="star ${i <= count ? 'filled' : ''}">★</span>`;
-			}
-			return starsHTML;
+		function removeFile2(btn) {
+			btn.closest('.file2').remove();
 		}
 
-		//TRY
 
+<<<<<<< HEAD
 		// Open Group Chat Edit Modal
 		function openGroupChatEditModal() {
 			document.getElementById('groupChatEditModal').style.display = 'flex';
@@ -2974,6 +2811,9 @@
 		function closeGroupChatEditModal() {
 			document.getElementById('groupChatEditModal').style.display = 'none';
 		}
+=======
+
+>>>>>>> 8aa859f (UPDATED)
 	</script>
 </body>
 </html>
