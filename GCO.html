@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -637,7 +636,7 @@
 							<p>Last Active</p>
 							<strong>January 28, 2025</strong>
 							<br>
-							<p>Date Request Created</p>
+							<p>Date Account Created</p>
 							<strong>January 28, 2025</strong>
 						</div>
 					</div>
@@ -1021,33 +1020,11 @@
 						
 						<div class="detail-row">
 							<div class="detail-item">
-								<label>Age</label>
-								<p>Lorem Ipsum</p>
-							</div>
-							<div class="detail-item">
-								<label>Sex assigned at birth</label>
-								<p>Lorem Ipsum</p>
-							</div>
-						</div>
-						
-						<div class="detail-row">
-							<div class="detail-item">
-								<label>Gender Identity</label>
-								<p>Lorem Ipsum</p>
-							</div>
-							<div class="detail-item">
 								<label>Preferred mode of platform</label>
 								<p>Lorem Ipsum</p>
 							</div>
-						</div>
-						
-						<div class="detail-row">
 							<div class="detail-item">
-								<label>Preferred Counselor</label>
-								<p>Lorem Ipsum</p>
-							</div>
-							<div class="detail-item">
-								<label>Is it urgent?</label>
+								<label>Topic of Concern</label>
 								<p>Lorem Ipsum</p>
 							</div>
 						</div>
@@ -1867,7 +1844,7 @@
 								</div>
 							</div>
 							<input type="file" id="fileInput2" accept="image/*" multiple style="display:none" onchange="handleFileUpload2(this.files)">
-							<button type="submit" class="report-btn">Report</button>
+							<button type="button" class="report-btn" onclick="showReportConfirm()">Report</button>
 						</form>
 					</div>
 				</div>
@@ -1913,6 +1890,19 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- Report Confirmation Popup -->
+		<div id="reportConfirmPopup" class="reportPopup">
+			<div class="reportContent">
+				<p class="reportText">Are you sure you want to submit this report to the IT Admin?</p>
+				<div class="reportButtons">
+				<button class="reportBtnCancel" onclick="closeReportConfirm()">Cancel</button>
+				<button class="reportBtnConfirm" onclick="confirmReport()">Submit Report</button>
+				</div>
+			</div>
+		</div>
+
+
 	<!-------------------------------------END OF LAYOUTING----------------------------------->
 
 
@@ -2329,12 +2319,6 @@
 			}
 		}
 
-		// Save form
-		function saveRequestForm() {
-			alert('Form saved successfully!');
-			closeRequestFormPopup();
-		}
-
 		// Close popup when clicking outside
 		document.addEventListener('DOMContentLoaded', function() {
 			const requestFormOverlay = document.getElementById('requestFormOverlay');
@@ -2346,6 +2330,67 @@
 				});
 			}
 		});
+
+		
+		//GUIDANCE COUNSELING SESSION: SAVED FORM POPUP
+
+		let autoCloseTimer;
+
+		// Show success popup after saving form
+		function showSavedFormPopup() {
+		const popup = document.getElementById('successPopup');
+		popup.classList.add('active');
+		
+		// Auto-close after 5 seconds
+		autoCloseTimer = setTimeout(() => {
+			closeSavedFormPopup();
+		}, 10000);
+		}
+
+		// Close popup
+		function closeSavedFormPopup() {
+		const popup = document.getElementById('successPopup');
+		popup.classList.remove('active');
+		
+		// Clear timer
+		if (autoCloseTimer) {
+			clearTimeout(autoCloseTimer);
+		}
+		}
+
+		// Save request form function
+		function saveRequestForm() {
+		// Your form saving logic here
+		
+		// Close the request form
+		closeRequestFormPopup();
+		
+		// Show success popup
+		showSavedFormPopup();
+		}
+
+		// Close popup when clicking outside
+		window.addEventListener('DOMContentLoaded', function() {
+		const successPopup = document.getElementById('successPopup');
+		if (successPopup) {
+			successPopup.addEventListener('click', function(e) {
+			if (e.target === this) {
+				closeSavedFormPopup();
+			}
+			});
+		}
+		});
+
+		// Close on Escape key
+		document.addEventListener('keydown', function(e) {
+		if (e.key === 'Escape') {
+			const popup = document.getElementById('successPopup');
+			if (popup && popup.classList.contains('active')) {
+			closeSavedFormPopup();
+			}
+		}
+		});
+
 
 		//USERS DETAILS BUTTON POP UP
 		function openUsersPopup() {
@@ -2804,6 +2849,62 @@
 		function removeFile2(btn) {
 			btn.closest('.file2').remove();
 		}
+
+
+		//TRY
+
+		// Show report confirmation popup
+		function showReportConfirm() {
+			const popup = document.getElementById('reportConfirmPopup');
+			if (popup) {
+				popup.classList.add('active');
+			}
+		}
+
+		// Close report confirmation popup
+		function closeReportConfirm() {
+			const popup = document.getElementById('reportConfirmPopup');
+			if (popup) {
+				popup.classList.remove('active');
+			}
+		}
+
+		// Confirm and submit report
+		function confirmReport() {
+			// Close confirmation popup
+			closeReportConfirm();
+			
+			// Add your report submission logic here
+			// For example: submit the form or send data via AJAX
+			console.log('Report submitted to IT Admin');
+			
+			// Optional: Show success message
+			alert('Report submitted successfully!');
+			
+			// Or if you want to actually submit the form:
+			// document.querySelector('form').submit();
+		}
+
+		// Close popup when clicking outside
+		document.addEventListener('click', function(e) {
+			const popup = document.getElementById('reportConfirmPopup');
+			if (e.target === popup) {
+				closeReportConfirm();
+			}
+		});
+
+		// Close popup on Escape key
+		document.addEventListener('keydown', function(e) {
+			if (e.key === 'Escape') {
+				const popup = document.getElementById('reportConfirmPopup');
+				if (popup && popup.classList.contains('active')) {
+					closeReportConfirm();
+				}
+			}
+		});
+
+
+
 	</script>
 </body>
 </html>
