@@ -273,6 +273,7 @@
                          <button class="btn details" onclick="openDetailsPopup()">See Details</button>
                     </div>
 				</div>
+
 			</div>
 			<div class="row">
 				<div class="left-half">
@@ -513,7 +514,7 @@
 						<div class="request-answer-area">
 							<div class="request-option-input">
 								<span class="request-radio-icon"></span>
-								<input type="text" placeholder="Enter option" value="Option 1">
+								<input type="text" placeholder="Enter option">
 								<button class="request-option-remove" onclick="removeRequestOption(this)">×</button>
 							</div>
 							<div class="request-option-input">
@@ -1083,7 +1084,7 @@
 					<span>Support Group Name</span>
 					<span class="createSupportGroupEditLink">Edit</span>
 				</div>
-				<input type="text" id="createSupportGroupNameInput" class="createSupportGroupInput" placeholder="Support Group Name">
+				<input type="text" id="createSupportGroupNameInput" class="createSupportGroupInput" placeholder="Enter Support Group Name">
 			</div>
 
 			<div class="createSupportGroupFormGroup">
@@ -1109,50 +1110,43 @@
 	<!---------------- SUPPORT GROUP | HAVEN ------------------------------------------------->
 	<div id="haven" class="page">
 		<div class="row">
-		<div class="left">
-			<h3>Information</h3>
-			<div class="info-section">
-				<div class="info-row-group">
+			<div class="left">
+				<h3>Information</h3>
+				<div class="info-section">
+
+					<div class="info-row-group">
+
 					<div class="info-block">
 						<div class="info-row">
-							<span class="span-1">Profile Picture</span>
-							<a href="#" class="edit-link edit-1" onclick="event.preventDefault(); triggerProfilePictureUpload()">Edit</a>
+						<span class="span-1">Profile Picture</span>
+						<a href="#" class="edit-link edit-1">Edit</a>
 						</div>
-						<input type="file" id="profilePictureUpload" class="hidden-file-input" accept="image/*" onchange="handleProfilePictureUpload(event)">
 						<div class="info-images">
-							<img id="profileCircle" src="photos/pic_placeholder.png" alt="Profile Picture Circle" class="profile-circle">
-							<img id="profileSquare" src="photos/suppGroup_placeholder.png" alt="Profile Picture Square" class="profile-square">
+						<img src="photos/pic_placeholder.png" alt="Profile Picture Circle" class="profile-circle">
+						<img src="photos/suppGroup_placeholder.png" alt="Profile Picture Square" class="profile-square">
 						</div>
 					</div>
 
 					<div class="info-block">
 						<div class="info-row">
-							<span class="span-2">Cover Photo</span>
-							<a href="#" class="edit-link edit-2" onclick="event.preventDefault(); triggerCoverPhotoUpload()">Edit</a>
+						<span class="span-2">Cover Photo</span>
+						<a href="#" class="edit-link edit-2">Edit</a>
 						</div>
-						<input type="file" id="coverPhotoUpload" class="hidden-file-input" accept="image/*" onchange="handleCoverPhotoUpload(event)">
 						<div class="info-images">
-							<img id="coverPhoto" src="photos/rectangle_placeholder.png" alt="Cover Photo">
+						<img src="photos/rectangle_placeholder.png" alt="Cover Photo">
 						</div>
 					</div>
-				</div>
+					</div>
 
-				<div class="info-row">
+					<div class="info-row">
 					<span class="span-3">Description</span>
-					<a href="#" class="edit-link edit-3" onclick="event.preventDefault(); toggleDescriptionEdit()">Edit</a>
-				</div>
-				<div class="info-description" id="descriptionDisplay" contenteditable="false">
-					<strong>Lorem Ipsum</strong><br><br>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-					Vivamus tincidunt, nunc nec faucibus fermentum, lorem mauris 
-					placerat justo, a malesuada sapien sapien sit amet neque.
-				</div>
-				<div id="descriptionButtons" class="description-buttons hidden">
-					<button onclick="saveDescription()" class="save-btn">Save</button>
-					<button onclick="discardChanges()" class="discard-btn">Discard Changes</button>
+					<a href="#" class="edit-link edit-3">Edit</a>
+					</div>
+					<div class="info-description">
+
+					</div>
 				</div>
 			</div>
-		</div>
 			<div class="right">
 				<div class="card">
 					<h3>Group Chat</h3>
@@ -1162,7 +1156,7 @@
 								<td class="table_user">
 									<img src="photos/pic_placeholder.png">
 								</td>
-								<td id="name" onclick="openGroupChatEditModal()" style="cursor: pointer;">
+								<td id="name" onclick="openGroupChatEditModal(this)" style="cursor: pointer;">
 									Lorem Ipsum<br>
 								</td>
 							</tr>
@@ -1170,7 +1164,7 @@
 								<td class="table_user">
 									<img src="photos/pic_placeholder.png">
 								</td>
-								<td id="name" onclick="openGroupChatEditModal()" style="cursor: pointer;">
+								<td id="name" onclick="openGroupChatEditModal(this)" style="cursor: pointer;">
 									Lorem Ipsum<br>
 								</td>
 							</tr>
@@ -1227,37 +1221,6 @@
 			</div>
 		</div>
 	</div>
-
-	<!---------------- GROUP CHAT EDIT MODAL ---------------------------------------------->
-		<div id="groupChatEditModal" class="groupChatEditModal">
-			<div class="groupChatEditContent">
-				<span class="groupChatEditClose" onclick="closeGroupChatEditModal()">&times;</span>
-				<h3>Lorem Ipsum</h3>
-				
-				<div class="groupChatEditFormGroup">
-					<div class="groupChatEditFormLabel">
-						<span>Group Chat Name</span>
-						<span class="groupChatEditLink">Edit</span>
-					</div>
-					<input type="text" id="groupChatNameInput" class="groupChatEditInput" placeholder="Lorem Ipsum" value="Lorem Ipsum">
-				</div>
-
-				<div class="groupChatEditFormGroup">
-					<div class="groupChatEditFormLabel">
-						<span>Group Chat Picture</span>
-						<span class="groupChatEditLink">Edit</span>
-					</div>
-					<div class="groupChatEditPictureOptions">
-						<div class="groupChatEditPictureOption groupChatEditCircle">
-							<img src="photos/pic_placeholder.png" alt="Circle">
-						</div>
-						<div class="groupChatEditPictureOption groupChatEditSquare">
-							<img src="photos/suppGroup_placeholder.png" alt="Square">
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 
 	<!---------------------------------------------------------------------------------------->	
 	<!---------------- SUPPORT GROUP | YAKAP ------------------------------------------------->
@@ -1296,10 +1259,7 @@
 					<a href="#" class="edit-link edit-3">Edit</a>
 					</div>
 					<div class="info-description">
-					<strong>Lorem Ipsum</strong><br><br>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-					Vivamus tincidunt, nunc nec faucibus fermentum, lorem mauris 
-					placerat justo, a malesuada sapien sapien sit amet neque.
+
 					</div>
 				</div>
 			</div>
@@ -1312,7 +1272,7 @@
 								<td class="table_user">
 									<img src="photos/pic_placeholder.png">
 								</td>
-								<td id="name" onclick="openGroupChatEditModal()" style="cursor: pointer;">
+								<td id="name" onclick="openGroupChatEditModal(this)" style="cursor: pointer;">
 									Lorem Ipsum<br>
 								</td>
 							</tr>
@@ -1320,7 +1280,124 @@
 								<td class="table_user">
 									<img src="photos/pic_placeholder.png">
 								</td>
-								<td id="name" onclick="openGroupChatEditModal()" style="cursor: pointer;">
+								<td id="name" onclick="openGroupChatEditModal(this)" style="cursor: pointer;">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="card">
+					<h3>Members</h3>
+					<table class="user">
+						<tbody>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!---------------------------------------------------------------------------------------->	
+	<!---------------- SUPPORT GROUP | RISE--------------------------------------------------->
+	<div id="rise" class="page">
+		<div class="row">
+			<div class="left">
+				<h3>Information</h3>
+				<div class="info-section">
+
+					<div class="info-row-group">
+
+					<div class="info-block">
+						<div class="info-row">
+						<span class="span-1">Profile Picture</span>
+						<a href="#" class="edit-link edit-1">Edit</a>
+						</div>
+						<div class="info-images">
+						<img src="photos/pic_placeholder.png" alt="Profile Picture Circle" class="profile-circle">
+						<img src="photos/suppGroup_placeholder.png" alt="Profile Picture Square" class="profile-square">
+						</div>
+					</div>
+
+					<div class="info-block">
+						<div class="info-row">
+						<span class="span-2">Cover Photo</span>
+						<a href="#" class="edit-link edit-2">Edit</a>
+						</div>
+						<div class="info-images">
+						<img src="photos/rectangle_placeholder.png" alt="Cover Photo">
+						</div>
+					</div>
+					</div>
+
+					<div class="info-row">
+					<span class="span-3">Description</span>
+					<a href="#" class="edit-link edit-3">Edit</a>
+					</div>
+					<div class="info-description">
+
+					</div>
+				</div>
+			</div>
+			<div class="right">
+				<div class="card">
+					<h3>Group Chat</h3>
+					<table class="user">
+						<tbody>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name" onclick="openGroupChatEditModal(this)" style="cursor: pointer;">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name" onclick="openGroupChatEditModal(this)" style="cursor: pointer;">
 									Lorem Ipsum<br>
 								</td>
 							</tr>
@@ -1382,163 +1459,6 @@
 		<div id="groupChatEditModal" class="groupChatEditModal">
 			<div class="groupChatEditContent">
 				<span class="groupChatEditClose" onclick="closeGroupChatEditModal()">&times;</span>
-				<h3>Yakap Updates</h3>
-				
-				<div class="groupChatEditFormGroup">
-					<div class="groupChatEditFormLabel">
-						<span>Group Chat Name</span>
-						<span class="groupChatEditLink">Edit</span>
-					</div>
-					<input type="text" id="groupChatNameInput" class="groupChatEditInput" placeholder="Yakap Updates" value="Yakap Updates">
-				</div>
-
-				<div class="groupChatEditFormGroup">
-					<div class="groupChatEditFormLabel">
-						<span>Group Chat Picture</span>
-						<span class="groupChatEditLink">Edit</span>
-					</div>
-					<div class="groupChatEditPictureOptions">
-						<div class="groupChatEditPictureOption groupChatEditCircle">
-							<img src="photos/pic_placeholder.png" alt="Circle">
-						</div>
-						<div class="groupChatEditPictureOption groupChatEditSquare">
-							<img src="photos/suppGroup_placeholder.png" alt="Square">
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-	<!---------------------------------------------------------------------------------------->	
-	<!---------------- SUPPORT GROUP | RISE--------------------------------------------------->
-		<div id="rise" class="page">
-			<div class="row">
-				<div class="left">
-					<h3>Information</h3>
-					<div class="info-section">
-
-						<div class="info-row-group">
-
-						<div class="info-block">
-							<div class="info-row">
-							<span class="span-1">Profile Picture</span>
-							<a href="#" class="edit-link edit-1" onclick="event.preventDefault(); triggerProfilePictureUpload()">Edit</a>
-							</div>
-							<input type="file" id="profilePictureUpload" accept="image/*" style="display: none;" onchange="handleProfilePictureUpload(event)">
-							<div class="info-images">
-							<img id="profileCircle" src="photos/pic_placeholder.png" alt="Profile Picture Circle" class="profile-circle">
-							<img id="profileSquare" src="photos/suppGroup_placeholder.png" alt="Profile Picture Square" class="profile-square">
-							</div>
-						</div>
-
-						<div class="info-block">
-							<div class="info-row">
-							<span class="span-2">Cover Photo</span>
-							<a href="#" class="edit-link edit-2" onclick="event.preventDefault(); triggerCoverPhotoUpload()">Edit</a>
-							</div>
-							<input type="file" id="coverPhotoUpload" accept="image/*" style="display: none;" onchange="handleCoverPhotoUpload(event)">
-							<div class="info-images">
-							<img id="coverPhoto" src="photos/rectangle_placeholder.png" alt="Cover Photo">
-							</div>
-						</div>
-						</div>
-
-						<div class="info-row">
-							<span class="span-3">Description</span>
-							<a href="#" class="edit-link edit-3" id="editBtn">Edit</a>
-						</div>
-						<div class="info-description" id="descriptionDisplay" contenteditable="false">
-							<strong>Lorem Ipsum</strong><br><br>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-							Vivamus tincidunt, nunc nec faucibus fermentum, lorem mauris 
-							placerat justo, a malesuada sapien sapien sit amet neque.
-						</div>
-						<div id="descriptionButtons" class="description-buttons hidden">
-							<button id="saveBtn" class="save-btn">Save</button>
-							<button id="discardBtn" class="discard-btn">Discard Changes</button>
-						</div>
-					</div>
-				</div>
-				<div class="right">
-					<div class="card">
-						<h3>Group Chat</h3>
-						<table class="user">
-							<tbody>
-								<tr>
-									<td class="table_user">
-										<img src="photos/pic_placeholder.png">
-									</td>
-									<td id="name" onclick="openGroupChatEditModal()" style="cursor: pointer;">
-										Lorem Ipsum<br>
-									</td>
-								</tr>
-								<tr>
-									<td class="table_user">
-										<img src="photos/pic_placeholder.png">
-									</td>
-									<td id="name" onclick="openGroupChatEditModal()" style="cursor: pointer;">
-										Lorem Ipsum<br>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<div class="card">
-						<h3>Members</h3>
-						<table class="user">
-							<tbody>
-								<tr>
-									<td class="table_user">
-										<img src="photos/pic_placeholder.png">
-									</td>
-									<td id="name">
-										Lorem Ipsum<br>
-									</td>
-								</tr>
-								<tr>
-									<td class="table_user">
-										<img src="photos/pic_placeholder.png">
-									</td>
-									<td id="name">
-										Lorem Ipsum<br>
-									</td>
-								</tr>
-								<tr>
-									<td class="table_user">
-										<img src="photos/pic_placeholder.png">
-									</td>
-									<td id="name">
-										Lorem Ipsum<br>
-									</td>
-								</tr>
-								<tr>
-									<td class="table_user">
-										<img src="photos/pic_placeholder.png">
-									</td>
-									<td id="name">
-										Lorem Ipsum<br>
-									</td>
-								</tr>
-								<tr>
-									<td class="table_user">
-										<img src="photos/pic_placeholder.png">
-									</td>
-									<td id="name">
-										Lorem Ipsum<br>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-
-
-		<!---------------- GROUP CHAT EDIT MODAL ---------------------------------------------->
-		<div id="groupChatEditModal" class="groupChatEditModal">
-			<div class="groupChatEditContent">
-				<span class="groupChatEditClose" onclick="closeGroupChatEditModal()">&times;</span>
 				<h3>Lorem Ipsum</h3>
 				
 				<div class="groupChatEditFormGroup">
@@ -1546,7 +1466,7 @@
 						<span>Group Chat Name</span>
 						<span class="groupChatEditLink">Edit</span>
 					</div>
-					<input type="text" id="groupChatNameInput" class="groupChatEditInput" placeholder="Lorem Ipsum" value="Lorem Ipsum">
+					<input type="text" id="groupChatNameInput" class="groupChatEditInput" placeholder="Enter Group Chat Name">
 				</div>
 
 				<div class="groupChatEditFormGroup">
@@ -1556,17 +1476,12 @@
 					</div>
 					<div class="groupChatEditPictureOptions">
 						<div class="groupChatEditPictureOption groupChatEditCircle">
-							<img src="photos/pic_placeholder.png" alt="Circle">
-						</div>
-						<div class="groupChatEditPictureOption groupChatEditSquare">
-							<img src="photos/suppGroup_placeholder.png" alt="Square">
+							<img src="photos/pic_placeholder.png" alt="Profile Picture">
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
-
 
 
 	<!---------------------------------------------------------------------------------------->
@@ -1597,7 +1512,7 @@
 						</div>
 					</div>
 					<input type="file" id="fileInput" accept="image/*,video/*" multiple style="display:none" onchange="handleFileUpload(this.files)">
-					<button class="post-btn">Post</button>
+					<button class="post-btn" onclick="showPostConfirm()">Post</button>
 				</div>
 				<div class="card2">
 						<h3>History</h3>
@@ -1641,10 +1556,22 @@
 				</div>
 			</div>
 
+		<!---------------- CONFIRM POST POP UP DIALOGUE ------------------------------------------>
+		<!-- Post Confirmation Popup -->
+		<div id="postConfirmPopup" class="postPopup">
+			<div class="postContent">
+				<p class="postText">Are you sure you want to post this?</p>
+				<div class="postButtons">
+					<button class="postBtnCancel" onclick="closePostConfirm()">Cancel</button>
+					<button class="postBtnConfirm" onclick="confirmPost()">Post</button>
+				</div>
+			</div>
+		</div>
+
 
 		<!---------------------------------------------------------------------------------------->
 		<!---------------------------------------------------------------------------------------->	
-		<!---------------- FEEDBACK ---------------------------------------------------------->
+		<!---------------- FEEDBACK -------------------------------------------------------------->
 
 
 		<!---------------------------------------------------------------------------------------->
@@ -2557,6 +2484,11 @@
 			}
 
 			document.getElementById("pageTitle").innerHTML = title;
+
+			// INITIALIZE EDIT BUTTONS FOR SUPPORT GROUP PAGES
+			if (supportSubpages.includes(pageId)) {
+				initSupportGroupEdits(pageId);
+			}
 		}
 
 		// Format title for general pages
@@ -2581,6 +2513,116 @@
 			}
 		}
 
+		// FOR SUPPORT GROUP EDIT FUNCTIONALITY (HAVEN, YAKAP, RISE)
+		function initSupportGroupEdits(pageId) {
+			const page = document.getElementById(pageId);
+			if (!page) return;
+			
+			// Edit Profile Picture (edit-1)
+			const edit1 = page.querySelector('.edit-1');
+			if (edit1) {
+				// Remove old listeners
+				const newEdit1 = edit1.cloneNode(true);
+				edit1.parentNode.replaceChild(newEdit1, edit1);
+				
+				newEdit1.addEventListener('click', function(e) {
+					e.preventDefault();
+					
+					const input = document.createElement('input');
+					input.type = 'file';
+					input.accept = 'image/*';
+					
+					input.onchange = function(event) {
+						const file = event.target.files[0];
+						if (file && file.type.startsWith('image/')) {
+							const reader = new FileReader();
+							reader.onload = function(e) {
+								const circleImg = page.querySelector('.profile-circle');
+								const squareImg = page.querySelector('.profile-square');
+								if (circleImg) circleImg.src = e.target.result;
+								if (squareImg) squareImg.src = e.target.result;
+							};
+							reader.readAsDataURL(file);
+						}
+					};
+					
+					input.click();
+				});
+			}
+
+			// Edit Cover Photo (edit-2)
+			const edit2 = page.querySelector('.edit-2');
+			if (edit2) {
+				const newEdit2 = edit2.cloneNode(true);
+				edit2.parentNode.replaceChild(newEdit2, edit2);
+				
+				newEdit2.addEventListener('click', function(e) {
+					e.preventDefault();
+					
+					const input = document.createElement('input');
+					input.type = 'file';
+					input.accept = 'image/*';
+					
+					input.onchange = function(event) {
+						const file = event.target.files[0];
+						if (file && file.type.startsWith('image/')) {
+							const reader = new FileReader();
+							reader.onload = function(e) {
+								const coverImg = page.querySelector('.info-block:nth-child(2) .info-images img');
+								if (coverImg) coverImg.src = e.target.result;
+							};
+							reader.readAsDataURL(file);
+						}
+					};
+					
+					input.click();
+				});
+			}
+
+			// Edit Description (edit-3)
+			const edit3 = page.querySelector('.edit-3');
+			if (edit3) {
+				const newEdit3 = edit3.cloneNode(true);
+				edit3.parentNode.replaceChild(newEdit3, edit3);
+				
+				newEdit3.addEventListener('click', function(e) {
+					e.preventDefault();
+					
+					const descriptionDiv = page.querySelector('.info-description');
+					const editLink = this;
+					
+					if (editLink.textContent === 'Edit') {
+						// Switch to edit mode
+						descriptionDiv.setAttribute('contenteditable', 'true');
+						editLink.textContent = 'Save';
+						
+						// Add keyboard shortcuts for bold and italic
+						const handleKeydown = function(e) {
+							// Ctrl+B for Bold
+							if (e.ctrlKey && e.key === 'b') {
+								e.preventDefault();
+								document.execCommand('bold', false, null);
+							}
+							// Ctrl+I for Italic
+							if (e.ctrlKey && e.key === 'i') {
+								e.preventDefault();
+								document.execCommand('italic', false, null);
+							}
+						};
+						
+						descriptionDiv.addEventListener('keydown', handleKeydown);
+						descriptionDiv.focus();
+						
+					} else {
+						// Save and switch back to view mode
+						descriptionDiv.setAttribute('contenteditable', 'false');
+						editLink.textContent = 'Edit';
+					}
+				});
+				}
+			}
+
+		
 		//CREATE NEW SUPPORT GROUP 
 		function openCreateGroupModal() {
 			document.getElementById('createSupportGroupModal').style.display = 'flex';
@@ -2615,6 +2657,7 @@
 			}
 		}
 
+
 		// FOR UPLOADING IMAGES FOR CREATE NEW SUPPORT GROUP
 
 		function triggerImageUpload() {
@@ -2637,9 +2680,22 @@
 
 		//GROUP CHAT EDIT MODAL
 
-		// Open Group Chat Edit Modal
-		function openGroupChatEditModal() {
-			document.getElementById('groupChatEditModal').style.display = 'flex';
+		// Open Group Chat Edit Modal - auto-detect support group
+		function openGroupChatEditModal(element) {
+			const modal = document.getElementById('groupChatEditModal');
+			const h3Title = modal.querySelector('h3');
+			const nameInput = modal.querySelector('#groupChatNameInput');
+			
+			// Get the group chat name from the clicked element
+			const groupChatName = element ? element.textContent.trim() : 'Lorem Ipsum';
+			
+			// Set the group chat name in modal
+			if (h3Title) h3Title.textContent = groupChatName;
+			if (nameInput) nameInput.value = groupChatName;
+			
+			modal.style.display = 'flex';
+			// Reinitialize every time modal opens
+			initGroupChatEditModal(element);
 		}
 
 		// Close Group Chat Edit Modal
@@ -2647,7 +2703,103 @@
 			document.getElementById('groupChatEditModal').style.display = 'none';
 		}
 
-
+		// Initialize Group Chat Edit Modal functionality
+		function initGroupChatEditModal(clickedElement) {
+			const modal = document.getElementById('groupChatEditModal');
+			if (!modal) return;
+			
+			// Get elements
+			const h3Title = modal.querySelector('h3');
+			const nameInput = modal.querySelector('#groupChatNameInput');
+			const editNameLinks = modal.querySelectorAll('.groupChatEditLink');
+			const circleImg = modal.querySelector('.groupChatEditCircle img');
+			
+			// Get the original avatar image from the clicked row
+			let originalAvatar = null;
+			if (clickedElement) {
+				const row = clickedElement.closest('tr');
+				originalAvatar = row ? row.querySelector('.table_user img') : null;
+				
+				// Set modal image to current avatar
+				if (originalAvatar && circleImg) {
+					circleImg.src = originalAvatar.src;
+				}
+			}
+			
+			// Set initial state - input is disabled by default
+			if (nameInput) {
+				nameInput.disabled = true;
+			}
+			
+			// Edit Group Chat Name (first Edit link)
+			const editNameLink = editNameLinks[0];
+			if (editNameLink && nameInput) {
+				// Remove old event listeners by cloning
+				const newEditNameLink = editNameLink.cloneNode(true);
+				editNameLink.parentNode.replaceChild(newEditNameLink, editNameLink);
+				
+				newEditNameLink.addEventListener('click', function(e) {
+					e.preventDefault();
+					
+					if (this.textContent === 'Edit') {
+						// Enable editing
+						nameInput.disabled = false;
+						nameInput.focus();
+						nameInput.select();
+						this.textContent = 'Save';
+					} else {
+						// Save changes
+						const newName = nameInput.value.trim();
+						if (newName) {
+							h3Title.textContent = newName;
+							// Update the original clicked element in the page
+							if (clickedElement) {
+								clickedElement.innerHTML = newName + '<br>';
+							}
+						}
+						nameInput.disabled = true;
+						this.textContent = 'Edit';
+					}
+				});
+			}
+			
+			// Edit Group Chat Picture (second Edit link)
+			const editPictureLink = editNameLinks[1];
+			if (editPictureLink) {
+				// Remove old event listeners by cloning
+				const newEditPictureLink = editPictureLink.cloneNode(true);
+				editPictureLink.parentNode.replaceChild(newEditPictureLink, editPictureLink);
+				
+				newEditPictureLink.addEventListener('click', function(e) {
+					e.preventDefault();
+					
+					const input = document.createElement('input');
+					input.type = 'file';
+					input.accept = 'image/*';
+					
+					input.onchange = function(event) {
+						const file = event.target.files[0];
+						if (file && file.type.startsWith('image/')) {
+							const reader = new FileReader();
+							reader.onload = function(e) {
+								const imageSrc = e.target.result;
+								
+								// Update modal circle image
+								if (circleImg) circleImg.src = imageSrc;
+								
+								// Update ONLY the original avatar in the specific row
+								if (originalAvatar) {
+									originalAvatar.src = imageSrc;
+								}
+							};
+							reader.readAsDataURL(file);
+						}
+					};
+					
+					input.click();
+				});
+			}
+		}
 
 
 
@@ -2713,85 +2865,72 @@
 			btn.closest('.file').remove();
 		}
 
+		// FOR POST POP UP DIALOGUE
+
+		// Show post confirmation popup
+		function showPostConfirm() {
+			const popup = document.getElementById('postConfirmPopup');
+			if (popup) {
+				popup.classList.add('active');
+			}
+		}
+
+		// Close post confirmation popup
+		function closePostConfirm() {
+			const popup = document.getElementById('postConfirmPopup');
+			if (popup) {
+				popup.classList.remove('active');
+			}
+		}
+
+		// Confirm and submit post
+		function confirmPost() {
+			// Close confirmation popup
+			closePostConfirm();
+			
+			// Add your post submission logic here
+			const title = document.querySelector('.AncTitle').value;
+			const content = document.querySelector('.AncContent').value;
+			
+			console.log('Post submitted');
+			console.log('Title:', title);
+			console.log('Content:', content);
+			
+			// Optional: Show success message
+			alert('Post published successfully!');
+			
+			// Optional: Clear the form after posting
+			document.querySelector('.AncTitle').value = '';
+			document.querySelector('.AncContent').value = '';
+			
+			// Or if you want to actually submit the form:
+			// document.querySelector('form').submit();
+		}
+
+		// Close popup when clicking outside
+		document.addEventListener('click', function(e) {
+			const popup = document.getElementById('postConfirmPopup');
+			if (e.target === popup) {
+				closePostConfirm();
+			}
+		});
+
+		// Close popup on Escape key
+		document.addEventListener('keydown', function(e) {
+			if (e.key === 'Escape') {
+				const popup = document.getElementById('postConfirmPopup');
+				if (popup && popup.classList.contains('active')) {
+					closePostConfirm();
+				}
+			}
+		});
+
+
 
 		// FEEDBACK-----------------------------------------------------------
 
 
-		//TRY FOR SUPPORT GROUP -- NOT YET WORKING
-
-		function triggerProfilePictureUpload() {
-			document.getElementById('profilePictureUpload').click();
-		}
-
-		function handleProfilePictureUpload(event) {
-			const file = event.target.files[0];
-			if (file && file.type.startsWith('image/')) {
-				const reader = new FileReader();
-				reader.onload = function(e) {
-					const imageUrl = e.target.result;
-					document.getElementById('profileCircle').src = imageUrl;
-					document.getElementById('profileSquare').src = imageUrl;
-				};
-				reader.readAsDataURL(file);
-			}
-		}
-
-		// Cover Photo Upload
-		function triggerCoverPhotoUpload() {
-			document.getElementById('coverPhotoUpload').click();
-		}
-
-		function handleCoverPhotoUpload(event) {
-			const file = event.target.files[0];
-			if (file && file.type.startsWith('image/')) {
-				const reader = new FileReader();
-				reader.onload = function(e) {
-					const imageUrl = e.target.result;
-					document.getElementById('coverPhoto').src = imageUrl;
-				};
-				reader.readAsDataURL(file);
-			}
-		}
-
-		// Description Edit
-		let originalDesc = '';
-
-		document.getElementById('editBtn').addEventListener('click', function(e) {
-			e.preventDefault();
-			const desc = document.getElementById('descriptionDisplay');
-			const btns = document.getElementById('descriptionButtons');
-			
-			originalDesc = desc.innerHTML;
-			desc.contentEditable = 'true';
-			desc.focus();
-			btns.classList.remove('hidden');
-			this.classList.add('hidden');
-		});
-
-		document.getElementById('saveBtn').addEventListener('click', function() {
-			const desc = document.getElementById('descriptionDisplay');
-			const btns = document.getElementById('descriptionButtons');
-			const editBtn = document.getElementById('editBtn');
-			
-			desc.contentEditable = 'false';
-			btns.classList.add('hidden');
-			editBtn.classList.remove('hidden');
-		});
-
-		document.getElementById('discardBtn').addEventListener('click', function() {
-			const desc = document.getElementById('descriptionDisplay');
-			const btns = document.getElementById('descriptionButtons');
-			const editBtn = document.getElementById('editBtn');
-			
-			desc.innerHTML = originalDesc;
-			desc.contentEditable = 'false';
-			btns.classList.add('hidden');
-			editBtn.classList.remove('hidden');
-		});
-
-
-
-		//TRYY
+		//FOR REPORT UPLOADING IMAGES
 
 		// FOR UPLOADING IMAGES IN FILE-BOXES2
 		function handleFileUpload2(files) {
@@ -2832,7 +2971,7 @@
 		}
 
 
-		//TRY
+		//FOR REPORT POP UP DIALOGUE
 
 		// Show report confirmation popup
 		function showReportConfirm() {
@@ -2883,6 +3022,13 @@
 				}
 			}
 		});
+
+
+
+		//TRRYYYYYYY
+
+
+		// FOR YAKAP PROFILE/COVER PICTURE UPLOAD AND DESCRIPTION EDIT
 
 
 
