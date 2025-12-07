@@ -1798,7 +1798,110 @@ select option:focus {
     color: #9aa0a6;
 }
 
+/* SAVED FORM SUCCESS POPUP */
+.saved-form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  backdrop-filter: blur(3px);
+}
 
+.saved-form-overlay.active {
+  display: flex;
+}
+
+.saved-form-content {
+  background: white;
+  border-radius: 8px;
+  padding: 40px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  animation: savedFormSlideIn 0.3s ease;
+  border: none;
+}
+
+@keyframes savedFormSlideIn {
+  from {
+    transform: scale(0.8) translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.saved-form-icon {
+  width: 90px;
+  height: 90px;
+  background: #4CAF50;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 55px;
+  color: white;
+  margin: 0 auto 20px;
+  animation: savedFormPulse 0.6s ease;
+}
+
+@keyframes savedFormPulse {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.saved-form-content h3 {
+  font-size: 24px;
+  font-weight: bold;
+  font-family: 'PublicSans', sans-serif;
+  color: #333;
+  margin-bottom: 30px;
+  border: none;
+  padding-bottom: 0;
+}
+
+.saved-form-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.saved-form-btn-close {
+  padding: 12px 40px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'PublicSans', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s;
+  background: #0847b2;
+  color: white;
+}
+
+.saved-form-btn-close:hover {
+  background: #062b6b;
+  box-shadow: 0 5px 15px rgba(8, 71, 178, 0.3);
+}
 
 /*--------------- PEER FACILITATOR - PER PEER PAGE ---------------*/
 /* Information Section Styles */

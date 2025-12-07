@@ -534,7 +534,16 @@
 		</div>
 	</div>
 
-
+	<!---------------- SAVE FORM MODAL ------------------------------------------------------->
+	<div id="successPopup" class="saved-form-overlay">
+		<div class="saved-form-content">
+			<div class="saved-form-icon">✓</div>
+			<h3>Counseling Session Request Form Saved Successfully!</h3>
+			<div class="saved-form-buttons">
+			<button class="saved-form-btn-close" onclick="closeSavedFormPopup()">Close</button>
+			</div>
+		</div>
+	</div>
 	<!---------------------------------------------------------------------------------------->	
 	<!---------------------------------------------------------------------------------------->	
 	<!---------------- USER MANAGEMENT ------------------------------------------------------->
@@ -2776,6 +2785,65 @@
 			btn.closest('.file2').remove();
 		}
 
+
+		//TRY
+
+		let autoCloseTimer;
+
+		// Show success popup after saving form
+		function showSavedFormPopup() {
+		const popup = document.getElementById('successPopup');
+		popup.classList.add('active');
+		
+		// Auto-close after 5 seconds
+		autoCloseTimer = setTimeout(() => {
+			closeSavedFormPopup();
+		}, 10000);
+		}
+
+		// Close popup
+		function closeSavedFormPopup() {
+		const popup = document.getElementById('successPopup');
+		popup.classList.remove('active');
+		
+		// Clear timer
+		if (autoCloseTimer) {
+			clearTimeout(autoCloseTimer);
+		}
+		}
+
+		// Save request form function
+		function saveRequestForm() {
+		// Your form saving logic here
+		
+		// Close the request form
+		closeRequestFormPopup();
+		
+		// Show success popup
+		showSavedFormPopup();
+		}
+
+		// Close popup when clicking outside
+		window.addEventListener('DOMContentLoaded', function() {
+		const successPopup = document.getElementById('successPopup');
+		if (successPopup) {
+			successPopup.addEventListener('click', function(e) {
+			if (e.target === this) {
+				closeSavedFormPopup();
+			}
+			});
+		}
+		});
+
+		// Close on Escape key
+		document.addEventListener('keydown', function(e) {
+		if (e.key === 'Escape') {
+			const popup = document.getElementById('successPopup');
+			if (popup && popup.classList.contains('active')) {
+			closeSavedFormPopup();
+			}
+		}
+		});
 
 
 	</script>
