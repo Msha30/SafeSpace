@@ -260,24 +260,21 @@
 				</div>
 				<div class="task-grid">
 				<div class="task-box">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<p>sample</p>
 					<div class="task-actions">
-					<button class="btn-details">See Details</button>
-					<button class="btn-start">Start Task</button>
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>sample2</p>
+					<div class="task-actions">
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
 					</div>
 				</div>
 				<div class="task-box">
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
 					<div class="task-actions">
-					<button class="btn-details">See Details</button>
-					<button class="btn-start">Start Task</button>
-					</div>
-				</div>
-				<div class="task-box">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-					<div class="task-actions">
-					<button class="btn-details">See Details</button>
-					<button class="btn-start">Start Task</button>
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
 					</div>
 				</div>
 				</div>
@@ -369,22 +366,19 @@
 				<div class="task-box">
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
 					<div class="task-actions">
-					<button class="btn-details">See Details</button>
-					<button class="btn-start">Start Task</button>
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
 					</div>
 				</div>
 				<div class="task-box">
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
 					<div class="task-actions">
-					<button class="btn-details">See Details</button>
-					<button class="btn-start">Start Task</button>
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
 					</div>
 				</div>
 				<div class="task-box">
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
 					<div class="task-actions">
-					<button class="btn-details">See Details</button>
-					<button class="btn-start">Start Task</button>
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
 					</div>
 				</div>
 				</div>
@@ -476,8 +470,7 @@
 				<div class="task-box">
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
 					<div class="task-actions">
-					<button class="btn-details">See Details</button>
-					<button class="btn-start">Start Task</button>
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
 					</div>
 				</div>
 				<div class="task-box">
@@ -583,8 +576,7 @@
 				<div class="task-box">
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
 					<div class="task-actions">
-					<button class="btn-details">See Details</button>
-					<button class="btn-start">Start Task</button>
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
 					</div>
 				</div>
 				<div class="task-box">
@@ -690,8 +682,7 @@
 				<div class="task-box">
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
 					<div class="task-actions">
-					<button class="btn-details">See Details</button>
-					<button class="btn-start">Start Task</button>
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
 					</div>
 				</div>
 				<div class="task-box">
@@ -797,22 +788,19 @@
 				<div class="task-box">
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
 					<div class="task-actions">
-					<button class="btn-details">See Details</button>
-					<button class="btn-start">Start Task</button>
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
 					</div>
 				</div>
 				<div class="task-box">
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
 					<div class="task-actions">
-					<button class="btn-details">See Details</button>
-					<button class="btn-start">Start Task</button>
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
 					</div>
 				</div>
 				<div class="task-box">
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
 					<div class="task-actions">
-					<button class="btn-details">See Details</button>
-					<button class="btn-start">Start Task</button>
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
 					</div>
 				</div>
 				</div>
@@ -904,22 +892,19 @@
 				<div class="task-box">
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
 					<div class="task-actions">
-					<button class="btn-details">See Details</button>
-					<button class="btn-start">Start Task</button>
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
 					</div>
 				</div>
 				<div class="task-box">
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
 					<div class="task-actions">
-					<button class="btn-details">See Details</button>
-					<button class="btn-start">Start Task</button>
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
 					</div>
 				</div>
 				<div class="task-box">
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
 					<div class="task-actions">
-					<button class="btn-details">See Details</button>
-					<button class="btn-start">Start Task</button>
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
 					</div>
 				</div>
 				</div>
@@ -996,6 +981,28 @@
 			</div>
 		</div>
 
+		<!---------------- MODAL FOR TO-DO TASK----------------------------------------------------------->
+		<div class="todo-modal-overlay" id="taskModal" onclick="closeModalOnOverlay(event)">
+		<div class="todo-modal-content">
+			<button class="todo-close-modal" onclick="closeModal()">&times;</button>
+			<div class="todo-modal-header">To-Do Task Details</div>
+			<div class="todo-modal-body">
+			<h3 id="modalTaskDescription">I'd like to request a removal of a Support Group named "HATID"</h3>
+			
+			<div class="todo-modal-info">
+				<div class="todo-modal-info-label">Task Created by</div>
+				<div class="todo-modal-info-value">GCO Coordinator Name</div>
+			</div>
+
+			<div class="todo-modal-info">
+				<div class="todo-modal-info-label">Task Created on</div>
+				<div class="todo-modal-info-value">January 28, 2025</div>
+			</div>
+			</div>
+			<button class="todo-modal-button">Start Task</button>
+		</div>
+		</div>
+
 		<!---------------- USER MANAGEMENT ------------------------------------------------------------>
 
 		<div id="users" class="page">
@@ -1043,7 +1050,7 @@
 								<td></td>
 								<td>John</td>
 								<td>
-									<div class="cat_GCO">GCO Coordinator</div>
+									<div class="cat_GCO">GCO Admin</div>
 								</td>
 								<td>Lorem Ipsum</td>
 								<td>Lorem Ipsum</td>
@@ -1052,7 +1059,7 @@
 									<button class="menu-dots" onclick="toggleDpDots(this)">⋮</button>
 									<div class="dropdown-content">
 										<a href="#" onclick="openEditUserPopup()">Edit</a>
-										<a href="#" class="remove" onclick="openRemovePopup()">Remove User</a>
+										<a href="#" class="remove" onclick="openRemovePopup(this)">Remove User</a>
 									</div>
 								</div>
 								</td>				
@@ -1078,7 +1085,7 @@
 									<button class="menu-dots" onclick="toggleDpDots(this)">⋮</button>
 									<div class="dropdown-content">
 										<a href="#" onclick="openEditUserPopup()">Edit</a>
-										<a href="#" class="remove" onclick="openRemovePopup()">Remove User</a>
+										<a href="#" class="remove" onclick="openRemovePopup(this)">Remove User</a>
 									</div>
 								</div>
 								</td>
@@ -1103,7 +1110,7 @@
 									<button class="menu-dots" onclick="toggleDpDots(this)">⋮</button>
 									<div class="dropdown-content">
 										<a href="#" onclick="openEditUserPopup()">Edit</a>
-										<a href="#" class="remove" onclick="openRemovePopup()">Remove User</a>
+										<a href="#" class="remove" onclick="openRemovePopup(this)">Remove User</a>
 									</div>
 								</div>
 								</td>
@@ -1114,14 +1121,14 @@
 			</div>
 		</div>
 
-		<!---------------- NOTE: POP UP FOR REMOVE USER -- JS NA LANG AYAW GUMANA  ------------------------------------------------------------>
+		<!---------------- POP UP FOR REMOVE USER   ------------------------------->
 		<!-- Remove User Popup -->
 		<div id="rmvusrPopUp" class="removePopup">
 			<div class="removeContent">
-				<p class="removeText">Are you sure you want to remove <strong id="userName">User Name</strong> as a user?</p>
+				<p class="removeText">Are you sure you want to remove <strong id="userName">User Name</strong>?</p>
 				<div class="removeButtons">
-					<button class="removeBtnCancel" id="cancelRemove">Cancel</button>
-					<button class="removeBtnConfirm" id="confirmRemove">Remove</button>
+					<button class="removeBtnCancel" onclick="closeRemovePopup()">Cancel</button>
+					<button class="removeBtnConfirm" onclick="confirmRemoveUser()">Remove</button>
 				</div>
 			</div>
 		</div>
@@ -1192,23 +1199,23 @@
 		<div class="createUserPopup" id="createUserPopup">
 			<div class="createUserContent">
 				<button class="createUserCloseBtn" onclick="closeCreateUserPopup()">&times;</button>
-				<span>Create GCO Coordinator User</span>
+				<span>Create GCO Admin User</span>
 				
 				<div class="createUserBody">
 					<div class="createUserLeft">
-						<img src="photos/pic_placeholder.png" class="createUserAvatar" alt="User Avatar">
-						<h2 class="createUserName" id="displayUserName">Dominguez, Samantha Aeries</h2>
+						<img src="icons/ic_GCO.svg" class="createUserAvatar" alt="User Avatar">
+						<h2 class="createUserName" id="displayUserName"></h2>
 					</div>
 					
 					<div class="createUserRight">
 						<div class="createUserRow">
 							<div class="createUserGroup">
 								<label class="createUserLabel">First Name</label>
-								<input type="text" class="createUserInput" id="firstName" value="Samantha Aeries" oninput="updateDisplayName()">
+								<input type="text" class="createUserInput" id="firstName" oninput="updateDisplayName()">
 							</div>
 							<div class="createUserGroup">
 								<label class="createUserLabel">Last Name</label>
-								<input type="text" class="createUserInput" id="lastName" value="Dominguez" oninput="updateDisplayName()">
+								<input type="text" class="createUserInput" id="lastName" oninput="updateDisplayName()">
 							</div>
 						</div>
 						
@@ -1226,7 +1233,7 @@
 						<div class="createUserRow">
 							<div class="createUserGroup">
 							<label class="createUserLabel">Password</label>
-							<input type="text" class="createUserInput" id="password" value="sample">
+							<input type="text" class="createUserInput" id="password">
 							</div>
 						</div>
 					</div>
@@ -1241,7 +1248,7 @@
 		<!------------------------- Confirm New User Popup ----------------------------->
 		<div class="confirmPopup" id="confirmPopup">
 			<div class="confirmContent">
-				<p class="confirmText">Confirm adding <strong id="confirmUserName">Dominguez, Samantha Aeries</strong> as a new GCO Coordinator?</p>
+				<p class="confirmText">Confirm adding <strong id="confirmUserName">Dominguez, Samantha Aeries</strong> as a new GCO Admin?</p>
 				<div class="confirmButtons">
 					<button class="confirmBtnCancel" onclick="closeConfirmPopup()">Cancel</button>
 					<button class="confirmBtnConfirm" onclick="confirmCreateUser()">Confirm</button>
@@ -1257,14 +1264,14 @@
 
 		<div id="settings" class="page">
 			<div class="row">
-				<div class="big_btn" onclick="openModal('termsModal')">
+				<div class="big_btn" onclick="openTermsModal('termsModal')">
 					<div class="text">
 						<h6>Terms and Conditions</h6>
 						<p>Effective Date: June 4, 2025</p>
 					</div>
 					<img src="icons/ic_arrow right.svg" class="setting_slider">
 				</div>
-				<div class="big_btn" onclick="openModal('privacyModal')">
+				<div class="big_btn" onclick="openTermsModal('privacyModal')">
 					<div class="text">
 						<h6>Privacy Policy</h6>
 						<p>Effective Date: June 4, 2025</p>
@@ -1284,7 +1291,7 @@
 			<!-- Terms Modal -->
 			<div id="termsModal" class="modal">
 			<div class="modal-content">
-				<span class="close" onclick="closeModal('termsModal')">&times;</span>
+				<span class="close" onclick="closeTermsModal('termsModal')">&times;</span>
 				<h3>Terms & Conditions</h3>
 				<div class="terms-box" contenteditable="true">
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p><br>
@@ -1310,7 +1317,7 @@
 			<!-- Privacy Modal -->
 			<div id="privacyModal" class="modal">
 			<div class="modal-content">
-				<span class="close" onclick="closeModal('privacyModal')">&times;</span>
+				<span class="close" onclick="closeTermsModal('privacyModal')">&times;</span>
 				<h3>Privacy Policy</h3>
 				<div class="terms-box" contenteditable="true">
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p><br>
@@ -1795,27 +1802,26 @@
 
 		// SLIDER FOR TERMS AND CONDITIONS AND PRIVACY POLICY
 
-		function openModal(id) {
-    		document.getElementById(id).style.display = "block";
+		function openTermsModal(id) {
+			document.getElementById(id).style.display = "block";
 		}
 
-		function closeModal(id) {
-    		document.getElementById(id).style.display = "none";
+		function closeTermsModal(id) {
+			document.getElementById(id).style.display = "none";
 		}
 
 		// Optional: Close modal if user clicks outside content
 		window.onclick = function(event) {
-    		const termsModal = document.getElementById('termsModal');
-    		const privacyModal = document.getElementById('privacyModal');
-    
-   			if (event.target === termsModal) {
-        		termsModal.style.display = "none";
-    		}
-    		if (event.target === privacyModal) {
-        		privacyModal.style.display = "none";
-    		}
+			const termsModal = document.getElementById('termsModal');
+			const privacyModal = document.getElementById('privacyModal');
+			
+			if (event.target === termsModal) {
+				termsModal.style.display = "none";
+			}
+			if (event.target === privacyModal) {
+				privacyModal.style.display = "none";
+			}
 		}
-
 
 		// FOR TASKS
 		function showPage(pageId, el) {
@@ -1888,6 +1894,9 @@
 				.join(' ');
 		}
 
+
+		//TASK SLIDER
+
 		
 		//DROPDOWN DOTS FOR USER MANAGEMENT
 		// Toggle dropdown when clicking the dots
@@ -1932,54 +1941,46 @@
 			});
 		};
 
-		// Remove User Functions -- NOT WORKING 
+		//REMOVE USER FUNCTIONS 
 
-		function openRemovePopup() {
+		function openRemovePopup(element) {
 			const removePopup = document.getElementById('rmvusrPopUp');
+			const userNameElement = document.getElementById('userName');
+			
 			if (removePopup) {
-				removePopup.classList.add('active');
-			} else {
-				console.error('Remove popup not found!');
-			}
-		}
-
-		function closeRemovePopup() {
-			const removePopup = document.getElementById('rmvusrPopUp');
-			if (removePopup) {
-				removePopup.classList.remove('active');
-			}
-		}
-
-		document.addEventListener('DOMContentLoaded', function() {
-			
-			const removePopup = document.getElementById('rmvusrPopUp');
-			const cancelBtn = document.getElementById('cancelRemove');
-			const confirmBtn = document.getElementById('confirmRemove');
-
-			
-			if (!removePopup || !cancelBtn || !confirmBtn) {
-				console.error('Remove popup elements not found!');
-				return;
-			}
-
-			cancelBtn.addEventListener('click', function() {
-				closeRemovePopup();
-			});
-			
-			confirmBtn.addEventListener('click', function() {
+				// Find the row
+				const row = element.closest('tr');
 				
-				alert('User removed successfully!');
+				// Look for td with class="name"
+				const nameCell = row.querySelector('td.name');
 				
-				closeRemovePopup();
-			});
-			
-			removePopup.addEventListener('click', function(e) {
-				if (e.target === removePopup) {
-					closeRemovePopup();
+				// Get the user name (first line only, before the <br>)
+				let userName = 'User';
+				if (nameCell) {
+					// Get only the text before the <br> tag
+					const fullText = nameCell.childNodes[0].textContent.trim();
+					userName = fullText;
 				}
-			});
-			
-		});
+				
+				// Get the user type from any of the cat_* divs
+				const userTypeCell = row.querySelector('[class^="cat_"]');
+				const userType = userTypeCell ? userTypeCell.textContent.trim() : 'User';
+				
+				console.log('User to remove:', userName, '| Type:', userType); // Debug log
+				
+				// Display with mixed formatting
+				userNameElement.innerHTML = `<strong>${userName}</strong> <span style="font-weight: normal;">as a</span> <strong>${userType}</strong>`;
+				
+				removePopup.removeElement = row;
+				removePopup.style.display = 'flex';
+				
+				// Close the dropdown menu - USE classList.remove instead
+				const dropdown = element.closest('.dropdown-content');
+				if (dropdown) {
+					dropdown.classList.remove('show');
+				}
+			}
+		}
 
 		function closeRemovePopup() {
 			const removePopup = document.getElementById('rmvusrPopUp');
@@ -1988,38 +1989,16 @@
 			}
 		}
 
-		document.addEventListener('DOMContentLoaded', function() {
-			
+		function confirmRemoveUser() {
 			const removePopup = document.getElementById('rmvusrPopUp');
-			const cancelBtn = document.getElementById('cancelRemove');
-			const confirmBtn = document.getElementById('confirmRemove');
-
-			
-			if (!removePopup || !cancelBtn || !confirmBtn) {
-				console.error('Remove popup elements not found!');
-				return;
-			}
-
-			cancelBtn.addEventListener('click', function() {
-				closeRemovePopup();
-			});
-			
-			confirmBtn.addEventListener('click', function() {
-				
+			if (removePopup && removePopup.removeElement) {
+				removePopup.removeElement.remove();
 				alert('User removed successfully!');
-				
-				closeRemovePopup();
-			});
-			
-			removePopup.addEventListener('click', function(e) {
-				if (e.target === removePopup) {
-					closeRemovePopup();
-				}
-			});
-			
-		});
+			}
+			closeRemovePopup();
+		}
 
-		// Edit User Functions
+		//EDIT USER FUNCTIONS
 
 		function openEditUserPopup() {
 			document.getElementById('editUserPopup').classList.add('active');
@@ -2056,6 +2035,8 @@
 			}
 		});
 
+
+		//CREATE NEW USER FUNCTIONS
 		function openCreateUserPopup() {
 			document.getElementById('createUserPopup').classList.add('active');
 		}
@@ -2071,10 +2052,13 @@
 			if (firstName && lastName) {
 				const displayName = `${lastName}, ${firstName}`;
 				document.getElementById('displayUserName').textContent = displayName;
+				// Also update the confirmation popup name
+				document.getElementById('confirmUserName').textContent = displayName;
 			}
 		}
 
 		function showConfirmPopup() {
+			// Update both display names before showing popup
 			updateDisplayName();
 			document.getElementById('confirmPopup').classList.add('active');
 		}
@@ -2084,9 +2068,70 @@
 		}
 
 		function confirmCreateUser() {
-			alert('User created successfully!');
-			closeConfirmPopup();
-			closeCreateUserPopup();
+			// Get form values
+			const firstName = document.getElementById('firstName').value.trim();
+			const lastName = document.getElementById('lastName').value.trim();
+			const email = document.getElementById('workEmail').value.trim();
+			const displayName = `${lastName}, ${firstName}`;
+			
+			// Get current date
+			const currentDate = new Date().toLocaleDateString('en-US', { 
+				year: 'numeric', 
+				month: 'short', 
+				day: 'numeric' 
+			});
+			
+			// Find the user table tbody
+			const userTable = document.querySelector('#users .user tbody');
+			
+			if (userTable) {
+				// Create new table row matching your exact structure
+				const newRow = document.createElement('tr');
+				newRow.innerHTML = `
+					<td class="table_user">
+						<img src="photos/pic_placeholder.png">
+					</td>
+					<td class="name">
+						${displayName}<br>
+						<span>${email}</span>
+					</td>
+					<td></td>
+					<td>${firstName}</td>
+					<td>
+						<div class="cat_GCO">GCO Admin</div>
+					</td>
+					<td>Just now</td>
+					<td>${currentDate}</td>
+					<td class="action">
+						<div class="dpDots">
+							<button class="menu-dots" onclick="toggleDpDots(this)">⋮</button>
+							<div class="dropdown-content">
+								<a href="#" onclick="openEditUserPopup()">Edit</a>
+								<a href="#" class="remove" onclick="openRemovePopup(this)">Remove User</a>
+							</div>
+						</div>
+					</td>
+				`;
+				
+				// Add the new row at the top of the table
+				userTable.insertBefore(newRow, userTable.firstChild);
+				
+				// Show success message
+				alert(`User "${displayName}" created successfully!`);
+				
+				// Close popups
+				closeConfirmPopup();
+				closeCreateUserPopup();
+				
+				// Optional: Clear the form
+				document.getElementById('firstName').value = '';
+				document.getElementById('lastName').value = '';
+				document.getElementById('workEmail').value = 'email@students.nu-fairview.edu.ph';
+				document.getElementById('password').value = 'sample';
+				document.getElementById('displayUserName').textContent = '';
+			} else {
+				console.error('User table not found!');
+			}
 		}
 
 		document.addEventListener('click', function(e) {
@@ -2130,6 +2175,40 @@
 				modal.style.display = 'none';
 			}
 		}
+
+
+		//MODAL POP UP FOR TO-DO TASKS
+
+		function openModal(button) {
+		const modal = document.getElementById('taskModal');
+		const taskBox = button.closest('.task-box');
+		// Get the p tag text directly (without needing a class)
+		const description = taskBox.querySelector('p').textContent.trim();
+		const descriptionElement = document.getElementById('modalTaskDescription');
+		descriptionElement.textContent = description;
+		modal.classList.add('active');
+		document.body.style.overflow = 'hidden';
+		}
+
+		function closeModal() {
+		const modal = document.getElementById('taskModal');
+		modal.classList.remove('active');
+		document.body.style.overflow = 'auto';
+		}
+
+		function closeModalOnOverlay(event) {
+		if (event.target.id === 'taskModal') {
+			closeModal();
+		}
+		}
+
+		// Close modal on Escape key
+		document.addEventListener('keydown', function(event) {
+		if (event.key === 'Escape') {
+			closeModal();
+		}
+		});
+
 	</script>
 </body>
 </html>

@@ -55,7 +55,7 @@ body {
 /* Custom Scrollbar for all pages */
 ::-webkit-scrollbar {
 	width: 7px;
-	height: 10px;
+	height: 7px;
 }
 
 ::-webkit-scrollbar-track {
@@ -950,7 +950,7 @@ select option:focus {
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   font-family: Arial, sans-serif;
   line-height: 1.6;
-  top: 180px;   
+  top: 160px;   
   left: 150px;      
   right: 0;     
   margin: 0 auto; 
@@ -3327,6 +3327,7 @@ small {
   grid-template-columns: repeat(3, 1fr); 
   gap: 20px;
   margin-bottom: 30px;
+  
 }
 
 .task-card {
@@ -3413,10 +3414,11 @@ small {
   border-radius: 4px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
   padding: 20px;
-  display: flex;
+  display: flex; /* Changed from 'none' to 'flex' */
   flex-direction: column;
   justify-content: space-between;
   margin-bottom: 10px; 
+  
 }
 
 .task-box p {
@@ -3491,6 +3493,128 @@ small {
 .btn-pending:hover {
   background: #007bff; 
   color: #fff;        
+}
+
+
+/* --------------------------------------TASKS -- TO DO -------------------------------------- */
+
+/* To Do Modal Styles */
+.todo-modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.todo-modal-overlay.active {
+  display: flex;
+}
+
+.todo-modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 4px;
+  max-width: 380px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  position: relative;
+  top: 40px;
+  left: 120px;
+  margin: auto;
+  scrollbar-width: none;         
+  -ms-overflow-style: none;      
+}
+
+
+.todo-modal-content::-webkit-scrollbar {
+  display: none;
+}
+
+.todo-modal-header {
+  font-family: 'PublicSans', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: black;
+}
+
+.todo-modal-body {
+  margin-bottom: 20px;
+}
+
+.todo-modal-body h3 {
+  font-family: 'PublicSans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  padding: 15px;
+  color: #000000;
+  background: #eff5f9;
+  border-radius: 6px;
+  line-height: 1.5;
+  border: none;
+}
+
+.todo-modal-info {
+  margin-bottom: 15px;
+}
+
+.todo-modal-info-label {
+  font-family: 'PublicSans', sans-serif;
+  font-size: 13px;
+  font-style: italic;
+  font-weight: 600;
+  color: #6d6d6d;
+  margin-bottom: 4px;
+}
+
+.todo-modal-info-value {
+  font-family: 'PublicSans', sans-serif;
+  font-size: 13px;
+  color: black;
+  font-weight: 600;
+}
+
+.todo-modal-button {
+  width: 100%;
+  background: #E3F2FD;
+  color: #4A90E2;
+  border: none;
+  padding: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.todo-modal-button:hover {
+  background: #007bff;
+  color: white; 
+}
+
+.todo-close-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #999;
+  line-height: 1;
+}
+
+.todo-close-modal:hover {
+  color: #333;
 }
 
 /* --------------------------------------USER MANAGEMENT -------------------------------------- */
@@ -4152,8 +4276,8 @@ small {
 }
 
 .save-btn {
-    background-color: #bdc1c4; 
-    color: white;
+    background-color: #c3e1f4;
+    color: #0067c4;
     font-weight: bold;
     border: none;
     border-radius: 6px;
@@ -4166,8 +4290,9 @@ small {
 }
 
 .save-btn:hover {
-    background-color: #9aa0a4;; 
+    background-color: #a0d4f0;
 }
+
 
 
 /* -------------------------------------EXPORT CHAT-------------------------------------- */
