@@ -54,15 +54,20 @@
     </div>
 
     <div class="right">
-         <h2>Reset Password</h2>
+      <div class="header-with-back">
+        <button class="back-btn" onclick="backToSignIn()">&larr;</button>
+      </div>
+
+      <h3>Reset Password</h3>
+      
       <form onsubmit="return sendResetEmail(event)">
-        <div class="input-box">
+        <div class="input-box2">
           <input type="email" id="resetEmail" placeholder="Email" required>
         </div>
 
-        <button type="submit" class="btn">Send Reset Email</button>
+        <button type="submit" class="btn2">Send Reset Email</button>
 
-        <div class="forgot">
+        <div class="forgot2">
           <a href="#" onclick="resendEmail()">Resend Email</a>
         </div>
       </form>
@@ -98,6 +103,14 @@
     function showLogin() {
       document.getElementById("ITResetPassword").classList.add("hidden");
       document.getElementById("ITLogIn").classList.remove("hidden");
+    }
+
+    function backToSignIn() {
+      // Hide reset password section
+      document.getElementById('ITResetPassword').classList.add('hidden');
+      
+      // Show sign in section
+      document.getElementById('ITLogIn').classList.remove('hidden');
     }
 
     // Send Reset Email
