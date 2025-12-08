@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -16,19 +15,19 @@
 		<a href="#" class="active" onclick="showPage('overview', this)">
 		<img src="icons/ic_sba_overview.svg" class="icon"><span>Overview</span></a>
 
-		<a href="#" onclick="showPage('counseling', this)"><img src="icons/ic_sb_counseling.svg" class="icon"><span>Guidance Counseling</span></a>
+		<a href="#" onclick="showPage('guidance-counseling', this)"><img src="icons/ic_sb_counseling.svg" class="icon"><span>Guidance Counseling</span></a>
 
 		<a href="#" onclick="showPage('users', this)"><img src="icons/ic_sb_user.svg" class="icon"><span>Users</span></a>
 
-		<a href="#" onclick="showPage('support', this)"><img src="icons/ic_sb_support.svg" class="icon"><span>Support Group</span></a>
+		<a href="#" onclick="showPage('peer-facilitators', this)"><img src="icons/ic_sb_support.svg" class="icon"><span>Peer Facilitators</span></a>
+
+		<a href="#" onclick="showPage('support-group', this)"><img src="icons/ic_sb_chat.svg" class="icon"><span>Support Group</span></a>
 
 		<a href="#" onclick="showPage('announcement', this)"><img src="icons/ic_sb_announcement.svg" class="icon"><span>Announcement</span></a>
 
-		<a href="#" onclick="showPage('chat', this)"><img src="icons/ic_sb_chat.svg" class="icon"><span>Chat Management</span></a>
-
 		<a href="#" onclick="showPage('feedback', this)"><img src="icons/ic_sb_feedback.svg" class="icon"><span>Feedback</span></a>
 
-		<a href="#" onclick="showPage('settings', this)"><img src="icons/ic_sb_settings.svg" class="icon"><span>Settings and System Logs</span></a>
+		<a href="#" onclick="showPage('settings and-system-logs', this)"><img src="icons/ic_sb_settings.svg" class="icon"><span>Settings and System Logs</span></a>
 
 		<a href="#" onclick="showPage('reports', this)"><img src="icons/ic_sb_report.svg" class="icon"><span>Reports</span></a>
 	</div>
@@ -38,20 +37,47 @@
 	<div class="main">
 	<div class="topbar">
 		<span id="pageTitle">Overview</span>
-		<div class="dropdown" onclick="toggleDropdown()">
-			<span>GCO Coordinator</span>
-			<img src="icons/ic_dropdown.svg" style="height: 10px; margin-left: 3px;"></a>
-			<div class="dropdown-menu">
-				<a href="#">Sign Out</a>
+		<div class="topbar-right">
+		<div class="notification" onclick="toggleNotif()">
+			<img src="icons/ic_notif.svg" class="notif" alt="notification icon">
+			<span class="notif-badge">1</span>
+			<div class="notif-menu">
+				<div class="notif-card">
+					<h3>Peer Facilitator Verification</h3>
+					<p class="usrName">
+					   John Doe<br>
+					   <span>email@admin.nu-fairview.edu.ph</span>
+					</p>
+					<div class="notif-buttons">
+						<button class="btn-decline">Decline</button>
+						<button class="btn-accept">Accept</button>
+					</div>
+				</div>
+			</div>
+		</div>
+			<div class="GCO">
+				<img src="icons/ic_GCO.svg" class="GCO_icon" alt="GCO icon"> 
+			</div>
+			<div class="dropdown" onclick="toggleDropdown()">
+				<span>GCO Admin</span>
+				<img src="icons/ic_dropdown.svg" style="height: 10px; margin-left: 3px;">
+				<div class="dropdown-menu">
+					<a href="GCO Login.html">Sign Out</a>
+				</div>
 			</div>
 		</div>
 	</div>
 
-	<!---------------- Eto yung content ------------------------------------------------------------>
+
+	<!---------------------------------------------------------------------------------------->	
+	<!---------------------------------------------------------------------------------------->	
+	<!---------------- Eto yung content ------------------------------------------------------>
 	<div class="content">
 
-	<!---------------- OVERVIEW ------------------------------------------------------------>
 
+	<!---------------------------------------------------------------------------------------->	
+	<!---------------------------------------------------------------------------------------->	
+	<!---------------- OVERVIEW -------------------------------------------------------------->
 		<div id="overview" class="page active">
 			<div class="row">
 				<div class="card table-card">
@@ -67,76 +93,82 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td id="left">BS Information Technology</td>
-								<td >18</td>
-								<td>43</td>
-								<td class="up">18 %</td>
+								<td id="left">Senior High School - ABM</td>
+								<td >0</td>
+								<td>0</td>
+								<td class="up">0 %</td>
 							</tr>
 							<tr>
-								<td id="left">BS Psychology</td>
-								<td>12</td>
-								<td>22</td>
-								<td class="up">12 %</td>
+								<td id="left">Senior High School - HUMSS</td>
+								<td>0</td>
+								<td>0</td>
+								<td class="up">0 %</td>
 							</tr>
 							<tr>
-								<td id="left">BS Computer Engineering</td>
-								<td>10</td>
-								<td>26</td>
-								<td class="down">10 %</td>
+								<td id="left">Senior High School - STEM</td>
+								<td>0</td>
+								<td>0</td>
+								<td class="down">0 %</td>
 							</tr>
 							<tr>
-								<td id="left">BS Information Technology</td>
-								<td >18</td>
-								<td>43</td>
-								<td class="up">18 %</td>
+								<td id="left">BS Hospitality Management</td>
+								<td >0</td>
+								<td>0</td>
+								<td class="up">0 %</td>
 							</tr>
 							<tr>
-								<td id="left">BS Psychology</td>
-								<td>12</td>
-								<td>22</td>
-								<td class="up">12 %</td>
-							</tr>
-							<tr>
-								<td id="left">BS Computer Engineering</td>
-								<td>10</td>
-								<td>26</td>
-								<td class="down">10 %</td>
-							</tr>
-							<tr>
-								<td id="left">BS Information Technology</td>
-								<td >18</td>
-								<td>43</td>
-								<td class="up">18 %</td>
-							</tr>
-							<tr>
-								<td id="left">BS Psychology</td>
-								<td>12</td>
-								<td>22</td>
-								<td class="up">12 %</td>
+								<td id="left">BS Tourism Management</td>
+								<td>0</td>
+								<td>0</td>
+								<td class="up">0 %</td>
 							</tr>
 							<tr>
 								<td id="left">BS Computer Engineering</td>
-								<td>10</td>
-								<td>26</td>
-								<td class="down">10 %</td>
+								<td>0</td>
+								<td>0</td>
+								<td class="down">0 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Civil Engineering</td>
+								<td >0</td>
+								<td>0</td>
+								<td class="up">0 %</td>
 							</tr>
 							<tr>
 								<td id="left">BS Information Technology</td>
-								<td >18</td>
-								<td>43</td>
-								<td class="up">18 %</td>
+								<td>0</td>
+								<td>0</td>
+								<td class="up">0 %</td>
 							</tr>
 							<tr>
 								<td id="left">BS Psychology</td>
-								<td>12</td>
-								<td>22</td>
-								<td class="up">12 %</td>
+								<td>0</td>
+								<td>0</td>
+								<td class="down">0 %</td>
 							</tr>
 							<tr>
-								<td id="left">BS Computer Engineering</td>
-								<td>10</td>
-								<td>26</td>
-								<td class="down">10 %</td>
+								<td id="left">BA Communication</td>
+								<td >0</td>
+								<td>0</td>
+								<td class="up">0 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Architecture</td>
+								<td>0</td>
+								<td>0</td>
+								<td class="up">0 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Accountancy</td>
+								<td>0</td>
+								<td>0</td>
+								<td class="down">0 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Business Administration</td>
+								<td>0</td>
+								<td>0</td>
+								<td class="down">0 %</td>
 							</tr>
 						</tbody>
 					</table>
@@ -144,11 +176,11 @@
 				<div class="stats">
 					<div class="card stat-card">
 						<h3>Student Count</h3>
-						<h2>360</h2>
+						<h2>0</h2>
 					</div>
 					<div class="card stat-card">
 						<h3>PEERS Count</h3>
-						<h2>10</h2>
+						<h2>0</h2>
 					</div>
 				</div>
 			</div>
@@ -157,9 +189,8 @@
 					<h3>Engagement Breakdown</h3>
 					<canvas id="engagementChart" height="220px"></canvas>
 					<p class="chart-description">
-						The graph shows a significant drop in engagement from February to March, followed by a slight decrease in April. 
-						Engagement picked up in May but declined again in June, reflecting an overall inconsistent trend that may require 
-						sustained strategies to maintain interest.
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+						Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 					</p>
 				</div>
 			</div>
@@ -168,17 +199,18 @@
 					<h3>User Activity</h3>
 					<canvas id="engagementChart2" height="220px"></canvas>
 					<p class="chart-description">
-						The graph shows a significant drop in engagement from February to March, followed by a slight decrease in April. 
-						Engagement picked up in May but declined again in June, reflecting an overall inconsistent trend that may require 
-						sustained strategies to maintain interest.
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+						Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 					</p>
 				</div>
 			</div>
 		</div>
 
-	<!---------------- COUNSELING ------------------------------------------------------------>
 
-		<div id="counseling" class="page">
+	<!---------------------------------------------------------------------------------------->	
+	<!---------------------------------------------------------------------------------------->	
+	<!---------------- COUNSELING ------------------------------------------------------------>
+		<div id="guidance-counseling" class="page">
 			<div class="row">
 				<div class="left-half">
 					<button class="btn-white">Today</button>
@@ -186,22 +218,62 @@
 					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
 				</div>
 				<div class="right-half">
-					<button class="btn-blue">Edit Request Form</button>
+					<button class="btn-reqForm" onclick="openRequestFormPopup()">Edit Request Form</button>
 				</div>
 			</div>
 			<div class="row">
 				<div class="card">
-					<h3>Lorem Ipsum</h3>
-					<p style="margin-left: 30px;">content here - remove this</p>
+					<h3>Sept 22 - Video Call</h3> 
+					<div class="session-mode-left">
+                         <img src="photos/pic_placeholder.png" alt="Avatar"> 
+                     <div class="session-details-left">
+                         <div class="time">0:00 PM - 0:00 PM</div>
+      					 <div class="name">John Doe</div>
+     					 <div class="info">2023-123456</div>
+    					 <div class="info">Not Urgent</div>
+      					 <div class="info">Prefers <strong>Male</strong> Counselor</div>
+                     </div>
+                    </div>
+					<div class="session-btn-left">
+                         <button class="btn start">Start Call</button>
+                         <button class="btn details" onclick="openDetailsPopup()">See Details</button>
+                    </div>
 				</div>
 				<div class="card">
-					<h3>Lorem Ipsum</h3>
-					<p style="margin-left: 30px;">content here - remove this</p>
+					<h3>Sept 22 - In Person</h3> 
+					<div class="session-mode-mid">
+                         <img src="photos/pic_placeholder.png" alt="Avatar"> 
+                     <div class="session-details-mid">
+                         <div class="time">0:00 PM - 0:00 PM</div>
+      					 <div class="name">John Doe</div>
+     					 <div class="info">2023-123456</div>
+    					 <div class="info"><strong><span class="urgent">Urgent</span></strong></div>
+      					 <div class="info">Prefers <strong>Female</strong> Counselor</div>
+                     </div>
+                    </div>
+					<div class="session-btn-mid">
+                         <button class="btn start">Confirmed</button>
+                         <button class="btn details" onclick="openDetailsPopup()">See Details</button>
+                    </div>
 				</div>
 				<div class="card">
-					<h3>Lorem Ipsum</h3>
-					<p style="margin-left: 30px;">content here - remove this</p>
+					<h3>Sept 22 - In Person</h3> 
+					<div class="session-mode-right">
+                         <img src="photos/pic_placeholder.png" alt="Avatar"> 
+                     <div class="session-details-right">
+                         <div class="time">0:00 PM - 0:00 PM</div>
+      					 <div class="name">John Doe</div>
+     					 <div class="info">2023-123456</div>
+    					 <div class="info">Not Urgent</div>
+      					 <div class="info">Prefers <strong>Female</strong> Counselor</div>
+                     </div>
+                    </div>
+					<div class="session-btn-right">
+                         <button class="btn start">Take Session</button>
+                         <button class="btn details" onclick="openDetailsPopup()">See Details</button>
+                    </div>
 				</div>
+
 			</div>
 			<div class="row">
 				<div class="left-half">
@@ -215,79 +287,267 @@
 					<h4 class="sched-date">23</h4>
 					<h5 style="padding-left: 30px;">MON</h5>
 					<div class="sched">
-						<p class="sched-type">type</p>
-						<p class="sched-time">time</p>
+						<p class="sched-type">Face to Face</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
 					<div class="sched">
-						<p class="sched-type">type</p>
-						<p class="sched-time">time</p>
+						<p class="sched-type">Face to Face</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+				</div>
+				
+				<div class="card">
+					<h4 class="sched-date">23</h4>
+					<h5 style="padding-left: 30px;">MON</h5>
+					<div class="sched">
+						<p class="sched-type">Video Call</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+					<div class="sched">
+						<p class="sched-type">Video Call</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
 				</div>
 				<div class="card">
 					<h4 class="sched-date">23</h4>
 					<h5 style="padding-left: 30px;">MON</h5>
 					<div class="sched">
-						<p class="sched-type">type</p>
-						<p class="sched-time">time</p>
+						<p class="sched-type">Call</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
 					<div class="sched">
-						<p class="sched-type">type</p>
-						<p class="sched-time">time</p>
-					</div>
-				</div>
-				<div class="card">
-					<h4 class="sched-date">23</h4>
-					<h5 style="padding-left: 30px;">MON</h5>
-					<div class="sched">
-						<p class="sched-type">type</p>
-						<p class="sched-time">time</p>
-					</div>
-					<div class="sched">
-						<p class="sched-type">type</p>
-						<p class="sched-time">time</p>
+						<p class="sched-type">Call</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
 				</div>
 				<div class="card">
 					<h4 class="sched-date">23</h4>
 					<h5 style="padding-left: 30px;">MON</h5>
 					<div class="sched">
-						<p class="sched-type">type</p>
-						<p class="sched-time">time</p>
+						<p class="sched-type">Face to Face</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
 					<div class="sched">
-						<p class="sched-type">type</p>
-						<p class="sched-time">time</p>
-					</div>
-				</div>
-				<div class="card">
-					<h4 class="sched-date">23</h4>
-					<h5 style="padding-left: 30px;">MON</h5>
-					<div class="sched">
-						<p class="sched-type">type</p>
-						<p class="sched-time">time</p>
-					</div>
-					<div class="sched">
-						<p class="sched-type">type</p>
-						<p class="sched-time">time</p>
+						<p class="sched-type">Face to Face</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
 				</div>
 				<div class="card">
 					<h4 class="sched-date">23</h4>
 					<h5 style="padding-left: 30px;">MON</h5>
 					<div class="sched">
-						<p class="sched-type">type</p>
-						<p class="sched-time">time</p>
+						<p class="sched-type">Video Call</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
 					<div class="sched">
-						<p class="sched-type">type</p>
-						<p class="sched-time">time</p>
+						<p class="sched-type">Video Call</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+				</div>
+				<div class="card">
+					<h4 class="sched-date">23</h4>
+					<h5 style="padding-left: 30px;">MON</h5>
+					<div class="sched">
+						<p class="sched-type">Call</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+					<div class="sched">
+						<p class="sched-type">Call</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
 				</div>
 			</div>
 		</div>
+	
+	<!---------------------------------------------------------------------------------------->	
+	<!---------------- COUNSELING 'SEE DETAILS' BUTTON POP UP -------------------------------->
+	<div id="detailsPopup" class="popup">
+		<div class="popup-content">
+			<span class="close" onclick="closeDetailsPopup()">&times;</span>
+			
+			<div class="popup-layout">
+				<div class="popup-left">
+					<img src="photos/pic_placeholder.png" alt="Profile" class="popup-profile-img">
+					<h2>Dominguez, Samantha Aeries</h2>
+					<div class="date-created-left">
+						<p>Date Request Created</p>
+						<strong>January 28, 2025</strong>
+					</div>
+				</div>
+				
+				<div class="popup-right">
+					<div class="detail-row">
+						<div class="detail-item">
+							<label>First Name</label>
+							<p>Lorem Ipsum</p>
+						</div>
+						<div class="detail-item">
+							<label>Last Name</label>
+							<p>Lorem Ipsum</p>
+						</div>
+					</div>
+					
+					<div class="detail-row">
+						<div class="detail-item">
+							<label>Program</label>
+							<p>Lorem Ipsum</p>
+						</div>
+						<div class="detail-item">
+							<label>Student ID</label>
+							<p>Lorem Ipsum</p>
+						</div>
+					</div>
+					
+					<div class="detail-row">
+						<div class="detail-item">
+							<label>Age</label>
+							<p>Lorem Ipsum</p>
+						</div>
+						<div class="detail-item">
+							<label>Sex assigned at birth</label>
+							<p>Lorem Ipsum</p>
+						</div>
+					</div>
+					
+					<div class="detail-row">
+						<div class="detail-item">
+							<label>Gender Identity</label>
+							<p>Lorem Ipsum</p>
+						</div>
+						<div class="detail-item">
+							<label>Preferred mode of platform</label>
+							<p>Lorem Ipsum</p>
+						</div>
+					</div>
+					
+					<div class="detail-row">
+						<div class="detail-item">
+							<label>Preferred Counselor</label>
+							<p>Lorem Ipsum</p>
+						</div>
+						<div class="detail-item">
+							<label>Is it urgent?</label>
+							<p>Lorem Ipsum</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-	<!---------------- USER MANAGEMENT ------------------------------------------------------------>
+	<!---------------------------------------------------------------------------------------->	
+	<!---------------- COUNSELING REQUEST FORM ----------------------------------------------->	
 
+	<div class="request-form-overlay" id="requestFormOverlay">
+		<div class="request-form-content">
+			<div class="request-form-header">
+				<input type="text" class="request-form-title" placeholder="Form Title">
+				<textarea class="request-form-description" placeholder="Form Description" rows="2"></textarea>
+			</div>
+
+			<div class="request-form-body">
+				<div class="request-form-section">
+					<div class="request-form-row">
+						<div class="request-form-group">
+							<label>First Name</label> 
+							<input type="text" placeholder="First Name" readonly>
+						</div>
+						<div class="request-form-group">
+							<label>Last Name</label>
+							<input type="text" placeholder="Last Name" readonly>
+						</div>
+					</div>
+					<div class="request-form-row">
+						<div class="request-form-group">
+							<label>Program</label>
+							<input type="text" placeholder="Program" readonly>
+						</div>
+						<div class="request-form-group">
+							<label>Student ID</label>
+							<input type="text" placeholder="Student ID" readonly>
+						</div>
+					</div>
+				</div>
+
+				<div id="requestQuestionsContainer">
+					<div class="request-question-card">
+						<div class="request-question-header">
+							<input type="text" class="request-question-input" placeholder="Question">
+							<select class="request-question-type" onchange="changeRequestQuestionType(this)">
+								<option value="short">Short Answer</option>
+								<option value="paragraph">Paragraph</option>
+								<option value="multiple">Multiple Choice</option>
+								<option value="checkbox">Checkboxes</option>
+								<option value="dropdown">Dropdown</option>
+								<option value="datetime">Date & Time</option>
+							</select>
+							<button class="request-delete-btn" onclick="deleteRequestQuestion(this)">
+								<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+									<path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+								</svg>
+							</button>
+						</div>
+						<input type="text" class="request-question-subtext" placeholder="Description (optional)">
+						<div class="request-answer-area">
+							<div class="request-answer-placeholder">Enter your Answer</div>
+						</div>
+					</div>
+
+					<div class="request-question-card">
+						<div class="request-question-header">
+							<input type="text" class="request-question-input" placeholder="Question">
+							<select class="request-question-type" onchange="changeRequestQuestionType(this)">
+								<option value="short">Short Answer</option>
+								<option value="paragraph">Paragraph</option>
+								<option value="multiple">Multiple Choice</option>
+								<option value="checkbox">Checkboxes</option>
+								<option value="dropdown">Dropdown</option>
+								<option value="datetime">Date & Time</option>
+							</select>
+							<button class="request-delete-btn" onclick="deleteRequestQuestion(this)">
+								<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+									<path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+								</svg>
+							</button>
+						</div>
+						<input type="text" class="request-question-subtext" placeholder="Description (optional)">
+						<div class="request-answer-area">
+							<div class="request-option-input">
+								<span class="request-radio-icon"></span>
+								<input type="text" placeholder="Enter option">
+								<button class="request-option-remove" onclick="removeRequestOption(this)">×</button>
+							</div>
+							<div class="request-option-input">
+								<span class="request-radio-icon"></span>
+								<input type="text" placeholder="Add option" onfocus="addRequestOptionOnFocus(this)">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<button class="request-add-question-btn" onclick="addNewRequestQuestion()">Add New Question</button>
+			</div>
+
+			<div class="request-form-footer">
+				<button class="request-btn-cancel" onclick="closeRequestFormPopup()">Cancel</button>
+				<button class="request-btn-save" onclick="saveRequestForm()">Save Form</button>
+			</div>
+		</div>
+	</div>
+
+	<!---------------- SAVE FORM MODAL ------------------------------------------------------->
+	<div id="successPopup" class="saved-form-overlay">
+		<div class="saved-form-content">
+			<div class="saved-form-icon">✓</div>
+			<h3>Counseling Session Request Form Saved Successfully!</h3>
+			<div class="saved-form-buttons">
+			<button class="saved-form-btn-close" onclick="closeSavedFormPopup()">Close</button>
+			</div>
+		</div>
+	</div>
+	<!---------------------------------------------------------------------------------------->	
+	<!---------------------------------------------------------------------------------------->	
+	<!---------------- USER MANAGEMENT ------------------------------------------------------->
 		<div id="users" class="page">
 			<div class="row">
 				<div class="right-half" style="width: 100%;">
@@ -295,25 +555,20 @@
 						<img src="icons/ic_search.svg">
 						<input type="text" placeholder="Search...">
 					</div>
-					<select name="userdrop" class="userdrop">
-						<option value="All">All</option>
-						<option value="Peers">Peers</option>
-						<option value="Users">Users</option>
-					</select>
 				</div>
 			</div>
 			<div class="row">
 				<div class="card">
-					<h3>Lerum Ipsum</h3>
+					<h3>User List</h3>
 					<table class="user">
 						<thead>
 							<tr>
 								<th id="left">User</th>
 								<th> </th>
-								<th>Lorem Ipsum</th>
-								<th>Lorem Ipsum</th>
-								<th>Lorem Ipsum</th>
-								<th>Lorem Ipsum</th>
+								<th> </th>
+								<th>Name Displayed</th>
+								<th>Last Active</th>
+								<th>Date Created</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -321,14 +576,14 @@
 								<td class="table_user">
 									<img src="photos/pic_placeholder.png">
 								</td>
-								<td id="name">
-									Lorem Ipsum<br>
-									<span>Lorem Ipsum</span>
-								</td>
-								<td>Lorem Ipsum</td>
 								<td>
-									<div class="cat_peer">PEER</div>
+									<div class="name" onclick="openUsersPopup()">
+										Doe, John A.<br> 
+										<span>email@students.nu-fairview.edu.ph</span>
+									</div>
 								</td>
+								<td></td>
+								<td>John</td>
 								<td>Lorem Ipsum</td>
 								<td>Lorem Ipsum</td>
 							</tr>
@@ -336,14 +591,29 @@
 								<td class="table_user">
 									<img src="photos/pic_placeholder.png">
 								</td>
-								<td id="name">
-									Lorem Ipsum<br>
-									<span>Lorem Ipsum</span>
-								</td>
-								<td>Lorem Ipsum</td>
 								<td>
-									<div class="cat_user">USER</div>
+									<div class="name" onclick="openUsersPopup()">
+										Doe, John A.<br> 
+										<span>email@students.nu-fairview.edu.ph</span>
+									</div>
 								</td>
+								<td></td>
+								<td>John</td>
+								<td>Lorem Ipsum</td>
+								<td>Lorem Ipsum</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td>
+									<div class="name" onclick="openUsersPopup()">
+										Doe, John A.<br> 
+										<span>email@students.nu-fairview.edu.ph</span>
+									</div>
+								</td>
+								<td></td>
+								<td>John</td>
 								<td>Lorem Ipsum</td>
 								<td>Lorem Ipsum</td>
 							</tr>
@@ -353,80 +623,89 @@
 			</div>
 		</div>
 
-	<!---------------- SUPPORT ------------------------------------------------------------>
-
-		<div id="support" class="page">
-			<div class="row">
-				<div class="left">
-					<h3>Lorem Ipsum</h3>
-				</div>
-				<div class="right">
-					<div class="card">
-						<h3>Lorem Ipsum</h3>
-						<table class="user">
-							<tbody>
-								<tr>
-									<td class="table_user">
-										<img src="photos/pic_placeholder.png">
-									</td>
-									<td id="name">
-										Lorem Ipsum<br>
-										<span>Lorem Ipsum</span>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+		<!---------------------------------------------------------------------------------------->	
+		<!---------------- USERS INFO POP UP ----------------------------------------------------->
+		<div id="usersInfoPopup" class="popup">
+			<div class="popup-content">
+				<span class="close" onclick="closeUsersPopup()">&times;</span>
+				
+				<div class="popup-layout">
+					<div class="popup-left">
+						<img src="photos/pic_placeholder.png" alt="Profile" class="popup-profile-img">
+						<h2>Dominguez, Samantha Aeries</h2>
+						<div class="date-created-left">
+							<p>Last Active</p>
+							<strong>January 28, 2025</strong>
+							<br>
+							<p>Date Account Created</p>
+							<strong>January 28, 2025</strong>
+						</div>
 					</div>
-					<div class="card">
-						<h3>Lorem Ipsum</h3>
-						<table class="user">
-							<tbody>
-								<tr>
-									<td class="table_user">
-										<img src="photos/pic_placeholder.png">
-									</td>
-									<td id="name">
-										Lorem Ipsum<br>
-										<span>Lorem Ipsum</span>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-
-	<!---------------- ANNOUNCEMENT ------------------------------------------------------------>
-
-		<div id="announcement" class="page">
-			<div class="row">
-				<div class="card">
-					<h3>Lorem Ipsum</h3>
-				</div>
-				<div class="card2">
-					<h3>Lorem Ipsum</h3>
-					<div class="blue_bg">
-						<div class="card3">test</div>
+					
+					<div class="popup-right">
+						<div class="detail-row">
+							<div class="detail-item">
+								<label>First Name</label>
+								<p>Lorem Ipsum</p>
+							</div>
+							<div class="detail-item">
+								<label>Last Name</label>
+								<p>Lorem Ipsum</p>
+							</div>
+						</div>
+						
+						<div class="detail-row">
+							<div class="detail-item">
+								<label>Student Email</label>
+								<p>Lorem Ipsum</p>
+							</div>
+							<div class="detail-item">
+								<label>Preferred Name</label>
+								<p>Lorem Ipsum</p>
+							</div>
+						</div>
+						
+						<div class="detail-row">
+							<div class="detail-item">
+								<label>Student ID</label>
+								<p>Lorem Ipsum</p>
+							</div>
+							<div class="detail-item">
+								<label>Program</label>
+								<p>Lorem Ipsum</p>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 
-	<!---------------- CHAT MANAGEMENT ------------------------------------------------------------>
 
-		<div id="chat" class="page">
+
+	<!---------------------------------------------------------------------------------------->	
+	<!---------------------------------------------------------------------------------------->	
+	<!---------------- PEER FACILITATORS ----------------------------------------------------->
+		<div id="peer-facilitators" class="page" style="display: hidden;">
+			<div class="row">
+				<div class="right-half" style="width: 100%;">
+					<div class="searchbar">
+						<img src="icons/ic_search.svg">
+						<input type="text" placeholder="Search...">
+					</div>
+				</div>
+			</div>
 			<div class="row">
 				<div class="card">
-					<h3>Lorem Ipsum</h3>
+					<h3>Peer List</h3>
 					<table class="user">
 						<thead>
 							<tr>
 								<th id="left">User</th>
 								<th> </th>
-								<th>Lorem Ipsum</th>
-								<th>Lorem Ipsum</th>
-								<th>Lorem Ipsum</th>
+								<th> </th>
+								<th>Peer Interactions</th>
+								<th>Last Active</th>
+								<th>Date Created</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -434,116 +713,1148 @@
 								<td class="table_user">
 									<img src="photos/pic_placeholder.png">
 								</td>
-								<td id="name">
-									Lorem Ipsum<br>
-									<span>Lorem Ipsum</span>
+								<td>
+									<div class="name" onclick="showPeerPage(this)" style="cursor: pointer;">
+										Doe, John A.<br> 
+										<span>email@students.nu-fairview.edu.ph</span>
+									</div>
+								</td>
+								<td></td>
+								<td class="peerInteract"><span>0</span></td>
 								</td>
 								<td>Lorem Ipsum</td>
-								<td style="color: #e85536; font-weight: bold;">Lorem Ipsum</td>
+								<td>Lorem Ipsum</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td>
+									<div class="name">
+										Doe, John A.<br> 
+										<span>email@students.nu-fairview.edu.ph</span>
+									</div>
+								</td>
+								<td></td>
+								<td class="peerInteract"><span>0</span></td>
+								<td>Lorem Ipsum</td>
+								<td>Lorem Ipsum</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td>
+									<div class="name">
+										Doe, John A.<br> 
+										<span>email@students.nu-fairview.edu.ph</span>
+									</div>
+								</td>
+								<td></td>
+								<td class="peerInteract"><span>0</span></td>
+								<td>Lorem Ipsum</td>
 								<td>Lorem Ipsum</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
-			<div class="row">
-				<div class="left2">
-					<div class="card">
-						<h3>Lorem Ipsum</h3>
-					</div>
-					<div class="card">
-						<h3>Lorem Ipsum</h3>
-						<table class="user">
-							<thead>
-								<tr>
-									<th id="left">User</th>
-									<th> </th>
-									<th>Lorem Ipsum</th>
-									<th>Lorem Ipsum</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td class="table_user">
-										<img src="photos/pic_placeholder.png">
-									</td>
-									<td id="name">
-										Lorem Ipsum<br>
-										<span>Lorem Ipsum</span>
-									</td>
-									<td style="color: #e85536; font-weight: bold;">Lorem Ipsum</td>
-									<td>Lorem Ipsum</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<div class="right2">
-					<h3>Lorem Ipsum</h3>
-				</div>
-			</div>
 		</div>
 
-	<!---------------- FEEDBACK ------------------------------------------------------------>
-
-		<div id="feedback" class="page">
+		<!---------------------------------------------------------------------------------------->	
+		<!---------------- PER PEER PAGE --------------------------------------------------------->
+		<div id="perPeerPage" class="page">
 			<div class="row">
-				<div class="card2" style="flex: 2;">
-					<h3>Lorem Ipsum</h3>
-					<div class="leftscroll">
-						<div class="feedback">test</div>
+				<div class="card">
+					<h3>Information</h3>
+					<div class="informationLayout">
+						<div class="informationLeft">
+							<img src="photos/pic_placeholder.png" alt="Profile" class="informationProfileImg">
+							<h2 id="peerNameTitle">Dominguez, Samantha Aeries</h2>
+							<div class="informationDateLeft">
+								<p>Last Active</p>
+								<strong>May 15, 2025</strong>
+								<br><br>
+								<p>Date Account Created</p>
+								<strong>January 28, 2025</strong>
+							</div>
+						</div>
+						
+						<div class="informationRight">
+							<div class="informationDetailRow">
+								<div class="informationDetailItem">
+									<label>First Name</label>
+									<p id="peerFirstName">Samantha Aeries</p>
+								</div>
+								<div class="informationDetailItem">
+									<label>Last Name</label>
+									<p id="peerLastName">Dominguez</p>
+								</div>
+							</div>
+							
+							<div class="informationDetailRow">
+								<div class="informationDetailItem">
+									<label>School Email</label>
+									<p id="peerEmail">email@students.nu-fairview.edu.ph</p>
+								</div>
+								<div class="informationDetailItem">
+									<label>Year Level</label>
+									<p>PEERS</p>
+								</div>
+							</div>
+							
+							<div class="informationDetailRow">
+								<div class="informationDetailItem">
+									<label>Student No.</label>
+									<p>2022-123456</p>
+								</div>
+								<div class="informationDetailItem">
+									<label>Program</label>
+									<p>B.S. Psychology</p>
+								</div>
+							</div>
+						</div>
 					</div>
-				</div>
-				<div class="right">
-					<div class="card">
-						<h3>Lorem Ipsum</h3>
-					</div>
-				</div>
-			</div>
-		</div>
-
-	<!---------------- SETTINGS ------------------------------------------------------------>
-
-		<div id="settings" class="page">
-			<div class="row">
-				<div class="big_btn">
-					<h6>Lorem Ipsum</h6>
-					<p>Lorem Ipsum</p>
-				</div>
-				<div class="big_btn">
-					<h6>Lorem Ipsum</h6>
-					<p>Lorem Ipsum</p>
 				</div>
 			</div>
 			<div class="row">
 				<div class="card">
-					<h3>Lorem Ipsum</h3>
+					<div class="peerScheduleHeader">
+						<h4 class="peerScheduleDay">MONDAY</h4>
+					</div>
+					<div class="peerScheduleSlot">
+						<p class="peerScheduleTime">00:00 AM - 00:00 PM</p>
+					</div>
+					<div class="peerScheduleSlot">
+						<p class="peerScheduleTime">00:00 AM - 00:00 PM</p>
+					</div>
+					<div class="peerScheduleSlot">
+						<p class="peerScheduleTime">00:00 AM - 00:00 PM</p>
+					</div>
+				</div>
+				
+				<div class="card">
+					<div class="peerScheduleHeader">
+						<h4 class="peerScheduleDay">TUESDAY</h4>
+					</div>
+					<div class="peerScheduleSlot">
+						<p class="peerScheduleTime">00:00 AM - 00:00 PM</p>
+					</div>
+					<div class="peerScheduleSlot">
+						<p class="peerScheduleTime">00:00 AM - 00:00 PM</p>
+					</div>
+					<div class="peerScheduleSlot">
+						<p class="peerScheduleTime">00:00 AM - 00:00 PM</p>
+					</div>
+				</div>
+				
+				<div class="card">
+					<div class="peerScheduleHeader">
+						<h4 class="peerScheduleDay">WEDNESDAY</h4>
+					</div>
+					<div class="peerScheduleSlot">
+						<p class="peerScheduleTime">00:00 AM - 00:00 PM</p>
+					</div>
+					<div class="peerScheduleSlot">
+						<p class="peerScheduleTime">00:00 AM - 00:00 PM</p>
+					</div>
+					<div class="peerScheduleSlot">
+						<p class="peerScheduleTime">00:00 AM - 00:00 PM</p>
+					</div>
+				</div>
+				
+				<div class="card">
+					<div class="peerScheduleHeader">
+						<h4 class="peerScheduleDay">THURSDAY</h4>
+					</div>
+					<div class="peerScheduleSlot">
+						<p class="peerScheduleTime">00:00 AM - 00:00 PM</p>
+					</div>
+					<div class="peerScheduleSlot">
+						<p class="peerScheduleTime">00:00 AM - 00:00 PM</p>
+					</div>
+					<div class="peerScheduleSlot">
+						<p class="peerScheduleTime">00:00 AM - 00:00 PM</p>
+					</div>
+				</div>
+				
+				<div class="card">
+					<div class="peerScheduleHeader">
+						<h4 class="peerScheduleDay">FRIDAY</h4>
+					</div>
+					<div class="peerScheduleSlot">
+						<p class="peerScheduleTime">00:00 AM - 00:00 PM</p>
+					</div>
+					<div class="peerScheduleSlot">
+						<p class="peerScheduleTime">00:00 AM - 00:00 PM</p>
+					</div>
+					<div class="peerScheduleSlot">
+						<p class="peerScheduleTime">00:00 AM - 00:00 PM</p>
+					</div>
+				</div>
+			</div>
+			
+
+			<div class="row">
+				<div class="left-half">
+					<button class="btn-white">Today</button>
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+			</div>
+			
+			<div class="row" id="schedule" style="gap: 15px;">
+				<div class="card">
+					<h4 class="sched-date">23</h4>
+					<h5 style="padding-left: 30px;">MON</h5>
+					<div class="sched" onclick="openPeersPopup()">
+						<p class="sched-type">Face to Face</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+					<div class="sched" onclick="openPeersPopup()">
+						<p class="sched-type">Face to Face</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+				</div>
+				
+				<div class="card">
+					<h4 class="sched-date">23</h4>
+					<h5 style="padding-left: 30px;">MON</h5>
+					<div class="sched" onclick="openPeersPopup()">
+						<p class="sched-type">Video Call</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+					<div class="sched" onclick="openPeersPopup()">
+						<p class="sched-type">Video Call</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
 				</div>
 				<div class="card">
-					<h3>Lorem Ipsum</h3>
+					<h4 class="sched-date">23</h4>
+					<h5 style="padding-left: 30px;">MON</h5>
+					<div class="sched" onclick="openPeersPopup()">
+						<p class="sched-type">Call</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+					<div class="sched" onclick="openPeersPopup()">
+						<p class="sched-type">Call</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+				</div>
+				<div class="card">
+					<h4 class="sched-date">23</h4>
+					<h5 style="padding-left: 30px;">MON</h5>
+					<div class="sched" onclick="openPeersPopup()">
+						<p class="sched-type">Face to Face</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+					<div class="sched" onclick="openPeersPopup()">
+						<p class="sched-type">Face to Face</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+				</div>
+				<div class="card">
+					<h4 class="sched-date">23</h4>
+					<h5 style="padding-left: 30px;">MON</h5>
+					<div class="sched" onclick="openPeersPopup()">
+						<p class="sched-type">Video Call</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+					<div class="sched" onclick="openPeersPopup()">
+						<p class="sched-type">Video Call</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+				</div>
+				<div class="card">
+					<h4 class="sched-date">23</h4>
+					<h5 style="padding-left: 30px;">MON</h5>
+					<div class="sched" onclick="openPeersPopup()">
+						<p class="sched-type">Call</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+					<div class="sched" onclick="openPeersPopup()">
+						<p class="sched-type">Call</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
 				</div>
 			</div>
 		</div>
 
-	<!---------------- REPORTS ------------------------------------------------------------>
-
-		<div id="reports" class="page">
-			<div class="row">
-				<div class="right">
-					<div class="card">
-						<h3>Lorem Ipsum</h3>
+		<!---------------------------------------------------------------------------------------->	
+		<!---------------- PEERS INFO POP UP ----------------------------------------------------->
+		<div id="peersInfoPopup" class="popup">
+			<div class="popup-content">
+				<span class="close" onclick="closePeersPopup()">&times;</span>
+				
+				<div class="popup-layout">
+					<div class="popup-left">
+						<img src="photos/pic_placeholder.png" alt="Profile" class="popup-profile-img">
+						<h2>Dominguez, Samantha Aeries</h2>
+						<div class="date-created-left">
+							<p>Date Request Created</p>
+							<strong>January 28, 2025</strong>
+						</div>
+					</div>
+					
+					<div class="popup-right">
+						<div class="detail-row">
+							<div class="detail-item">
+								<label>First Name</label>
+								<p>Lorem Ipsum</p>
+							</div>
+							<div class="detail-item">
+								<label>Last Name</label>
+								<p>Lorem Ipsum</p>
+							</div>
+						</div>
+						
+						<div class="detail-row">
+							<div class="detail-item">
+								<label>Program</label>
+								<p>Lorem Ipsum</p>
+							</div>
+							<div class="detail-item">
+								<label>Student ID</label>
+								<p>Lorem Ipsum</p>
+							</div>
+						</div>
+						
+						<div class="detail-row">
+							<div class="detail-item">
+								<label>Preferred mode of platform</label>
+								<p>Lorem Ipsum</p>
+							</div>
+							<div class="detail-item">
+								<label>Topic of Concern</label>
+								<p>Lorem Ipsum</p>
+							</div>
+						</div>
 					</div>
 				</div>
-				<div class="card2">
-					<h3>Lorem Ipsum</h3>
-					<div class="leftscroll">
-						<div class="feedback">test</div>
+			</div>
+		</div>
+
+
+	<!---------------------------------------------------------------------------------------->	
+	<!---------------------------------------------------------------------------------------->	
+	<!---------------- SUPPORT --------------------------------------------------------------->
+		<div id="support-group" class="page">
+			<div class="support-container">
+				<div class="support-groups">
+					<div class="support-card" onclick="showPage('haven')">
+					<img src="photos/suppGroup_placeholder.png" alt="Group">
+					<div class="support-info">
+						<h4>HAVEN Support Group</h4>
+						<span>78 Members</span>
 					</div>
+					</div>
+
+					<div class="support-card" onclick="showPage('yakap')">
+					<img src="photos/suppGroup_placeholder.png" alt="Group">
+					<div class="support-info">
+						<h4>YAKAP Support Group</h4>
+						<span>78 Members</span>
+					</div>
+					</div>
+
+					<div class="support-card" onclick="showPage('rise')">
+					<img src="photos/suppGroup_placeholder.png" alt="Group">
+					<div class="support-info">
+						<h4>RISE Support Group</h4>
+						<span>78 Members</span>
+					</div>
+					</div>
+				</div>
+
+				<div class="add-btn" onclick="openCreateGroupModal()">
+					<span class="plus">+</span>
+				</div>
+			</div>
+		</div>
+
+	<!---------------------------------------------------------------------------------------->	
+	<!---------------- CREATE NEW SUPPORT GROUP ---------------------------------------------->
+	<div id="createSupportGroupModal" class="createSupportGroupModal">
+		<div class="createSupportGroupContent">
+			<span class="createSupportGroupClose" onclick="closeCreateGroupModal()">&times;</span>
+			<h3>Create new support group</h3>
+			
+			<div class="createSupportGroupFormGroup">
+				<div class="createSupportGroupFormLabel">
+					<span>Support Group Name</span>
+					<span class="createSupportGroupEditLink">Edit</span>
+				</div>
+				<input type="text" id="createSupportGroupNameInput" class="createSupportGroupInput" placeholder="Enter Support Group Name">
+			</div>
+
+			<div class="createSupportGroupFormGroup">
+				<div class="createSupportGroupFormLabel">
+					<span>Support Group Picture</span>
+					<span class="createSupportGroupEditLink" onclick="triggerImageUpload()">Edit</span>
+				</div>
+				<input type="file" id="supportGroupImageUpload" accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
+				<div class="createSupportGroupPictureOptions">
+					<div class="createSupportGroupPictureOption createSupportGroupCircle">
+						<img id="circlePreview" src="photos/pic_placeholder.png" alt="Circle">
+					</div>
+					<div class="createSupportGroupPictureOption createSupportGroupSquare">
+						<img id="squarePreview" src="photos/suppGroup_placeholder.png" alt="Square">
+					</div>
+				</div>
+			</div>
+			<button class="createSupportGroupDoneBtn" onclick="createSupportGroup()">Done</button>
+		</div>
+	</div>
+
+	<!---------------------------------------------------------------------------------------->	
+	<!---------------- SUPPORT GROUP | HAVEN ------------------------------------------------->
+	<div id="haven" class="page">
+		<div class="row">
+			<div class="left">
+				<h3>Information</h3>
+				<div class="info-section">
+
+					<div class="info-row-group">
+
+					<div class="info-block">
+						<div class="info-row">
+						<span class="span-1">Profile Picture</span>
+						<a href="#" class="edit-link edit-1">Edit</a>
+						</div>
+						<div class="info-images">
+						<img src="photos/pic_placeholder.png" alt="Profile Picture Circle" class="profile-circle">
+						<img src="photos/suppGroup_placeholder.png" alt="Profile Picture Square" class="profile-square">
+						</div>
+					</div>
+
+					<div class="info-block">
+						<div class="info-row">
+						<span class="span-2">Cover Photo</span>
+						<a href="#" class="edit-link edit-2">Edit</a>
+						</div>
+						<div class="info-images">
+						<img src="photos/rectangle_placeholder.png" alt="Cover Photo">
+						</div>
+					</div>
+					</div>
+
+					<div class="info-row">
+					<span class="span-3">Description</span>
+					<a href="#" class="edit-link edit-3">Edit</a>
+					</div>
+					<div class="info-description">
+
+					</div>
+				</div>
+			</div>
+			<div class="right">
+				<div class="card">
+					<h3>Group Chat</h3>
+					<table class="user">
+						<tbody>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name" onclick="openGroupChatEditModal(this)" style="cursor: pointer;">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name" onclick="openGroupChatEditModal(this)" style="cursor: pointer;">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="card">
+					<h3>Members</h3>
+					<table class="user">
+						<tbody>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
 	</div>
 
+	<!---------------------------------------------------------------------------------------->	
+	<!---------------- SUPPORT GROUP | YAKAP ------------------------------------------------->
+	<div id="yakap" class="page">
+		<div class="row">
+			<div class="left">
+				<h3>Information</h3>
+				<div class="info-section">
+
+					<div class="info-row-group">
+
+					<div class="info-block">
+						<div class="info-row">
+						<span class="span-1">Profile Picture</span>
+						<a href="#" class="edit-link edit-1">Edit</a>
+						</div>
+						<div class="info-images">
+						<img src="photos/pic_placeholder.png" alt="Profile Picture Circle" class="profile-circle">
+						<img src="photos/suppGroup_placeholder.png" alt="Profile Picture Square" class="profile-square">
+						</div>
+					</div>
+
+					<div class="info-block">
+						<div class="info-row">
+						<span class="span-2">Cover Photo</span>
+						<a href="#" class="edit-link edit-2">Edit</a>
+						</div>
+						<div class="info-images">
+						<img src="photos/rectangle_placeholder.png" alt="Cover Photo">
+						</div>
+					</div>
+					</div>
+
+					<div class="info-row">
+					<span class="span-3">Description</span>
+					<a href="#" class="edit-link edit-3">Edit</a>
+					</div>
+					<div class="info-description">
+
+					</div>
+				</div>
+			</div>
+			<div class="right">
+				<div class="card">
+					<h3>Group Chat</h3>
+					<table class="user">
+						<tbody>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name" onclick="openGroupChatEditModal(this)" style="cursor: pointer;">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name" onclick="openGroupChatEditModal(this)" style="cursor: pointer;">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="card">
+					<h3>Members</h3>
+					<table class="user">
+						<tbody>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!---------------------------------------------------------------------------------------->	
+	<!---------------- SUPPORT GROUP | RISE--------------------------------------------------->
+	<div id="rise" class="page">
+		<div class="row">
+			<div class="left">
+				<h3>Information</h3>
+				<div class="info-section">
+
+					<div class="info-row-group">
+
+					<div class="info-block">
+						<div class="info-row">
+						<span class="span-1">Profile Picture</span>
+						<a href="#" class="edit-link edit-1">Edit</a>
+						</div>
+						<div class="info-images">
+						<img src="photos/pic_placeholder.png" alt="Profile Picture Circle" class="profile-circle">
+						<img src="photos/suppGroup_placeholder.png" alt="Profile Picture Square" class="profile-square">
+						</div>
+					</div>
+
+					<div class="info-block">
+						<div class="info-row">
+						<span class="span-2">Cover Photo</span>
+						<a href="#" class="edit-link edit-2">Edit</a>
+						</div>
+						<div class="info-images">
+						<img src="photos/rectangle_placeholder.png" alt="Cover Photo">
+						</div>
+					</div>
+					</div>
+
+					<div class="info-row">
+					<span class="span-3">Description</span>
+					<a href="#" class="edit-link edit-3">Edit</a>
+					</div>
+					<div class="info-description">
+
+					</div>
+				</div>
+			</div>
+			<div class="right">
+				<div class="card">
+					<h3>Group Chat</h3>
+					<table class="user">
+						<tbody>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name" onclick="openGroupChatEditModal(this)" style="cursor: pointer;">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name" onclick="openGroupChatEditModal(this)" style="cursor: pointer;">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="card">
+					<h3>Members</h3>
+					<table class="user">
+						<tbody>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td id="name">
+									Lorem Ipsum<br>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!---------------- GROUP CHAT EDIT MODAL ---------------------------------------------->
+		<div id="groupChatEditModal" class="groupChatEditModal">
+			<div class="groupChatEditContent">
+				<span class="groupChatEditClose" onclick="closeGroupChatEditModal()">&times;</span>
+				<h3>Lorem Ipsum</h3>
+				
+				<div class="groupChatEditFormGroup">
+					<div class="groupChatEditFormLabel">
+						<span>Group Chat Name</span>
+						<span class="groupChatEditLink">Edit</span>
+					</div>
+					<input type="text" id="groupChatNameInput" class="groupChatEditInput" placeholder="Enter Group Chat Name">
+				</div>
+
+				<div class="groupChatEditFormGroup">
+					<div class="groupChatEditFormLabel">
+						<span>Group Chat Picture</span>
+						<span class="groupChatEditLink">Edit</span>
+					</div>
+					<div class="groupChatEditPictureOptions">
+						<div class="groupChatEditPictureOption groupChatEditCircle">
+							<img src="photos/pic_placeholder.png" alt="Profile Picture">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	<!---------------------------------------------------------------------------------------->
+	<!---------------------------------------------------------------------------------------->	
+	<!---------------- ANNOUNCEMENT ---------------------------------------------------------->
+		<div id="announcement" class="page">
+			<div class="row">
+				<div class="card">
+					<h3>Create an Announcement</h3>
+					<div class="AncButtons">
+						<button class="toggle-btn active" id="announcementBtn">Announcement</button>
+						<button class="toggle-btn" id="joinableBtn">Joinable Event</button>
+					</div>
+					
+					<div class="AncProfile">
+						<img src="photos/pic_placeholder.png" alt="Profile" class="profile-img">
+						<span class="profile-name">NUFV Guidance and Counseling Office</span>
+						<button class="dropdown-icon-btn" type="button">
+							<img src="icons/ic_dropdown.svg" alt="dropdown" class="dropdown-icon">
+						</button>
+					</div>
+					<input type="text" placeholder="Title..." class="AncTitle">
+					<textarea placeholder="Content..." class="AncContent"></textarea>
+					<div class="file-boxes">
+						<div class="file"></div>
+						<div class="file"></div>
+						<div class="file add-file" id="dropArea" onclick="document.getElementById('fileInput').click();">
+							<img src="icons/addfile_btn.svg" alt="Upload" class="add-icon">
+							Add photos/videos
+						</div>
+					</div>
+					<input type="file" id="fileInput" accept="image/*,video/*" multiple style="display:none" onchange="handleFileUpload(this.files)">
+					<button class="post-btn" onclick="showPostConfirm()">Post</button>
+				</div>
+				<div class="card2">
+						<h3>History</h3>
+						<div class="blue_bg">
+							<div class="card3">
+								<div class="announcementHeader">
+									<img src="photos/pic_placeholder.png" class="avatar">
+									<div class="announcementTitle">Stellar</div>
+								</div>
+								<p class="announcementText">
+									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+									<br>
+									<br>
+									Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+								</p>
+								<div class="announcementImages">
+									<img src="photos/squarepic_placeholder.png" alt="">
+									<img src="photos/squarepic_placeholder.png" alt="">
+								</div>
+							</div>
+							<small>Created on May 15, 2025 by GCO Coordinator</small>
+							<div class="card3">
+								<div class="announcementHeader">
+									<img src="photos/pic_placeholder.png" class="avatar">
+									<div class="announcementTitle">Stellar</div>
+								</div>
+								<p class="announcementText">
+									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+									<br>
+									<br>
+									Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+								</p>
+								<div class="announcementImages">
+									<img src="photos/squarepic_placeholder.png" alt="">
+									<img src="photos/squarepic_placeholder.png" alt="">
+								</div>
+							</div>
+							<small>Created on May 15, 2025 by GCO Coordinator</small>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		
+
+		<!---------------- CONFIRM POST POP UP DIALOGUE ------------------------------------------>
+		<!-- Post Confirmation Popup -->
+		<div id="postConfirmPopup" class="postPopup">
+			<div class="postContent">
+				<p class="postText">Are you sure you want to post this?</p>
+				<div class="postButtons">
+					<button class="postBtnCancel" onclick="closePostConfirm()">Cancel</button>
+					<button class="postBtnConfirm" onclick="confirmPost()">Post</button>
+				</div>
+			</div>
+		</div>
+
+
+		<!---------------------------------------------------------------------------------------->
+		<!---------------------------------------------------------------------------------------->	
+		<!---------------- FEEDBACK -------------------------------------------------------------->
+
+		<div id="feedback" class="page">
+			<div class="row">
+				<div class="card2" style="flex: 2;">
+					<h3>Feedback</h3>
+					<div class="leftscroll">
+						<div class="feedback"></div>
+					</div>
+				</div>
+				<div class="right">
+					<div class="card">
+						<h3>Overview</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!---------------------------------------------------------------------------------------->
+		<!---------------------------------------------------------------------------------------->	
+		<!---------------- SETTINGS & LOGS-------------------------------------------------------->
+
+		<div id="settings and-system-logs" class="page">
+			<div class="row">
+				<div class="big_btn" onclick="openModal('termsModal')">
+				   <div class="text">
+                    <h6>Terms and Conditions</h6>
+                    <p>Effective Date: June 4, 2025</p>
+				   </div>
+                    <img src="icons/ic_arrow right.svg" class="setting_slider">
+                </div>
+				<div class="big_btn" onclick="openModal('privacyModal')">
+        		   <div class="text">
+                    <h6>Privacy Policy</h6>
+                    <p>Effective Date: June 4, 2025</p>
+				   </div>
+                    <img src="icons/ic_arrow right.svg" class="setting_slider">
+    			</div>
+				<div id="termsModal" class="modal">
+  				  <div class="modal-content">
+    				<span class="close" onclick="closeModal('termsModal')">&times;</span>
+    				<h3>Terms & Conditions</h3>
+    			  <div class="terms-box">
+           			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut nisl nec sapien fermentum luctus:</p><br>
+     			 	<ol>
+        			  <li><strong>Lorem Ipsum</strong>
+          				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut nisl nec sapien fermentum luctus.</p>
+        			  </li>
+        			  <li><strong>Lorem Ipsum</strong>
+          				<ul>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Etiam at mauris eu sapien gravida luctus:
+            				<li>Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</li>
+            				<li>When there are cases of suspected abuse.</li>
+            				<li>At vero eos et accusamus et iusto odio dignissimos ducimus.</li>
+          				</ul>
+        			  </li>
+       				</ol>
+    			  </div>
+  				 </div>
+                </div>
+
+				<!-- Privacy Modal -->
+				<div id="privacyModal" class="modal">
+    				<div class="modal-content">
+        				<span class="close" onclick="closeModal('privacyModal')">&times;</span>
+        				<h3>Privacy Policy</h3>
+					<div class="terms-box">
+           			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut nisl nec sapien fermentum luctus:</p><br>
+     			 	<ol>
+        			  <li><strong>Lorem Ipsum</strong>
+          				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut nisl nec sapien fermentum luctus.</p>
+        			  </li>
+        			  <li><strong>Lorem Ipsum</strong>
+          				<ul>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Etiam at mauris eu sapien gravida luctus:
+            				<li>Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</li>
+            				<li>When there are cases of suspected abuse.</li>
+            				<li>At vero eos et accusamus et iusto odio dignissimos ducimus.</li>
+          				</ul>
+        			  </li>
+					  <li><strong>Lorem Ipsum</strong>
+          				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut nisl nec sapien fermentum luctus.</p>
+        			  </li>
+					  <li><strong>Lorem Ipsum</strong>
+          				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut nisl nec sapien fermentum luctus.</p>
+        			  </li>
+       				</ol>
+    			  </div>
+    				</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="card">
+					   <h3>GCO Coordinator Logs</h3>
+  					   <div class="logs-list">
+      						<div class="log-entry">
+        						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
+        						<div class="log-top">
+          							<span class="log-name">Doe, John A.</span>
+          							<span class="log-time">September 22, 2025 at 0:00 AM</span>
+        						</div>
+        						<div class="log-message">
+          							Lorem ipsum dolor sit amet, consectetur adipiscing elit
+        						</div>
+      						</div>
+
+							<div class="log-entry">
+        						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
+        						<div class="log-top">
+          							<span class="log-name">Doe, John A.</span>
+          							<span class="log-time">September 22, 2025 at 0:00 AM</span>
+        						</div>
+        						<div class="log-message">
+          							Lorem ipsum dolor sit amet, consectetur adipiscing elit
+        						</div>
+      						</div>
+							<div class="log-entry">
+        						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
+        						<div class="log-top">
+          							<span class="log-name">Doe, John A.</span>
+          							<span class="log-time">September 22, 2025 at 0:00 AM</span>
+        						</div>
+        						<div class="log-message">
+          							Lorem ipsum dolor sit amet, consectetur adipiscing elit
+        						</div>
+      						</div>
+							<div class="log-entry">
+        						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
+        						<div class="log-top">
+          							<span class="log-name">Doe, John A.</span>
+          							<span class="log-time">September 22, 2025 at 0:00 AM</span>
+        						</div>
+        						<div class="log-message">
+          							Lorem ipsum dolor sit amet, consectetur adipiscing elit
+        						</div>
+      						</div>
+					   </div>
+					</div>
+				<div class="card">
+					<h3>Peer Facilitator Logs</h3>
+					<div class="logs-list">
+      						<div class="log-entry">
+        						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
+        						<div class="log-top">
+          							<span class="log-name">Doe, John A.</span>
+          							<span class="log-time">September 22, 2025 at 0:00 AM</span>
+        						</div>
+        						<div class="log-message">
+          							Lorem ipsum dolor sit amet, consectetur adipiscing elit
+        						</div>
+      						</div>
+
+							<div class="log-entry">
+        						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
+        						<div class="log-top">
+          							<span class="log-name">Doe, John A.</span>
+          							<span class="log-time">September 22, 2025 at 0:00 AM</span>
+        						</div>
+        						<div class="log-message">
+          							Lorem ipsum dolor sit amet, consectetur adipiscing elit
+        						</div>
+      						</div>
+							<div class="log-entry">
+        						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
+        						<div class="log-top">
+          							<span class="log-name">Doe, John A.</span>
+          							<span class="log-time">September 22, 2025 at 0:00 AM</span>
+        						</div>
+        						<div class="log-message">
+          							Lorem ipsum dolor sit amet, consectetur adipiscing elit
+        						</div>
+      						</div>
+							<div class="log-entry">
+        						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
+        						<div class="log-top">
+          							<span class="log-name">Doe, John A.</span>
+          							<span class="log-time">September 22, 2025 at 0:00 AM</span>
+        						</div>
+        						<div class="log-message">
+          							Lorem ipsum dolor sit amet, consectetur adipiscing elit
+        						</div>
+      						</div>
+					   </div>
+				</div>
+			</div>
+		</div>
+
+
+	<!---------------------------------------------------------------------------------------->
+	<!---------------------------------------------------------------------------------------->	
+	<!---------------- REPORTS --------------------------------------------------------------->
+
+		<div id="reports" class="page">
+			<div class="row">
+				<div class="right">
+					<div class="card">
+						<h3>Report to IT Admin</h3>
+						<form>
+							 <div class="options">
+								<label><input type="radio" name="type"> Technical</label>
+								<label><input type="radio" name="type"> Edit</label>
+								<label><input type="radio" name="type"> Account</label>
+								<label><input type="radio" name="type"> Removal</label>
+								<label><input type="radio" name="type"> Chat History</label>
+								<label><input type="radio" name="type"> Other</label>
+								<label><input type="radio" name="type"> Update</label>
+							 </div>
+							 <textarea placeholder="Report Description..." class="report"></textarea>
+							<div class="file-boxes2">
+								<div class="file2"></div>
+								<div class="file2"></div>
+								<div class="file2 add-file2" id="dropArea2" onclick="document.getElementById('fileInput2').click();">
+									<img src="icons/addfile_btn.svg" alt="Upload" class="add-icon2">
+									Add photos/videos
+								</div>
+							</div>
+							<input type="file" id="fileInput2" accept="image/*" multiple style="display:none" onchange="handleFileUpload2(this.files)">
+							<button type="button" class="report-btn" onclick="showReportConfirm()">Report</button>
+						</form>
+					</div>
+				</div>
+				<div class="card2">
+					<h3>System Updates</h3>
+					<div class="leftscroll">
+						<div class="update">
+							 <div class="update-header">
+								<strong>Lorem Ipsum</strong>
+								<span>September 22, 2025 at 0:0 AM</span>
+							</div>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+						</div>
+						<div class="update">
+							 <div class="update-header">
+								<strong>Lorem Ipsum</strong>
+								<span>September 22, 2025 at 0:0 AM</span>
+							</div>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+						</div>
+						<div class="update">
+							 <div class="update-header">
+								<strong>Lorem Ipsum</strong>
+								<span>September 22, 2025 at 0:0 AM</span>
+							</div>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+						</div>
+						<div class="update">
+							 <div class="update-header">
+								<strong>Lorem Ipsum</strong>
+								<span>September 22, 2025 at 0:0 AM</span>
+							</div>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+						</div>
+						<div class="update">
+							 <div class="update-header">
+								<strong>Lorem Ipsum</strong>
+								<span>September 22, 2025 at 0:0 AM</span>
+							</div>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Report Confirmation Popup -->
+		<div id="reportConfirmPopup" class="reportPopup">
+			<div class="reportContent">
+				<p class="reportText">Are you sure you want to submit this report to the IT Admin?</p>
+				<div class="reportButtons">
+				<button class="reportBtnCancel" onclick="closeReportConfirm()">Cancel</button>
+				<button class="reportBtnConfirm" onclick="confirmReport()">Submit Report</button>
+				</div>
+			</div>
+		</div>
+
+
+	<!-------------------------------------END OF LAYOUTING----------------------------------->
+
+
+	
+	<!---------------------------------------------------------------------------------------->	
+	<!---------------------------------------------------------------------------------------->	
+	<!---------------------------------------------------------------------------------------->
 	<script>
 		// Eto yung unang engagement chart ----------------------------------------------------
 		const ctx = document.getElementById('engagementChart').getContext('2d');
@@ -674,6 +1985,38 @@
 		}
 		}
 
+
+		// NOTIFICATION  ----------------------------------------------------------------
+
+		function toggleNotif() {
+			const notification = document.querySelector('.notification');
+			notification.classList.toggle('show');
+		}
+
+		//
+		document.addEventListener('click', function(event) {
+			const notification = document.querySelector('.notification');
+			if (!notification.contains(event.target)) {
+				notification.classList.remove('show');
+			}
+		});
+
+		// INCREMENTS BADGE COUNT
+		function updateNotificationBadge(count) {
+			const badge = document.querySelector('.notif-badge');
+			if (count > 0) {
+				badge.textContent = count > 99 ? '99+' : count;
+				badge.style.display = 'flex';
+			} else {
+				badge.style.display = 'none';
+			}
+		}
+
+	
+		updateNotificationBadge(3); 
+		updateNotificationBadge(150); 
+		updateNotificationBadge(0); 
+
 		// Popup logic REFERENCE ONLY------------------------------------------------------------------
 		const openBtn = document.getElementById("openPopupBtn");
 		const closeBtn = document.getElementById("closePopupBtn");
@@ -692,7 +2035,1028 @@
 		overlay.classList.add("hidden");
 		}
 		});
+
+		// SLIDER FOR TERMS AND CONDITIONS AND PRIVACY POLICY
+
+		function openModal(id) {
+    		document.getElementById(id).style.display = "block";
+		}
+
+		function closeModal(id) {
+    		document.getElementById(id).style.display = "none";
+		}
+
+		// Optional: Close modal if user clicks outside content
+		window.onclick = function(event) {
+    		const termsModal = document.getElementById('termsModal');
+    		const privacyModal = document.getElementById('privacyModal');
+    
+   			if (event.target === termsModal) {
+        		termsModal.style.display = "none";
+    		}
+    		if (event.target === privacyModal) {
+        		privacyModal.style.display = "none";
+    		}
+		}
+
+		//COUNSELING 'SEE DETAILS' BUTTON POP UP
+		function openDetailsPopup() {
+			document.getElementById('detailsPopup').style.display = 'block';
+			document.body.style.overflow = 'hidden';
+		}
+
+		function closeDetailsPopup() {
+			document.getElementById('detailsPopup').style.display = 'none';
+			document.body.style.overflow = 'auto';
+		}
+
+		// Close popup when clicking outside of it
+		window.onclick = function(event) {
+			const popup = document.getElementById('detailsPopup');
+			if (event.target == popup) {
+				closeDetailsPopup();
+			}
+		}
+
+		// Close popup with Escape key
+		document.addEventListener('keydown', function(event) {
+			if (event.key === 'Escape') {
+				closeDetailsPopup();
+			}
+		});
+
+
+
+		/*--------------- REQUEST FORM POPUP JS ---------------*/
+
+		// Open popup
+		function openRequestFormPopup() {
+			document.getElementById('requestFormOverlay').classList.add('active');
+		}
+
+		// Close popup
+		function closeRequestFormPopup() {
+			document.getElementById('requestFormOverlay').classList.remove('active');
+		}
+
+		// Add new question
+		function addNewRequestQuestion() {
+			const container = document.getElementById('requestQuestionsContainer');
+			const questionCard = document.createElement('div');
+			questionCard.className = 'request-question-card';
+			questionCard.innerHTML = `
+				<div class="request-question-header">
+					<input type="text" class="request-question-input" placeholder="Question">
+					<select class="request-question-type" onchange="changeRequestQuestionType(this)">
+						<option value="short">Short Answer</option>
+						<option value="paragraph">Paragraph</option>
+						<option value="multiple">Multiple Choice</option>
+						<option value="checkbox">Checkboxes</option>
+						<option value="dropdown">Dropdown</option>
+						<option value="datetime">Date & Time</option>
+					</select>
+					<button class="request-delete-btn" onclick="deleteRequestQuestion(this)">
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+							<path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+						</svg>
+					</button>
+				</div>
+				<input type="text" class="request-question-subtext" placeholder="Description (optional)">
+				<div class="request-answer-area">
+					<div class="request-answer-placeholder">Enter your Answer</div>
+				</div>
+			`;
+			container.appendChild(questionCard);
+		}
+
+		// Delete question
+		function deleteRequestQuestion(btn) {
+			btn.closest('.request-question-card').remove();
+		}
+
+		// Change question type
+		function changeRequestQuestionType(select) {
+			const answerArea = select.closest('.request-question-card').querySelector('.request-answer-area');
+			const type = select.value;
+			
+			if (type === 'short') {
+				answerArea.innerHTML = '<div class="request-answer-placeholder">Enter your Answer</div>';
+			} else if (type === 'paragraph') {
+				answerArea.innerHTML = '<div class="request-answer-placeholder paragraph-style">Enter your Answer</div>';
+			} else if (type === 'datetime') {
+				answerArea.innerHTML = `
+					<div class="request-datetime-container">
+						<input type="date" class="request-date-input" placeholder="Select date">
+						<input type="time" class="request-time-input" placeholder="Select time">
+					</div>
+				`;
+			} else if (type === 'multiple') {
+				answerArea.innerHTML = `
+					<div class="request-option-input">
+						<span class="request-radio-icon"></span>
+						<input type="text" placeholder="Enter option">
+						<button class="request-option-remove" onclick="removeRequestOption(this)">×</button>
+					</div>
+					<div class="request-option-input">
+						<span class="request-radio-icon"></span>
+						<input type="text" placeholder="Add option" onfocus="addRequestOptionOnFocus(this)">
+					</div>
+				`;
+			} else if (type === 'checkbox') {
+				answerArea.innerHTML = `
+					<div class="request-option-input">
+						<span class="request-checkbox-icon"></span>
+						<input type="text" placeholder="Enter option">
+						<button class="request-option-remove" onclick="removeRequestOption(this)">×</button>
+					</div>
+					<div class="request-option-input">
+						<span class="request-checkbox-icon"></span>
+						<input type="text" placeholder="Add option" onfocus="addRequestOptionOnFocus(this)">
+					</div>
+				`;
+			} else if (type === 'dropdown') {
+				answerArea.innerHTML = `
+					<div class="request-option-input">
+						<span class="request-option-number">1.</span>
+						<input type="text" placeholder="Enter option">
+						<button class="request-option-remove" onclick="removeRequestOption(this)">×</button>
+					</div>
+					<div class="request-option-input">
+						<span class="request-option-number">2.</span>
+						<input type="text" placeholder="Add option" onfocus="addRequestOptionOnFocus(this)">
+					</div>
+				`;
+			}
+		}
+
+		function removeRequestOption(btn) {
+			const optionInput = btn.closest('.request-option-input');
+			const answerArea = optionInput.closest('.request-answer-area');
+			optionInput.remove();
+			
+			// Update dropdown numbering
+			updateDropdownNumbers(answerArea);
+		}
+
+		// Update dropdown numbers
+		function updateDropdownNumbers(answerArea) {
+			const options = answerArea.querySelectorAll('.request-option-input');
+			options.forEach((option, index) => {
+				const numberSpan = option.querySelector('.request-option-number');
+				if (numberSpan) {
+					numberSpan.textContent = `${index + 1}.`;
+				}
+			});
+		}
+
+		// Add option on focus
+		function addRequestOptionOnFocus(input) {
+			if (input.value === '' && !input.hasAttribute('data-focused')) {
+				input.setAttribute('data-focused', 'true');
+				const optionInput = input.closest('.request-option-input');
+				const answerArea = input.closest('.request-answer-area');
+				const iconElement = optionInput.querySelector('span');
+				const iconClass = iconElement.className;
+				
+				const newOption = document.createElement('div');
+				newOption.className = 'request-option-input';
+				
+				if (iconClass === 'request-radio-icon' || iconClass === 'request-checkbox-icon') {
+					newOption.innerHTML = `
+						<span class="${iconClass}"></span>
+						<input type="text" placeholder="Add option" onfocus="addRequestOptionOnFocus(this)">
+					`;
+				} else if (iconClass === 'request-option-number') {
+					const optionNumber = answerArea.querySelectorAll('.request-option-input').length + 1;
+					newOption.innerHTML = `
+						<span class="request-option-number">${optionNumber}.</span>
+						<input type="text" placeholder="Add option" onfocus="addRequestOptionOnFocus(this)">
+					`;
+				}
+				
+				answerArea.appendChild(newOption);
+				
+				const removeBtn = document.createElement('button');
+				removeBtn.className = 'request-option-remove';
+				removeBtn.textContent = '×';
+				removeBtn.onclick = function() { removeRequestOption(this); };
+				optionInput.appendChild(removeBtn);
+				input.removeAttribute('onfocus');
+			}
+		}
+
+		// Close popup when clicking outside
+		document.addEventListener('DOMContentLoaded', function() {
+			const requestFormOverlay = document.getElementById('requestFormOverlay');
+			if (requestFormOverlay) {
+				requestFormOverlay.addEventListener('click', function(e) {
+					if (e.target === this) {
+						closeRequestFormPopup();
+					}
+				});
+			}
+		});
+
 		
+		//GUIDANCE COUNSELING SESSION: SAVED FORM POPUP
+
+		let autoCloseTimer;
+
+		// Show success popup after saving form
+		function showSavedFormPopup() {
+		const popup = document.getElementById('successPopup');
+		popup.classList.add('active');
+		
+		// Auto-close after 5 seconds
+		autoCloseTimer = setTimeout(() => {
+			closeSavedFormPopup();
+		}, 10000);
+		}
+
+		// Close popup
+		function closeSavedFormPopup() {
+		const popup = document.getElementById('successPopup');
+		popup.classList.remove('active');
+		
+		// Clear timer
+		if (autoCloseTimer) {
+			clearTimeout(autoCloseTimer);
+		}
+		}
+
+		// Save request form function
+		function saveRequestForm() {
+		// Your form saving logic here
+		
+		// Close the request form
+		closeRequestFormPopup();
+		
+		// Show success popup
+		showSavedFormPopup();
+		}
+
+		// Close popup when clicking outside
+		window.addEventListener('DOMContentLoaded', function() {
+		const successPopup = document.getElementById('successPopup');
+		if (successPopup) {
+			successPopup.addEventListener('click', function(e) {
+			if (e.target === this) {
+				closeSavedFormPopup();
+			}
+			});
+		}
+		});
+
+		// Close on Escape key
+		document.addEventListener('keydown', function(e) {
+		if (e.key === 'Escape') {
+			const popup = document.getElementById('successPopup');
+			if (popup && popup.classList.contains('active')) {
+			closeSavedFormPopup();
+			}
+		}
+		});
+
+
+		//USERS DETAILS BUTTON POP UP
+		function openUsersPopup() {
+			document.getElementById('usersInfoPopup').style.display = 'block';
+			document.body.style.overflow = 'hidden';
+		}
+
+		function closeUsersPopup() {
+			document.getElementById('usersInfoPopup').style.display = 'none';
+			document.body.style.overflow = 'auto';
+		}
+
+		// Close popup when clicking outside of it
+		window.onclick = function(event) {
+			const popup = document.getElementById('usersInfoPopup');
+			if (event.target == popup) {
+				closeUsersPopup();
+			}
+		}
+
+		// Close popup with Escape key
+		document.addEventListener('keydown', function(event) {
+			if (event.key === 'Escape') {
+				closeUsersPopup();
+			}
+		});
+
+		// PER PEER PAGE
+		function showPeerPage(element) {
+			const nameDiv = element.closest('.name');
+			
+			const userName = nameDiv.childNodes[0].textContent.trim();
+			const userEmail = nameDiv.querySelector('span').textContent.trim();
+			
+			document.querySelectorAll(".page").forEach(p => {
+				p.style.display = "none";
+				p.classList.remove("active");
+			});
+
+			const peerPage = document.getElementById('perPeerPage');
+			if (peerPage) {
+				peerPage.style.display = "block";
+				peerPage.classList.add("active");
+			}
+
+			document.querySelectorAll(".sidebar a").forEach(a => {
+				a.classList.remove("active");
+				let img = a.querySelector("img.icon");
+				if (img) img.src = img.src.replace("ic_sba_", "ic_sb_");
+			});
+
+			const peerLink = document.querySelector(".sidebar a[data-page='peer-facilitators']") ||
+							document.querySelector(".sidebar a[onclick*='peer-facilitators']");
+			if (peerLink) {
+				peerLink.classList.add("active");
+				let activeImg = peerLink.querySelector("img.icon");
+				if (activeImg) activeImg.src = activeImg.src.replace("ic_sb_", "ic_sba_");
+			}
+
+			document.getElementById('peerNameTitle').textContent = userName;
+			document.getElementById('peerEmail').textContent = userEmail;
+			
+			const title = `
+				<a href="#" onclick="showPage('peer-facilitators')" style="text-decoration:none; color:inherit;">
+					Peer Facilitators
+				</a>
+				<img src="icons/ic_arrow right.svg" 
+					style="width:14px; vertical-align:middle; margin:0 5px; cursor:pointer;" 
+					onclick="showPage('peer-facilitators')">
+				${userName}
+			`;
+			document.getElementById("pageTitle").innerHTML = title;
+		}
+
+		//PER PEERS PAGE | PEER FACILITATORS-----------------------------------------------------------
+		// Show individual peer page
+		function showPeerPage(peerId) {
+			// Hide peer facilitators list page
+			document.getElementById('peer-facilitators').style.display = 'none';
+			
+			// Show individual peer page
+			document.getElementById('perPeerPage').style.display = 'block';
+			
+			// TODO: Load peer data based on peerId
+			console.log('Loading peer:', peerId);
+		}
+
+		// Go back to peer list
+		function backToPeerList() {
+			// Hide individual peer page
+			document.getElementById('perPeerPage').style.display = 'none';
+			
+			// Show peer facilitators list page
+			document.getElementById('peer-facilitators').style.display = 'block';
+		}
+
+		//PEERS DETAILS BUTTON POP UP
+		function openPeersPopup() {
+			document.getElementById('peersInfoPopup').style.display = 'block';
+			document.body.style.overflow = 'hidden';
+		}
+
+		function closePeersPopup() {
+			document.getElementById('peersInfoPopup').style.display = 'none';
+			document.body.style.overflow = 'auto';
+		}
+
+		// Close popup when clicking outside of it
+		window.onclick = function(event) {
+			const popup = document.getElementById('peersInfoPopup');
+			if (event.target == popup) {
+				closePeersPopup();
+			}
+		}
+
+		// Close popup with Escape key
+		document.addEventListener('keydown', function(event) {
+			if (event.key === 'Escape') {
+				closePeersPopup();
+			}
+		});
+
+
+
+		// FOR SUPPORT GROUPS
+		function showPage(pageId, el) {
+			if (!pageId) return;
+
+			// Hide all pages
+			document.querySelectorAll(".page").forEach(p => {
+				p.style.display = "none";
+				p.classList.remove("active");
+			});
+
+			// Show the target page
+			const page = document.getElementById(pageId);
+			if (page) {
+				page.style.display = "block";
+				page.classList.add("active");
+			}
+
+			// Reset sidebar highlights
+			document.querySelectorAll(".sidebar a").forEach(a => {
+				a.classList.remove("active");
+				let img = a.querySelector("img.icon");
+				if (img) img.src = img.src.replace("ic_sba_", "ic_sb_"); // revert to normal
+			});
+
+			const supportSubpages = ["haven", "yakap", "rise"];
+
+			// Highlight Support menu for subpages OR main support-group page
+			if (supportSubpages.includes(pageId) || pageId === "support-group") {
+				const supportLink = document.querySelector(".sidebar a[data-page='support-group']") ||
+									document.querySelector(".sidebar a[onclick*='support-group']");
+				if (supportLink) {
+					supportLink.classList.add("active");
+					let activeImg = supportLink.querySelector("img.icon");
+					if (activeImg) activeImg.src = activeImg.src.replace("ic_sb_", "ic_sba_");
+				}
+			} else if (el) {
+				// Highlight clicked menu for other pages
+				el.classList.add("active");
+				let activeImg = el.querySelector("img.icon");
+				if (activeImg) activeImg.src = activeImg.src.replace("ic_sb_", "ic_sba_");
+			}
+
+			// Breadcrumb / Topbar
+			let title = "";
+			if (supportSubpages.includes(pageId)) {
+				title = `
+				<a href="#" onclick="showPage('support-group')" style="text-decoration:none; color:inherit;">
+					Support Group
+				</a>
+				<img src="icons/ic_arrow right.svg" 
+					style="width:14px; vertical-align:middle; margin:0 5px; cursor:pointer;" 
+					onclick="showPage('support-group')">
+				${formatSupportTitle(pageId)}
+				`;
+			} else if (pageId === "support-group") {
+				title = "Support Group";
+			} else {
+				title = formatTitle(pageId);
+			}
+
+			document.getElementById("pageTitle").innerHTML = title;
+
+			// INITIALIZE EDIT BUTTONS FOR SUPPORT GROUP PAGES
+			if (supportSubpages.includes(pageId)) {
+				initSupportGroupEdits(pageId);
+			}
+		}
+
+		// Format title for general pages
+		function formatTitle(str) {
+			return str
+				.split('-')
+				.map(word => word.charAt(0).toUpperCase() + word.slice(1))
+				.join(' ');
+		}
+
+		// Custom titles for support groups
+		function formatSupportTitle(id) {
+			switch (id) {
+				case "haven":
+					return "HAVEN Support Group";
+				case "yakap":
+					return "YAKAP Support Group";
+				case "rise":
+					return "RISE Support Group";
+				default:
+					return formatTitle(id);
+			}
+		}
+
+		// FOR SUPPORT GROUP EDIT FUNCTIONALITY (HAVEN, YAKAP, RISE)
+		function initSupportGroupEdits(pageId) {
+			const page = document.getElementById(pageId);
+			if (!page) return;
+			
+			// Edit Profile Picture (edit-1)
+			const edit1 = page.querySelector('.edit-1');
+			if (edit1) {
+				// Remove old listeners
+				const newEdit1 = edit1.cloneNode(true);
+				edit1.parentNode.replaceChild(newEdit1, edit1);
+				
+				newEdit1.addEventListener('click', function(e) {
+					e.preventDefault();
+					
+					const input = document.createElement('input');
+					input.type = 'file';
+					input.accept = 'image/*';
+					
+					input.onchange = function(event) {
+						const file = event.target.files[0];
+						if (file && file.type.startsWith('image/')) {
+							const reader = new FileReader();
+							reader.onload = function(e) {
+								const circleImg = page.querySelector('.profile-circle');
+								const squareImg = page.querySelector('.profile-square');
+								if (circleImg) circleImg.src = e.target.result;
+								if (squareImg) squareImg.src = e.target.result;
+							};
+							reader.readAsDataURL(file);
+						}
+					};
+					
+					input.click();
+				});
+			}
+
+			// Edit Cover Photo (edit-2)
+			const edit2 = page.querySelector('.edit-2');
+			if (edit2) {
+				const newEdit2 = edit2.cloneNode(true);
+				edit2.parentNode.replaceChild(newEdit2, edit2);
+				
+				newEdit2.addEventListener('click', function(e) {
+					e.preventDefault();
+					
+					const input = document.createElement('input');
+					input.type = 'file';
+					input.accept = 'image/*';
+					
+					input.onchange = function(event) {
+						const file = event.target.files[0];
+						if (file && file.type.startsWith('image/')) {
+							const reader = new FileReader();
+							reader.onload = function(e) {
+								const coverImg = page.querySelector('.info-block:nth-child(2) .info-images img');
+								if (coverImg) coverImg.src = e.target.result;
+							};
+							reader.readAsDataURL(file);
+						}
+					};
+					
+					input.click();
+				});
+			}
+
+			// Edit Description (edit-3)
+			const edit3 = page.querySelector('.edit-3');
+			if (edit3) {
+				const newEdit3 = edit3.cloneNode(true);
+				edit3.parentNode.replaceChild(newEdit3, edit3);
+				
+				newEdit3.addEventListener('click', function(e) {
+					e.preventDefault();
+					
+					const descriptionDiv = page.querySelector('.info-description');
+					const editLink = this;
+					
+					if (editLink.textContent === 'Edit') {
+						// Switch to edit mode
+						descriptionDiv.setAttribute('contenteditable', 'true');
+						editLink.textContent = 'Save';
+						
+						// Add keyboard shortcuts for bold and italic
+						const handleKeydown = function(e) {
+							// Ctrl+B for Bold
+							if (e.ctrlKey && e.key === 'b') {
+								e.preventDefault();
+								document.execCommand('bold', false, null);
+							}
+							// Ctrl+I for Italic
+							if (e.ctrlKey && e.key === 'i') {
+								e.preventDefault();
+								document.execCommand('italic', false, null);
+							}
+						};
+						
+						descriptionDiv.addEventListener('keydown', handleKeydown);
+						descriptionDiv.focus();
+						
+					} else {
+						// Save and switch back to view mode
+						descriptionDiv.setAttribute('contenteditable', 'false');
+						editLink.textContent = 'Edit';
+					}
+				});
+				}
+			}
+
+		
+		//CREATE NEW SUPPORT GROUP 
+		function openCreateGroupModal() {
+			document.getElementById('createSupportGroupModal').style.display = 'flex';
+		}
+
+		// Close create group modal
+		function closeCreateGroupModal() {
+			document.getElementById('createSupportGroupModal').style.display = 'none';
+			document.getElementById('createSupportGroupNameInput').value = ''; // Clear input
+		}
+
+		// Create support group
+		function createSupportGroup() {
+			const groupName = document.getElementById('createSupportGroupNameInput').value;
+			
+			if (groupName.trim() === '') {
+				alert('Please enter a support group name');
+				return;
+			}
+			
+			// Add your logic here to create the support group
+			console.log('Creating group:', groupName);
+			
+			closeCreateGroupModal();
+		}
+
+		// Close modal when clicking outside
+		window.onclick = function(event) {
+			const modal = document.getElementById('createSupportGroupModal');
+			if (event.target == modal) {
+				closeCreateGroupModal();
+			}
+		}
+
+
+		// FOR UPLOADING IMAGES FOR CREATE NEW SUPPORT GROUP
+
+		function triggerImageUpload() {
+			document.getElementById('supportGroupImageUpload').click();
+		}
+
+		function handleImageUpload(event) {
+			const file = event.target.files[0];
+			if (file && file.type.startsWith('image/')) {
+				const reader = new FileReader();
+				reader.onload = function(e) {
+					const imageUrl = e.target.result;
+					// Update both preview images
+					document.getElementById('circlePreview').src = imageUrl;
+					document.getElementById('squarePreview').src = imageUrl;
+				};
+				reader.readAsDataURL(file);
+			}
+		}
+
+		//GROUP CHAT EDIT MODAL
+
+		// Open Group Chat Edit Modal - auto-detect support group
+		function openGroupChatEditModal(element) {
+			const modal = document.getElementById('groupChatEditModal');
+			const h3Title = modal.querySelector('h3');
+			const nameInput = modal.querySelector('#groupChatNameInput');
+			
+			// Get the group chat name from the clicked element
+			const groupChatName = element ? element.textContent.trim() : 'Lorem Ipsum';
+			
+			// Set the group chat name in modal
+			if (h3Title) h3Title.textContent = groupChatName;
+			if (nameInput) nameInput.value = groupChatName;
+			
+			modal.style.display = 'flex';
+			// Reinitialize every time modal opens
+			initGroupChatEditModal(element);
+		}
+
+		// Close Group Chat Edit Modal
+		function closeGroupChatEditModal() {
+			document.getElementById('groupChatEditModal').style.display = 'none';
+		}
+
+		// Initialize Group Chat Edit Modal functionality
+		function initGroupChatEditModal(clickedElement) {
+			const modal = document.getElementById('groupChatEditModal');
+			if (!modal) return;
+			
+			// Get elements
+			const h3Title = modal.querySelector('h3');
+			const nameInput = modal.querySelector('#groupChatNameInput');
+			const editNameLinks = modal.querySelectorAll('.groupChatEditLink');
+			const circleImg = modal.querySelector('.groupChatEditCircle img');
+			
+			// Get the original avatar image from the clicked row
+			let originalAvatar = null;
+			if (clickedElement) {
+				const row = clickedElement.closest('tr');
+				originalAvatar = row ? row.querySelector('.table_user img') : null;
+				
+				// Set modal image to current avatar
+				if (originalAvatar && circleImg) {
+					circleImg.src = originalAvatar.src;
+				}
+			}
+			
+			// Set initial state - input is disabled by default
+			if (nameInput) {
+				nameInput.disabled = true;
+			}
+			
+			// Edit Group Chat Name (first Edit link)
+			const editNameLink = editNameLinks[0];
+			if (editNameLink && nameInput) {
+				// Remove old event listeners by cloning
+				const newEditNameLink = editNameLink.cloneNode(true);
+				editNameLink.parentNode.replaceChild(newEditNameLink, editNameLink);
+				
+				newEditNameLink.addEventListener('click', function(e) {
+					e.preventDefault();
+					
+					if (this.textContent === 'Edit') {
+						// Enable editing
+						nameInput.disabled = false;
+						nameInput.focus();
+						nameInput.select();
+						this.textContent = 'Save';
+					} else {
+						// Save changes
+						const newName = nameInput.value.trim();
+						if (newName) {
+							h3Title.textContent = newName;
+							// Update the original clicked element in the page
+							if (clickedElement) {
+								clickedElement.innerHTML = newName + '<br>';
+							}
+						}
+						nameInput.disabled = true;
+						this.textContent = 'Edit';
+					}
+				});
+			}
+			
+			// Edit Group Chat Picture (second Edit link)
+			const editPictureLink = editNameLinks[1];
+			if (editPictureLink) {
+				// Remove old event listeners by cloning
+				const newEditPictureLink = editPictureLink.cloneNode(true);
+				editPictureLink.parentNode.replaceChild(newEditPictureLink, editPictureLink);
+				
+				newEditPictureLink.addEventListener('click', function(e) {
+					e.preventDefault();
+					
+					const input = document.createElement('input');
+					input.type = 'file';
+					input.accept = 'image/*';
+					
+					input.onchange = function(event) {
+						const file = event.target.files[0];
+						if (file && file.type.startsWith('image/')) {
+							const reader = new FileReader();
+							reader.onload = function(e) {
+								const imageSrc = e.target.result;
+								
+								// Update modal circle image
+								if (circleImg) circleImg.src = imageSrc;
+								
+								// Update ONLY the original avatar in the specific row
+								if (originalAvatar) {
+									originalAvatar.src = imageSrc;
+								}
+							};
+							reader.readAsDataURL(file);
+						}
+					};
+					
+					input.click();
+				});
+			}
+		}
+
+
+
+
+
+
+		//ANNOUNCEMENT-----------------------------------------------------------
+
+		document.getElementById('announcementBtn').addEventListener('click', function() {
+			this.classList.add('active');
+			document.getElementById('joinableBtn').classList.remove('active');
+		});
+
+		document.getElementById('joinableBtn').addEventListener('click', function() {
+			this.classList.add('active');
+			document.getElementById('announcementBtn').classList.remove('active');
+		});
+
+
+		// FOR UPLOADING IMAGES & VIDEOS IN ANNOUNCEMENT
+
+		function handleFileUpload(files) {
+			console.log('Files uploaded:', files.length);
+			const fileBoxesContainer = document.querySelector('.file-boxes');
+			const dropArea = document.getElementById('dropArea');
+			
+			const emptyFileBoxes = Array.from(fileBoxesContainer.querySelectorAll('.file:not(.add-file)')).filter(box => {
+				return !box.querySelector('img') && !box.querySelector('video');
+			});
+			
+			[...files].forEach((file, index) => {
+				if (file.type.startsWith('image/') || file.type.startsWith('video/')) {
+					let targetBox;
+					
+					if (emptyFileBoxes[index]) {
+						targetBox = emptyFileBoxes[index];
+					} else {
+						targetBox = document.createElement('div');
+						targetBox.className = 'file';
+						fileBoxesContainer.insertBefore(targetBox, dropArea);
+					}
+					
+					const reader = new FileReader();
+					reader.onload = function(e) {
+						if (file.type.startsWith('image/')) {
+							targetBox.innerHTML = `
+								<img src="${e.target.result}" alt="Preview" class="file-preview">
+								<button class="remove-file-btn" onclick="removeFile(this)">×</button>
+							`;
+						} else if (file.type.startsWith('video/')) {
+							targetBox.innerHTML = `
+								<video src="${e.target.result}" class="file-preview" controls></video>
+								<button class="remove-file-btn" onclick="removeFile(this)">×</button>
+							`;
+						}
+					};
+					reader.readAsDataURL(file);
+				}
+			});
+		}
+
+		function removeFile(btn) {
+			btn.closest('.file').remove();
+		}
+
+
+		// FOR POST POP UP DIALOGUE
+
+		// Show post confirmation popup
+		function showPostConfirm() {
+			const popup = document.getElementById('postConfirmPopup');
+			if (popup) {
+				popup.classList.add('active');
+			}
+		}
+
+		// Close post confirmation popup
+		function closePostConfirm() {
+			const popup = document.getElementById('postConfirmPopup');
+			if (popup) {
+				popup.classList.remove('active');
+			}
+		}
+
+		// Confirm and submit post
+		function confirmPost() {
+			// Close confirmation popup
+			closePostConfirm();
+			
+			// Add your post submission logic here
+			const title = document.querySelector('.AncTitle').value;
+			const content = document.querySelector('.AncContent').value;
+			
+			console.log('Post submitted');
+			console.log('Title:', title);
+			console.log('Content:', content);
+			
+			// Optional: Show success message
+			alert('Post published successfully!');
+			
+			// Optional: Clear the form after posting
+			document.querySelector('.AncTitle').value = '';
+			document.querySelector('.AncContent').value = '';
+			
+			// Or if you want to actually submit the form:
+			// document.querySelector('form').submit();
+		}
+
+		// Close popup when clicking outside
+		document.addEventListener('click', function(e) {
+			const popup = document.getElementById('postConfirmPopup');
+			if (e.target === popup) {
+				closePostConfirm();
+			}
+		});
+
+		// Close popup on Escape key
+		document.addEventListener('keydown', function(e) {
+			if (e.key === 'Escape') {
+				const popup = document.getElementById('postConfirmPopup');
+				if (popup && popup.classList.contains('active')) {
+					closePostConfirm();
+				}
+			}
+		});
+
+
+
+		// FEEDBACK-----------------------------------------------------------
+
+
+		//FOR REPORT UPLOADING IMAGES
+
+		// FOR UPLOADING IMAGES IN FILE-BOXES2
+		function handleFileUpload2(files) {
+			console.log('Files uploaded:', files.length);
+			const fileBoxesContainer = document.querySelector('.file-boxes2');
+			const dropArea = document.getElementById('dropArea2');
+			
+			const emptyFileBoxes = Array.from(fileBoxesContainer.querySelectorAll('.file2:not(.add-file2)')).filter(box => {
+				return !box.querySelector('img');
+			});
+			
+			[...files].forEach((file, index) => {
+				if (file.type.startsWith('image/')) {
+					let targetBox;
+					
+					if (emptyFileBoxes[index]) {
+						targetBox = emptyFileBoxes[index];
+					} else {
+						targetBox = document.createElement('div');
+						targetBox.className = 'file2';
+						fileBoxesContainer.insertBefore(targetBox, dropArea);
+					}
+					
+					const reader = new FileReader();
+					reader.onload = function(e) {
+						targetBox.innerHTML = `
+							<img src="${e.target.result}" alt="Preview" class="file-preview2">
+							<button class="remove-file-btn2" onclick="removeFile2(this)">×</button>
+						`;
+					};
+					reader.readAsDataURL(file);
+				}
+			});
+		}
+
+		function removeFile2(btn) {
+			btn.closest('.file2').remove();
+		}
+
+
+		//FOR REPORT POP UP DIALOGUE
+
+		// Show report confirmation popup
+		function showReportConfirm() {
+			const popup = document.getElementById('reportConfirmPopup');
+			if (popup) {
+				popup.classList.add('active');
+			}
+		}
+
+		// Close report confirmation popup
+		function closeReportConfirm() {
+			const popup = document.getElementById('reportConfirmPopup');
+			if (popup) {
+				popup.classList.remove('active');
+			}
+		}
+
+		// Confirm and submit report
+		function confirmReport() {
+			// Close confirmation popup
+			closeReportConfirm();
+			
+			// Add your report submission logic here
+			// For example: submit the form or send data via AJAX
+			console.log('Report submitted to IT Admin');
+			
+			alert('Report submitted successfully!');
+			
+		}
+
+		document.addEventListener('click', function(e) {
+			const popup = document.getElementById('reportConfirmPopup');
+			if (e.target === popup) {
+				closeReportConfirm();
+			}
+		});
+
+		document.addEventListener('keydown', function(e) {
+			if (e.key === 'Escape') {
+				const popup = document.getElementById('reportConfirmPopup');
+				if (popup && popup.classList.contains('active')) {
+					closeReportConfirm();
+				}
+			}
+		});
+
+
+
+		//TRY
+
+
+		
+
+		
+
+		
+
+
+
+		//TRRYYYYYYY
+
+
+		// FOR YAKAP PROFILE/COVER PICTURE UPLOAD AND DESCRIPTION EDIT
+
+
+
 	</script>
 </body>
 </html>

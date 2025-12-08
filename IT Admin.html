@@ -3,8 +3,8 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>SafeSpace Dashboard</title>
-	<link rel="icon" type="image/png" href="photos/piclogo2.png">
+	<title>IT Dashboard</title>
+	<link rel="icon" type="image/png" href="photos/pic_logo2.png">
 	<link rel="stylesheet" href="SystemDesign.css">
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -17,9 +17,7 @@
 
 		<a href="#" onclick="showPage('tasks', this)"><img src="icons/ic_sb_tasks.svg" class="icon"><span>Tasks</span></a>
 
-		<a href="#" onclick="showPage('users', this)"><img src="icons/ic_sb_user.svg" class="icon"><span>Users</span></a>
-
-		<a href="#" onclick="showPage('chat', this)"><img src="icons/ic_sb_chat.svg" class="icon"><span>Chat Management</span></a>
+		<a href="#" onclick="showPage('users', this)"><img src="icons/ic_sb_user.svg" class="icon"><span>User Management</span></a>
 
 		<a href="#" onclick="showPage('settings', this)"><img src="icons/ic_sb_settings.svg" class="icon"><span>Settings and System Logs</span></a>
 
@@ -31,11 +29,16 @@
 	<div class="main">
 	<div class="topbar">
 		<span id="pageTitle">Overview</span>
-		<div class="dropdown" onclick="toggleDropdown()">
-			<span>IT Admin</span>
-			<img src="icons/ic_dropdown.svg" style="height: 10px; margin-left: 3px;"></a>
-			<div class="dropdown-menu">
-				<a href="#">Sign Out</a>
+		<div class="topbar-right">
+			<div class="GCO">
+				<img src="icons/ic_GCO.svg" class="GCO_icon" alt="GCO icon"> 
+			</div>
+			<div class="dropdown" onclick="toggleDropdown()">
+				<span>IT Admin</span>
+				<img src="icons/ic_dropdown.svg" style="height: 10px; margin-left: 3px;">
+				<div class="dropdown-menu">
+					<a href="IT Login.html">Sign Out</a>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -45,42 +48,1779 @@
 
 		<!---------------- OVERVIEW ------------------------------------------------------------>
 
-		<div id="overview" class="page active">
-             <!-- dito yung content  -->
+			<div id="overview" class="page active">
+			<div class="row">
+				<div class="card table-card">
+					<h3>Programs</h3>
+					<table>
+						<thead>
+							<tr>
+								<th id="left">Programs</th>
+								<th>New Users this Month</th>
+								<th>Total No. of Users</th>
+								<th>Change, %</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td id="left">Senior High School - ABM</td>
+								<td >0</td>
+								<td>0</td>
+								<td class="up">0 %</td>
+							</tr>
+							<tr>
+								<td id="left">Senior High School - HUMSS</td>
+								<td>0</td>
+								<td>0</td>
+								<td class="up">0 %</td>
+							</tr>
+							<tr>
+								<td id="left">Senior High School - STEM</td>
+								<td>0</td>
+								<td>0</td>
+								<td class="down">0 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Hospitality Management</td>
+								<td >0</td>
+								<td>0</td>
+								<td class="up">0 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Tourism Management</td>
+								<td>0</td>
+								<td>0</td>
+								<td class="up">0 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Computer Engineering</td>
+								<td>0</td>
+								<td>0</td>
+								<td class="down">0 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Civil Engineering</td>
+								<td >0</td>
+								<td>0</td>
+								<td class="up">0 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Information Technology</td>
+								<td>0</td>
+								<td>0</td>
+								<td class="up">0 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Psychology</td>
+								<td>0</td>
+								<td>0</td>
+								<td class="down">0 %</td>
+							</tr>
+							<tr>
+								<td id="left">BA Communication</td>
+								<td >0</td>
+								<td>0</td>
+								<td class="up">0 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Architecture</td>
+								<td>0</td>
+								<td>0</td>
+								<td class="up">0 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Accountancy</td>
+								<td>0</td>
+								<td>0</td>
+								<td class="down">0 %</td>
+							</tr>
+							<tr>
+								<td id="left">BS Business Administration</td>
+								<td>0</td>
+								<td>0</td>
+								<td class="down">0 %</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="stats">
+					<div class="card stat-card">
+						<h3>Student Count</h3>
+						<h2>0</h2>
+					</div>
+					<div class="card stat-card">
+						<h3>PEERS Count</h3>
+						<h2>0</h2>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="card">
+					<h3>Engagement Breakdown</h3>
+					<canvas id="engagementChart" height="220px"></canvas>
+					<p class="chart-description">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+						Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="card">
+					<h3>User Activity</h3>
+					<canvas id="engagementChart2" height="220px"></canvas>
+					<p class="chart-description">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+						Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					</p>
+				</div>
+			</div>
 		</div>
 
 		<!---------------- TASKS ------------------------------------------------------------>
 
 		<div id="tasks" class="page">
-            <!-- dito yung content  -->
+			<div class="task-grid">
+				<!-- Technical -->
+				<div class="task-card" onclick="showPage('technical')">
+				<div class="task-icon"><img src="photos/TECHNICAL.png" alt=""></div>
+				<div class="task-info">
+					<h4>Technical</h4>
+					<p>5 tasks</p>
+				</div>
+				<span class="badge">NEW</span>
+				</div>
+
+				<!-- Editing -->
+				<div class="task-card" onclick="showPage('editing')">
+				<div class="task-icon"><img src="photos/EDITING.png" alt=""></div>
+				<div class="task-info">
+					<h4>Editing</h4>
+					<p>3 tasks</p>
+				</div>
+				</div>
+
+				<!-- Account -->
+				<div class="task-card" onclick="showPage('account')">
+				<div class="task-icon"><img src="photos/ACCOUNT.png" alt=""></div>
+				<div class="task-info">
+					<h4>Account</h4>
+					<p>1 task</p>
+				</div>
+				</div>
+
+				<!-- Removal -->
+				<div class="task-card" onclick="showPage('removal')">
+				<div class="task-icon"><img src="photos/REMOVAL.png" alt=""></div>
+				<div class="task-info">
+					<h4>Removal</h4>
+					<p>2 tasks</p>
+				</div>
+				</div>
+
+				<!-- Chat History -->
+				<div class="task-card" onclick="showPage('chat-history')">
+				<div class="task-icon"><img src="photos/CHAT HISTORY.png" alt=""></div>
+				<div class="task-info">
+					<h4>Chat History</h4>
+					<p>1 task</p>
+				</div>
+				</div>
+
+				<!-- Update -->
+				<div class="task-card" onclick="showPage('update')">
+				<div class="task-icon"><img src="photos/UPDATE.png" alt=""></div>
+				<div class="task-info">
+					<h4>Update</h4>
+					<p>0 task</p>
+				</div>
+				</div>
+
+				<!-- Other -->
+				<div class="task-card" onclick="showPage('other')">
+				<div class="task-icon"><img src="photos/OTHER.png" alt=""></div>
+				<div class="task-info">
+					<h4>Other</h4>
+					<p>0 task</p>
+				</div>
+				</div>
+			</div>
 		</div>
+
+
+		<!---------------- TECHNICAL PAGE | TASKS ------------------------------------------------------------>
+		<div id="technical" class="page" style="display:none;">
+			<!-- To Do Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>To Do</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>sample</p>
+					<div class="task-actions">
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>sample2</p>
+					<div class="task-actions">
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
+					</div>
+				</div>
+				</div>
+			</div>
+
+			<!-- Pending Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>Pending</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>IHH</p>
+					<div class="task-actions">
+					<button class="btn-details" onclick="openPendingModal(this)">See Details</button>
+					<button class="btn-done" onclick="openPendingDoneModal(this)">Done</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details" onclick="openPendingModal(this)">See Details</button>
+					<button class="btn-done" onclick="openPendingDoneModal(this)">Done</button>
+					</div>
+				</div>
+				</div>
+			</div>
+
+			<!-- Complete Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>Complete</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+
+		<!---------------- EDITING PAGE | TASKS ------------------------------------------------------------>
+		<div id="editing" class="page" style="display:none;">
+			<!-- To Do Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>To Do</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
+					</div>
+				</div>
+				</div>
+			</div>
+
+			<!-- Pending Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>Pending</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details" onclick="openPendingModal(this)">See Details</button>
+					<button class="btn-done" onclick="openPendingDoneModal(this)">Done</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details" onclick="openPendingModal(this)">See Details</button>
+					<button class="btn-done" onclick="openPendingDoneModal(this)">Done</button>
+					</div>
+				</div>
+				</div>
+			</div>
+
+			<!-- Complete Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>Complete</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+
+		<!---------------- ACCOUNT PAGE | TASKS ------------------------------------------------------------>
+		<div id="account" class="page" style="display:none;">
+			<!-- To Do Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>To Do</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
+					</div>
+				</div>
+				</div>
+			</div>
+
+			<!-- Pending Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>Pending</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details" onclick="openPendingModal(this)">See Details</button>
+					<button class="btn-done" onclick="openPendingDoneModal(this)">Done</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details" onclick="openPendingModal(this)">See Details</button>
+					<button class="btn-done" onclick="openPendingDoneModal(this)">Done</button>
+					</div>
+				</div>
+				</div>
+			</div>
+
+			<!-- Complete Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>Complete</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+
+		<!---------------- REMOVAL PAGE | TASKS ------------------------------------------------------------>
+		<div id="removal" class="page" style="display:none;">
+						<!-- To Do Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>To Do</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
+					</div>
+				</div>
+				</div>
+			</div>
+
+			<!-- Pending Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>Pending</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details" onclick="openPendingModal(this)">See Details</button>
+					<button class="btn-done" onclick="openPendingDoneModal(this)">Done</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details" onclick="openPendingModal(this)">See Details</button>
+					<button class="btn-done" onclick="openPendingDoneModal(this)">Done</button>
+					</div>
+				</div>
+				</div>
+			</div>
+
+			<!-- Complete Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>Complete</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+
+		<!---------------- CHAT HISTORY PAGE | TASKS ------------------------------------------------------------>
+		<div id="chat-history" class="page" style="display:none;">
+						<!-- To Do Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>To Do</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
+					</div>
+				</div>
+				</div>
+			</div>
+
+			<!-- Pending Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>Pending</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details" onclick="openPendingModal(this)">See Details</button>
+					<button class="btn-done" onclick="openPendingDoneModal(this)">Done</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details" onclick="openPendingModal(this)">See Details</button>
+					<button class="btn-done" onclick="openPendingDoneModal(this)">Done</button>
+					</div>
+				</div>
+				</div>
+			</div>
+
+			<!-- Complete Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>Complete</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+
+		<!---------------- UPDATE PAGE | TASKS ------------------------------------------------------------>
+		<div id="update" class="page" style="display:none;">
+						<!-- To Do Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>To Do</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
+					</div>
+				</div>
+				</div>
+			</div>
+
+			<!-- Pending Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>Pending</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details" onclick="openPendingModal(this)">See Details</button>
+					<button class="btn-done" onclick="openPendingDoneModal(this)">Done</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details" onclick="openPendingModal(this)">See Details</button>
+					<button class="btn-done" onclick="openPendingDoneModal(this)">Done</button>
+					</div>
+				</div>
+				</div>
+			</div>
+
+			<!-- Complete Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>Complete</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+
+		<!---------------- OTHER PAGE | TASKS ------------------------------------------------------------>
+		<div id="other" class="page" style="display:none;">
+						<!-- To Do Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>To Do</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-start" onclick="openModal(this)">Start Task</button>
+					</div>
+				</div>
+				</div>
+			</div>
+
+			<!-- Pending Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>Pending</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details" onclick="openPendingModal(this)">See Details</button>
+					<button class="btn-done" onclick="openPendingDoneModal(this)">Done</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+					<div class="task-actions">
+					<button class="btn-details" onclick="openPendingModal(this)">See Details</button>
+					<button class="btn-done" onclick="openPendingDoneModal(this)">Done</button>
+					</div>
+				</div>
+				</div>
+			</div>
+
+			<!-- Complete Section -->
+			<div class="task-section-group">
+				<div class="section-header">
+				<h4>Complete</h4>
+				<div class="nav-arrows">
+					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
+					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+				</div>
+				</div>
+				<div class="task-grid">
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				<div class="task-box">
+					<p>
+					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					  </span>
+					</p>
+					<div class="task-actions">
+					<button class="btn-details">See Details</button>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+
+		<!---------------- MODAL FOR TO-DO TASK----------------------------------------------------------->
+		<div class="todo-modal-overlay" id="taskModal" onclick="closeModalOnOverlay(event)">
+			<div class="todo-modal-content">
+				<button class="todo-close-modal" onclick="closeModal()">&times;</button>
+				<div class="todo-modal-header">To-Do Task Details</div>
+				<div class="todo-modal-body">
+				<h3 id="modalTaskDescription">I'd like to request a removal of a Support Group named "HATID"</h3>
+				
+				<div class="todo-modal-info">
+					<div class="todo-modal-info-label">Task Created by</div>
+					<div class="todo-modal-info-value">GCO Coordinator Name</div>
+				</div>
+
+				<div class="todo-modal-info">
+					<div class="todo-modal-info-label">Task Created on</div>
+					<div class="todo-modal-info-value">January 28, 2025</div>
+				</div>
+				</div>
+				<button class="todo-modal-button">Start Task</button>
+			</div>
+		</div>
+
+		<!---------------- MODAL FOR PENDING TASK | SEE DETAILS-------------------------------------------->
+		<div class="pending-modal-overlay" id="pendingModal" onclick="closePendingModalOnOverlay(event)">
+			<div class="pending-modal-content">
+				<button class="pending-close-modal" onclick="closePendingModal()">&times;</button>
+				<div class="pending-modal-header">Pending Task Details</div>
+				<div class="pending-modal-body">
+				<h3 id="pendingModalTaskDescription">I'd like to request a removal of a Support Group named "HATID"</h3>
+				
+				<div class="pending-modal-info-row">
+					<div class="pending-modal-info">
+					<div class="pending-modal-info-label">Task Created by</div>
+					<div class="pending-modal-info-value">GCO Coordinator Name</div>
+					</div>
+					
+					<div class="pending-modal-info">
+					<div class="pending-modal-info-label">Task Started by</div>
+					<div class="pending-modal-info-value-green">IT Admin Name</div>
+					</div>
+				</div>
+
+				<div class="pending-modal-info-row">
+					<div class="pending-modal-info">
+					<div class="pending-modal-info-label">Task Created on</div>
+					<div class="pending-modal-info-value">January 28, 2025</div>
+					</div>
+					
+					<div class="pending-modal-info">
+					<div class="pending-modal-info-label">Task Started on</div>
+					<div class="pending-modal-info-value-green">January 28, 2025</div>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+
+<!---------------- MODAL FOR PENDING TASK | DONE BUTTON -------------------------------------------->
+<div class="done-modal-overlay" id="doneModal" onclick="closeDoneModalOnOverlay(event)">
+  <div class="done-modal-content">
+    <button class="done-close-modal" onclick="closeDoneModal()">&times;</button>
+    <div class="done-modal-header">Task Details</div>
+    <div class="done-modal-body">
+      <h3 id="doneModalTaskDescription">I'd like to request a removal of a Support Group named "HATID"</h3>
+      
+      <div class="done-modal-info-row">
+        <div class="done-modal-info">
+          <div class="done-modal-info-label">Task Created by</div>
+          <div class="done-modal-info-value">GCO Coordinator Name</div>
+        </div>
+        
+        <div class="done-modal-info">
+          <div class="done-modal-info-label">Task Started by</div>
+          <div class="done-modal-info-value-green">IT Admin Name</div>
+        </div>
+      </div>
+
+      <div class="done-modal-info-row">
+        <div class="done-modal-info">
+          <div class="done-modal-info-label">Task Created on</div>
+          <div class="done-modal-info-value">January 28, 2025</div>
+        </div>
+        
+        <div class="done-modal-info">
+          <div class="done-modal-info-label">Task Started on</div>
+          <div class="done-modal-info-value-green">January 28, 2025</div>
+        </div>
+      </div>
+
+      <div class="done-modal-textarea-wrapper">
+        <textarea class="done-modal-textarea" placeholder="System Update Details"></textarea>
+      </div>
+
+      <div class="done-modal-actions">
+        <button class="done-modal-add-file" onclick="document.getElementById('doneFileInput').click();">
+          <img src="icons/addfile_btn.svg" alt="Upload" class="done-add-icon">
+          <span>Add file</span>
+        </button>
+        <button class="done-modal-submit">Done</button>
+      </div>
+      
+      <!-- File name display -->
+      <div id="selectedFileName" style="margin-top: 15px;"></div>
+      
+      <input type="file" id="doneFileInput" accept="image/*,video/*,.pdf,.doc,.docx,.xls,.xlsx,.txt" style="display: none;" onchange="showFileName()">
+    </div>
+  </div>
+</div>
+
 
 		<!---------------- USER MANAGEMENT ------------------------------------------------------------>
 
 		<div id="users" class="page">
-            <!-- dito yung content  -->
+            <div class="row">
+				<div class="right-half" style="width: 100%;">
+					<div class="searchbar-IT">
+						<img src="icons/ic_search.svg">
+						<input type="text" placeholder="Search...">
+					</div>
+					<select name="userdrop" class="userdrop">
+						<option value="All">All</option>
+						<option value="Peers">Peers</option>
+						<option value="Users">Users</option>
+					</select>
+					<div class="peer-session">
+						<button class="btn-peersession" onclick="openCreateUserPopup()">Create New User</button>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="card">
+					<h3>User List</h3>
+					<table class="user">
+						<thead>
+							<tr>
+								<th id="left">User</th>
+								<th> </th>
+								<th> </th>
+								<th>Name Displayed</th>
+								<th>Type</th>
+								<th>Last Active</th>
+								<th>Date Created</th>
+								<th></th> 
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td class="name">
+									Doe, John A.<br>
+									<span>email@students.nu-fairview.edu.ph</span>
+								</td>
+								<td></td>
+								<td>John</td>
+								<td>
+									<div class="cat_GCO">GCO Admin</div>
+								</td>
+								<td>Lorem Ipsum</td>
+								<td>Lorem Ipsum</td>
+				                <td class="action">
+								<div class="dpDots">
+									<button class="menu-dots" onclick="toggleDpDots(this)">⋮</button>
+									<div class="dropdown-content">
+										<a href="#" onclick="openEditUserPopup()">Edit</a>
+										<a href="#" class="remove" onclick="openRemovePopup(this)">Remove User</a>
+									</div>
+								</div>
+								</td>				
+							</tr>
+							
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td class="name">
+									Doe, John A.<br>
+									<span>email@students.nu-fairview.edu.ph</span>
+								</td>
+								<td></td>
+								<td>John</td>
+								<td>
+									<div class="cat_peer">Peers</div>
+								</td>
+								<td>Lorem Ipsum</td>
+								<td>Lorem Ipsum</td>
+				                <td class="action">
+								<div class="dpDots">
+									<button class="menu-dots" onclick="toggleDpDots(this)">⋮</button>
+									<div class="dropdown-content">
+										<a href="#" onclick="openEditUserPopup()">Edit</a>
+										<a href="#" class="remove" onclick="openRemovePopup(this)">Remove User</a>
+									</div>
+								</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td class="name">
+									Doe, Jane A.<br>
+									<span>email@students.nu-fairview.edu.ph</span>
+								</td>
+								<td></td>
+								<td>Jae</td>
+								<td>
+									<div class="cat_user">User</div>
+								</td>
+								<td>Lorem Ipsum</td>
+								<td>Lorem Ipsum</td>
+				                <td class="action">
+								<div class="dpDots">
+									<button class="menu-dots" onclick="toggleDpDots(this)">⋮</button>
+									<div class="dropdown-content">
+										<a href="#" onclick="openEditUserPopup()">Edit</a>
+										<a href="#" class="remove" onclick="openRemovePopup(this)">Remove User</a>
+									</div>
+								</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 
-		<!---------------- CHAT MANAGEMENT ------------------------------------------------------------>
-
-		<div id="chat" class="page">
-            <!-- dito yung content  -->
+		<!---------------- POP UP FOR REMOVE USER   ------------------------------->
+		<!-- Remove User Popup -->
+		<div id="rmvusrPopUp" class="removePopup">
+			<div class="removeContent">
+				<p class="removeText">Are you sure you want to remove <strong id="userName">User Name</strong>?</p>
+				<div class="removeButtons">
+					<button class="removeBtnCancel" onclick="closeRemovePopup()">Cancel</button>
+					<button class="removeBtnConfirm" onclick="confirmRemoveUser()">Remove</button>
+				</div>
+			</div>
+		</div>
+		<!------------------------- Edit User Popup ----------------------------->
+		<div class="editUserPopup" id="editUserPopup">
+			<div class="editUserContent">
+				<button class="editUserCloseBtn" onclick="closeEditUserPopup()">&times;</button>
+				
+				<div class="editUserBody">
+					<div class="editUserLeft">
+						<img src="photos/pic_placeholder.png" class="editUserAvatar" alt="User Avatar">
+						<h2 class="editUserName" id="editDisplayUserName">Dominguez, Samantha Aeries</h2>
+						<p class="editUserLastActive">Last Active<br><span>May 15, 2025</span></p>
+						<p class="editUserDateCreated">Date Account Created<br><span>January 28, 2025</span></p>
+					</div>
+					
+					<div class="editUserRight">
+						<div class="editUserRow">
+							<div class="editUserGroup">
+								<label class="editUserLabel">First Name</label>
+								<input type="text" class="editUserInput" id="editFirstName" value="Samantha Aeries" oninput="updateEditDisplayName()" onfocus="showEditSaveBtn()">
+							</div>
+							<div class="editUserGroup">
+								<label class="editUserLabel">Last Name</label>
+								<input type="text" class="editUserInput" id="editLastName" value="Dominguez" oninput="updateEditDisplayName()" onfocus="showEditSaveBtn()">
+							</div>
+						</div>
+						
+						<div class="editUserRow">
+							<div class="editUserGroup">
+								<label class="editUserLabel">School Email</label>
+								<input type="email" class="editUserInput" id="editSchoolEmail" value="email@students.nu-fairview.edu.ph" onfocus="showEditSaveBtn()">
+							</div>
+							<div class="editUserGroup">
+								<label class="editUserLabel">Access</label>
+								<input type="text" class="editUserInput editUserInputReadonly" id="editAccess" value="PEERS" readonly>
+							</div>
+						</div>
+						
+						<div class="editUserRow">
+							<div class="editUserGroup">
+								<label class="editUserLabel">Student ID</label>
+								<input type="text" class="editUserInput" id="editStudentNo" value="2022-123456" onfocus="showEditSaveBtn()">
+							</div>
+							<div class="editUserGroup">
+								<label class="editUserLabel">Program</label>
+								<input type="text" class="editUserInput" id="editProgram" value="B.S. Psychology" onfocus="showEditSaveBtn()">
+							</div>
+						</div>
+						
+						<div class="editUserRow">
+							<div class="editUserGroup">
+								<label class="editUserLabel">Preferred Name</label>
+								<input type="text" class="editUserInput" id="editPreferredName" value="- - - - - - -" onfocus="showEditSaveBtn()">
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="editUserFooter" id="editUserFooter" style="display: none;">
+					<button class="editUserBtnSave" onclick="saveEditUser()">Save</button>
+				</div>
+			</div>
 		</div>
 
-		<!---------------- SETTINGS ------------------------------------------------------------>
+
+		<!------------------------- Create New User Popup ----------------------------->
+		<div class="createUserPopup" id="createUserPopup">
+			<div class="createUserContent">
+				<button class="createUserCloseBtn" onclick="closeCreateUserPopup()">&times;</button>
+				<span>Create GCO Admin User</span>
+				
+				<div class="createUserBody">
+					<div class="createUserLeft">
+						<img src="icons/ic_GCO.svg" class="createUserAvatar" alt="User Avatar">
+						<h2 class="createUserName" id="displayUserName"></h2>
+					</div>
+					
+					<div class="createUserRight">
+						<div class="createUserRow">
+							<div class="createUserGroup">
+								<label class="createUserLabel">First Name</label>
+								<input type="text" class="createUserInput" id="firstName" oninput="updateDisplayName()">
+							</div>
+							<div class="createUserGroup">
+								<label class="createUserLabel">Last Name</label>
+								<input type="text" class="createUserInput" id="lastName" oninput="updateDisplayName()">
+							</div>
+						</div>
+						
+						<div class="createUserRow">
+							<div class="createUserGroup">
+								<label class="createUserLabel">Work Email</label>
+								<input type="email" class="createUserInput" id="workEmail" value="email@students.nu-fairview.edu.ph">
+							</div>
+							<div class="createUserGroup">
+								<label class="createUserLabel">Access</label>
+								<input type="text" class="createUserInput createUserInputReadonly" id="access" value="GCO Coordinator" readonly>
+							</div>
+						</div>
+						
+						<div class="createUserRow">
+							<div class="createUserGroup">
+							<label class="createUserLabel">Password</label>
+							<input type="text" class="createUserInput" id="password">
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="createUserFooter">
+					<button class="createUserBtnCreate" onclick="showConfirmPopup()">Create</button>
+				</div>
+			</div>
+		</div>
+
+		<!------------------------- Confirm New User Popup ----------------------------->
+		<div class="confirmPopup" id="confirmPopup">
+			<div class="confirmContent">
+				<p class="confirmText">Confirm adding <strong id="confirmUserName">Dominguez, Samantha Aeries</strong> as a new GCO Admin?</p>
+				<div class="confirmButtons">
+					<button class="confirmBtnCancel" onclick="closeConfirmPopup()">Cancel</button>
+					<button class="confirmBtnConfirm" onclick="confirmCreateUser()">Confirm</button>
+				</div>
+			</div>
+		</div>
+
+
+
+		<!---------------------------------------------------------------------------------------->	
+		<!---------------------------------------------------------------------------------------->	
+		<!---------------- SETTINGS -------------------------------------------------------------->
 
 		<div id="settings" class="page">
-            <!-- dito yung content  -->
+			<div class="row">
+				<div class="big_btn" onclick="openTermsModal('termsModal')">
+					<div class="text">
+						<h6>Terms and Conditions</h6>
+						<p>Effective Date: June 4, 2025</p>
+					</div>
+					<img src="icons/ic_arrow right.svg" class="setting_slider">
+				</div>
+				<div class="big_btn" onclick="openTermsModal('privacyModal')">
+					<div class="text">
+						<h6>Privacy Policy</h6>
+						<p>Effective Date: June 4, 2025</p>
+					</div>
+					<img src="icons/ic_arrow right.svg" class="setting_slider">
+				</div>
+				<!-- Button to open modal -->
+				<div class="big_btn" onclick="openExportChatModal()">
+					<div class="text">
+						<h6>Export Chat</h6>
+						<p>Effective Date: June 4, 2025</p>
+					</div>
+					<img src="icons/ic_arrow right.svg" class="setting_slider">
+				</div>
+			</div>
+
+			<!-- Terms Modal -->
+			<div id="termsModal" class="modal">
+			<div class="modal-content">
+				<span class="close" onclick="closeTermsModal('termsModal')">&times;</span>
+				<h3>Terms & Conditions</h3>
+				<div class="terms-box" contenteditable="true">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p><br>
+					<ol>
+						<li><strong>Lorem Ipsum</strong>
+							<p>Lorem ipsum dolor sit amet...</p>
+						</li>
+						<li><strong>Lorem Ipsum</strong>
+							<ul>
+								<li>Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</li>
+								<li>When there are cases of suspected abuse.</li>
+								<li>At vero eos et accusamus et iusto odio dignissimos ducimus.</li>
+							</ul>
+						</li>
+					</ol>
+				</div>
+				<div class="modal-footer">
+					<button class="save-btn" onclick="saveTerms()">Save</button>
+				</div>
+			</div>
+			</div>
+
+			<!-- Privacy Modal -->
+			<div id="privacyModal" class="modal">
+			<div class="modal-content">
+				<span class="close" onclick="closeTermsModal('privacyModal')">&times;</span>
+				<h3>Privacy Policy</h3>
+				<div class="terms-box" contenteditable="true">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p><br>
+					<ol>
+						<li><strong>Lorem Ipsum</strong>
+							<p>Lorem ipsum dolor sit amet...</p>
+						</li>
+						<li><strong>Lorem Ipsum</strong>
+							<ul>
+								<li>Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</li>
+								<li>When there are cases of suspected abuse.</li>
+								<li>At vero eos et accusamus et iusto odio dignissimos ducimus.</li>
+							</ul>
+						</li>
+						<li><strong>Lorem Ipsum</strong>
+							<p>Lorem ipsum dolor sit amet...</p>
+						</li>
+					</ol>
+				</div>
+				<div class="modal-footer">
+					<button class="save-btn" onclick="saveTerms()">Save</button>
+				</div>
+			</div>
+			</div>
+
+			<!-- Export Chat Modal -->
+			<div id="exportChatModal" class="modal">
+				<div class="modal-content exportChatModalContent">
+					<span class="close" onclick="closeExportChatModal()">&times;</span>
+					<div class="exportChatContainer">
+						<div class="exportChatButtons">
+							<button class="exportToggleBtn active" id="peerToPeerBtn" onclick="showPeerToPeer()">Peer to Peer</button>
+							<button class="exportToggleBtn" id="supportGroupBtn" onclick="showSupportGroup()">Support Group Chat</button>
+						</div>
+
+						<div class="exportChatContent" id="peerToPeerContent">
+							<div class="exportChatRow">
+								<div class="exportChatGroup">
+									<label class="exportChatLabel">Peer</label>
+									<select class="exportChatSelect">
+										<option>Select</option>
+									</select>
+								</div>
+								<div class="exportChatGroup">
+									<label class="exportChatLabel">Student</label>
+									<select class="exportChatSelect">
+										<option>Select</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="exportChatRadioGroup">
+								<label class="exportChatRadio">
+									<input type="radio" name="dateRange" value="today">
+									<span>Today</span>
+								</label>
+								<label class="exportChatRadio">
+									<input type="radio" name="dateRange" value="past15">
+									<span>Past 15 days</span>
+								</label>
+								<label class="exportChatRadio">
+									<input type="radio" name="dateRange" value="past30">
+									<span>Past 30 days</span>
+								</label>
+								<label class="exportChatRadio">
+									<input type="radio" name="dateRange" value="custom">
+									<span>Custom Range</span>
+								</label>
+							</div>
+
+							<div class="exportChatRow">
+								<div class="exportChatGroup">
+									<label class="exportChatLabel">Start Date</label>
+									<input type="date" class="exportChatDateInput">
+								</div>
+								<div class="exportChatGroup">
+									<label class="exportChatLabel">End Date</label>
+									<input type="date" class="exportChatDateInput">
+								</div>
+							</div>
+
+							<button class="exportChatBtn">Export</button>
+						</div>
+
+						<div class="exportChatContent" id="supportGroupContent" style="display: none;">
+							<div class="exportChatRow">
+								<div class="exportChatGroup">
+									<label class="exportChatLabel">Support Group</label>
+									<select class="exportChatSelect">
+										<option>Select</option>
+									</select>
+								</div>
+								<div class="exportChatGroup">
+									<label class="exportChatLabel">Group Chat</label>
+									<select class="exportChatSelect">
+										<option>Select</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="exportChatRadioGroup">
+								<label class="exportChatRadio">
+									<input type="radio" name="dateRange2" value="today">
+									<span>Today</span>
+								</label>
+								<label class="exportChatRadio">
+									<input type="radio" name="dateRange2" value="past15">
+									<span>Past 15 days</span>
+								</label>
+								<label class="exportChatRadio">
+									<input type="radio" name="dateRange2" value="past30">
+									<span>Past 30 days</span>
+								</label>
+								<label class="exportChatRadio">
+									<input type="radio" name="dateRange2" value="custom">
+									<span>Custom Range</span>
+								</label>
+							</div>
+
+							<div class="exportChatRow">
+								<div class="exportChatGroup">
+									<label class="exportChatLabel">Start Date</label>
+									<input type="date" class="exportChatDateInput">
+								</div>
+								<div class="exportChatGroup">
+									<label class="exportChatLabel">End Date</label>
+									<input type="date" class="exportChatDateInput">
+								</div>
+							</div>
+
+							<button class="exportChatBtn">Export</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="card">
+					   <h3>GCO Coordinator Logs</h3>
+  					   <div class="logs-list">
+      						<div class="log-entry">
+        						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
+        						<div class="log-top">
+          							<span class="log-name">Doe, John A.</span>
+          							<span class="log-time">September 22, 2025 at 0:00 AM</span>
+        						</div>
+        						<div class="log-message">
+          							Lorem ipsum dolor sit amet, consectetur adipiscing elit
+        						</div>
+      						</div>
+
+							<div class="log-entry">
+        						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
+        						<div class="log-top">
+          							<span class="log-name">Doe, John A.</span>
+          							<span class="log-time">September 22, 2025 at 0:00 AM</span>
+        						</div>
+        						<div class="log-message">
+          							Lorem ipsum dolor sit amet, consectetur adipiscing elit
+        						</div>
+      						</div>
+							<div class="log-entry">
+        						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
+        						<div class="log-top">
+          							<span class="log-name">Doe, John A.</span>
+          							<span class="log-time">September 22, 2025 at 0:00 AM</span>
+        						</div>
+        						<div class="log-message">
+          							Lorem ipsum dolor sit amet, consectetur adipiscing elit
+        						</div>
+      						</div>
+							<div class="log-entry">
+        						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
+        						<div class="log-top">
+          							<span class="log-name">Doe, John A.</span>
+          							<span class="log-time">September 22, 2025 at 0:00 AM</span>
+        						</div>
+        						<div class="log-message">
+          							Lorem ipsum dolor sit amet, consectetur adipiscing elit
+        						</div>
+      						</div>
+					   </div>
+					</div>
+				<div class="card">
+					<h3>Peer Facilitator Logs</h3>
+					<div class="logs-list">
+      						<div class="log-entry">
+        						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
+        						<div class="log-top">
+          							<span class="log-name">Doe, John A.</span>
+          							<span class="log-time">September 22, 2025 at 0:00 AM</span>
+        						</div>
+        						<div class="log-message">
+          							Lorem ipsum dolor sit amet, consectetur adipiscing elit
+        						</div>
+      						</div>
+
+							<div class="log-entry">
+        						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
+        						<div class="log-top">
+          							<span class="log-name">Doe, John A.</span>
+          							<span class="log-time">September 22, 2025 at 0:00 AM</span>
+        						</div>
+        						<div class="log-message">
+          							Lorem ipsum dolor sit amet, consectetur adipiscing elit
+        						</div>
+      						</div>
+							<div class="log-entry">
+        						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
+        						<div class="log-top">
+          							<span class="log-name">Doe, John A.</span>
+          							<span class="log-time">September 22, 2025 at 0:00 AM</span>
+        						</div>
+        						<div class="log-message">
+          							Lorem ipsum dolor sit amet, consectetur adipiscing elit
+        						</div>
+      						</div>
+							<div class="log-entry">
+        						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
+        						<div class="log-top">
+          							<span class="log-name">Doe, John A.</span>
+          							<span class="log-time">September 22, 2025 at 0:00 AM</span>
+        						</div>
+        						<div class="log-message">
+          							Lorem ipsum dolor sit amet, consectetur adipiscing elit
+        						</div>
+      						</div>
+					   </div>
+				</div>
+			</div>
 		</div>
 
-		<!---------------- REPORTS ------------------------------------------------------------>
+
+		<!---------------------------------------------------------------------------------------->	
+		<!---------------------------------------------------------------------------------------->	
+		<!---------------- REPORTS --------------------------------------------------------------->
 
 		<div id="reports" class="page">
-            <!-- dito yung content  -->
+			<div class="row">
+				<div class="right">
+					<div class="card2">
+						<h3>GCO Reports</h3>
+						<div class="leftscroll">
+							<div class="update">
+								<div class="update-header">
+									<strong>Lorem Ipsum</strong>
+									<span>September 22, 2025 at 0:0 AM</span>
+								</div>
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+							</div>
+							<div class="update">
+								<div class="update-header">
+									<strong>Lorem Ipsum</strong>
+									<span>September 22, 2025 at 0:0 AM</span>
+								</div>
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+							</div>
+							<div class="update">
+								<div class="update-header">
+									<strong>Lorem Ipsum</strong>
+									<span>September 22, 2025 at 0:0 AM</span>
+								</div>
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+							</div>
+							<div class="update">
+								<div class="update-header">
+									<strong>Lorem Ipsum</strong>
+									<span>September 22, 2025 at 0:0 AM</span>
+								</div>
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+							</div>
+							<div class="update">
+								<div class="update-header">
+									<strong>Lorem Ipsum</strong>
+									<span>September 22, 2025 at 0:0 AM</span>
+								</div>
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card2">
+					<h3>System Updates</h3>
+					<div class="leftscroll">
+						<div class="update">
+							 <div class="update-header">
+								<strong>Lorem Ipsum</strong>
+								<span>September 22, 2025 at 0:0 AM</span>
+							</div>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+						</div>
+						<div class="update">
+							 <div class="update-header">
+								<strong>Lorem Ipsum</strong>
+								<span>September 22, 2025 at 0:0 AM</span>
+							</div>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+						</div>
+						<div class="update">
+							 <div class="update-header">
+								<strong>Lorem Ipsum</strong>
+								<span>September 22, 2025 at 0:0 AM</span>
+							</div>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+						</div>
+						<div class="update">
+							 <div class="update-header">
+								<strong>Lorem Ipsum</strong>
+								<span>September 22, 2025 at 0:0 AM</span>
+							</div>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+						</div>
+						<div class="update">
+							 <div class="update-header">
+								<strong>Lorem Ipsum</strong>
+								<span>September 22, 2025 at 0:0 AM</span>
+							</div>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
+	<!-------------------------------------END OF LAYOUTING----------------------------------->
+
+
+	
+	<!---------------------------------------------------------------------------------------->	
+	<!---------------------------------------------------------------------------------------->	
+	<!------------------------------------SCRIPT---------------------------------------------->	
 
 	<script>
+	// Eto yung unang engagement chart ----------------------------------------------------
+		const ctx = document.getElementById('engagementChart').getContext('2d');
+		const engagementChart = new Chart(ctx, {
+		type: 'line',
+		data: {
+			labels: ['Feb', 'Mar', 'Apr', 'May', 'Jun'],
+			datasets: [{
+			label: ' Engagement',
+			data: [55, 12, 9, 28, 11], 
+			borderColor: '#0847b2',
+			borderWidth: 7,
+			fill: false,
+			pointBackgroundColor: '#0847b2',
+			pointRadius: 0
+			}]
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: true,
+			plugins: {
+			legend: {
+				display: false
+			}
+			},
+			scales: {
+			y: {
+				beginAtZero: true
+			}
+			}
+		}
+		});
+
+		// Eto yung pangalawang engagement chart ----------------------------------------------------
+
+		const ctx2 = document.getElementById('engagementChart2').getContext('2d');
+		const engagementChart2 = new Chart(ctx2, {
+			type: 'line',
+			data: {
+				labels: ['19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31',
+				'1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18'],
+				datasets: [
+					{
+						label: ' DUA',
+						data: [90, 85, 80, 95, 88, 100, 110, 78, 85, 92, 89, 95, 98, 87, 110, 95, 92, 98, 97, 94, 96, 99, 95, 93, 97, 92, 90, 95, 93, 91, 89],
+						borderColor: '#0847b2',
+						borderWidth: 5,
+						fill: false,
+						pointRadius: 0
+					},
+					{
+						label: ' WUA',
+						data: [120, 120, 121, 122, 121, 123, 125, 127, 126, 128, 129, 130, 131, 128, 126, 124, 123, 122, 121, 122, 124, 125, 126, 128, 130, 132, 133, 130, 128, 126, 120],
+						borderColor: '#e94e1b',
+						borderWidth: 5,
+						fill: false,
+						pointRadius: 0
+					},
+					{
+						label: ' MUA',
+						data: Array(31).fill(190), // flat line at 190
+						borderColor: '#f2c500',
+						borderWidth: 5,
+						fill: false,
+						pointRadius: 0
+					}
+				]
+			},
+			options: {
+				responsive: true,
+				maintainAspectRatio: true,
+				plugins: {
+					legend: {
+						display: true,
+						position: 'top',
+						labels: {
+							usePointStyle: true,
+							boxWidth: 4,
+							boxHeight: 4,
+							padding: 15,
+						}
+					}
+				},
+				scales: {
+					y: {
+						beginAtZero: true
+					}
+				}
+			}
+		});
 
 		// Pages ----------------------------- wag gagalawin ----------------------------------------
 
@@ -140,6 +1880,498 @@
 		}
 		});
 		
+
+
+		// SLIDER FOR TERMS AND CONDITIONS AND PRIVACY POLICY
+
+		function openTermsModal(id) {
+			document.getElementById(id).style.display = "block";
+		}
+
+		function closeTermsModal(id) {
+			document.getElementById(id).style.display = "none";
+		}
+
+		// Optional: Close modal if user clicks outside content
+		window.onclick = function(event) {
+			const termsModal = document.getElementById('termsModal');
+			const privacyModal = document.getElementById('privacyModal');
+			
+			if (event.target === termsModal) {
+				termsModal.style.display = "none";
+			}
+			if (event.target === privacyModal) {
+				privacyModal.style.display = "none";
+			}
+		}
+
+		// FOR TASKS
+		function showPage(pageId, el) {
+			if (!pageId) return;
+
+			// Hide all pages
+			document.querySelectorAll(".page").forEach(p => {
+				p.style.display = "none";
+				p.classList.remove("active");
+			});
+
+			// Show the target page
+			const page = document.getElementById(pageId);
+			if (page) {
+				page.style.display = "block";
+				page.classList.add("active");
+			}
+
+			// Reset sidebar highlights
+			document.querySelectorAll(".sidebar a").forEach(a => {
+				a.classList.remove("active");
+				let img = a.querySelector("img.icon");
+				if (img) img.src = img.src.replace("ic_sba_", "ic_sb_"); // revert to normal
+			});
+
+			const taskSubpages = ["technical", "editing", "account", "removal", "chat-history", "update", "other"];
+
+			// Highlight Tasks menu for subpages OR main tasks page
+			if (taskSubpages.includes(pageId) || pageId === "tasks") {
+				const tasksLink = document.querySelector(".sidebar a[data-page='tasks']") ||
+								document.querySelector(".sidebar a[onclick*='tasks']");
+				if (tasksLink) {
+					tasksLink.classList.add("active");
+					let activeImg = tasksLink.querySelector("img.icon");
+					if (activeImg) activeImg.src = activeImg.src.replace("ic_sb_", "ic_sba_");
+				}
+			} else if (el) {
+				// Highlight clicked menu for other pages
+				el.classList.add("active");
+				let activeImg = el.querySelector("img.icon");
+				if (activeImg) activeImg.src = activeImg.src.replace("ic_sb_", "ic_sba_");
+			}
+
+			// Breadcrumb / Topbar
+			let title = "";
+			if (taskSubpages.includes(pageId)) {
+				title = `
+					<a href="#" onclick="showPage('tasks')" style="text-decoration:none; color:inherit;">
+						Tasks
+					</a>
+					<img src="icons/ic_arrow right.svg" 
+						style="width:14px; vertical-align:middle; margin:0 5px; cursor:pointer;" 
+						onclick="showPage('tasks')">
+					${formatTitle(pageId)}
+				`;
+			} else if (pageId === "tasks") {
+				title = "Tasks";
+			} else {
+				title = formatTitle(pageId);
+			}
+
+			document.getElementById("pageTitle").innerHTML = title;
+		}
+
+		// Format title for general pages
+		function formatTitle(str) {
+			return str
+				.split('-')
+				.map(word => word.charAt(0).toUpperCase() + word.slice(1))
+				.join(' ');
+		}
+
+
+		//TASK SLIDER
+
+		
+		//DROPDOWN DOTS FOR USER MANAGEMENT
+		// Toggle dropdown when clicking the dots
+		function toggleDpDots(button) {
+			const dpDots = button.nextElementSibling;
+
+			// Close any other open dropdowns
+			document.querySelectorAll('.dropdown-content.show').forEach(menu => {
+				if (menu !== dpDots) menu.classList.remove('show');
+			});
+
+			// Toggle current dropdown
+			dpDots.classList.toggle('show');
+		}
+
+		// Close dropdown if clicking outside
+		document.addEventListener('click', function(event) {
+			if (!event.target.closest('.dpDots')) {
+				document.querySelectorAll('.dropdown-content.show').forEach(menu => {
+					menu.classList.remove('show');
+				});
+			}
+		});
+
+		// Open modal
+		function openModal(id) {
+			document.getElementById(id).style.display = "block";
+		}
+
+		// Close modal
+		function closeModal(id) {
+			document.getElementById(id).style.display = "none";
+		}
+
+		// Close modal when clicking outside
+		window.onclick = function(event) {
+			const openModals = document.querySelectorAll(".new-modal");
+			openModals.forEach(modal => {
+				if (event.target === modal) {
+					modal.style.display = "none";
+				}
+			});
+		};
+
+		//REMOVE USER FUNCTIONS 
+
+		function openRemovePopup(element) {
+			const removePopup = document.getElementById('rmvusrPopUp');
+			const userNameElement = document.getElementById('userName');
+			
+			if (removePopup) {
+				// Find the row
+				const row = element.closest('tr');
+				
+				// Look for td with class="name"
+				const nameCell = row.querySelector('td.name');
+				
+				// Get the user name (first line only, before the <br>)
+				let userName = 'User';
+				if (nameCell) {
+					// Get only the text before the <br> tag
+					const fullText = nameCell.childNodes[0].textContent.trim();
+					userName = fullText;
+				}
+				
+				// Get the user type from any of the cat_* divs
+				const userTypeCell = row.querySelector('[class^="cat_"]');
+				const userType = userTypeCell ? userTypeCell.textContent.trim() : 'User';
+				
+				console.log('User to remove:', userName, '| Type:', userType); // Debug log
+				
+				// Display with mixed formatting
+				userNameElement.innerHTML = `<strong>${userName}</strong> <span style="font-weight: normal;">as a</span> <strong>${userType}</strong>`;
+				
+				removePopup.removeElement = row;
+				removePopup.style.display = 'flex';
+				
+				// Close the dropdown menu - USE classList.remove instead
+				const dropdown = element.closest('.dropdown-content');
+				if (dropdown) {
+					dropdown.classList.remove('show');
+				}
+			}
+		}
+
+		function closeRemovePopup() {
+			const removePopup = document.getElementById('rmvusrPopUp');
+			if (removePopup) {
+				removePopup.style.display = 'none';
+			}
+		}
+
+		function confirmRemoveUser() {
+			const removePopup = document.getElementById('rmvusrPopUp');
+			if (removePopup && removePopup.removeElement) {
+				removePopup.removeElement.remove();
+				alert('User removed successfully!');
+			}
+			closeRemovePopup();
+		}
+
+		//EDIT USER FUNCTIONS
+
+		function openEditUserPopup() {
+			document.getElementById('editUserPopup').classList.add('active');
+			document.getElementById('editUserFooter').style.display = 'none';
+		}
+
+		function closeEditUserPopup() {
+			document.getElementById('editUserPopup').classList.remove('active');
+			document.getElementById('editUserFooter').style.display = 'none';
+		}
+
+		function showEditSaveBtn() {
+			document.getElementById('editUserFooter').style.display = 'flex';
+		}
+
+		function updateEditDisplayName() {
+			const firstName = document.getElementById('editFirstName').value.trim();
+			const lastName = document.getElementById('editLastName').value.trim();
+			
+			if (firstName && lastName) {
+				const displayName = `${lastName}, ${firstName}`;
+				document.getElementById('editDisplayUserName').textContent = displayName;
+			}
+		}
+
+		function saveEditUser() {
+			alert('User information saved successfully!');
+			closeEditUserPopup();
+		}
+
+		document.addEventListener('click', function(e) {
+			if (e.target === document.getElementById('editUserPopup')) {
+				closeEditUserPopup();
+			}
+		});
+
+
+		//CREATE NEW USER FUNCTIONS
+		function openCreateUserPopup() {
+			document.getElementById('createUserPopup').classList.add('active');
+		}
+
+		function closeCreateUserPopup() {
+			document.getElementById('createUserPopup').classList.remove('active');
+		}
+
+		function updateDisplayName() {
+			const firstName = document.getElementById('firstName').value.trim();
+			const lastName = document.getElementById('lastName').value.trim();
+			
+			if (firstName && lastName) {
+				const displayName = `${lastName}, ${firstName}`;
+				document.getElementById('displayUserName').textContent = displayName;
+				// Also update the confirmation popup name
+				document.getElementById('confirmUserName').textContent = displayName;
+			}
+		}
+
+		function showConfirmPopup() {
+			// Update both display names before showing popup
+			updateDisplayName();
+			document.getElementById('confirmPopup').classList.add('active');
+		}
+
+		function closeConfirmPopup() {
+			document.getElementById('confirmPopup').classList.remove('active');
+		}
+
+		function confirmCreateUser() {
+			// Get form values
+			const firstName = document.getElementById('firstName').value.trim();
+			const lastName = document.getElementById('lastName').value.trim();
+			const email = document.getElementById('workEmail').value.trim();
+			const displayName = `${lastName}, ${firstName}`;
+			
+			// Get current date
+			const currentDate = new Date().toLocaleDateString('en-US', { 
+				year: 'numeric', 
+				month: 'short', 
+				day: 'numeric' 
+			});
+			
+			// Find the user table tbody
+			const userTable = document.querySelector('#users .user tbody');
+			
+			if (userTable) {
+				// Create new table row matching your exact structure
+				const newRow = document.createElement('tr');
+				newRow.innerHTML = `
+					<td class="table_user">
+						<img src="photos/pic_placeholder.png">
+					</td>
+					<td class="name">
+						${displayName}<br>
+						<span>${email}</span>
+					</td>
+					<td></td>
+					<td>${firstName}</td>
+					<td>
+						<div class="cat_GCO">GCO Admin</div>
+					</td>
+					<td>Just now</td>
+					<td>${currentDate}</td>
+					<td class="action">
+						<div class="dpDots">
+							<button class="menu-dots" onclick="toggleDpDots(this)">⋮</button>
+							<div class="dropdown-content">
+								<a href="#" onclick="openEditUserPopup()">Edit</a>
+								<a href="#" class="remove" onclick="openRemovePopup(this)">Remove User</a>
+							</div>
+						</div>
+					</td>
+				`;
+				
+				// Add the new row at the top of the table
+				userTable.insertBefore(newRow, userTable.firstChild);
+				
+				// Show success message
+				alert(`User "${displayName}" created successfully!`);
+				
+				// Close popups
+				closeConfirmPopup();
+				closeCreateUserPopup();
+				
+				// Optional: Clear the form
+				document.getElementById('firstName').value = '';
+				document.getElementById('lastName').value = '';
+				document.getElementById('workEmail').value = 'email@students.nu-fairview.edu.ph';
+				document.getElementById('password').value = 'sample';
+				document.getElementById('displayUserName').textContent = '';
+			} else {
+				console.error('User table not found!');
+			}
+		}
+
+		document.addEventListener('click', function(e) {
+			if (e.target === document.getElementById('createUserPopup')) {
+				closeCreateUserPopup();
+			}
+			if (e.target === document.getElementById('confirmPopup')) {
+				closeConfirmPopup();
+			}
+		});
+		
+		//EXPORT CHAT MODAL
+		function openExportChatModal() {
+			document.getElementById('exportChatModal').style.display = 'block';
+			// Reset to Peer to Peer view when opening modal
+			showPeerToPeer();
+		}
+
+		function closeExportChatModal() {
+			document.getElementById('exportChatModal').style.display = 'none';
+		}
+
+		function showPeerToPeer() {
+			document.getElementById('peerToPeerBtn').classList.add('active');
+			document.getElementById('supportGroupBtn').classList.remove('active');
+			document.getElementById('peerToPeerContent').style.display = 'block';
+			document.getElementById('supportGroupContent').style.display = 'none';
+		}
+
+		function showSupportGroup() {
+			document.getElementById('supportGroupBtn').classList.add('active');
+			document.getElementById('peerToPeerBtn').classList.remove('active');
+			document.getElementById('supportGroupContent').style.display = 'block';
+			document.getElementById('peerToPeerContent').style.display = 'none';
+		}
+
+		// Close modal when clicking outside
+		window.onclick = function(event) {
+			const modal = document.getElementById('exportChatModal');
+			if (event.target == modal) {
+				modal.style.display = 'none';
+			}
+		}
+
+
+		//MODAL POP UP FOR TO-DO TASKS
+		function openModal(button) {
+			const modal = document.getElementById('taskModal');
+			const taskBox = button.closest('.task-box');
+			const description = taskBox.querySelector('p').textContent.trim();
+			const descriptionElement = document.getElementById('modalTaskDescription');
+			descriptionElement.textContent = description;
+			modal.classList.add('active');
+			document.body.style.overflow = 'hidden';
+		}
+
+		function closeModal() {
+			const modal = document.getElementById('taskModal');
+			modal.classList.remove('active');
+			document.body.style.overflow = 'auto';
+		}
+
+		function closeModalOnOverlay(event) {
+			if (event.target.id === 'taskModal') {
+				closeModal();
+			}
+		}
+
+
+		//MODAL POP UP FOR PENDING TASKS SEE DETAILS
+		function openPendingModal(button) {
+			const modal = document.getElementById('pendingModal');
+			const taskBox = button.closest('.task-box');
+			const description = taskBox.querySelector('p').textContent.trim();
+			const descriptionElement = document.getElementById('pendingModalTaskDescription');
+			descriptionElement.textContent = description;
+			modal.classList.add('active');
+			document.body.style.overflow = 'hidden';
+		}
+
+		function closePendingModal() {
+			const modal = document.getElementById('pendingModal');
+			modal.classList.remove('active');
+			document.body.style.overflow = 'auto';
+		}
+
+		function closePendingModalOnOverlay(event) {
+			if (event.target.id === 'pendingModal') {
+				closePendingModal();
+			}
+		}
+
+
+		// MODAL POP UP FOR PENDING TASKS DONE BUTTON
+		function openPendingDoneModal(button) {
+		const modal = document.getElementById('doneModal');
+		const taskBox = button.closest('.task-box');
+		const description = taskBox.querySelector('p').textContent.trim();
+		const descriptionElement = document.getElementById('doneModalTaskDescription');
+		descriptionElement.textContent = description;
+		
+		// Reset textarea and file input
+		document.querySelector('.done-modal-textarea').value = '';
+		document.getElementById('doneFileInput').value = '';
+		document.getElementById('selectedFileName').innerHTML = '';
+		
+		modal.classList.add('active');
+		document.body.style.overflow = 'hidden';
+		}
+
+		function closeDoneModal() {
+		const modal = document.getElementById('doneModal');
+		modal.classList.remove('active');
+		document.body.style.overflow = 'auto';
+		}
+
+		function closeDoneModalOnOverlay(event) {
+		if (event.target.id === 'doneModal') {
+			closeDoneModal();
+		}
+		}
+
+		function showFileName() {
+		const input = document.getElementById('doneFileInput');
+		const fileNameDiv = document.getElementById('selectedFileName');
+		
+		if (input.files.length > 0) {
+			const file = input.files[0];
+			fileNameDiv.innerHTML = `
+			<div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 15px; background: #f8f9fa; border-radius: 6px; border: 1px solid #e0e0e0;">
+				<span style="cursor: pointer; color: #0847b2; text-decoration: underline; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" onclick="downloadFile()">${file.name}</span>
+				<button onclick="removeFile()" style="background: none; border: none; color: #dc3545; font-size: 20px; cursor: pointer; font-weight: bold; margin-left: 10px; padding: 0 5px;">&times;</button>
+			</div>
+			`;
+		} else {
+			fileNameDiv.innerHTML = '';
+		}
+		}
+
+		function removeFile() {
+		document.getElementById('doneFileInput').value = '';
+		document.getElementById('selectedFileName').innerHTML = '';
+		}
+
+		function downloadFile() {
+		const input = document.getElementById('doneFileInput');
+		if (input.files.length > 0) {
+			const file = input.files[0];
+			const url = URL.createObjectURL(file);
+			const a = document.createElement('a');
+			a.href = url;
+			a.download = file.name;
+			document.body.appendChild(a);
+			a.click();
+			document.body.removeChild(a);
+			URL.revokeObjectURL(url);
+		}
+		}
 	</script>
 </body>
 </html>
