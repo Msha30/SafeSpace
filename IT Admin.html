@@ -1032,57 +1032,56 @@
 			</div>
 		</div>
 
-<!---------------- MODAL FOR PENDING TASK | DONE BUTTON -------------------------------------------->
-<div class="done-modal-overlay" id="doneModal" onclick="closeDoneModalOnOverlay(event)">
-  <div class="done-modal-content">
-    <button class="done-close-modal" onclick="closeDoneModal()">&times;</button>
-    <div class="done-modal-header">Task Details</div>
-    <div class="done-modal-body">
-      <h3 id="doneModalTaskDescription">I'd like to request a removal of a Support Group named "HATID"</h3>
-      
-      <div class="done-modal-info-row">
-        <div class="done-modal-info">
-          <div class="done-modal-info-label">Task Created by</div>
-          <div class="done-modal-info-value">GCO Coordinator Name</div>
-        </div>
-        
-        <div class="done-modal-info">
-          <div class="done-modal-info-label">Task Started by</div>
-          <div class="done-modal-info-value-green">IT Admin Name</div>
-        </div>
-      </div>
+		<!---------------- MODAL FOR PENDING TASK | DONE BUTTON -------------------------------------------->
+		<div class="done-modal-overlay" id="doneModal" onclick="closeDoneModalOnOverlay(event)">
+			<div class="done-modal-content">
+				<button class="done-close-modal" onclick="closeDoneModal()">&times;</button>
+				<div class="done-modal-header">Task Details</div>
+				<div class="done-modal-body">
+				<h3 id="doneModalTaskDescription">I'd like to request a removal of a Support Group named "HATID"</h3>
+				
+				<div class="done-modal-info-row">
+					<div class="done-modal-info">
+					<div class="done-modal-info-label">Task Created by</div>
+					<div class="done-modal-info-value">GCO Coordinator Name</div>
+					</div>
+					
+					<div class="done-modal-info">
+					<div class="done-modal-info-label">Task Started by</div>
+					<div class="done-modal-info-value-green">IT Admin Name</div>
+					</div>
+				</div>
 
-      <div class="done-modal-info-row">
-        <div class="done-modal-info">
-          <div class="done-modal-info-label">Task Created on</div>
-          <div class="done-modal-info-value">January 28, 2025</div>
-        </div>
-        
-        <div class="done-modal-info">
-          <div class="done-modal-info-label">Task Started on</div>
-          <div class="done-modal-info-value-green">January 28, 2025</div>
-        </div>
-      </div>
+				<div class="done-modal-info-row">
+					<div class="done-modal-info">
+					<div class="done-modal-info-label">Task Created on</div>
+					<div class="done-modal-info-value">January 28, 2025</div>
+					</div>
+					
+					<div class="done-modal-info">
+					<div class="done-modal-info-label">Task Started on</div>
+					<div class="done-modal-info-value-green">January 28, 2025</div>
+					</div>
+				</div>
 
-      <div class="done-modal-textarea-wrapper">
-        <textarea class="done-modal-textarea" placeholder="System Update Details"></textarea>
-      </div>
+				<div class="done-modal-textarea-wrapper">
+					<textarea class="done-modal-textarea" placeholder="System Update Details"></textarea>
+				</div>
 
-      <div class="done-modal-actions">
-        <button class="done-modal-add-file" onclick="document.getElementById('doneFileInput').click();">
-          <img src="icons/addfile_btn.svg" alt="Upload" class="done-add-icon">
-          <span>Add file</span>
-        </button>
-        <button class="done-modal-submit">Done</button>
-      </div>
-      
-      <!-- File name display -->
-      <div id="selectedFileName" style="margin-top: 15px;"></div>
-      
-      <input type="file" id="doneFileInput" accept="image/*,video/*,.pdf,.doc,.docx,.xls,.xlsx,.txt" style="display: none;" onchange="showFileName()">
-    </div>
-  </div>
-</div>
+				<div class="done-modal-actions">
+					<button class="done-modal-add-file" onclick="document.getElementById('doneFileInput').click();">
+					<img src="icons/addfile_btn.svg" alt="Upload" class="done-add-icon">
+					<span>Add file</span>
+					</button>
+					<button class="done-modal-submit">Done</button>
+				</div>
+				
+				<div id="selectedFileName" style="margin-top: 15px;"></div>
+				
+				<input type="file" id="doneFileInput" accept="image/*,video/*,.pdf,.doc,.docx,.xls,.xlsx,.txt" style="display: none;" onchange="showFileName()">
+				</div>
+			</div>
+		</div>
 
 
 		<!---------------- USER MANAGEMENT ------------------------------------------------------------>
@@ -1308,7 +1307,7 @@
 							</div>
 							<div class="createUserGroup">
 								<label class="createUserLabel">Access</label>
-								<input type="text" class="createUserInput createUserInputReadonly" id="access" value="GCO Coordinator" readonly>
+								<input type="text" class="createUserInput createUserInputReadonly" id="access" value="GCO Admin" readonly>
 							</div>
 						</div>
 						
