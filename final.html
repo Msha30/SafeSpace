@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Resume — Coruno, Myeisha Ann T.</title>
+  <style>
+    body {
+      margin: 0;
+      background: #e4e4e4;
+      color: #111111;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      padding: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    * { box-sizing: border-box; }
+
+    .resume {
+      width: 100%;
+      max-width: 900px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* Equal column widths */
+      gap: 18px;
+      padding: 28px;
+      background: linear-gradient(180deg, #fff, #fafafa);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+      border-radius: 8px;
+    }
+
+    .header {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      padding-bottom: 12px;
+    }
+    .name {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+    .meta { font-size: 13px; color: #555555; }
+
+    .column-left { padding-right: 10px; }
+    .section { margin-top: 25px; }
+    .section h3 {
+      margin: 0 0 8px 0;
+      font-size: 13px;
+      color: #000000;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+    }
+
+    .education .item, .involvement .item {
+      font-size: 14px;
+      color: #111111;
+      margin-bottom: 10px;
+    }
+
+    .skill-list li, .it-list li {
+      font-size: 14px;
+      color: #111111;
+      margin-bottom: 2px;
+    }
+
+    .skill-list, .it-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .skill-list li, .it-list li {
+      background: transparent;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      padding: 6px 8px;
+      border-radius: 6px;
+      font-size: 13px;
+      color: #555555;
+    }
+
+    .career-objective p {
+      margin: 0;
+      font-size: 14px;
+      color: #111111;
+      line-height: 1.45;
+    }
+
+    .experience .job { margin-bottom: 14px; }
+    .job-header { display: flex; justify-content: space-between; gap: 12px; }
+    .job-title { font-weight: 600; }
+    .job-company { color: #555555; font-size: 13px; }
+    .job-dates { color: #555555; font-size: 13px; }
+    .job-desc { margin-top: 6px; font-size: 14px; color: #111111; line-height: 1.45; }
+
+    .involvement .item { font-size: 14px; color: #111111; }
+    .muted { color: #555555; font-size: 13px; }
+
+    @media (max-width:800px) {
+      .resume { grid-template-columns: 1fr; }
+      .header { flex-direction: column; align-items: flex-start; gap: 6px; }
+    }
+  </style>
+</head>
+<body>
+  <article class="resume" aria-label="Resume">
+    <header class="header">
+      <div>
+        <div class="name">Coruno, Myeisha Ann T.</div>
+        <div class="meta">Fairview, Quezon City</div>
+      </div>
+      <div class="meta">
+        corunomt2@students.nu-fairview.edu.ph • 0994 123 4567
+      </div>
+    </header>
+
+    <aside class="column-left">
+      <section class="section education">
+        <h3>Education</h3>
+        <div class="item">
+          <strong>BS Information Technology</strong>
+          <div class="muted">NU Fairview</div>
+          <div class="muted">2023 - Present</div>
+        </div>
+        <div class="item">
+          <strong>STEM</strong>
+          <div class="muted">NU Fairview</div>
+          <div class="muted">2021 - 2023</div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h3>Skills</h3>
+        <ul class="skill-list">
+          <li>Problem Solving</li>
+          <li>Teamwork and Collaboration</li>
+          <li>Time Management</li>
+          <li>Communication Skills</li>
+          <li>Attention to Detail</li>
+          <li>Computer Literacy</li>
+          <li>Willingness to Learn</li>
+          <li>HTML / CSS</li>
+          <li>Java</li>
+          <li>Git / Github</li>
+          <li>Linux</li>
+          <li>Android App Development</li>
+        </ul>
+      </section>
+    </aside>
+
+    <main>
+      <section class="section involvement">
+        <h3>Experience & Involvement</h3>
+        <div class="item">
+          <strong>NSTP Community Service Project</strong>
+          <div class="muted">2021 – Present</div>
+          <div class="muted" style="margin-top:6px">Collaborated with groupmates to improve pedestrian safety in Barangay Greater Lagro by repainting pedestrian lanes.</div>
+          <div class="muted" style="margin-top:4px">Contributed to planning, execution, and documentation of the project.</div>
+          <div class="muted" style="margin-top:4px">Our group was awarded Best Portfolio under BSIT for effective and detailed documentation</div>
+        </div>
+      </section>
+
+      <section class="section career-objective">
+        <h3>Career Objective</h3>
+        <p>A motivated and detail-oriented IT professional seeking a role where I can apply my technical and problem-solving skills to build reliable software solutions. Looking to join a collaborative team that values growth, quality, and user-centered design.</p>
+      </section>
+    </main>
+  </article>
+</body>
+</html>
