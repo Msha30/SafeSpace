@@ -273,8 +273,8 @@
                          <button class="btn details" onclick="openDetailsPopup()">See Details</button>
                     </div>
 				</div>
-
 			</div>
+			
 			<div class="row">
 				<div class="left-half">
 					<button class="btn-white">Today</button>
@@ -1042,7 +1042,7 @@
 			<div class="support-container">
 				<div class="support-groups">
 					<div class="support-card" onclick="showPage('haven')">
-					<img src="photos/suppGroup_placeholder.png" alt="Group">
+					<img src="photos/haven.png" alt="Group">
 					<div class="support-info">
 						<h4>HAVEN Support Group</h4>
 						<span>78 Members</span>
@@ -1050,7 +1050,7 @@
 					</div>
 
 					<div class="support-card" onclick="showPage('yakap')">
-					<img src="photos/suppGroup_placeholder.png" alt="Group">
+					<img src="photos/yakap.png" alt="Group">
 					<div class="support-info">
 						<h4>YAKAP Support Group</h4>
 						<span>78 Members</span>
@@ -1058,7 +1058,7 @@
 					</div>
 
 					<div class="support-card" onclick="showPage('rise')">
-					<img src="photos/suppGroup_placeholder.png" alt="Group">
+					<img src="photos/rise.png" alt="Group">
 					<div class="support-info">
 						<h4>RISE Support Group</h4>
 						<span>78 Members</span>
@@ -1497,12 +1497,23 @@
 					</div>
 					
 					<div class="AncProfile">
-						<img src="photos/pic_placeholder.png" alt="Profile" class="profile-img">
-						<span class="profile-name">NUFV Guidance and Counseling Office</span>
-						<button class="dropdown-icon-btn" type="button">
-							<img src="icons/ic_dropdown.svg" alt="dropdown" class="dropdown-icon">
-						</button>
+						<img src="photos/NUFV GCO.jpg" alt="Profile" class="profile-img">
+						<div class="dropdown-container">
+							<button class="dropdown-btn" type="button" onclick="toggleDropdown()">
+								<span class="profile-name" id="selectedProfile">NUFV Guidance and Counseling Office</span>
+								<img src="icons/ic_dropdown.svg" alt="dropdown" class="dropdown-icon">
+							</button>
+							<div class="dropdown-menu" id="dropdownMenu">
+								<div class="dropdown-item" onclick="selectProfile('NUFV Guidance and Counseling Office')">
+									NUFV Guidance and Counseling Office
+								</div>
+								<div class="dropdown-item" onclick="selectProfile('NU FV PEERS - NU Fairview Peer Facilitators')">
+									NU FV PEERS - NU Fairview Peer Facilitators
+								</div>
+							</div>
+						</div>
 					</div>
+
 					<input type="text" placeholder="Title..." class="AncTitle">
 					<textarea placeholder="Content..." class="AncContent"></textarea>
 					<div class="file-boxes">
@@ -3039,6 +3050,30 @@
 				if (popup && popup.classList.contains('active')) {
 					closePostConfirm();
 				}
+			}
+		});
+
+		//FOR ANNOUNCEMENT DROPDOWN
+		function toggleDropdown() {
+			const dropdown = document.getElementById('dropdownMenu');
+			dropdown.classList.toggle('show');
+		}
+
+		function selectProfile(profileName) {
+			document.getElementById('selectedProfile').textContent = profileName;
+			document.getElementById('dropdownMenu').classList.remove('show');
+			
+			const profileImg = document.querySelector('.AncProfile .profile-img');
+			if (profileName === 'NUFV Guidance and Counseling Office') {
+				profileImg.src = 'photos/NUFV GCO.jpg';
+			} else if (profileName === 'NU FV PEERS - NU Fairview Peer Facilitators') {
+				profileImg.src = 'photos/NUFV Peers.jpg';
+			}
+		}
+
+		window.addEventListener('click', function(e) {
+			if (!e.target.closest('.dropdown-container')) {
+				document.getElementById('dropdownMenu').classList.remove('show');
 			}
 		});
 
