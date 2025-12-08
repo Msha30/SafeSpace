@@ -55,7 +55,7 @@ body {
 /* Custom Scrollbar for all pages */
 ::-webkit-scrollbar {
 	width: 7px;
-	height: 10px;
+	height: 7px;
 }
 
 ::-webkit-scrollbar-track {
@@ -201,7 +201,7 @@ button {
     position: absolute;
     top: 100%; 
     margin-top: 25px; 
-    margin-left: 90px;
+    margin-left: 40px;
     background-color: #fff;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     min-width: 300px; 
@@ -700,16 +700,17 @@ select option:focus {
 	width: 50%;
 }
 
-.table_user{
+.table_user {
 	width: 60px;
-
 }
 
 .table_user img {
-  height: 45px; 
-  width: 45px; 
+	height: 45px; 
+	width: 45px; 
 	margin: 0px;
-	padding-left: 15px;
+	margin-left: 15px; 
+	border-radius: 50%;
+	object-fit: cover;
 }
 
 .name {
@@ -949,7 +950,7 @@ select option:focus {
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   font-family: Arial, sans-serif;
   line-height: 1.6;
-  top: 180px;   
+  top: 160px;   
   left: 150px;      
   right: 0;     
   margin: 0 auto; 
@@ -1669,6 +1670,7 @@ select option:focus {
     border: none;
     border-bottom: 1px solid #c3e1f4;
     font-size: 14px;
+    outline: none; 
 } 
 
 .request-option-remove {
@@ -2517,29 +2519,28 @@ select option:focus {
 	justify-content: center;
 	margin-top: 20px;
 }
+.groupChatEditPictureOptions {
+    display: flex;
+    justify-content: center;
+}
 
 .groupChatEditPictureOption {
-	width: 110px;
-	height: 110px;
-	cursor: pointer;
-	overflow: hidden;
-	transition: border-color 0.2s;
+    width: 110px;
+    height: 110px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: border-color 0.2s;
 }
 
 .groupChatEditCircle {
-	border-radius: 50%;
-}
-
-.groupChatEditSquare {
-	border-radius: 12px;
+    border-radius: 50%;
 }
 
 .groupChatEditPictureOption img {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
-
 /* -------------------------------------- ANNOUNCEMENT 2 -------------------------------------- */
 
 .AncButtons {
@@ -2600,12 +2601,28 @@ select option:focus {
     font-size: 14px;
 }
 
+.dropdown-icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    margin-left: 5px;
+    border-radius: 4px;
+    transition: background 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dropdown-icon-btn:hover {
+    background: #f0f0f0;
+}
+
 .dropdown-icon {
     width: 12px;
     height: 12px;
-    margin-left: 5px;
-    cursor: pointer;
     color: #bdc1c4;
+    pointer-events: none;
 }
 
 .AncTitle {
@@ -2758,6 +2775,97 @@ select option:focus {
     background: #a0d4f0;
 }
 
+/* --------------------------------------NOTE: CSS FOR POP UP POST CONFIRMATION -------------------------------------- */
+.postPopup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+    backdrop-filter: blur(3px);
+}
+
+.postPopup.active {
+    display: flex;
+}
+
+.postContent {
+    background: white;
+    border-radius: 4px;
+    padding: 30px;
+    max-width: 300px;
+    width: 90%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: postSlideIn 0.3s ease;
+    margin-left: 260px;
+    margin-top: 10px;
+}
+
+@keyframes postSlideIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.postText {
+    font-size: 16px;
+    color: #333;
+    margin: 0 0 25px 0;
+    text-align: center;
+    line-height: 1.5;
+    font-family: 'PublicSans', sans-serif;
+}
+
+.postButtons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.postBtnCancel,
+.postBtnConfirm {
+    padding: 10px 30px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'PublicSans', sans-serif;
+    min-width: 110px; 
+}
+
+.postBtnConfirm {
+    
+    background: #c3e1f4;  
+    color: #0847b2;      
+}
+
+.postBtnConfirm:hover {
+    background: #0847b2;
+    color: #ffffff;      
+}
+
+.postBtnCancel {
+    background: #bdc1c4; 
+    color: #6d6d6d;
+}
+
+.postBtnCancel:hover {
+    background: #6b6a6a;
+    color: #ffffff;  
+}
+
 .announcementHeader {
   display: flex;           
   align-items: center;   
@@ -2823,7 +2931,6 @@ small {
 
 
 /* --------------------------------------FEEDBACK -------------------------------------- */
-
 
 /* -------------------------------------- SYSTEM AND LOGS 2 -------------------------------------- */
 .logs-list {
@@ -3071,7 +3178,7 @@ small {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     animation: reportSlideIn 0.3s ease;
     margin-left: 260px;
-    margin-top: 60px;
+    margin-top: 40px;
 }
 
 @keyframes reportSlideIn {
@@ -3236,6 +3343,7 @@ small {
   grid-template-columns: repeat(3, 1fr); 
   gap: 20px;
   margin-bottom: 30px;
+  
 }
 
 .task-card {
@@ -3248,15 +3356,10 @@ small {
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   position: relative;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
   height: 75px;
   border-left: 12px solid #0067c4; 
 }
 
-.task-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-}
 
 .task-icon img {
   width: 45px;
@@ -3322,10 +3425,11 @@ small {
   border-radius: 4px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
   padding: 20px;
-  display: flex;
+  display: flex; /* Changed from 'none' to 'flex' */
   flex-direction: column;
   justify-content: space-between;
   margin-bottom: 10px; 
+  
 }
 
 .task-box p {
@@ -3400,6 +3504,441 @@ small {
 .btn-pending:hover {
   background: #007bff; 
   color: #fff;        
+}
+
+
+/* --------------------------------------TASKS -- TO DO -------------------------------------- */
+
+/* To Do Modal Styles */
+.todo-modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.todo-modal-overlay.active {
+  display: flex;
+}
+
+.todo-modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 4px;
+  max-width: 380px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  position: relative;
+  top: 40px;
+  left: 120px;
+  margin: auto;
+  scrollbar-width: none;         
+  -ms-overflow-style: none;      
+}
+
+
+.todo-modal-content::-webkit-scrollbar {
+  display: none;
+}
+
+.todo-modal-header {
+  font-family: 'PublicSans', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: black;
+}
+
+.todo-modal-body {
+  margin-bottom: 20px;
+}
+
+.todo-modal-body h3 {
+  font-family: 'PublicSans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  padding: 15px;
+  color: #000000;
+  background: #eff5f9;
+  border-radius: 6px;
+  line-height: 1.5;
+  border: none;
+}
+
+.todo-modal-info {
+  margin-bottom: 15px;
+}
+
+.todo-modal-info-label {
+  font-family: 'PublicSans', sans-serif;
+  font-size: 13px;
+  font-style: italic;
+  font-weight: 600;
+  color: #6d6d6d;
+  margin-bottom: 4px;
+}
+
+.todo-modal-info-value {
+  font-family: 'PublicSans', sans-serif;
+  font-size: 13px;
+  color: black;
+  font-weight: 600;
+}
+
+.todo-modal-button {
+  width: 100%;
+  background: #E3F2FD;
+  color: #4A90E2;
+  border: none;
+  padding: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.todo-modal-button:hover {
+  background: #007bff;
+  color: white; 
+}
+
+.todo-close-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #999;
+  line-height: 1;
+}
+
+.todo-close-modal:hover {
+  color: #333;
+}
+
+/* --------------------------------------TASKS -- PENDING | SEE DETAILS -------------------------------------- */
+
+/* Pending Modal Styles */
+.pending-modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.pending-modal-overlay.active {
+  display: flex;
+}
+
+.pending-modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 4px;
+  max-width: 380px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  position: relative;
+  top: 30px;
+  left: 120px;
+  margin: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.pending-modal-content::-webkit-scrollbar {
+  display: none;
+}
+
+.pending-modal-header {
+  font-family: 'PublicSans', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: black;
+}
+
+.pending-modal-body {
+  margin-bottom: 20px;
+}
+
+.pending-modal-body h3 {
+  font-family: 'PublicSans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  padding: 15px;
+  color: #000000;
+  background: #eff5f9;
+  border-radius: 6px;
+  line-height: 1.5;
+  border: none;
+}
+
+.pending-modal-info-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 70px;
+  margin-bottom: 15px;
+}
+
+.pending-modal-info {
+  flex: 1;
+}
+
+.pending-modal-info-label {
+  font-family: 'PublicSans', sans-serif;
+  font-size: 13px;
+  font-style: italic;
+  font-weight: 600;
+  color: #6d6d6d;
+  margin-bottom: 4px;
+}
+
+.pending-modal-info-value {
+  font-family: 'PublicSans', sans-serif;
+  font-size: 13px;
+  color: black;
+  font-weight: 600;
+}
+
+.pending-modal-info-value-green {
+  font-family: 'PublicSans', sans-serif;
+  font-size: 13px;
+  color: #28a745;
+  font-weight: 600;
+}
+
+.pending-close-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #999;
+  line-height: 1;
+}
+
+.pending-close-modal:hover {
+  color: #333;
+}
+
+
+/* --------------------------------------TASKS -- PENDING | DONE BUTTON -------------------------------------- */
+
+/* Done Modal Styles */
+.done-modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.done-modal-overlay.active {
+  display: flex;
+}
+
+.done-modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 4px;
+  max-width: 420px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  position: relative;
+  top: 30px;
+  left: 120px;
+  margin: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.done-modal-content::-webkit-scrollbar {
+  display: none;
+}
+
+.done-modal-header {
+  font-family: 'PublicSans', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: black;
+}
+
+.done-modal-body {
+  margin-bottom: 20px;
+}
+
+.done-modal-body h3 {
+  font-family: 'PublicSans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  padding: 15px;
+  color: #000000;
+  background: #eff5f9;
+  border-radius: 6px;
+  line-height: 1.5;
+  border: none;
+}
+
+.done-modal-info-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 70px;
+  margin-bottom: 15px;
+}
+
+.done-modal-info {
+  flex: 1;
+}
+
+.done-modal-info-label {
+  font-family: 'PublicSans', sans-serif;
+  font-size: 13px;
+  font-style: italic;
+  font-weight: 600;
+  color: #6d6d6d;
+  margin-bottom: 4px;
+}
+
+.done-modal-info-value {
+  font-family: 'PublicSans', sans-serif;
+  font-size: 13px;
+  color: black;
+  font-weight: 600;
+}
+
+.done-modal-info-value-green {
+  font-family: 'PublicSans', sans-serif;
+  font-size: 13px;
+  color: #28a745;
+  font-weight: 600;
+}
+
+.done-modal-textarea-wrapper {
+  margin: 20px 0;
+}
+
+.done-modal-textarea {
+  width: 92%;
+  height: 120px;
+  padding: 15px;
+  font-family: 'PublicSans', sans-serif;
+  font-size: 13px;
+  border: 1px solid #bdc1c4;
+  border-radius: 5px;
+  resize: none;
+  color: #6d6d6d;
+  background: #eff5f9;
+}
+
+.done-modal-textarea:focus {
+  outline: none;
+  border-color: none;
+  background: #eff5f9;
+}
+
+.done-modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  align-items: stretch;
+}
+
+.done-modal-add-file {
+  flex: 1.5;
+  height: 45px;
+  font-family: 'PublicSans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  background: #d5d5d6;
+  color: #666;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s;
+  text-align: center;
+  line-height: 1.3;
+}
+
+.done-modal-add-file:hover {
+
+  background:  #bdc1c4;
+  border-color: none;
+}
+
+.done-add-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.done-modal-submit {
+  flex: 1;
+  height: 45px;
+  font-family: 'PublicSans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.done-modal-submit:hover {
+  background: #218838;
+}
+
+.done-close-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #999;
+  line-height: 1;
+}
+
+.done-close-modal:hover {
+  color: #333;
 }
 
 /* --------------------------------------USER MANAGEMENT -------------------------------------- */
@@ -4061,8 +4600,8 @@ small {
 }
 
 .save-btn {
-    background-color: #bdc1c4; 
-    color: white;
+    background-color: #c3e1f4;
+    color: #0067c4;
     font-weight: bold;
     border: none;
     border-radius: 6px;
@@ -4075,9 +4614,15 @@ small {
 }
 
 .save-btn:hover {
-    background-color: #9aa0a4;; 
+    background-color: #a0d4f0;
 }
 
+
+/* -------------------------------------EXPORT CHAT-------------------------------------- */
+#exportChatModal .modal-content {
+    max-width: 550px;
+    padding: 0;
+}
 
 /* -------------------------------------EXPORT CHAT-------------------------------------- */
 #exportChatModal .modal-content {
