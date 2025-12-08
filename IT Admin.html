@@ -260,13 +260,13 @@
 				</div>
 				<div class="task-grid">
 				<div class="task-box">
-					<p>sample</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
 					<div class="task-actions">
 					<button class="btn-start" onclick="openModal(this)">Start Task</button>
 					</div>
 				</div>
 				<div class="task-box">
-					<p>sample2</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
 					<div class="task-actions">
 					<button class="btn-start" onclick="openModal(this)">Start Task</button>
 					</div>
@@ -291,7 +291,7 @@
 				</div>
 				<div class="task-grid">
 				<div class="task-box">
-					<p>IHH</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
 					<div class="task-actions">
 					<button class="btn-details" onclick="openPendingModal(this)">See Details</button>
 					<button class="btn-done" onclick="openPendingDoneModal(this)">Done</button>
@@ -1203,7 +1203,6 @@
 		</div>
 
 		<!---------------- POP UP FOR REMOVE USER   ------------------------------->
-		<!-- Remove User Popup -->
 		<div id="rmvusrPopUp" class="removePopup">
 			<div class="removeContent">
 				<p class="removeText">Are you sure you want to remove <strong id="userName">User Name</strong>?</p>
@@ -1891,7 +1890,6 @@
 			document.getElementById(id).style.display = "none";
 		}
 
-		// Optional: Close modal if user clicks outside content
 		window.onclick = function(event) {
 			const termsModal = document.getElementById('termsModal');
 			const privacyModal = document.getElementById('privacyModal');
@@ -1908,29 +1906,25 @@
 		function showPage(pageId, el) {
 			if (!pageId) return;
 
-			// Hide all pages
 			document.querySelectorAll(".page").forEach(p => {
 				p.style.display = "none";
 				p.classList.remove("active");
 			});
 
-			// Show the target page
 			const page = document.getElementById(pageId);
 			if (page) {
 				page.style.display = "block";
 				page.classList.add("active");
 			}
 
-			// Reset sidebar highlights
 			document.querySelectorAll(".sidebar a").forEach(a => {
 				a.classList.remove("active");
 				let img = a.querySelector("img.icon");
-				if (img) img.src = img.src.replace("ic_sba_", "ic_sb_"); // revert to normal
+				if (img) img.src = img.src.replace("ic_sba_", "ic_sb_"); 
 			});
 
 			const taskSubpages = ["technical", "editing", "account", "removal", "chat-history", "update", "other"];
 
-			// Highlight Tasks menu for subpages OR main tasks page
 			if (taskSubpages.includes(pageId) || pageId === "tasks") {
 				const tasksLink = document.querySelector(".sidebar a[data-page='tasks']") ||
 								document.querySelector(".sidebar a[onclick*='tasks']");
@@ -1940,7 +1934,6 @@
 					if (activeImg) activeImg.src = activeImg.src.replace("ic_sb_", "ic_sba_");
 				}
 			} else if (el) {
-				// Highlight clicked menu for other pages
 				el.classList.add("active");
 				let activeImg = el.querySelector("img.icon");
 				if (activeImg) activeImg.src = activeImg.src.replace("ic_sb_", "ic_sba_");
@@ -1967,7 +1960,6 @@
 			document.getElementById("pageTitle").innerHTML = title;
 		}
 
-		// Format title for general pages
 		function formatTitle(str) {
 			return str
 				.split('-')
@@ -1980,20 +1972,19 @@
 
 		
 		//DROPDOWN DOTS FOR USER MANAGEMENT
-		// Toggle dropdown when clicking the dots
 		function toggleDpDots(button) {
 			const dpDots = button.nextElementSibling;
 
-			// Close any other open dropdowns
+
 			document.querySelectorAll('.dropdown-content.show').forEach(menu => {
 				if (menu !== dpDots) menu.classList.remove('show');
 			});
 
-			// Toggle current dropdown
+
 			dpDots.classList.toggle('show');
 		}
 
-		// Close dropdown if clicking outside
+
 		document.addEventListener('click', function(event) {
 			if (!event.target.closest('.dpDots')) {
 				document.querySelectorAll('.dropdown-content.show').forEach(menu => {
@@ -2002,17 +1993,15 @@
 			}
 		});
 
-		// Open modal
+
 		function openModal(id) {
 			document.getElementById(id).style.display = "block";
 		}
 
-		// Close modal
 		function closeModal(id) {
 			document.getElementById(id).style.display = "none";
 		}
 
-		// Close modal when clicking outside
 		window.onclick = function(event) {
 			const openModals = document.querySelectorAll(".new-modal");
 			openModals.forEach(modal => {
@@ -2029,33 +2018,30 @@
 			const userNameElement = document.getElementById('userName');
 			
 			if (removePopup) {
-				// Find the row
+
 				const row = element.closest('tr');
 				
-				// Look for td with class="name"
+
 				const nameCell = row.querySelector('td.name');
-				
-				// Get the user name (first line only, before the <br>)
+			
 				let userName = 'User';
 				if (nameCell) {
-					// Get only the text before the <br> tag
 					const fullText = nameCell.childNodes[0].textContent.trim();
 					userName = fullText;
 				}
 				
-				// Get the user type from any of the cat_* divs
+
 				const userTypeCell = row.querySelector('[class^="cat_"]');
 				const userType = userTypeCell ? userTypeCell.textContent.trim() : 'User';
 				
-				console.log('User to remove:', userName, '| Type:', userType); // Debug log
+				console.log('User to remove:', userName, '| Type:', userType); 
 				
-				// Display with mixed formatting
+
 				userNameElement.innerHTML = `<strong>${userName}</strong> <span style="font-weight: normal;">as a</span> <strong>${userType}</strong>`;
 				
 				removePopup.removeElement = row;
 				removePopup.style.display = 'flex';
 				
-				// Close the dropdown menu - USE classList.remove instead
 				const dropdown = element.closest('.dropdown-content');
 				if (dropdown) {
 					dropdown.classList.remove('show');
@@ -2133,13 +2119,11 @@
 			if (firstName && lastName) {
 				const displayName = `${lastName}, ${firstName}`;
 				document.getElementById('displayUserName').textContent = displayName;
-				// Also update the confirmation popup name
 				document.getElementById('confirmUserName').textContent = displayName;
 			}
 		}
 
 		function showConfirmPopup() {
-			// Update both display names before showing popup
 			updateDisplayName();
 			document.getElementById('confirmPopup').classList.add('active');
 		}
@@ -2149,24 +2133,20 @@
 		}
 
 		function confirmCreateUser() {
-			// Get form values
 			const firstName = document.getElementById('firstName').value.trim();
 			const lastName = document.getElementById('lastName').value.trim();
 			const email = document.getElementById('workEmail').value.trim();
 			const displayName = `${lastName}, ${firstName}`;
 			
-			// Get current date
 			const currentDate = new Date().toLocaleDateString('en-US', { 
 				year: 'numeric', 
 				month: 'short', 
 				day: 'numeric' 
 			});
 			
-			// Find the user table tbody
 			const userTable = document.querySelector('#users .user tbody');
 			
 			if (userTable) {
-				// Create new table row matching your exact structure
 				const newRow = document.createElement('tr');
 				newRow.innerHTML = `
 					<td class="table_user">
@@ -2194,17 +2174,13 @@
 					</td>
 				`;
 				
-				// Add the new row at the top of the table
 				userTable.insertBefore(newRow, userTable.firstChild);
 				
-				// Show success message
 				alert(`User "${displayName}" created successfully!`);
 				
-				// Close popups
 				closeConfirmPopup();
 				closeCreateUserPopup();
 				
-				// Optional: Clear the form
 				document.getElementById('firstName').value = '';
 				document.getElementById('lastName').value = '';
 				document.getElementById('workEmail').value = 'email@students.nu-fairview.edu.ph';
@@ -2227,7 +2203,6 @@
 		//EXPORT CHAT MODAL
 		function openExportChatModal() {
 			document.getElementById('exportChatModal').style.display = 'block';
-			// Reset to Peer to Peer view when opening modal
 			showPeerToPeer();
 		}
 
@@ -2249,7 +2224,6 @@
 			document.getElementById('peerToPeerContent').style.display = 'none';
 		}
 
-		// Close modal when clicking outside
 		window.onclick = function(event) {
 			const modal = document.getElementById('exportChatModal');
 			if (event.target == modal) {
@@ -2314,7 +2288,6 @@
 		const descriptionElement = document.getElementById('doneModalTaskDescription');
 		descriptionElement.textContent = description;
 		
-		// Reset textarea and file input
 		document.querySelector('.done-modal-textarea').value = '';
 		document.getElementById('doneFileInput').value = '';
 		document.getElementById('selectedFileName').innerHTML = '';
