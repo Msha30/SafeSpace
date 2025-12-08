@@ -1122,8 +1122,8 @@
 						<a href="#" class="edit-link edit-1">Edit</a>
 						</div>
 						<div class="info-images">
-						<img src="photos/pic_placeholder.png" alt="Profile Picture Circle" class="profile-circle">
-						<img src="photos/suppGroup_placeholder.png" alt="Profile Picture Square" class="profile-square">
+						<img src="photos/haven.png" alt="Profile Picture Circle" class="profile-circle">
+						<img src="photos/haven.png" alt="Profile Picture Square" class="profile-square">
 						</div>
 					</div>
 
@@ -1133,7 +1133,7 @@
 						<a href="#" class="edit-link edit-2">Edit</a>
 						</div>
 						<div class="info-images">
-						<img src="photos/rectangle_placeholder.png" alt="Cover Photo">
+						<img src="photos/haven_rec.png" alt="Cover Photo">
 						</div>
 					</div>
 					</div>
@@ -1238,8 +1238,8 @@
 						<a href="#" class="edit-link edit-1">Edit</a>
 						</div>
 						<div class="info-images">
-						<img src="photos/pic_placeholder.png" alt="Profile Picture Circle" class="profile-circle">
-						<img src="photos/suppGroup_placeholder.png" alt="Profile Picture Square" class="profile-square">
+						<img src="photos/yakap.png" alt="Profile Picture Circle" class="profile-circle">
+						<img src="photos/yakap.png" alt="Profile Picture Square" class="profile-square">
 						</div>
 					</div>
 
@@ -1249,7 +1249,7 @@
 						<a href="#" class="edit-link edit-2">Edit</a>
 						</div>
 						<div class="info-images">
-						<img src="photos/rectangle_placeholder.png" alt="Cover Photo">
+						<img src="photos/yakap_rec.png" alt="Cover Photo">
 						</div>
 					</div>
 					</div>
@@ -1355,8 +1355,8 @@
 						<a href="#" class="edit-link edit-1">Edit</a>
 						</div>
 						<div class="info-images">
-						<img src="photos/pic_placeholder.png" alt="Profile Picture Circle" class="profile-circle">
-						<img src="photos/suppGroup_placeholder.png" alt="Profile Picture Square" class="profile-square">
+						<img src="photos/rise.png" alt="Profile Picture Circle" class="profile-circle">
+						<img src="photos/rise.png" alt="Profile Picture Square" class="profile-square">
 						</div>
 					</div>
 
@@ -1366,7 +1366,7 @@
 						<a href="#" class="edit-link edit-2">Edit</a>
 						</div>
 						<div class="info-images">
-						<img src="photos/rectangle_placeholder.png" alt="Cover Photo">
+						<img src="photos/rise_rec.png" alt="Cover Photo">
 						</div>
 					</div>
 					</div>
@@ -2651,6 +2651,20 @@
 			}
 		}
 
+		// FUNCTION TO UPDATE OVERVIEW CARD IMAGE
+		function updateOverviewCardImage(groupId, imageSrc) {
+			const overviewPage = document.getElementById('support-group');
+			if (!overviewPage) return;
+			
+			const cards = overviewPage.querySelectorAll('.group-card, [onclick*="' + groupId + '"]');
+			cards.forEach(card => {
+				const cardImg = card.querySelector('img');
+				if (cardImg) {
+					cardImg.src = imageSrc;
+				}
+			});
+		}
+
 		// FOR SUPPORT GROUP EDIT FUNCTIONALITY (HAVEN, YAKAP, RISE)
 		function initSupportGroupEdits(pageId) {
 			const page = document.getElementById(pageId);
@@ -2673,10 +2687,14 @@
 						if (file && file.type.startsWith('image/')) {
 							const reader = new FileReader();
 							reader.onload = function(e) {
+								const imageSrc = e.target.result;
+								
 								const circleImg = page.querySelector('.profile-circle');
 								const squareImg = page.querySelector('.profile-square');
-								if (circleImg) circleImg.src = e.target.result;
-								if (squareImg) squareImg.src = e.target.result;
+								if (circleImg) circleImg.src = imageSrc;
+								if (squareImg) squareImg.src = imageSrc;
+								
+								updateOverviewCardImage(pageId, imageSrc);
 							};
 							reader.readAsDataURL(file);
 						}
@@ -2726,18 +2744,14 @@
 					const editLink = this;
 					
 					if (editLink.textContent === 'Edit') {
-
 						descriptionDiv.setAttribute('contenteditable', 'true');
 						editLink.textContent = 'Save';
 						
-
 						const handleKeydown = function(e) {
-
 							if (e.ctrlKey && e.key === 'b') {
 								e.preventDefault();
 								document.execCommand('bold', false, null);
 							}
-
 							if (e.ctrlKey && e.key === 'i') {
 								e.preventDefault();
 								document.execCommand('italic', false, null);
@@ -2748,13 +2762,12 @@
 						descriptionDiv.focus();
 						
 					} else {
-
 						descriptionDiv.setAttribute('contenteditable', 'false');
 						editLink.textContent = 'Edit';
 					}
 				});
-				}
 			}
+		}
 
 		
 		//CREATE NEW SUPPORT GROUP 
