@@ -1499,7 +1499,9 @@
 					<div class="AncProfile">
 						<img src="photos/pic_placeholder.png" alt="Profile" class="profile-img">
 						<span class="profile-name">NUFV Guidance and Counseling Office</span>
-						<img src="icons/ic_dropdown.svg" alt="dropdown" class="dropdown-icon">
+						<button class="dropdown-icon-btn" type="button">
+							<img src="icons/ic_dropdown.svg" alt="dropdown" class="dropdown-icon">
+						</button>
 					</div>
 					<input type="text" placeholder="Title..." class="AncTitle">
 					<textarea placeholder="Content..." class="AncContent"></textarea>
@@ -1555,6 +1557,8 @@
 					</div>
 				</div>
 			</div>
+
+		
 
 		<!---------------- CONFIRM POST POP UP DIALOGUE ------------------------------------------>
 		<!-- Post Confirmation Popup -->
@@ -1781,7 +1785,7 @@
 								<div class="file2"></div>
 								<div class="file2 add-file2" id="dropArea2" onclick="document.getElementById('fileInput2').click();">
 									<img src="icons/addfile_btn.svg" alt="Upload" class="add-icon2">
-									Add file<br>or drag and drop
+									Add photos/videos
 								</div>
 							</div>
 							<input type="file" id="fileInput2" accept="image/*" multiple style="display:none" onchange="handleFileUpload2(this.files)">
@@ -2879,6 +2883,7 @@
 			btn.closest('.file').remove();
 		}
 
+
 		// FOR POST POP UP DIALOGUE
 
 		// Show post confirmation popup
@@ -3012,14 +3017,10 @@
 			// For example: submit the form or send data via AJAX
 			console.log('Report submitted to IT Admin');
 			
-			// Optional: Show success message
 			alert('Report submitted successfully!');
 			
-			// Or if you want to actually submit the form:
-			// document.querySelector('form').submit();
 		}
 
-		// Close popup when clicking outside
 		document.addEventListener('click', function(e) {
 			const popup = document.getElementById('reportConfirmPopup');
 			if (e.target === popup) {
@@ -3027,7 +3028,6 @@
 			}
 		});
 
-		// Close popup on Escape key
 		document.addEventListener('keydown', function(e) {
 			if (e.key === 'Escape') {
 				const popup = document.getElementById('reportConfirmPopup');
@@ -3036,6 +3036,17 @@
 				}
 			}
 		});
+
+
+
+		//TRY
+
+
+		
+
+		
+
+		
 
 
 
