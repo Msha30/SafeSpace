@@ -6,6 +6,55 @@
 	<link rel="icon" type="image/png" href="photos/pic_logo2.png">
 	<link rel="stylesheet" href="SystemDesign.css">
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script type="module">
+		import { protectDashboard, logout } from "./auth.js";
+		import { initializeUserManagement, updateUserCounts, fetchAllUsers, filterUsersByType, formatUserData } from './userManagement.js';
+
+		window.addEventListener("DOMContentLoaded", async () => {
+			// Allow only authenticated GCO users
+			protectDashboard(["gco"]);
+
+			// Logout handler
+			const signOutLink = document.getElementById("signOutLink");
+			if (signOutLink) {
+			signOutLink.addEventListener("click", async (e) => {
+				e.preventDefault();
+				await logout();
+			});
+			}
+
+			// Initialize User Management
+			console.log("Initializing GCO User Management...");
+			
+			const gcoConfig = {
+			allowedUserTypes: ['student', 'peer'],
+			tableBodyId: 'gcousers',
+			searchInputId: 'gcoUserSearch',
+			filterSelectId: 'gcoUserFilter',
+			showActions: false,
+			showType: false,
+			onUserClick: (user) => {
+				// Store user data for popup
+				window.selectedUser = user;
+				openUsersPopup();
+			}
+			};
+
+			try {
+			await initializeUserManagement(gcoConfig);
+			
+			// Update count cards on overview page
+			const allUsers = await fetchAllUsers();
+			const allowedUsers = filterUsersByType(allUsers, ['student', 'peer']);
+			const formattedUsers = allowedUsers.map(formatUserData);
+			updateUserCounts(formattedUsers);
+			
+			console.log("GCO User Management initialized successfully");
+			} catch (error) {
+			console.error("Failed to initialize GCO user management:", error);
+			}
+		});
+	</script>
 </head>
 <body>
 	<!---------------- Eto yung side bar -------------------- wag gagalawin ------------------------->
@@ -552,8 +601,13 @@
 				<div class="right-half" style="width: 100%;">
 					<div class="searchbar">
 						<img src="icons/ic_search.svg">
-						<input type="text" placeholder="Search...">
+						<input type="text" id="gcoUserSearch" placeholder="Search...">
 					</div>
+					<select id="gcoUserFilter" class="userdrop" style="display:none;">
+						<option value="All">All</option>
+						<option value="Peers">Peers</option>
+						<option value="Users">Users</option>
+					</select>
 				</div>
 			</div>
 			<div class="row">
@@ -562,60 +616,17 @@
 					<table class="user">
 						<thead>
 							<tr>
-								<th id="left">User</th>
-								<th> </th>
-								<th> </th>
-								<th>Name Displayed</th>
-								<th>Last Active</th>
-								<th>Date Created</th>
+							<th id="left">User</th>
+							<th> </th>
+							<th> </th>
+							<th>Name Displayed</th>
+							<th>Type</th>
+							<th>Last Active</th>
+							<th>Date Created</th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr>
-								<td class="table_user">
-									<img src="photos/pic_placeholder.png">
-								</td>
-								<td>
-									<div class="name" onclick="openUsersPopup()">
-										Doe, John A.<br> 
-										<span>email@students.nu-fairview.edu.ph</span>
-									</div>
-								</td>
-								<td></td>
-								<td>John</td>
-								<td>Lorem Ipsum</td>
-								<td>Lorem Ipsum</td>
-							</tr>
-							<tr>
-								<td class="table_user">
-									<img src="photos/pic_placeholder.png">
-								</td>
-								<td>
-									<div class="name" onclick="openUsersPopup()">
-										Doe, John A.<br> 
-										<span>email@students.nu-fairview.edu.ph</span>
-									</div>
-								</td>
-								<td></td>
-								<td>John</td>
-								<td>Lorem Ipsum</td>
-								<td>Lorem Ipsum</td>
-							</tr>
-							<tr>
-								<td class="table_user">
-									<img src="photos/pic_placeholder.png">
-								</td>
-								<td>
-									<div class="name" onclick="openUsersPopup()">
-										Doe, John A.<br> 
-										<span>email@students.nu-fairview.edu.ph</span>
-									</div>
-								</td>
-								<td></td>
-								<td>John</td>
-								<td>Lorem Ipsum</td>
-								<td>Lorem Ipsum</td>
-							</tr>
+						<tbody id="gcousers">
+							<!-- Users will be populated here -->
 						</tbody>
 					</table>
 				</div>

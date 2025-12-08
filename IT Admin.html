@@ -7,6 +7,102 @@
 	<link rel="icon" type="image/png" href="photos/pic_logo2.png">
 	<link rel="stylesheet" href="SystemDesign.css">
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script type="module">
+		import { protectDashboard, logout } from "./auth.js";
+		import { initializeUserManagement, updateUserCounts, fetchAllUsers, filterUsersByType, formatUserData } from './userManagement.js';
+
+		window.addEventListener("DOMContentLoaded", async () => {
+			// Allow only authenticated IT Admin users
+			protectDashboard(["admin"]);
+
+			// Logout handler
+			const signOutLink = document.getElementById("signOutLink");
+			if (signOutLink) {
+			signOutLink.addEventListener("click", async (e) => {
+				e.preventDefault();
+				await logout();
+			});
+			}
+
+			// Initialize User Management
+			console.log("Initializing IT Admin User Management...");
+			
+			const adminConfig = {
+			allowedUserTypes: ['gco', 'student', 'peer'],
+			tableBodyId: 'itAdminUsers',
+			searchInputId: 'itUserSearch',
+			filterSelectId: 'userdrop',
+			showActions: true,
+			showType: true,
+			onUserClick: null
+			};
+
+			try {
+			await initializeUserManagement(adminConfig);
+			
+			// Update count cards on overview page
+			const allUsers = await fetchAllUsers();
+			const allowedUsers = filterUsersByType(allUsers, ['gco', 'student', 'peer']);
+			const formattedUsers = allowedUsers.map(formatUserData);
+			updateUserCounts(formattedUsers);
+			
+			console.log("IT Admin User Management initialized successfully");
+			} catch (error) {
+			console.error("Failed to initialize IT Admin user management:", error);
+			}
+		});
+
+		// Helper function
+		function getUserTypeDisplayName(userType) {
+			const names = {
+			'gco': 'GCO Coordinator',
+			'peer': 'Peers',
+			'student': 'Student',
+			'admin': 'IT Admin'
+			};
+			return names[userType] || userType;
+		}
+
+		// Enhanced edit user function
+		window.editUser = async function(userId) {
+			try {
+			const { fetchAllUsers } = await import('./userManagement.js');
+			const allUsers = await fetchAllUsers();
+			const user = allUsers.find(u => u.id === userId || u.uid === userId);
+			
+			if (!user) {
+				alert('User not found');
+				return;
+			}
+
+			// Populate edit modal
+			document.getElementById('editFirstName').value = user.fname || '';
+			document.getElementById('editLastName').value = user.lname || '';
+			document.getElementById('editSchoolEmail').value = user.email || '';
+			document.getElementById('editStudentNo').value = user.studentId || '';
+			document.getElementById('editProgram').value = user.program || '';
+			document.getElementById('editPreferredName').value = user.username || '';
+			document.getElementById('editAccess').value = getUserTypeDisplayName(user.userType);
+			
+			const displayName = `${user.lname || ''}, ${user.fname || ''}`.trim();
+			document.getElementById('editDisplayUserName').textContent = displayName;
+			
+			document.getElementById('editUserPopup').setAttribute('data-user-id', userId);
+			openEditUserPopup();
+			
+			} catch (error) {
+			console.error('Error loading user for edit:', error);
+			alert('Failed to load user data');
+			}
+		};
+
+		// Enhanced remove user function
+		window.removeUser = function(userId, userName) {
+			document.getElementById('userName').textContent = userName;
+			document.getElementById('rmvusrPopUp').setAttribute('data-user-id', userId);
+			openRemovePopup();
+		};
+	</script>
 </head>
 <body>
 	<!---------------- Eto yung side bar -------------------- wag gagalawin ------------------------->
@@ -998,118 +1094,50 @@
 
 		<!---------------- USER MANAGEMENT ------------------------------------------------------------>
 
+					<!-- USER MANAGEMENT -->
 		<div id="users" class="page">
-            <div class="row">
+			<div class="row">
 				<div class="right-half" style="width: 100%;">
-					<div class="searchbar-IT">
-						<img src="icons/ic_search.svg">
-						<input type="text" placeholder="Search...">
-					</div>
-					<select name="userdrop" class="userdrop">
-						<option value="All">All</option>
-						<option value="Peers">Peers</option>
-						<option value="Users">Users</option>
-					</select>
-					<div class="peer-session">
-						<button class="btn-peersession" onclick="openCreateUserPopup()">Create New User</button>
-					</div>
+				<div class="searchbar-IT">
+					<img src="icons/ic_search.svg">
+					<input type="text" id="itUserSearch" placeholder="Search by name, email, or ID...">
+				</div>
+				<select name="userdrop" id="userdrop" class="userdrop">
+					<option value="All">All</option>
+					<option value="GCO">GCO Coordinators</option>
+					<option value="Peers">Peer Facilitators</option>
+					<option value="Users">Students</option>
+				</select>
+				<div class="peer-session">
+					<button class="btn-peersession" onclick="openCreateUserPopup()">Create New User</button>
+				</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="card">
-					<h3>User List</h3>
-					<table class="user">
-						<thead>
-							<tr>
-								<th id="left">User</th>
-								<th> </th>
-								<th> </th>
-								<th>Name Displayed</th>
-								<th>Type</th>
-								<th>Last Active</th>
-								<th>Date Created</th>
-								<th></th> 
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td class="table_user">
-									<img src="photos/pic_placeholder.png">
-								</td>
-								<td class="name">
-									Doe, John A.<br>
-									<span>email@students.nu-fairview.edu.ph</span>
-								</td>
-								<td></td>
-								<td>John</td>
-								<td>
-									<div class="cat_GCO">GCO Coordinator</div>
-								</td>
-								<td>Lorem Ipsum</td>
-								<td>Lorem Ipsum</td>
-				                <td class="action">
-								<div class="dpDots">
-									<button class="menu-dots" onclick="toggleDpDots(this)">⋮</button>
-									<div class="dropdown-content">
-										<a href="#" onclick="openEditUserPopup()">Edit</a>
-										<a href="#" class="remove" onclick="openRemovePopup()">Remove User</a>
-									</div>
-								</div>
-								</td>				
-							</tr>
-							
-							<tr>
-								<td class="table_user">
-									<img src="photos/pic_placeholder.png">
-								</td>
-								<td class="name">
-									Doe, John A.<br>
-									<span>email@students.nu-fairview.edu.ph</span>
-								</td>
-								<td></td>
-								<td>John</td>
-								<td>
-									<div class="cat_peer">Peers</div>
-								</td>
-								<td>Lorem Ipsum</td>
-								<td>Lorem Ipsum</td>
-				                <td class="action">
-								<div class="dpDots">
-									<button class="menu-dots" onclick="toggleDpDots(this)">⋮</button>
-									<div class="dropdown-content">
-										<a href="#" onclick="openEditUserPopup()">Edit</a>
-										<a href="#" class="remove" onclick="openRemovePopup()">Remove User</a>
-									</div>
-								</div>
-								</td>
-							</tr>
-							<tr>
-								<td class="table_user">
-									<img src="photos/pic_placeholder.png">
-								</td>
-								<td class="name">
-									Doe, Jane A.<br>
-									<span>email@students.nu-fairview.edu.ph</span>
-								</td>
-								<td></td>
-								<td>Jae</td>
-								<td>
-									<div class="cat_user">User</div>
-								</td>
-								<td>Lorem Ipsum</td>
-								<td>Lorem Ipsum</td>
-				                <td class="action">
-								<div class="dpDots">
-									<button class="menu-dots" onclick="toggleDpDots(this)">⋮</button>
-									<div class="dropdown-content">
-										<a href="#" onclick="openEditUserPopup()">Edit</a>
-										<a href="#" class="remove" onclick="openRemovePopup()">Remove User</a>
-									</div>
-								</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
+				<h3>User List</h3>
+				<table class="user">
+					<thead>
+					<tr>
+						<th id="left">User</th>
+						<th> </th>
+						<th> </th>
+						<th>Name Displayed</th>
+						<th>Type</th>
+						<th>Last Active</th>
+						<th>Date Created</th>
+						<th></th> 
+					</tr>
+					</thead>
+					<tbody id="itAdminUsers">
+					<!-- Users will be populated here by JavaScript -->
+					<tr>
+						<td colspan="8" style="text-align: center; padding: 20px;">
+						Loading users...
+						</td>
+					</tr>
+					</tbody>
+				</table>
 				</div>
 			</div>
 		</div>
