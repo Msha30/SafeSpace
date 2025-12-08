@@ -1588,6 +1588,67 @@
 				<div class="right">
 					<div class="card">
 						<h3>Overview</h3>
+						<table>
+						<thead>
+							<tr>
+								<th id="left">Rating</th>
+								<th>Count</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td id="left">
+									<img src="icons/ic_star.svg" class="star">
+									<img src="icons/ic_star.svg" class="star">
+									<img src="icons/ic_star.svg" class="star">
+									<img src="icons/ic_star.svg" class="star">
+									<img src="icons/ic_star.svg" class="star">
+								</td>
+								<td >0</td>
+							</tr>
+							<tr>
+								<td id="left">
+									<img src="icons/ic_star.svg" class="star">
+									<img src="icons/ic_star.svg" class="star">
+									<img src="icons/ic_star.svg" class="star">
+									<img src="icons/ic_star.svg" class="star">
+									<img src="icons/ic_star.svg" class="star">
+								</td>
+								<td >0</td>
+							</tr>
+							<tr>
+								<td id="left">
+									<img src="icons/ic_star.svg" class="star">
+									<img src="icons/ic_star.svg" class="star">
+									<img src="icons/ic_star.svg" class="star">
+									<img src="icons/ic_star.svg" class="star">
+									<img src="icons/ic_star.svg" class="star">
+								</td>
+								<td >0</td>
+							</tr>
+							<tr>
+								<td id="left">
+									<img src="icons/ic_star.svg" class="star">
+									<img src="icons/ic_star.svg" class="star">
+									<img src="icons/ic_star.svg" class="star">
+									<img src="icons/ic_star.svg" class="star">
+									<img src="icons/ic_star.svg" class="star">
+								</td>
+								<td >0</td>
+							</tr>
+							<tr>
+								<td id="left">
+									<img src="icons/ic_star.svg" class="star">
+									<img src="icons/ic_star.svg" class="star">
+									<img src="icons/ic_star.svg" class="star">
+									<img src="icons/ic_star.svg" class="star">
+									<img src="icons/ic_star.svg" class="star">
+								</td>
+								<td >0</td>
+							</tr>
+						</tbody>
+					</table>
+					<canvas id="ratingChart" class="rating"></canvas>
 					</div>
 				</div>
 			</div>
@@ -1945,6 +2006,38 @@
 				}
 			}
 		});
+
+		const ctx3 = document.getElementById('ratingChart').getContext('2d');
+        const data = {
+            labels: ['3 Stars', '4 Stars', '5 Stars'],
+            datasets: [{
+                data: [9.5, 38.1, 52.4],
+                backgroundColor: ['#cfe2f3', '#66b3ff', '#0056b3'],
+                borderWidth: 1
+            }]
+        };
+
+        const config = {
+            type: 'pie',
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'right'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ': ' + context.raw + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        const ratingChart = new Chart(ctx3, config);
 
 		// Pages ----------------------------- wag gagalawin ----------------------------------------
 
