@@ -3617,6 +3617,125 @@ small {
   color: #333;
 }
 
+/* --------------------------------------TASKS -- PENDING | SEE DETAILS -------------------------------------- */
+
+/* Pending Modal Styles */
+.pending-modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.pending-modal-overlay.active {
+  display: flex;
+}
+
+.pending-modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 4px;
+  max-width: 380px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  position: relative;
+  top: 30px;
+  left: 120px;
+  margin: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.pending-modal-content::-webkit-scrollbar {
+  display: none;
+}
+
+.pending-modal-header {
+  font-family: 'PublicSans', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: black;
+}
+
+.pending-modal-body {
+  margin-bottom: 20px;
+}
+
+.pending-modal-body h3 {
+  font-family: 'PublicSans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  padding: 15px;
+  color: #000000;
+  background: #eff5f9;
+  border-radius: 6px;
+  line-height: 1.5;
+  border: none;
+}
+
+.pending-modal-info-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 70px;
+  margin-bottom: 15px;
+}
+
+.pending-modal-info {
+  flex: 1;
+}
+
+.pending-modal-info-label {
+  font-family: 'PublicSans', sans-serif;
+  font-size: 13px;
+  font-style: italic;
+  font-weight: 600;
+  color: #6d6d6d;
+  margin-bottom: 4px;
+}
+
+.pending-modal-info-value {
+  font-family: 'PublicSans', sans-serif;
+  font-size: 13px;
+  color: black;
+  font-weight: 600;
+}
+
+.pending-modal-info-value-green {
+  font-family: 'PublicSans', sans-serif;
+  font-size: 13px;
+  color: #28a745;
+  font-weight: 600;
+}
+
+.pending-close-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #999;
+  line-height: 1;
+}
+
+.pending-close-modal:hover {
+  color: #333;
+}
+
+
+
+
 /* --------------------------------------USER MANAGEMENT -------------------------------------- */
 
 .dpDots {
