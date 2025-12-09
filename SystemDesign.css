@@ -3202,6 +3202,10 @@ small {
   object-fit: cover;
 }
 
+video.file-preview2 {
+    background: #000;
+}
+
 .remove-file-btn2 {
   position: absolute;
   top: 8px;

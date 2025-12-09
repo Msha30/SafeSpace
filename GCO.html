@@ -1914,7 +1914,7 @@
 									Add photos/videos
 								</div>
 							</div>
-							<input type="file" id="fileInput2" accept="image/*" multiple style="display:none" onchange="handleFileUpload2(this.files)">
+							<input type="file" id="fileInput2" accept="image/*,video/*" multiple style="display:none" onchange="handleFileUpload2(this.files)">
 							<button type="button" class="report-btn" onclick="showReportConfirm()">Report</button>
 						</form>
 					</div>
@@ -3092,18 +3092,18 @@
 
 
 
-		//FOR REPORT UPLOADING IMAGES
+		//FOR REPORT UPLOADING IMAGES AND VIDEOS
 		function handleFileUpload2(files) {
 			console.log('Files uploaded:', files.length);
 			const fileBoxesContainer = document.querySelector('.file-boxes2');
 			const dropArea = document.getElementById('dropArea2');
 			
 			const emptyFileBoxes = Array.from(fileBoxesContainer.querySelectorAll('.file2:not(.add-file2)')).filter(box => {
-				return !box.querySelector('img');
+				return !box.querySelector('img') && !box.querySelector('video');
 			});
 			
 			[...files].forEach((file, index) => {
-				if (file.type.startsWith('image/')) {
+				if (file.type.startsWith('image/') || file.type.startsWith('video/')) {
 					let targetBox;
 					
 					if (emptyFileBoxes[index]) {
@@ -3116,19 +3116,26 @@
 					
 					const reader = new FileReader();
 					reader.onload = function(e) {
-						targetBox.innerHTML = `
-							<img src="${e.target.result}" alt="Preview" class="file-preview2">
-							<button class="remove-file-btn2" onclick="removeFile2(this)">×</button>
-						`;
+						if (file.type.startsWith('image/')) {
+							targetBox.innerHTML = `
+								<img src="${e.target.result}" alt="Preview" class="file-preview2">
+								<button class="remove-file-btn2" onclick="removeFile2(this)">×</button>
+							`;
+						} else if (file.type.startsWith('video/')) {
+							targetBox.innerHTML = `
+								<video src="${e.target.result}" class="file-preview2" controls></video>
+								<button class="remove-file-btn2" onclick="removeFile2(this)">×</button>
+							`;
+						}
 					};
 					reader.readAsDataURL(file);
 				}
 			});
 		}
 
-		function removeFile2(btn) {
-			btn.closest('.file2').remove();
-		}
+function removeFile2(btn) {
+	btn.closest('.file2').remove();
+}
 
 
 		//FOR REPORT POP UP DIALOGUE
