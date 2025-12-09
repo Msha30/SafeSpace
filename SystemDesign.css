@@ -575,6 +575,8 @@ td.down::after {
 	padding: 0;
 }
 
+
+
 /* -------------------------------------- USERS -------------------------------------- */
 .searchbar {
 	height: 30px;
@@ -869,25 +871,97 @@ select option:focus {
 	gap: 20px;
 	overflow-y: auto;
 	
-	/* Hide scrollbar */
-	scrollbar-width: none; /* Firefox */
-	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; 
+	-ms-overflow-style: none; 
 }
 
 .leftscroll::-webkit-scrollbar {
-	display: none; /* Chrome, Safari, Opera */
+	display: none; 
 }
 
 /* -------------------------------------- FEEDBACK -------------------------------------- */
 
-.feedback {
-	background: white;
-	border-radius: 5px;
-	display: flex;
-	padding: 15px 30px;
-	border-bottom: 2px solid #e4f4ff;
-  margin-bottom: 15px;
+.leftscroll2 {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 12px 12px;
+    align-items: start;
+   padding: 16px 25px 16px 25px;
+    margin-bottom: 16px;
+    border-bottom: 2px solid #c3e1f4; 
 }
+
+.leftscroll2:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.feedback-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.feedback-content {
+    margin-bottom: 8px;
+}
+
+.feedback-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.feedback-name {
+    font-family: 'PublicSans', sans-serif;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.feedback-date {
+    font-family: 'PublicSans', sans-serif;
+    font-size: 13px;
+    color: #6d6d6d;
+    font-weight: 600;
+    font-style: italic;
+}
+
+.feedback-stars {
+    margin-bottom: 8px;
+}
+
+.feedback-stars .star {
+    width: 20px; 
+    height: 20px;
+}
+
+.feedback-text {
+    margin: 0;
+    font-size: 13px;
+    color: #555;
+    line-height: 1.5;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .big_btn {
     background: white;
@@ -2594,35 +2668,81 @@ select option:focus {
     height: 40px;
     border-radius: 50%;
     flex-shrink: 0;
+    border: 1px solid black;
 }
+
+
+.dropdown-container {
+    position: relative;
+    flex: 1;
+}
+
+.dropdown-btn {
+    width: 100%;
+    background: white;
+    border: none;
+    border-radius: none;
+    padding: 10px 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
 
 .profile-name {
-    font-weight: bold;
-    font-size: 14px;
-}
-
-.dropdown-icon-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-    margin-left: 5px;
-    border-radius: 4px;
-    transition: background 0.2s;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.dropdown-icon-btn:hover {
-    background: #f0f0f0;
+    font-family: 'PublicSans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: black;
+    
 }
 
 .dropdown-icon {
     width: 12px;
     height: 12px;
-    color: #bdc1c4;
-    pointer-events: none;
+    transition: transform 0.2s;
+    
+}
+
+.dropdown-btn:hover .dropdown-icon {
+    transform: translateY(2px);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin-top: 5px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: none;
+    overflow: hidden;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+.dropdown-item {
+    padding: 12px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+    transition: background 0.2s;
+}
+
+.dropdown-item:hover {
+    background: #f0f0f0;
+}
+
+.dropdown-item:not(:last-child) {
+    border-bottom: 1px solid #eee;
 }
 
 .AncTitle {
@@ -2932,6 +3052,11 @@ small {
 
 /* --------------------------------------FEEDBACK -------------------------------------- */
 
+.star {
+  height: 30px;
+  margin: 0dp;
+}
+
 /* -------------------------------------- SYSTEM AND LOGS 2 -------------------------------------- */
 .logs-list {
   display: flex;
@@ -3075,6 +3200,10 @@ small {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+video.file-preview2 {
+    background: #000;
 }
 
 .remove-file-btn2 {

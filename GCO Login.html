@@ -77,7 +77,7 @@
 
   <!-- ================= JS ================= -->
   <script>
-    // Toggle password visibility
+
     function togglePassword(inputId, eyeId) {
       const passwordInput = document.getElementById(inputId);
       const eyeIcon = document.getElementById(eyeId);
@@ -91,7 +91,6 @@
       }
     }
 
-    // Show Reset Password Page
     function showResetPassword() {
       document.getElementById('ITLogIn').classList.add('hidden');
       document.getElementById('ITResetPassword').classList.remove('hidden');
@@ -99,21 +98,17 @@
       document.getElementById('resetEmail').focus();
     }
 
-    // Show Login Page
     function showLogin() {
       document.getElementById("ITResetPassword").classList.add("hidden");
       document.getElementById("ITLogIn").classList.remove("hidden");
     }
 
     function backToSignIn() {
-      // Hide reset password section
       document.getElementById('ITResetPassword').classList.add('hidden');
       
-      // Show sign in section
       document.getElementById('ITLogIn').classList.remove('hidden');
     }
 
-    // Send Reset Email
     function sendResetEmail(event) {
       event.preventDefault();
       const email = document.getElementById('resetEmail').value;
@@ -121,7 +116,6 @@
       return false;
     }
 
-    // Resend Email
     function resendEmail() {
       const email = document.getElementById('resetEmail').value;
       if (email) {
