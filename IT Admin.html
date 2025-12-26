@@ -13,8 +13,6 @@
 	<div class="sidebar">
 		<div class="logo"></div>
 
-		<a href="#" class="active" onclick="showPage('overview', this)"> <img src="icons/ic_sba_overview.svg" class="icon"><span>Overview</span></a>
-
 		<a href="#" onclick="showPage('tasks', this)"><img src="icons/ic_sb_tasks.svg" class="icon"><span>Tasks</span></a>
 
 		<a href="#" onclick="showPage('users', this)"><img src="icons/ic_sb_user.svg" class="icon"><span>User Management</span></a>
@@ -28,7 +26,7 @@
 
 	<div class="main">
 	<div class="topbar">
-		<span id="pageTitle">Overview</span>
+		<span id="pageTitle"> </span>
 		<div class="topbar-right">
 			<div class="GCO">
 				<img src="icons/ic_GCO.svg" class="GCO_icon" alt="GCO icon"> 
@@ -46,135 +44,6 @@
 	<!---------------- Eto yung content ------------------------------------------------------------>
 	<div class="content">
 
-		<!---------------- OVERVIEW ------------------------------------------------------------>
-
-			<div id="overview" class="page active">
-			<div class="row">
-				<div class="card table-card">
-					<h3>Programs</h3>
-					<table>
-						<thead>
-							<tr>
-								<th id="left">Programs</th>
-								<th>New Users this Month</th>
-								<th>Total No. of Users</th>
-								<th>Change, %</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td id="left">Senior High School - ABM</td>
-								<td >0</td>
-								<td>0</td>
-								<td class="up">0 %</td>
-							</tr>
-							<tr>
-								<td id="left">Senior High School - HUMSS</td>
-								<td>0</td>
-								<td>0</td>
-								<td class="up">0 %</td>
-							</tr>
-							<tr>
-								<td id="left">Senior High School - STEM</td>
-								<td>0</td>
-								<td>0</td>
-								<td class="down">0 %</td>
-							</tr>
-							<tr>
-								<td id="left">BS Hospitality Management</td>
-								<td >0</td>
-								<td>0</td>
-								<td class="up">0 %</td>
-							</tr>
-							<tr>
-								<td id="left">BS Tourism Management</td>
-								<td>0</td>
-								<td>0</td>
-								<td class="up">0 %</td>
-							</tr>
-							<tr>
-								<td id="left">BS Computer Engineering</td>
-								<td>0</td>
-								<td>0</td>
-								<td class="down">0 %</td>
-							</tr>
-							<tr>
-								<td id="left">BS Civil Engineering</td>
-								<td >0</td>
-								<td>0</td>
-								<td class="up">0 %</td>
-							</tr>
-							<tr>
-								<td id="left">BS Information Technology</td>
-								<td>0</td>
-								<td>0</td>
-								<td class="up">0 %</td>
-							</tr>
-							<tr>
-								<td id="left">BS Psychology</td>
-								<td>0</td>
-								<td>0</td>
-								<td class="down">0 %</td>
-							</tr>
-							<tr>
-								<td id="left">BA Communication</td>
-								<td >0</td>
-								<td>0</td>
-								<td class="up">0 %</td>
-							</tr>
-							<tr>
-								<td id="left">BS Architecture</td>
-								<td>0</td>
-								<td>0</td>
-								<td class="up">0 %</td>
-							</tr>
-							<tr>
-								<td id="left">BS Accountancy</td>
-								<td>0</td>
-								<td>0</td>
-								<td class="down">0 %</td>
-							</tr>
-							<tr>
-								<td id="left">BS Business Administration</td>
-								<td>0</td>
-								<td>0</td>
-								<td class="down">0 %</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<div class="stats">
-					<div class="card stat-card">
-						<h3>Student Count</h3>
-						<h2>0</h2>
-					</div>
-					<div class="card stat-card">
-						<h3>PEERS Count</h3>
-						<h2>0</h2>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="card">
-					<h3>Engagement Breakdown</h3>
-					<canvas id="engagementChart" height="220px"></canvas>
-					<p class="chart-description">
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-						Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-					</p>
-				</div>
-			</div>
-			<div class="row">
-				<div class="card">
-					<h3>User Activity</h3>
-					<canvas id="engagementChart2" height="220px"></canvas>
-					<p class="chart-description">
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-						Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-					</p>
-				</div>
-			</div>
-		</div>
 
 		<!---------------- TASKS ------------------------------------------------------------>
 
@@ -1853,6 +1722,7 @@
 
 			document.getElementById("pageTitle").textContent = el.textContent.trim();
 		}
+
 
 		// Sign out ------------------------- wag gagalawin ----------------------------------------
 
