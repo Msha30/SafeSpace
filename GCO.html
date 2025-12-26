@@ -6,6 +6,55 @@
 	<link rel="icon" type="image/png" href="photos/pic_logo2.png">
 	<link rel="stylesheet" href="SystemDesign.css">
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script type="module">
+		import { protectDashboard, logout } from "./auth.js";
+		import { initializeUserManagement, updateUserCounts, fetchAllUsers, filterUsersByType, formatUserData } from './userManagement.js';
+
+		window.addEventListener("DOMContentLoaded", async () => {
+			// Allow only authenticated GCO users
+			protectDashboard(["gco"]);
+
+			// Logout handler
+			const signOutLink = document.getElementById("signOutLink");
+			if (signOutLink) {
+			signOutLink.addEventListener("click", async (e) => {
+				e.preventDefault();
+				await logout();
+			});
+			}
+
+			// Initialize User Management
+			console.log("Initializing GCO User Management...");
+			
+			const gcoConfig = {
+			allowedUserTypes: ['student', 'peer'],
+			tableBodyId: 'gcousers',
+			searchInputId: 'gcoUserSearch',
+			filterSelectId: 'gcoUserFilter',
+			showActions: false,
+			showType: false,
+			onUserClick: (user) => {
+				// Store user data for popup
+				window.selectedUser = user;
+				openUsersPopup();
+			}
+			};
+
+			try {
+			await initializeUserManagement(gcoConfig);
+			
+			// Update count cards on overview page
+			const allUsers = await fetchAllUsers();
+			const allowedUsers = filterUsersByType(allUsers, ['student', 'peer']);
+			const formattedUsers = allowedUsers.map(formatUserData);
+			updateUserCounts(formattedUsers);
+			
+			console.log("GCO User Management initialized successfully");
+			} catch (error) {
+			console.error("Failed to initialize GCO user management:", error);
+			}
+		});
+	</script>
 </head>
 <body>
 	<!---------------- Eto yung side bar -------------------- wag gagalawin ------------------------->
@@ -59,10 +108,10 @@
 				<img src="icons/ic_GCO.svg" class="GCO_icon" alt="GCO icon"> 
 			</div>
 			<div class="dropdown" onclick="toggleDropdown()">
-				<span>GCO Admin</span>
+				<span id="userDisplayName">GCO Admin</span>
 				<img src="icons/ic_dropdown.svg" style="height: 10px; margin-left: 3px;">
 				<div class="dropdown-menu">
-					<a href="GCO Login.html">Sign Out</a>
+					<a href="#" id="signOutLink">Sign Out</a>
 				</div>
 			</div>
 		</div>
@@ -176,11 +225,11 @@
 				<div class="stats">
 					<div class="card stat-card">
 						<h3>Student Count</h3>
-						<h2>0</h2>
+						<h2 id="student_count">0</h2>
 					</div>
 					<div class="card stat-card">
 						<h3>PEERS Count</h3>
-						<h2>0</h2>
+						<h2 id="peers_count">0</h2>
 					</div>
 				</div>
 			</div>
@@ -553,8 +602,13 @@
 				<div class="right-half" style="width: 100%;">
 					<div class="searchbar">
 						<img src="icons/ic_search.svg">
-						<input type="text" placeholder="Search...">
+						<input type="text" id="gcoUserSearch" placeholder="Search...">
 					</div>
+					<select id="gcoUserFilter" class="userdrop" style="display:none;">
+						<option value="All">All</option>
+						<option value="Peers">Peers</option>
+						<option value="Users">Users</option>
+					</select>
 				</div>
 			</div>
 			<div class="row">
@@ -563,60 +617,17 @@
 					<table class="user">
 						<thead>
 							<tr>
-								<th id="left">User</th>
-								<th> </th>
-								<th> </th>
-								<th>Name Displayed</th>
-								<th>Last Active</th>
-								<th>Date Created</th>
+							<th id="left">User</th>
+							<th> </th>
+							<th> </th>
+							<th>Name Displayed</th>
+							<th>Type</th>
+							<th>Last Active</th>
+							<th>Date Created</th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr>
-								<td class="table_user">
-									<img src="photos/pic_placeholder.png">
-								</td>
-								<td>
-									<div class="name" onclick="openUsersPopup()">
-										Doe, John A.<br> 
-										<span>email@students.nu-fairview.edu.ph</span>
-									</div>
-								</td>
-								<td></td>
-								<td>John</td>
-								<td>Lorem Ipsum</td>
-								<td>Lorem Ipsum</td>
-							</tr>
-							<tr>
-								<td class="table_user">
-									<img src="photos/pic_placeholder.png">
-								</td>
-								<td>
-									<div class="name" onclick="openUsersPopup()">
-										Doe, John A.<br> 
-										<span>email@students.nu-fairview.edu.ph</span>
-									</div>
-								</td>
-								<td></td>
-								<td>John</td>
-								<td>Lorem Ipsum</td>
-								<td>Lorem Ipsum</td>
-							</tr>
-							<tr>
-								<td class="table_user">
-									<img src="photos/pic_placeholder.png">
-								</td>
-								<td>
-									<div class="name" onclick="openUsersPopup()">
-										Doe, John A.<br> 
-										<span>email@students.nu-fairview.edu.ph</span>
-									</div>
-								</td>
-								<td></td>
-								<td>John</td>
-								<td>Lorem Ipsum</td>
-								<td>Lorem Ipsum</td>
-							</tr>
+						<tbody id="gcousers">
+							<!-- Users will be populated here -->
 						</tbody>
 					</table>
 				</div>
@@ -817,7 +828,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
+<!--		<div class="row">
 				<div class="card">
 					<div class="peerScheduleHeader">
 						<h4 class="peerScheduleDay">MONDAY</h4>
@@ -893,7 +904,7 @@
 					</div>
 				</div>
 			</div>
-			
+-->			
 
 			<div class="row">
 				<div class="left-half">
@@ -921,23 +932,11 @@
 					<h4 class="sched-date">23</h4>
 					<h5 style="padding-left: 30px;">MON</h5>
 					<div class="sched" onclick="openPeersPopup()">
-						<p class="sched-type">Video Call</p>
+						<p class="sched-type">Face to Face</p>
 						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
 					<div class="sched" onclick="openPeersPopup()">
-						<p class="sched-type">Video Call</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-				</div>
-				<div class="card">
-					<h4 class="sched-date">23</h4>
-					<h5 style="padding-left: 30px;">MON</h5>
-					<div class="sched" onclick="openPeersPopup()">
-						<p class="sched-type">Call</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-					<div class="sched" onclick="openPeersPopup()">
-						<p class="sched-type">Call</p>
+						<p class="sched-type">Face to Face</p>
 						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
 				</div>
@@ -957,11 +956,11 @@
 					<h4 class="sched-date">23</h4>
 					<h5 style="padding-left: 30px;">MON</h5>
 					<div class="sched" onclick="openPeersPopup()">
-						<p class="sched-type">Video Call</p>
+						<p class="sched-type">Face to Face</p>
 						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
 					<div class="sched" onclick="openPeersPopup()">
-						<p class="sched-type">Video Call</p>
+						<p class="sched-type">Face to Face</p>
 						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
 				</div>
@@ -969,11 +968,23 @@
 					<h4 class="sched-date">23</h4>
 					<h5 style="padding-left: 30px;">MON</h5>
 					<div class="sched" onclick="openPeersPopup()">
-						<p class="sched-type">Call</p>
+						<p class="sched-type">Face to Face</p>
 						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
 					<div class="sched" onclick="openPeersPopup()">
-						<p class="sched-type">Call</p>
+						<p class="sched-type">Face to Face</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+				</div>
+				<div class="card">
+					<h4 class="sched-date">23</h4>
+					<h5 style="padding-left: 30px;">MON</h5>
+					<div class="sched" onclick="openPeersPopup()">
+						<p class="sched-type">Face to Face</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+					<div class="sched" onclick="openPeersPopup()">
+						<p class="sched-type">Face to Face</p>
 						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
 				</div>
@@ -1110,17 +1121,16 @@
 	<!---------------- SUPPORT GROUP | HAVEN ------------------------------------------------->
 	<div id="haven" class="page">
 		<div class="row">
-			<div class="left">
-				<h3>Information</h3>
-				<div class="info-section">
-
-					<div class="info-row-group">
-
+		<div class="left">
+			<h3>Information</h3>
+			<div class="info-section">
+				<div class="info-row-group">
 					<div class="info-block">
 						<div class="info-row">
-						<span class="span-1">Profile Picture</span>
-						<a href="#" class="edit-link edit-1">Edit</a>
+							<span class="span-1">Profile Picture</span>
+							<a href="#" class="edit-link edit-1" onclick="event.preventDefault(); triggerProfilePictureUpload()">Edit</a>
 						</div>
+						<input type="file" id="profilePictureUpload" class="hidden-file-input" accept="image/*" onchange="handleProfilePictureUpload(event)">
 						<div class="info-images">
 						<img src="photos/haven.png" alt="Profile Picture Circle" class="profile-circle">
 						<img src="photos/haven.png" alt="Profile Picture Square" class="profile-square">
@@ -1129,24 +1139,25 @@
 
 					<div class="info-block">
 						<div class="info-row">
-						<span class="span-2">Cover Photo</span>
-						<a href="#" class="edit-link edit-2">Edit</a>
+							<span class="span-2">Cover Photo</span>
+							<a href="#" class="edit-link edit-2" onclick="event.preventDefault(); triggerCoverPhotoUpload()">Edit</a>
 						</div>
+						<input type="file" id="coverPhotoUpload" class="hidden-file-input" accept="image/*" onchange="handleCoverPhotoUpload(event)">
 						<div class="info-images">
 						<img src="photos/haven_rec.png" alt="Cover Photo">
 						</div>
 					</div>
-					</div>
+				</div>
 
-					<div class="info-row">
+				<div class="info-row">
 					<span class="span-3">Description</span>
 					<a href="#" class="edit-link edit-3">Edit</a>
 					</div>
 					<div class="info-description">
-
 					</div>
 				</div>
 			</div>
+		</div>
 			<div class="right">
 				<div class="card">
 					<h3>Group Chat</h3>
@@ -1981,6 +1992,26 @@
 	<!---------------------------------------------------------------------------------------->	
 	<!---------------------------------------------------------------------------------------->	
 	<!---------------------------------------------------------------------------------------->
+	<script type="module">
+	import { protectDashboard, logout } from "./auth.js";
+
+	window.addEventListener("DOMContentLoaded", () => {
+	// Allow only authenticated GCO users
+	protectDashboard(["gco"]);
+
+	// Logout handler
+	const signOutLink = document.getElementById("signOutLink");
+	if (signOutLink) {
+		signOutLink.addEventListener("click", async (e) => {
+		e.preventDefault();
+		await logout();
+		});
+	}
+	});
+	</script>
+	<script type="module" src="./overview.js"></script>
+
+
 	<script>
 		// Eto yung unang engagement chart ----------------------------------------------------
 		const ctx = document.getElementById('engagementChart').getContext('2d');
