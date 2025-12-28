@@ -74,7 +74,7 @@
 
 		<a href="#" onclick="showPage('announcement', this)"><img src="icons/ic_sb_announcement.svg" class="icon"><span>Announcement</span></a>
 
-		<a href="#" onclick="showPage('feedback', this)"><img src="icons/ic_sb_feedback.svg" class="icon"><span>Feedback</span></a>
+<!--	<a href="#" onclick="showPage('feedback', this)"><img src="icons/ic_sb_feedback.svg" class="icon"><span>Feedback</span></a> -->	
 
 		<a href="#" onclick="showPage('settings and-system-logs', this)"><img src="icons/ic_sb_settings.svg" class="icon"><span>Settings and System Logs</span></a>
 
@@ -322,6 +322,7 @@
                          <button class="btn details" onclick="openDetailsPopup()">See Details</button>
                     </div>
 				</div>
+				
 			</div>
 			
 			<div class="row">
@@ -390,18 +391,6 @@
 					</div>
 					<div class="sched">
 						<p class="sched-type">Video Call</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-				</div>
-				<div class="card">
-					<h4 class="sched-date">23</h4>
-					<h5 style="padding-left: 30px;">MON</h5>
-					<div class="sched">
-						<p class="sched-type">Call</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-					<div class="sched">
-						<p class="sched-type">Call</p>
 						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
 				</div>
@@ -1593,7 +1582,7 @@
 		<!---------------------------------------------------------------------------------------->	
 		<!---------------- FEEDBACK -------------------------------------------------------------->
 
-		<div id="feedback" class="page">
+<!--	<div id="feedback" class="page">
 			<div class="row">
 				<div class="card2" style="flex: 2;">
 					<h3>Feedback</h3>
@@ -1724,6 +1713,7 @@
 				</div>
 			</div>
 		</div>
+-->	
 		<!---------------------------------------------------------------------------------------->
 		<!---------------------------------------------------------------------------------------->	
 		<!---------------- SETTINGS & LOGS-------------------------------------------------------->
@@ -3159,9 +3149,9 @@
 			});
 		}
 
-function removeFile2(btn) {
-	btn.closest('.file2').remove();
-}
+		function removeFile2(btn) {
+			btn.closest('.file2').remove();
+		}
 
 
 		//FOR REPORT POP UP DIALOGUE
@@ -3205,8 +3195,6 @@ function removeFile2(btn) {
 				}
 			}
 		});
-
-		//TRY
 
 
 
