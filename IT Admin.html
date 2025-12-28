@@ -17,7 +17,7 @@
 
 		<a href="#" onclick="showPage('users', this)"><img src="icons/ic_sb_user.svg" class="icon"><span>User Management</span></a>
 
-		<a href="#" onclick="showPage('settings', this)"><img src="icons/ic_sb_settings.svg" class="icon"><span>Settings and System Logs</span></a>
+		<a href="#" onclick="showPage('settings and-system-logs', this)"><img src="icons/ic_sb_settings.svg" class="icon"><span>Settings and System Logs</span></a>
 
 		<a href="#" onclick="showPage('reports', this)"><img src="icons/ic_sb_report.svg" class="icon"><span>Reports</span></a>
 	</div>
@@ -26,7 +26,7 @@
 
 	<div class="main">
 	<div class="topbar">
-		<span id="pageTitle"> </span>
+		<span id="pageTitle"> Tasks </span>
 		<div class="topbar-right">
 			<div class="GCO">
 				<img src="icons/ic_GCO.svg" class="GCO_icon" alt="GCO icon"> 
@@ -47,7 +47,7 @@
 
 		<!---------------- TASKS ------------------------------------------------------------>
 
-		<div id="tasks" class="page">
+		<div id="tasks" class="page active">
 			<div class="task-grid">
 				<!-- Technical -->
 				<div class="task-card" onclick="showPage('technical')">
@@ -1211,7 +1211,7 @@
 		<!---------------------------------------------------------------------------------------->	
 		<!---------------- SETTINGS -------------------------------------------------------------->
 
-		<div id="settings" class="page">
+		<div id="settings and-system-logs" class="page">
 			<div class="row">
 				<div class="big_btn" onclick="openTermsModal('termsModal')">
 					<div class="text">
