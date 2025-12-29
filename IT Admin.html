@@ -163,7 +163,7 @@
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
 					<div class="task-actions">
 					<button class="btn-details" onclick="openPendingModal(this)">See Details</button>
-					<button class="btn-done" onclick="openPendingDoneModal(this)">Done</button>
+					<button class="done-modal-submit" onclick="submitTaskToComplete()">Done</button>
 					</div>
 				</div>
 				<div class="task-box">
@@ -193,7 +193,7 @@
 					  </span>
 					</p>
 					<div class="task-actions">
-					<button class="btn-details">See Details</button>
+					<button class="btn-details" onclick="openCompleteModal(this)">See Details</button>
 					</div>
 				</div>
 				<div class="task-box">
@@ -951,6 +951,7 @@
 				</div>
 			</div>
 		</div>
+		
 
 
 		<!---------------- USER MANAGEMENT ------------------------------------------------------------>
@@ -1171,7 +1172,7 @@
 						<div class="createUserRow">
 							<div class="createUserGroup">
 								<label class="createUserLabel">Work Email</label>
-								<input type="email" class="createUserInput" id="workEmail" value="email@students.nu-fairview.edu.ph">
+								<input type="email" class="createUserInput" id="workEmail">
 							</div>
 							<div class="createUserGroup">
 								<label class="createUserLabel">Access</label>

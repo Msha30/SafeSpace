@@ -1514,6 +1514,9 @@
 					<div class="file-boxes">
 						<div class="file"></div>
 						<div class="file"></div>
+						
+						 <div class="file more-count hidden" id="moreCount"></div>
+
 						<div class="file add-file" id="dropArea" onclick="document.getElementById('fileInput').click();">
 							<img src="icons/addfile_btn.svg" alt="Upload" class="add-icon">
 							Add photos/videos
@@ -3022,6 +3025,8 @@
 		function removeFile(btn) {
 			btn.closest('.file').remove();
 		}
+
+		
 
 
 		// FOR POST POP UP DIALOGUE

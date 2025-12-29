@@ -2876,6 +2876,18 @@ select option:focus {
     object-fit: cover;
 }
 
+.more-count {
+    background: #e0e0e0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.hidden {
+    display: none;
+}
+
+
 .post-btn {
     width: 100%;
     max-width: 495px;
@@ -4071,6 +4083,9 @@ video.file-preview2 {
 .done-close-modal:hover {
   color: #333;
 }
+
+
+
 
 /* --------------------------------------USER MANAGEMENT -------------------------------------- */
 
