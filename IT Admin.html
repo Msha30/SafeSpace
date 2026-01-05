@@ -1237,11 +1237,61 @@
 					<img src="icons/ic_arrow right.svg" class="setting_slider">
 				</div>
 
-				<div class="big_btn" onclick="">
+				<div class="big_btn" onclick="openSupportGroupModal()">
 					<div class="text">
 						<h6>Support Group Management</h6>
 					</div>
 					<img src="icons/ic_arrow right.svg" class="setting_slider">
+				</div>
+			</div>
+
+			<!-- Support Group Management Modal -->
+			<div id="supportGroupModal" class="modal">
+				<div class="modal-content supportGroupModalContent">
+					<span class="close" onclick="closeSupportGroupModal()">&times;</span>
+					<div class="supportGroupContainer">
+						<div class="supportGroupList" id="supportGroupList">
+							<!-- Support Group Items -->
+							<div class="supportGroupItem">
+								<div class="supportGroupInfo">
+								<div class="supportGroupIcon">
+									<img src="photos/haven.png" alt="HAVEN" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+								</div>
+									<div class="supportGroupDetails">
+										<div class="supportGroupName">HAVEN Support Group</div>
+										<div class="supportGroupMembers">0 Members</div>
+									</div>
+								</div>
+								<button class="deleteBtn" onclick="deleteSupportGroup('HAVEN')">Delete</button>
+							</div>
+
+							<div class="supportGroupItem">
+								<div class="supportGroupInfo">
+								<div class="supportGroupIcon">
+									<img src="photos/rise.png" alt="HAVEN" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+								</div>
+									<div class="supportGroupDetails">
+										<div class="supportGroupName">RISE Support Group</div>
+										<div class="supportGroupMembers">0 Members</div>
+									</div>
+								</div>
+								<button class="deleteBtn" onclick="deleteSupportGroup('RISE')">Delete</button>
+							</div>
+
+							<div class="supportGroupItem">
+								<div class="supportGroupInfo">
+								<div class="supportGroupIcon">
+									<img src="photos/yakap.png" alt="HAVEN" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+								</div>
+									<div class="supportGroupDetails">
+										<div class="supportGroupName">YAKAP Support Group</div>
+										<div class="supportGroupMembers">0 Members</div>
+									</div>
+								</div>
+								<button class="deleteBtn" onclick="deleteSupportGroup('YAKAP')">Delete</button>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 
@@ -2106,6 +2156,47 @@
 			const modal = document.getElementById('exportChatModal');
 			if (event.target == modal) {
 				modal.style.display = 'none';
+			}
+		}
+
+
+		// Support Group Management Modal Functions
+		function openSupportGroupModal() {
+			document.getElementById('supportGroupModal').style.display = 'block';
+		}
+
+		function closeSupportGroupModal() {
+			document.getElementById('supportGroupModal').style.display = 'none';
+		}
+
+		function deleteSupportGroup(groupName) {
+			if (confirm(`Are you sure you want to delete ${groupName} Support Group? This action cannot be undone.`)) {
+				// Find and remove the support group item
+				const groupItems = document.querySelectorAll('.supportGroupItem');
+				groupItems.forEach(item => {
+					if (item.querySelector('.supportGroupName').textContent.includes(groupName)) {
+						item.style.opacity = '0';
+						item.style.transform = 'translateX(-20px)';
+						setTimeout(() => {
+							item.remove();
+							checkEmptyState();
+						}, 300);
+					}
+				});
+				
+				alert(`${groupName} Support Group has been deleted successfully.`);
+			}
+		}
+
+		function checkEmptyState() {
+			const groupList = document.getElementById('supportGroupList');
+			if (groupList.children.length === 0) {
+				groupList.innerHTML = `
+					<div class="emptyState">
+						<div style="font-size: 60px; margin-bottom: 15px;">📭</div>
+						<div class="emptyStateText">No support groups available</div>
+					</div>
+				`;
 			}
 		}
 
