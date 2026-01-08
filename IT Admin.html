@@ -108,14 +108,12 @@
 	<!---------------- Eto yung side bar -------------------- wag gagalawin ------------------------->
 	<div class="sidebar">
 		<div class="logo"></div>
-
-		<a href="#" class="active" onclick="showPage('overview', this)"> <img src="icons/ic_sba_overview.svg" class="icon"><span>Overview</span></a>
-
-		<a href="#" onclick="showPage('tasks', this)"><img src="icons/ic_sb_tasks.svg" class="icon"><span>Tasks</span></a>
+		<a href="#" class="active" onclick="showPage('tasks', this)">
+		<img src="icons/ic_sb_tasks.svg" class="icon"><span>Tasks</span></a>
 
 		<a href="#" onclick="showPage('users', this)"><img src="icons/ic_sb_user.svg" class="icon"><span>User Management</span></a>
 
-		<a href="#" onclick="showPage('settings', this)"><img src="icons/ic_sb_settings.svg" class="icon"><span>Settings and System Logs</span></a>
+		<a href="#" onclick="showPage('settings and-system-logs', this)"><img src="icons/ic_sb_settings.svg" class="icon"><span>Settings and System Logs</span></a>
 
 		<a href="#" onclick="showPage('reports', this)"><img src="icons/ic_sb_report.svg" class="icon"><span>Reports</span></a>
 	</div>
@@ -124,7 +122,7 @@
 
 	<div class="main">
 	<div class="topbar">
-		<span id="pageTitle">Overview</span>
+		<span id="pageTitle">Tasks</span>
 		<div class="topbar-right">
 			<div class="GCO">
 				<img src="icons/ic_GCO.svg" class="GCO_icon" alt="GCO icon"> 
@@ -142,139 +140,10 @@
 	<!---------------- Eto yung content ------------------------------------------------------------>
 	<div class="content">
 
-		<!---------------- OVERVIEW ------------------------------------------------------------>
-
-			<div id="overview" class="page active">
-			<div class="row">
-				<div class="card table-card">
-					<h3>Programs</h3>
-					<table>
-						<thead>
-							<tr>
-								<th id="left">Programs</th>
-								<th>New Users this Month</th>
-								<th>Total No. of Users</th>
-								<th>Change, %</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td id="left">Senior High School - ABM</td>
-								<td >0</td>
-								<td>0</td>
-								<td class="up">0 %</td>
-							</tr>
-							<tr>
-								<td id="left">Senior High School - HUMSS</td>
-								<td>0</td>
-								<td>0</td>
-								<td class="up">0 %</td>
-							</tr>
-							<tr>
-								<td id="left">Senior High School - STEM</td>
-								<td>0</td>
-								<td>0</td>
-								<td class="down">0 %</td>
-							</tr>
-							<tr>
-								<td id="left">BS Hospitality Management</td>
-								<td >0</td>
-								<td>0</td>
-								<td class="up">0 %</td>
-							</tr>
-							<tr>
-								<td id="left">BS Tourism Management</td>
-								<td>0</td>
-								<td>0</td>
-								<td class="up">0 %</td>
-							</tr>
-							<tr>
-								<td id="left">BS Computer Engineering</td>
-								<td>0</td>
-								<td>0</td>
-								<td class="down">0 %</td>
-							</tr>
-							<tr>
-								<td id="left">BS Civil Engineering</td>
-								<td >0</td>
-								<td>0</td>
-								<td class="up">0 %</td>
-							</tr>
-							<tr>
-								<td id="left">BS Information Technology</td>
-								<td>0</td>
-								<td>0</td>
-								<td class="up">0 %</td>
-							</tr>
-							<tr>
-								<td id="left">BS Psychology</td>
-								<td>0</td>
-								<td>0</td>
-								<td class="down">0 %</td>
-							</tr>
-							<tr>
-								<td id="left">BA Communication</td>
-								<td >0</td>
-								<td>0</td>
-								<td class="up">0 %</td>
-							</tr>
-							<tr>
-								<td id="left">BS Architecture</td>
-								<td>0</td>
-								<td>0</td>
-								<td class="up">0 %</td>
-							</tr>
-							<tr>
-								<td id="left">BS Accountancy</td>
-								<td>0</td>
-								<td>0</td>
-								<td class="down">0 %</td>
-							</tr>
-							<tr>
-								<td id="left">BS Business Administration</td>
-								<td>0</td>
-								<td>0</td>
-								<td class="down">0 %</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<div class="stats">
-					<div class="card stat-card">
-						<h3>Student Count</h3>
-						<h2 id="student_count">0</h2>
-					</div>
-					<div class="card stat-card">
-						<h3>PEERS Count</h3>
-						<h2 id="peers_count">0</h2>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="card">
-					<h3>Engagement Breakdown</h3>
-					<canvas id="engagementChart" height="220px"></canvas>
-					<p class="chart-description">
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-						Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-					</p>
-				</div>
-			</div>
-			<div class="row">
-				<div class="card">
-					<h3>User Activity</h3>
-					<canvas id="engagementChart2" height="220px"></canvas>
-					<p class="chart-description">
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-						Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-					</p>
-				</div>
-			</div>
-		</div>
 
 		<!---------------- TASKS ------------------------------------------------------------>
 
-		<div id="tasks" class="page">
+		<div id="tasks" class="page active">
 			<div class="task-grid">
 				<!-- Technical -->
 				<div class="task-card" onclick="showPage('technical')">
@@ -390,7 +259,7 @@
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
 					<div class="task-actions">
 					<button class="btn-details" onclick="openPendingModal(this)">See Details</button>
-					<button class="btn-done" onclick="openPendingDoneModal(this)">Done</button>
+					<button class="done-modal-submit" onclick="submitTaskToComplete()">Done</button>
 					</div>
 				</div>
 				<div class="task-box">
@@ -420,7 +289,7 @@
 					  </span>
 					</p>
 					<div class="task-actions">
-					<button class="btn-details">See Details</button>
+					<button class="btn-details" onclick="openCompleteModal(this)">See Details</button>
 					</div>
 				</div>
 				<div class="task-box">
@@ -1178,54 +1047,123 @@
 				</div>
 			</div>
 		</div>
+		
 
 
 		<!---------------- USER MANAGEMENT ------------------------------------------------------------>
 
-					<!-- USER MANAGEMENT -->
 		<div id="users" class="page">
-			<div class="row">
+            <div class="row">
 				<div class="right-half" style="width: 100%;">
-				<div class="searchbar-IT">
-					<img src="icons/ic_search.svg">
-					<input type="text" id="itUserSearch" placeholder="Search by name, email, or ID...">
-				</div>
-				<select name="userdrop" id="userdrop" class="userdrop">
-					<option value="All">All</option>
-					<option value="GCO">GCO Coordinators</option>
-					<option value="Peers">Peer Facilitators</option>
-					<option value="Users">Students</option>
-				</select>
-				<div class="peer-session">
-					<button class="btn-peersession" onclick="openCreateUserPopup()">Create New User</button>
-				</div>
+					<div class="searchbar-IT">
+						<img src="icons/ic_search.svg">
+						<input type="text" placeholder="Search...">
+					</div>
+					<select name="userdrop" class="userdrop">
+						<option value="All">All</option>
+						<option value="Peers">Peers</option>
+						<option value="Users">Users</option>
+					</select>
+					<div class="peer-session">
+						<button class="btn-peersession" onclick="openCreateUserPopup()">Create New User</button>
+					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="card">
-				<h3>User List</h3>
-				<table class="user">
-					<thead>
-					<tr>
-						<th id="left">User</th>
-						<th> </th>
-						<th> </th>
-						<th>Name Displayed</th>
-						<th>Type</th>
-						<th>Last Active</th>
-						<th>Date Created</th>
-						<th></th> 
-					</tr>
-					</thead>
-					<tbody id="itAdminUsers">
-					<!-- Users will be populated here by JavaScript -->
-					<tr>
-						<td colspan="8" style="text-align: center; padding: 20px;">
-						Loading users...
-						</td>
-					</tr>
-					</tbody>
-				</table>
+					<h3>User List</h3>
+					<table class="user">
+						<thead>
+							<tr>
+								<th id="left">User</th>
+								<th> </th>
+								<th> </th>
+								<th>Name Displayed</th>
+								<th>Type</th>
+								<th>Last Active</th>
+								<th>Date Created</th>
+								<th></th> 
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td class="name">
+									Doe, John A.<br>
+									<span>email@students.nu-fairview.edu.ph</span>
+								</td>
+								<td></td>
+								<td>John</td>
+								<td>
+									<div class="cat_GCO">GCO Admin</div>
+								</td>
+								<td>Lorem Ipsum</td>
+								<td>Lorem Ipsum</td>
+				                <td class="action">
+								<div class="dpDots">
+									<button class="menu-dots" onclick="toggleDpDots(this)">⋮</button>
+									<div class="dropdown-content">
+										<a href="#" onclick="openEditUserPopup()">Edit</a>
+										<a href="#" class="remove" onclick="openRemovePopup(this)">Remove User</a>
+									</div>
+								</div>
+								</td>				
+							</tr>
+							
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td class="name">
+									Doe, John A.<br>
+									<span>email@students.nu-fairview.edu.ph</span>
+								</td>
+								<td></td>
+								<td>John</td>
+								<td>
+									<div class="cat_peer">Peers</div>
+								</td>
+								<td>Lorem Ipsum</td>
+								<td>Lorem Ipsum</td>
+				                <td class="action">
+								<div class="dpDots">
+									<button class="menu-dots" onclick="toggleDpDots(this)">⋮</button>
+									<div class="dropdown-content">
+										<a href="#" onclick="openEditUserPopup()">Edit</a>
+										<a href="#" class="remove" onclick="openRemovePopup(this)">Remove User</a>
+									</div>
+								</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td class="name">
+									Doe, Jane A.<br>
+									<span>email@students.nu-fairview.edu.ph</span>
+								</td>
+								<td></td>
+								<td>Jae</td>
+								<td>
+									<div class="cat_user">User</div>
+								</td>
+								<td>Lorem Ipsum</td>
+								<td>Lorem Ipsum</td>
+				                <td class="action">
+								<div class="dpDots">
+									<button class="menu-dots" onclick="toggleDpDots(this)">⋮</button>
+									<div class="dropdown-content">
+										<a href="#" onclick="openEditUserPopup()">Edit</a>
+										<a href="#" class="remove" onclick="openRemovePopup(this)">Remove User</a>
+									</div>
+								</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
@@ -1330,7 +1268,7 @@
 						<div class="createUserRow">
 							<div class="createUserGroup">
 								<label class="createUserLabel">Work Email</label>
-								<input type="email" class="createUserInput" id="workEmail" value="email@students.nu-fairview.edu.ph">
+								<input type="email" class="createUserInput" id="workEmail">
 							</div>
 							<div class="createUserGroup">
 								<label class="createUserLabel">Access</label>
@@ -1370,7 +1308,7 @@
 		<!---------------------------------------------------------------------------------------->	
 		<!---------------- SETTINGS -------------------------------------------------------------->
 
-		<div id="settings" class="page">
+		<div id="settings and-system-logs" class="page">
 			<div class="row">
 				<div class="big_btn" onclick="openTermsModal('termsModal')">
 					<div class="text">
@@ -1395,11 +1333,61 @@
 					<img src="icons/ic_arrow right.svg" class="setting_slider">
 				</div>
 
-				<div class="big_btn" onclick="">
+				<div class="big_btn" onclick="openSupportGroupModal()">
 					<div class="text">
 						<h6>Support Group Management</h6>
 					</div>
 					<img src="icons/ic_arrow right.svg" class="setting_slider">
+				</div>
+			</div>
+
+			<!-- Support Group Management Modal -->
+			<div id="supportGroupModal" class="modal">
+				<div class="modal-content supportGroupModalContent">
+					<span class="close" onclick="closeSupportGroupModal()">&times;</span>
+					<div class="supportGroupContainer">
+						<div class="supportGroupList" id="supportGroupList">
+							<!-- Support Group Items -->
+							<div class="supportGroupItem">
+								<div class="supportGroupInfo">
+								<div class="supportGroupIcon">
+									<img src="photos/haven.png" alt="HAVEN" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+								</div>
+									<div class="supportGroupDetails">
+										<div class="supportGroupName">HAVEN Support Group</div>
+										<div class="supportGroupMembers">0 Members</div>
+									</div>
+								</div>
+								<button class="deleteBtn" onclick="deleteSupportGroup('HAVEN')">Delete</button>
+							</div>
+
+							<div class="supportGroupItem">
+								<div class="supportGroupInfo">
+								<div class="supportGroupIcon">
+									<img src="photos/rise.png" alt="HAVEN" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+								</div>
+									<div class="supportGroupDetails">
+										<div class="supportGroupName">RISE Support Group</div>
+										<div class="supportGroupMembers">0 Members</div>
+									</div>
+								</div>
+								<button class="deleteBtn" onclick="deleteSupportGroup('RISE')">Delete</button>
+							</div>
+
+							<div class="supportGroupItem">
+								<div class="supportGroupInfo">
+								<div class="supportGroupIcon">
+									<img src="photos/yakap.png" alt="HAVEN" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+								</div>
+									<div class="supportGroupDetails">
+										<div class="supportGroupName">YAKAP Support Group</div>
+										<div class="supportGroupMembers">0 Members</div>
+									</div>
+								</div>
+								<button class="deleteBtn" onclick="deleteSupportGroup('YAKAP')">Delete</button>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 
@@ -1782,7 +1770,7 @@
 	</script>
 	<script type="module" src="./overview.js"></script>
 
-	
+
 	<script>
 	// Eto yung unang engagement chart ----------------------------------------------------
 		const ctx = document.getElementById('engagementChart').getContext('2d');
@@ -2282,6 +2270,47 @@
 			const modal = document.getElementById('exportChatModal');
 			if (event.target == modal) {
 				modal.style.display = 'none';
+			}
+		}
+
+
+		// Support Group Management Modal Functions
+		function openSupportGroupModal() {
+			document.getElementById('supportGroupModal').style.display = 'block';
+		}
+
+		function closeSupportGroupModal() {
+			document.getElementById('supportGroupModal').style.display = 'none';
+		}
+
+		function deleteSupportGroup(groupName) {
+			if (confirm(`Are you sure you want to delete ${groupName} Support Group? This action cannot be undone.`)) {
+				// Find and remove the support group item
+				const groupItems = document.querySelectorAll('.supportGroupItem');
+				groupItems.forEach(item => {
+					if (item.querySelector('.supportGroupName').textContent.includes(groupName)) {
+						item.style.opacity = '0';
+						item.style.transform = 'translateX(-20px)';
+						setTimeout(() => {
+							item.remove();
+							checkEmptyState();
+						}, 300);
+					}
+				});
+				
+				alert(`${groupName} Support Group has been deleted successfully.`);
+			}
+		}
+
+		function checkEmptyState() {
+			const groupList = document.getElementById('supportGroupList');
+			if (groupList.children.length === 0) {
+				groupList.innerHTML = `
+					<div class="emptyState">
+						<div style="font-size: 60px; margin-bottom: 15px;">📭</div>
+						<div class="emptyStateText">No support groups available</div>
+					</div>
+				`;
 			}
 		}
 

@@ -74,7 +74,7 @@
 
 		<a href="#" onclick="showPage('announcement', this)"><img src="icons/ic_sb_announcement.svg" class="icon"><span>Announcement</span></a>
 
-		<a href="#" onclick="showPage('feedback', this)"><img src="icons/ic_sb_feedback.svg" class="icon"><span>Feedback</span></a>
+<!--	<a href="#" onclick="showPage('feedback', this)"><img src="icons/ic_sb_feedback.svg" class="icon"><span>Feedback</span></a> -->	
 
 		<a href="#" onclick="showPage('settings and-system-logs', this)"><img src="icons/ic_sb_settings.svg" class="icon"><span>Settings and System Logs</span></a>
 
@@ -84,22 +84,26 @@
 	<!---------------- Eto yung top bar -------------------- wag gagalawin ------------------------->
 
 	<div class="main">
-	<div class="topbar">
-		<span id="pageTitle">Overview</span>
-		<div class="topbar-right">
-		<div class="notification" onclick="toggleNotif()">
-			<img src="icons/ic_notif.svg" class="notif" alt="notification icon">
-			<span class="notif-badge">1</span>
-			<div class="notif-menu">
+		<div class="topbar">
+			<span id="pageTitle">Overview</span>
+			<div class="topbar-right">
+			<div class="notification" onclick="toggleNotif()">
+				<img src="icons/ic_notif.svg" class="notif" alt="notification icon">
+				<span class="notif-badge">1</span>
+			<div class="notif-menu" id="notifMenu">
+				<div class="notif-header">Notifications</div>
 				<div class="notif-card">
-					<h3>Peer Facilitator Verification</h3>
+					<h3>
+					<span class="notif-type-badge badge-verification" style="font-weight: 900;">VERIFICATION</span>
+						Peer Facilitator Verification
+					</h3>
 					<p class="usrName">
-					   John Doe<br>
-					   <span>email@admin.nu-fairview.edu.ph</span>
+						John Doe<br>
+						<span>email@admin.nu-fairview.edu.ph</span>
 					</p>
 					<div class="notif-buttons">
-						<button class="btn-decline">Decline</button>
-						<button class="btn-accept">Accept</button>
+						<button class="btn-decline" onclick="handleAction('decline')">Decline</button>
+						<button class="btn-accept" onclick="handleAction('accept')">Accept</button>
 					</div>
 				</div>
 				<div class="notif-card">
@@ -447,18 +451,6 @@
 					</div>
 					<div class="sched">
 						<p class="sched-type">Video Call</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-				</div>
-				<div class="card">
-					<h4 class="sched-date">23</h4>
-					<h5 style="padding-left: 30px;">MON</h5>
-					<div class="sched">
-						<p class="sched-type">Call</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-					<div class="sched">
-						<p class="sched-type">Call</p>
 						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
 				</div>
@@ -880,7 +872,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
+<!--		<div class="row">
 				<div class="card">
 					<div class="peerScheduleHeader">
 						<h4 class="peerScheduleDay">MONDAY</h4>
@@ -956,7 +948,7 @@
 					</div>
 				</div>
 			</div>
-			
+-->	
 
 			<div class="row">
 				<div class="left-half">
@@ -984,23 +976,11 @@
 					<h4 class="sched-date">23</h4>
 					<h5 style="padding-left: 30px;">MON</h5>
 					<div class="sched" onclick="openPeersPopup()">
-						<p class="sched-type">Video Call</p>
+						<p class="sched-type">Face to Face</p>
 						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
 					<div class="sched" onclick="openPeersPopup()">
-						<p class="sched-type">Video Call</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-				</div>
-				<div class="card">
-					<h4 class="sched-date">23</h4>
-					<h5 style="padding-left: 30px;">MON</h5>
-					<div class="sched" onclick="openPeersPopup()">
-						<p class="sched-type">Call</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-					<div class="sched" onclick="openPeersPopup()">
-						<p class="sched-type">Call</p>
+						<p class="sched-type">Face to Face</p>
 						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
 				</div>
@@ -1020,11 +1000,11 @@
 					<h4 class="sched-date">23</h4>
 					<h5 style="padding-left: 30px;">MON</h5>
 					<div class="sched" onclick="openPeersPopup()">
-						<p class="sched-type">Video Call</p>
+						<p class="sched-type">Face to Face</p>
 						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
 					<div class="sched" onclick="openPeersPopup()">
-						<p class="sched-type">Video Call</p>
+						<p class="sched-type">Face to Face</p>
 						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
 				</div>
@@ -1032,11 +1012,23 @@
 					<h4 class="sched-date">23</h4>
 					<h5 style="padding-left: 30px;">MON</h5>
 					<div class="sched" onclick="openPeersPopup()">
-						<p class="sched-type">Call</p>
+						<p class="sched-type">Face to Face</p>
 						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
 					<div class="sched" onclick="openPeersPopup()">
-						<p class="sched-type">Call</p>
+						<p class="sched-type">Face to Face</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+				</div>
+				<div class="card">
+					<h4 class="sched-date">23</h4>
+					<h5 style="padding-left: 30px;">MON</h5>
+					<div class="sched" onclick="openPeersPopup()">
+						<p class="sched-type">Face to Face</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+					<div class="sched" onclick="openPeersPopup()">
+						<p class="sched-type">Face to Face</p>
 						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
 				</div>
@@ -1582,6 +1574,9 @@
 					<div class="file-boxes">
 						<div class="file"></div>
 						<div class="file"></div>
+						
+						 <div class="file more-count hidden" id="moreCount"></div>
+
 						<div class="file add-file" id="dropArea" onclick="document.getElementById('fileInput').click();">
 							<img src="icons/addfile_btn.svg" alt="Upload" class="add-icon">
 							Add photos/videos
@@ -1650,7 +1645,7 @@
 		<!---------------------------------------------------------------------------------------->	
 		<!---------------- FEEDBACK -------------------------------------------------------------->
 
-		<div id="feedback" class="page">
+<!--	<div id="feedback" class="page">
 			<div class="row">
 				<div class="card2" style="flex: 2;">
 					<h3>Feedback</h3>
@@ -1781,6 +1776,7 @@
 				</div>
 			</div>
 		</div>
+-->	
 		<!---------------------------------------------------------------------------------------->
 		<!---------------------------------------------------------------------------------------->	
 		<!---------------- SETTINGS & LOGS-------------------------------------------------------->
@@ -3216,9 +3212,9 @@
 			});
 		}
 
-function removeFile2(btn) {
-	btn.closest('.file2').remove();
-}
+		function removeFile2(btn) {
+			btn.closest('.file2').remove();
+		}
 
 
 		//FOR REPORT POP UP DIALOGUE
@@ -3264,7 +3260,7 @@ function removeFile2(btn) {
 		});
 
 
-
+		
 	</script>
 </body>
 </html>
