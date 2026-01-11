@@ -294,6 +294,94 @@
 					</div>
 				</div>
 			</div>
+			<!-- ADD THIS HTML AFTER THE STATS ROW -->
+			<div class="gco-reports-section">
+				<div class="gco-reports-header">
+					<h3 class="gco-reports-title">GCO Consultation Reports</h3>
+					<button class="export-btn" onclick="exportGCOReports()">Export Reports</button>
+				</div>
+				<div class="gco-reports-grid">
+					<div class="gco-report-card active" data-filter="all">
+						<div class="gco-report-label">All Reports</div>
+						<div class="gco-report-count" id="all_reports">50</div>
+					</div>
+					<div class="gco-report-card" data-filter="video_call">
+						<div class="gco-report-label">GCO Video Call</div>
+						<div class="gco-report-count" id="gco_video_call">12</div>
+					</div>
+					<div class="gco-report-card" data-filter="call">
+						<div class="gco-report-label">GCO Voice Call</div>
+						<div class="gco-report-count" id="gco_call">8</div>
+					</div>
+					<div class="gco-report-card" data-filter="f2f">
+						<div class="gco-report-label">GCO Face-to-Face</div>
+						<div class="gco-report-count" id="gco_f2f">15</div>
+					</div>
+					<div class="gco-report-card" data-filter="peer_referral">
+						<div class="gco-report-label">Peer Referrals</div>
+						<div class="gco-report-count" id="peer_referral">10</div>
+					</div>
+					<div class="gco-report-card" data-filter="peer_f2f">
+						<div class="gco-report-label">Peer Face-to-Face</div>
+						<div class="gco-report-count" id="peer_f2f">5</div>
+					</div>
+				</div>
+				<div class="gco-details-card">
+					<div class="gco-details-header">
+						<h3 class="gco-details-title">Consultation Report Details - <span id="current-filter">All Reports</span></h3>
+					</div>
+					<div class="gco-details-table-wrapper">
+						<table class="gco-details-table">
+							<thead>
+								<tr>
+									<th id="left">Consultation Date</th>
+									<th id="left">Student Name</th>
+									<th id="left">Consultation Type</th>
+									<th id="left">Assigned Counselor/Peer Facilitator</th>
+									<th id="left">Role</th>
+								</tr>
+							</thead>
+							<tbody id="gco-details-tbody">
+								<tr>
+									<td id="left">2025-01-10</td>
+									<td id="left">Doe, John A.</td>
+									<td id="left"><span class="report-type-badge badge-video-call">GCO Video Call</span></td>
+									<td id="left">Doe, John A.</td>
+									<td id="left">GCO Counselor</td>
+								</tr>
+								<tr>
+									<td id="left">2025-01-10</td>
+									<td id="left">Doe, John A</td>
+									<td id="left"><span class="report-type-badge badge-call">GCO Call</span></td>
+									<td id="left">Doe, John A.</td>
+									<td id="left">GCO Counselor</td>
+								</tr>
+								<tr>
+									<td id="left">2025-01-09</td>
+									<td id="left">Doe, John A.</td>
+									<td id="left"><span class="report-type-badge badge-f2f">GCO F2F</span></td>
+									<td id="left">Doe, John A.</td>
+									<td id="left">GCO Counselor</td>
+								</tr>
+								<tr>
+									<td id="left">2025-01-09</td>
+									<td id="left">Doe, John A.</td>
+									<td id="left"><span class="report-type-badge badge-referral">Peer Referral</span></td>
+									<td id="left">Doe, John A.</td>
+									<td id="left">Peer Facilitator</td>
+								</tr>
+								<tr>
+									<td id="left">2025-01-08</td>
+									<td id="left">Doe, John A.</td>
+									<td id="left"><span class="report-type-badge badge-peer-f2f">Peer F2F</span></td>
+									<td id="left">Doe, John A.</td>
+									<td id="left">Peer Facilitator</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
 			<div class="row">
 				<div class="card">
 					<h3>Engagement Breakdown</h3>
@@ -2226,17 +2314,20 @@
 		}
 
 
-		// NOTIFICATION  ----------------------------------------------------------------
+		// NOTIFICATION ----------------------------------------------------------------
 
+		// Toggle the notification panel
 		function toggleNotif() {
 			const notification = document.querySelector('.notification');
 			notification.classList.toggle('show');
 		}
 
-		//
+		// Close notification when clicking outside
 		document.addEventListener('click', function(event) {
 			const notification = document.querySelector('.notification');
-			if (!notification.contains(event.target)) {
+
+			// Only close if the panel is open and the click is outside it
+			if (notification.classList.contains('show') && !event.target.closest('.notification')) {
 				notification.classList.remove('show');
 			}
 		});
@@ -2252,10 +2343,11 @@
 			}
 		}
 
-	
+		// Example updates
 		updateNotificationBadge(3); 
 		updateNotificationBadge(150); 
-		updateNotificationBadge(0); 
+		updateNotificationBadge(0);
+
 
 		// Popup logic REFERENCE ONLY------------------------------------------------------------------
 		const openBtn = document.getElementById("openPopupBtn");
@@ -3091,8 +3183,6 @@
 
 
 		// FOR POST POP UP DIALOGUE
-
-
 		function showPostConfirm() {
 			const popup = document.getElementById('postConfirmPopup');
 			if (popup) {
@@ -3261,6 +3351,8 @@
 				}
 			}
 		});
+		
+
 
 	</script>
 </body>

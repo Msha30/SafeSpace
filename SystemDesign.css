@@ -169,13 +169,13 @@ button {
 }
 
 .notification img {
-    transform: translateY(1px) translateX(3px);
+    transform: translateY(1px) translateX(-5px);
 }
 
 .notif-badge {
     position: absolute;
     margin-bottom: 10px;
-    margin-left: 16px;
+    margin-left: 6px;
     background-color: #e85536;
     color: white;
     font-size: 9px;
@@ -566,6 +566,242 @@ table {
 
 #left {
 	text-align: left;
+}
+
+
+/* ADD THIS CSS FOR GCO REPORTS */
+
+.gco-reports-section {
+    margin-top: 20px;
+    margin-bottom: 30px; /* ADD PADDING BETWEEN SECTIONS */
+}
+
+
+.gco-reports-header {
+    display: flex;
+    flex-direction: column; 
+    align-items: flex-start; 
+    gap: 15px; 
+    margin-bottom: 15px;
+    border-bottom: none; 
+}
+
+.gco-reports-header h3 {
+    border-bottom: none !important;
+    margin-left: 0px;
+    padding: 0;
+    text-align: left;
+}
+
+.gco-reports-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+    font-family: 'PublicSans', sans-serif;
+}
+
+.export-btn {
+    padding: 10px 25px;
+    background: #bbdefb; /* CHANGED TO MATCH YOUR IMAGE */
+    color: #0067c4;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'PublicSans', sans-serif;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 100%; /* MAKE FULL WIDTH */
+    max-width: 1500px; /* LIMIT MAX WIDTH */
+}
+
+.export-btn:hover {
+    background: #90caf9; /* CHANGED HOVER COLOR */
+}
+
+.gco-reports-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.gco-report-card {
+    background: #fff;
+    border-radius: 6px;
+    padding: 18px 16px 16px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    cursor: pointer;
+    transition: transform .2s ease, box-shadow .2s ease;
+    display: flex;
+    flex-direction: column;
+    height: 140px;
+}
+
+.gco-report-label {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'PublicSans', sans-serif;
+    color: #000;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #c3e1f4;
+    flex-shrink: 0;
+    margin-left: -16px;
+    margin-right: -16px;
+}
+
+.gco-report-count {
+    flex: 1;                      
+    display: flex;
+    align-items: center;         
+    justify-content: center;       
+
+    font-size: 78px;
+    font-weight: bold;
+    font-family: "BoldOswald", sans-serif;
+    color: #0847b2;
+    line-height: 1;               
+    margin-top: 4px;
+}
+
+
+.gco-details-card {
+    background: white;
+    border-radius: 5px;
+    padding: 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+    overflow: hidden;
+    border: none; 
+}
+
+.gco-details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+    padding: 3px;
+    border-bottom: 3px solid #c3e1f4; 
+}
+
+
+.gco-details-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+    font-family: 'PublicSans', sans-serif;
+    border-bottom: none !important;
+}
+
+.gco-details-header h3 {
+    border-bottom: none !important;
+    margin-left: -5px;
+}
+
+.gco-details-table-wrapper {
+    overflow-x: auto;
+    padding: 0;
+}
+
+.gco-details-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.gco-details-table thead {
+    background: #e4f4ff;
+}
+
+.gco-details-table th {
+    padding: 8px 30px;
+    text-align: left;
+    font-size: 15px;
+    font-weight: bold;
+    color: #7398b0;
+}
+
+.gco-details-table td {
+    padding: 5px 30px;
+    text-align: left;
+    font-size: 15px;
+    color: #1a1a1a;
+
+}
+
+.gco-details-table tbody tr:last-child td {
+    padding-bottom: 20px; /* ADD EXTRA SPACING TO LAST ROW */
+}
+
+.report-type-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    font-family: 'PublicSans', sans-serif;
+}
+
+.badge-video-call {
+    background: #e3f2fd;
+    color: #1976d2;
+}
+
+.badge-call {
+    background: #f3e5f5;
+    color: #7b1fa2;
+}
+
+.badge-f2f {
+    background: #e8f5e9;
+    color: #388e3c;
+}
+
+.badge-referral {
+    background: #fff3e0;
+    color: #f57c00;
+}
+
+.badge-peer-f2f {
+    background: #fce4ec;
+    color: #c2185b;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px;
+    color: #9e9e9e;
+}
+
+.empty-state-icon {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 1200px) {
+    .gco-reports-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .gco-reports-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .gco-reports-header, .gco-details-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+    .export-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .gco-reports-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* ----------------------ETO DESIGN FOR TABLES-------------------------------------------------- */
