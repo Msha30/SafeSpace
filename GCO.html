@@ -315,10 +315,7 @@
 					</div>
 				</div>
 			</div>
-			<!-- ADD THIS HTML AFTER THE STATS ROW -->
-			<!-- GCO REPORTS SECTION -->
 			<div class="gco-reports-section">
-
 				<div class="gco-reports-header">
 					<h3 class="gco-reports-title">GCO Consultation Reports</h3>
 					<button class="export-btn" id="exportBtn">Export Reports</button>
@@ -379,7 +376,6 @@
 						</table>
 					</div>
 				</div>
-
 			</div>
 
 			<div class="row">
@@ -500,7 +496,11 @@
 		
 		<div class="row-nav">
 			<div class="left-half">
-				<button class="btn-white">Today</button>
+				<select class="btn-white">
+					<option value="all">All</option>
+					<option value="newest">Newest</option>
+					<option value="oldest">Oldest</option>
+				</select>
 			</div>
 		</div>
 		<div class="row-schedule" id="schedule">
@@ -1033,9 +1033,14 @@
 -->	
 
 			<div class="row">
-				<div class="left-half">
-					<button class="btn-white">Today</button>
+				<div class="left-half">	
+					<select class="btn-white">
+						<option value="all">All</option>
+						<option value="newest">Newest</option>
+						<option value="oldest">Oldest</option>
+					</select>
 				</div>
+
 			</div>
 			
 			<div class="row-schedule" id="schedule" style="gap: 15px;">
@@ -2442,11 +2447,12 @@
 			renderGCOTable(type);
 		}
 
-		document.querySelectorAll('.gco-report-card').forEach(card => {
-			card.addEventListener('click', () => {
+			document.addEventListener('click', function (e) {
+				const card = e.target.closest('.gco-report-card');
+				if (!card) return;
+
 				filterGCOReports(card.dataset.filter, card);
 			});
-		});
 
 		document.getElementById('exportBtn').addEventListener('click', exportGCOReports);
 
@@ -2455,7 +2461,7 @@
 				? gcoReportsData
 				: gcoReportsData.filter(d => d.type === currentGCOFilter);
 
-			let csv = "Date,Student,Type,Assigned,Role\n";
+			let csv = "ConsultationDate,Student,Type,Assigned,Role\n";
 			data.forEach(d => {
 				csv += `${d.date},${d.student},${d.type},${d.assignedTo},${d.role}\n`;
 			});
@@ -2468,6 +2474,9 @@
 		}
 
 		renderGCOTable('all');
+
+		
+
 		// SLIDER FOR TERMS AND CONDITIONS AND PRIVACY POLICY
 
 		function openModal(id) {
@@ -3451,10 +3460,6 @@
 				}
 			}
 		});
-
-		
-
-
 	</script>
 </body>
 </html>
