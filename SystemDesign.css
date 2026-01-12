@@ -169,13 +169,13 @@ button {
 }
 
 .notification img {
-    transform: translateY(1px) translateX(3px);
+    transform: translateY(1px) translateX(-5px);
 }
 
 .notif-badge {
     position: absolute;
     margin-bottom: 10px;
-    margin-left: 16px;
+    margin-left: 6px;
     background-color: #e85536;
     color: white;
     font-size: 9px;

@@ -450,6 +450,7 @@
                          <button class="btn details" onclick="openDetailsPopup()">See Details</button>
                     </div>
 				</div>
+				
 			</div>
 			
 			<div class="row">
@@ -2292,7 +2293,7 @@
 		}
 
 
-		// NOTIFICATION  ----------------------------------------------------------------
+		// NOTIFICATION ----------------------------------------------------------------
 
 		function toggleNotif(event) {
 			event.stopPropagation(); // prevent document click
@@ -2300,14 +2301,15 @@
 			notification.classList.toggle('show');
 		}
 
-		// Close notification when clicking outside
-		document.addEventListener('click', function(event) {
-			const notification = document.querySelector('.notification');
+		// Prevent clicks inside notif menu from closing it
+		document.getElementById('notifMenu').addEventListener('click', function (event) {
+			event.stopPropagation();
+		});
 
-			// Only close if the panel is open and the click is outside it
-			if (notification.classList.contains('show') && !event.target.closest('.notification')) {
-				notification.classList.remove('show');
-			}
+		// Close notif ONLY when clicking outside
+		document.addEventListener('click', function () {
+			const notification = document.querySelector('.notification');
+			notification.classList.remove('show');
 		});
 
 
@@ -3247,10 +3249,10 @@
 			btn.closest('.file').remove();
 		}
 
+		
+
 
 		// FOR POST POP UP DIALOGUE
-
-
 		function showPostConfirm() {
 			const popup = document.getElementById('postConfirmPopup');
 			if (popup) {
@@ -3422,7 +3424,7 @@
 
 		
 
-		
+
 	</script>
 </body>
 </html>
