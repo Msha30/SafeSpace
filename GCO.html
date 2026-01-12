@@ -87,7 +87,7 @@
 		<div class="topbar">
 			<span id="pageTitle">Overview</span>
 			<div class="topbar-right">
-			<div class="notification" onclick="toggleNotif()">
+			<div class="notification" onclick="toggleNotif(event)">
 				<img src="icons/ic_notif.svg" class="notif" alt="notification icon">
 				<span class="notif-badge">1</span>
 			<div class="notif-menu" id="notifMenu">
@@ -295,93 +295,72 @@
 				</div>
 			</div>
 			<!-- ADD THIS HTML AFTER THE STATS ROW -->
+			<!-- GCO REPORTS SECTION -->
 			<div class="gco-reports-section">
+
 				<div class="gco-reports-header">
 					<h3 class="gco-reports-title">GCO Consultation Reports</h3>
-					<button class="export-btn" onclick="exportGCOReports()">Export Reports</button>
+					<button class="export-btn" id="exportBtn">Export Reports</button>
 				</div>
+
 				<div class="gco-reports-grid">
 					<div class="gco-report-card active" data-filter="all">
 						<div class="gco-report-label">All Reports</div>
-						<div class="gco-report-count" id="all_reports">50</div>
+						<div class="gco-report-count">50</div>
 					</div>
+
 					<div class="gco-report-card" data-filter="video_call">
 						<div class="gco-report-label">GCO Video Call</div>
-						<div class="gco-report-count" id="gco_video_call">12</div>
+						<div class="gco-report-count">12</div>
 					</div>
+
 					<div class="gco-report-card" data-filter="call">
 						<div class="gco-report-label">GCO Voice Call</div>
-						<div class="gco-report-count" id="gco_call">8</div>
+						<div class="gco-report-count">8</div>
 					</div>
+
 					<div class="gco-report-card" data-filter="f2f">
 						<div class="gco-report-label">GCO Face-to-Face</div>
-						<div class="gco-report-count" id="gco_f2f">15</div>
+						<div class="gco-report-count">15</div>
 					</div>
+
 					<div class="gco-report-card" data-filter="peer_referral">
 						<div class="gco-report-label">Peer Referrals</div>
-						<div class="gco-report-count" id="peer_referral">10</div>
+						<div class="gco-report-count">10</div>
 					</div>
+
 					<div class="gco-report-card" data-filter="peer_f2f">
 						<div class="gco-report-label">Peer Face-to-Face</div>
-						<div class="gco-report-count" id="peer_f2f">5</div>
+						<div class="gco-report-count">5</div>
 					</div>
 				</div>
+
 				<div class="gco-details-card">
 					<div class="gco-details-header">
-						<h3 class="gco-details-title">Consultation Report Details - <span id="current-filter">All Reports</span></h3>
+						<h3 class="gco-details-title">
+							Consultation Report Details –
+							<span id="current-filter">All Reports</span>
+						</h3>
 					</div>
+
 					<div class="gco-details-table-wrapper">
 						<table class="gco-details-table">
 							<thead>
 								<tr>
-									<th id="left">Consultation Date</th>
-									<th id="left">Student Name</th>
-									<th id="left">Consultation Type</th>
-									<th id="left">Assigned Counselor/Peer Facilitator</th>
-									<th id="left">Role</th>
+									<th>Consultation Date</th>
+									<th>Student Name</th>
+									<th>Consultation Type</th>
+									<th>Assigned Counselor / Peer</th>
+									<th>Role</th>
 								</tr>
 							</thead>
-							<tbody id="gco-details-tbody">
-								<tr>
-									<td id="left">2025-01-10</td>
-									<td id="left">Doe, John A.</td>
-									<td id="left"><span class="report-type-badge badge-video-call">GCO Video Call</span></td>
-									<td id="left">Doe, John A.</td>
-									<td id="left">GCO Counselor</td>
-								</tr>
-								<tr>
-									<td id="left">2025-01-10</td>
-									<td id="left">Doe, John A</td>
-									<td id="left"><span class="report-type-badge badge-call">GCO Call</span></td>
-									<td id="left">Doe, John A.</td>
-									<td id="left">GCO Counselor</td>
-								</tr>
-								<tr>
-									<td id="left">2025-01-09</td>
-									<td id="left">Doe, John A.</td>
-									<td id="left"><span class="report-type-badge badge-f2f">GCO F2F</span></td>
-									<td id="left">Doe, John A.</td>
-									<td id="left">GCO Counselor</td>
-								</tr>
-								<tr>
-									<td id="left">2025-01-09</td>
-									<td id="left">Doe, John A.</td>
-									<td id="left"><span class="report-type-badge badge-referral">Peer Referral</span></td>
-									<td id="left">Doe, John A.</td>
-									<td id="left">Peer Facilitator</td>
-								</tr>
-								<tr>
-									<td id="left">2025-01-08</td>
-									<td id="left">Doe, John A.</td>
-									<td id="left"><span class="report-type-badge badge-peer-f2f">Peer F2F</span></td>
-									<td id="left">Doe, John A.</td>
-									<td id="left">Peer Facilitator</td>
-								</tr>
-							</tbody>
+							<tbody id="gco-details-tbody"></tbody>
 						</table>
 					</div>
 				</div>
+
 			</div>
+
 			<div class="row">
 				<div class="card">
 					<h3>Engagement Breakdown</h3>
@@ -2316,21 +2295,23 @@
 
 		// NOTIFICATION ----------------------------------------------------------------
 
-		// Toggle the notification panel
-		function toggleNotif() {
+		function toggleNotif(event) {
+			event.stopPropagation(); // prevent document click
 			const notification = document.querySelector('.notification');
 			notification.classList.toggle('show');
 		}
 
-		// Close notification when clicking outside
-		document.addEventListener('click', function(event) {
-			const notification = document.querySelector('.notification');
-
-			// Only close if the panel is open and the click is outside it
-			if (notification.classList.contains('show') && !event.target.closest('.notification')) {
-				notification.classList.remove('show');
-			}
+		// Prevent clicks inside notif menu from closing it
+		document.getElementById('notifMenu').addEventListener('click', function (event) {
+			event.stopPropagation();
 		});
+
+		// Close notif ONLY when clicking outside
+		document.addEventListener('click', function () {
+			const notification = document.querySelector('.notification');
+			notification.classList.remove('show');
+		});
+
 
 		// INCREMENTS BADGE COUNT
 		function updateNotificationBadge(count) {
@@ -2343,10 +2324,7 @@
 			}
 		}
 
-		// Example updates
-		updateNotificationBadge(3); 
-		updateNotificationBadge(150); 
-		updateNotificationBadge(0);
+		updateNotificationBadge(1);
 
 
 		// Popup logic REFERENCE ONLY------------------------------------------------------------------
@@ -2368,6 +2346,98 @@
 		}
 		});
 
+		//TRY
+
+		const gcoReportsData = [
+			{ date: '2025-01-10', student: 'Doe, John A.', type: 'video_call', assignedTo: 'Doe, John A.', role: 'GCO Counselor' },
+			{ date: '2025-01-10', student: 'Doe, John A.', type: 'call', assignedTo: 'Doe, John A.', role: 'GCO Counselor' },
+			{ date: '2025-01-09', student: 'Doe, John A.', type: 'f2f', assignedTo: 'Doe, John A.', role: 'GCO Counselor' },
+			{ date: '2025-01-09', student: 'Doe, John A.', type: 'peer_referral', assignedTo: 'Doe, John A.', role: 'Peer Facilitator' },
+			{ date: '2025-01-08', student: 'Doe, John A.', type: 'peer_f2f', assignedTo: 'Doe, John A.', role: 'Peer Facilitator' },
+			{ date: '2025-01-08', student: 'Smith, Jane B.', type: 'video_call', assignedTo: 'Smith, Jane B.', role: 'GCO Counselor' },
+			{ date: '2025-01-07', student: 'Brown, David C.', type: 'f2f', assignedTo: 'Brown, David C.', role: 'GCO Counselor' },
+			{ date: '2025-01-07', student: 'Garcia, Maria D.', type: 'call', assignedTo: 'Garcia, Maria D.', role: 'GCO Counselor' }
+		];
+
+		let currentGCOFilter = 'all';
+
+		function getReportTypeBadge(type) {
+			const badges = {
+				video_call: '<span class="report-type-badge badge-video-call">GCO Video Call</span>',
+				call: '<span class="report-type-badge badge-call">GCO Call</span>',
+				f2f: '<span class="report-type-badge badge-f2f">GCO F2F</span>',
+				peer_referral: '<span class="report-type-badge badge-referral">Peer Referral</span>',
+				peer_f2f: '<span class="report-type-badge badge-peer-f2f">Peer F2F</span>'
+			};
+			return badges[type];
+		}
+
+		function renderGCOTable(filter) {
+			const tbody = document.getElementById('gco-details-tbody');
+			const data = filter === 'all'
+				? gcoReportsData
+				: gcoReportsData.filter(item => item.type === filter);
+
+			tbody.innerHTML = data.length
+				? data.map(item => `
+					<tr>
+						<td>${item.date}</td>
+						<td>${item.student}</td>
+						<td>${getReportTypeBadge(item.type)}</td>
+						<td>${item.assignedTo}</td>
+						<td>${item.role}</td>
+					</tr>
+				`).join('')
+				: `<tr><td colspan="5" style="text-align:center;padding:40px;">No reports found</td></tr>`;
+		}
+
+		function filterGCOReports(type, card) {
+			currentGCOFilter = type;
+
+			document.querySelectorAll('.gco-report-card')
+				.forEach(c => c.classList.remove('active'));
+
+			card.classList.add('active');
+
+			const filterNames = {
+				all: 'All Reports',
+				video_call: 'GCO Video Call',
+				call: 'GCO Voice Call',
+				f2f: 'GCO Face-to-Face',
+				peer_referral: 'Peer Referrals',
+				peer_f2f: 'Peer Face-to-Face'
+			};
+
+			document.getElementById('current-filter').textContent = filterNames[type];
+			renderGCOTable(type);
+		}
+
+		document.querySelectorAll('.gco-report-card').forEach(card => {
+			card.addEventListener('click', () => {
+				filterGCOReports(card.dataset.filter, card);
+			});
+		});
+
+		document.getElementById('exportBtn').addEventListener('click', exportGCOReports);
+
+		function exportGCOReports() {
+			const data = currentGCOFilter === 'all'
+				? gcoReportsData
+				: gcoReportsData.filter(d => d.type === currentGCOFilter);
+
+			let csv = "Date,Student,Type,Assigned,Role\n";
+			data.forEach(d => {
+				csv += `${d.date},${d.student},${d.type},${d.assignedTo},${d.role}\n`;
+			});
+
+			const blob = new Blob([csv], { type: 'text/csv' });
+			const a = document.createElement('a');
+			a.href = URL.createObjectURL(blob);
+			a.download = 'GCO_Reports.csv';
+			a.click();
+		}
+
+		renderGCOTable('all');
 		// SLIDER FOR TERMS AND CONDITIONS AND PRIVACY POLICY
 
 		function openModal(id) {
@@ -3351,6 +3421,7 @@
 				}
 			}
 		});
+
 		
 
 
