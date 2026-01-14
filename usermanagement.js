@@ -2,7 +2,8 @@
 import { db } from "./auth.js";
 import { 
   collection, 
-  getDocs, 
+  getDocs,
+  getDoc,      // <-- added
   query, 
   where, 
   orderBy,
@@ -15,6 +16,9 @@ import {
 let usersCache = null;
 let lastFetchTime = null;
 const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
+// popup cache (was missing)
+const userPopupCache = new Map();
 
 const programs = [
     "Accountancy, Business and Management (ABM) Strand",
@@ -71,6 +75,24 @@ export async function fetchAllUsers(forceRefresh = false) {
     throw error;
   }
 }
+
+async function getUserForPopup(uid) {
+  if (!uid) return null;
+  if (userPopupCache.has(uid)) return userPopupCache.get(uid);
+
+  try {
+    const snap = await getDoc(doc(db, "account_details", uid));
+    if (!snap.exists()) return null;
+
+    const data = snap.data();
+    userPopupCache.set(uid, data);
+    return data;
+  } catch (err) {
+    console.error("Failed to fetch popup user:", err);
+    return null;
+  }
+}
+
 
 /**
  * Filter users by user type
@@ -325,6 +347,9 @@ export async function initializeUserManagement(config) {
 
     // Store formatted users globally for search/filter
     window.currentUsers = formattedUsers;
+    window.openUsersPopup = openUsersPopup;
+    window.closeUsersPopup = closeUsersPopup;
+
 
     // Populate table
     populateUserTable(tableBodyId, formattedUsers, { 
@@ -479,6 +504,81 @@ document.addEventListener('click', function(event) {
     });
   }
 });
+
+export async function openUsersPopup(uid) {
+  const popup = document.getElementById("usersInfoPopup");
+  if (!popup) return;
+
+  try {
+    // allow calling without uid if window.selectedUser exists
+    const effectiveUid = uid || (window.selectedUser && (window.selectedUser.uid || window.selectedUser.id));
+    if (!effectiveUid) {
+      console.warn("openUsersPopup: no uid provided and window.selectedUser is not set");
+      return;
+    }
+
+    const data = await getUserForPopup(effectiveUid);
+    if (!data) return;
+
+    // Left side
+    popup.querySelector(".popup-profile-img").src =
+      data.avatarUrl || "photos/pic_placeholder.png";
+
+    popup.querySelector(".popup-left h2").textContent =
+      `${data.lname || ""}, ${data.fname || ""}`;
+
+    const dateEls = popup.querySelectorAll(".date-created-left strong");
+    if (dateEls[0]) dateEls[0].textContent = formatPopupDate(data.lastActive);
+    if (dateEls[1]) dateEls[1].textContent = formatPopupDate(data.createdAt);
+
+    // Right side fields
+    setPopupDetail(popup, "First Name", data.fname);
+    setPopupDetail(popup, "Last Name", data.lname);
+    setPopupDetail(popup, "Student Email", data.email);
+    setPopupDetail(popup, "Preferred Name", data.username);
+    setPopupDetail(popup, "Student ID", data.studentId);
+    setPopupDetail(popup, "Program", data.program);
+
+    popup.style.display = "block";
+  } catch (err) {
+    console.error("Failed to open users popup:", err);
+  }
+}
+
+export function closeUsersPopup() {
+  const popup = document.getElementById("usersInfoPopup");
+  if (popup) popup.style.display = "none";
+}
+
+function setPopupDetail(popup, label, value) {
+  const item = Array.from(popup.querySelectorAll(".detail-item"))
+    .find(d => d.querySelector("label").textContent === label);
+  if (item) item.querySelector("p").textContent = value || "N/A";
+}
+
+function formatPopupDate(ts) {
+  if (!ts) return "N/A";
+  const d = ts.toDate ? ts.toDate() : new Date(ts);
+  return d.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric"
+  });
+}
+
+document.addEventListener("click", (e) => {
+  const popup = document.getElementById("usersInfoPopup");
+  if (!popup) return;
+
+  // Popup is open AND user clicked the dark background
+  if (
+    popup.style.display === "block" &&
+    e.target === popup
+  ) {
+    closeUsersPopup();
+  }
+});
+
 
 export default {
   fetchAllUsers,
