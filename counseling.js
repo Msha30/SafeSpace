@@ -151,21 +151,21 @@ async function createSessionCard(data, formId) {
   card.classList.add("card");
 
   card.innerHTML = `
-    <h3>${formatDate(data.createdAt)} - ${formatPlatform(data.preferredPlatform)}</h3>
-    <div class="session-mode-left">
-      <img src="${avatarUrl || 'photos/pic_placeholder.png'}" alt="Avatar">
-      <div class="session-details-left">
-        <div class="time">Pending Schedule</div>
-        <div class="name">${data.fname || ""} ${data.lname || ""}</div>
-        <div class="info">${data.studentId || ""}</div>
-        <div class="info">${urgent ? `<strong><span class="urgent">Urgent</span></strong>` : "Not Urgent"}</div>
-        <div class="info">Prefers <strong>${data.preferredCounselor || ""}</strong></div>
+      <h3>${formatDate(data.createdAt)} - ${formatPlatform(data.preferredPlatform)}</h3>
+      <div class="session-mode-left">
+        <img src="${avatarUrl || 'photos/pic_placeholder.png'}" alt="Avatar">
+        <div class="session-details-left">
+          <div class="time">Pending Schedule</div>
+          <div class="name">${data.fname || "N/A"} ${data.lname || "N/A"}</div>
+          <div class="info">${data.studentId || "N/A"}</div>
+          <div class="info">${urgent ? `<strong><span class="urgent">Urgent</span></strong>` : "Not Urgent"}</div>
+          <div class="info">Prefers <strong>${data.preferredCounselor || "N/A"}</strong></div>
+        </div>
       </div>
-    </div>
-    <div class="session-btn-left">
-      <button class="btn start">Take Session</button>
-      <button class="btn details">See Details</button>
-    </div>
+      <div class="session-btn-left">
+        <button class="btn start">Take Session</button>
+        <button class="btn details">See Details</button>
+      </div>
   `;
 
   card.querySelector(".btn.details").addEventListener("click", () => {
