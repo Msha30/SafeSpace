@@ -297,6 +297,16 @@ function openPerPeerPage(peer) {
   document.getElementById("peerEmail").textContent = peer.email;
   document.getElementById("peerStudentNum").textContent = peer.studentId;
   document.getElementById("peerProgram").textContent = peer.program;
+  const title = `
+				<a href="#" onclick="showPage('peer-facilitators')" style="text-decoration:none; color:inherit;">
+					Peer Facilitators
+				</a>
+				<img src="icons/ic_arrow right.svg" 
+					style="width:14px; vertical-align:middle; margin:0 5px; cursor:pointer;" 
+					onclick="showPage('peer-facilitators')">
+				${peer.fullName}
+			`;
+  document.getElementById("pageTitle").innerHTML = title;
 }
 
 export function initializePeerFacilitators() {
