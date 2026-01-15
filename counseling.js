@@ -162,7 +162,7 @@ async function createSessionCard(data, formId) {
           <div class="info">Prefers <strong>${data.preferredCounselor || "N/A"}</strong></div>
         </div>
       </div>
-      <div class="session-btn-left">
+      <div class="session-btn-right">
         <button class="btn start">Take Session</button>
         <button class="btn details">See Details</button>
       </div>
