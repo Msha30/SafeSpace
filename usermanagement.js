@@ -160,6 +160,16 @@ export function formatUserData(user) {
   };
 }
 
+function switchPage(pageId) {
+  document.querySelectorAll(".page").forEach(p => {
+    p.style.display = "none";
+  });
+
+  const page = document.getElementById(pageId);
+  if (page) page.style.display = "block";
+}
+
+
 /**
  * Get user type badge class
  * @param {string} userType - User type
@@ -222,6 +232,147 @@ export function populateUserTable(tableBodyId, users, options = {}) {
     tbody.appendChild(row);
   });
 }
+
+export function populatePeerTable() {
+  const tbody = document.getElementById("peerTableBody");
+  if (!tbody) return;
+
+  tbody.innerHTML = "";
+
+  if (!usersCache) return;
+
+  const peers = usersCache
+    .filter(u => u.userType === "peer")
+    .map(formatUserData);
+
+  if (peers.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="6" style="text-align:center; padding:20px;">
+          No peer facilitators found
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  peers.forEach(peer => {
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+      <td class="table_user">
+        <img src="${peer.avatarUrl}" onerror="this.src='photos/pic_placeholder.png'">
+      </td>
+      <td>
+        <div class="name" style="cursor:pointer">
+          ${peer.fullName}<br>
+          <span>${peer.email}</span>
+        </div>
+      </td>
+      <td></td>
+      <td class="peerInteract"><span>0</span></td>
+      <td>${peer.lastActive}</td>
+      <td>${peer.createdDate}</td>
+    `;
+
+    row.querySelector(".name").onclick = () => openPerPeerPage(peer.uid);
+
+    tbody.appendChild(row);
+  });
+}
+
+function openPerPeerPage(peer) {
+  document.querySelectorAll(".page").forEach(p => p.style.display = "none");
+  document.getElementById("perPeerPage").style.display = "block";
+
+  document.querySelector(".informationProfileImg").src =
+    peer.avatarUrl || "photos/pic_placeholder.png";
+
+  document.getElementById("peerNameTitle").textContent = peer.fullName;
+  document.getElementById("peerInfo_lastactive").textContent = peer.lastActive;
+  document.getElementById("peerInfo_dateCreated").textContent = peer.createdDate;
+
+  document.getElementById("peerFirstName").textContent = peer.rawData.fname || "N/A";
+  document.getElementById("peerLastName").textContent = peer.rawData.lname || "N/A";
+  document.getElementById("peerEmail").textContent = peer.email;
+  document.getElementById("peerStudentNum").textContent = peer.studentId;
+  document.getElementById("peerProgram").textContent = peer.program;
+}
+
+export function initializePeerFacilitators() {
+  const tbody = document.querySelector("#peer_list tbody");
+  const searchInput = document.querySelector("#peer-facilitators input[type='text']");
+
+  if (!tbody) {
+    console.warn("Peer table body not found");
+    return;
+  }
+
+  // peers only
+  const peers = (window.currentUsers || [])
+    .filter(u => u.rawData.userType === "peer");
+
+  renderPeerRows(peers, tbody);
+
+  // 🔍 search behavior (same logic as userManagement)
+  if (searchInput) {
+    searchInput.addEventListener("input", () => {
+      const term = searchInput.value.toLowerCase();
+
+      const filtered = peers.filter(p =>
+        p.fullName.toLowerCase().includes(term) ||
+        p.email.toLowerCase().includes(term) ||
+        p.studentId.toLowerCase().includes(term)
+      );
+
+      renderPeerRows(filtered, tbody);
+    });
+  }
+}
+
+function renderPeerRows(peers, tbody) {
+  tbody.innerHTML = "";
+
+  if (!peers.length) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="6" style="text-align:center;color:#888;">
+          No peer facilitators found
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  peers.forEach(peer => {
+    const tr = document.createElement("tr");
+
+    tr.innerHTML = `
+      <td class="table_user">
+        <img src="${peer.avatarUrl}" onerror="this.src='photos/pic_placeholder.png'">
+      </td>
+      <td>
+        <div class="name" style="cursor:pointer;">
+          ${peer.fullName}<br>
+          <span>${peer.email}</span>
+        </div>
+      </td>
+      <td></td>
+      <td class="peerInteract"><span>0</span></td>
+      <td>${peer.lastActive}</td>
+      <td>${peer.createdDate}</td>
+    `;
+
+    tr.querySelector(".name").addEventListener("click", () => {
+      openPerPeerPage(peer);
+    });
+
+    tbody.appendChild(tr);
+  });
+}
+
+window.openPerPeerPage = openPerPeerPage;
+
 
 /**
  * Create a table row for a user
@@ -440,20 +591,25 @@ export async function updateProgramsTable() {
  * Update user count displays
  * @param {Array} users - Array of users
  */
-export function updateUserCounts(users) {
+export async function updateUserCounts(users) {
   try {
+    if (!users) {
+      users = (await fetchAllUsers()).map(formatUserData);
+    }
+
     const students = users.filter(u => u.rawData.userType === 'student');
     const peers = users.filter(u => u.rawData.userType === 'peer');
-    
+
     const studentCountEl = document.getElementById('student_count');
     const peersCountEl = document.getElementById('peers_count');
-    
+
     if (studentCountEl) studentCountEl.textContent = students.length;
     if (peersCountEl) peersCountEl.textContent = peers.length;
   } catch (err) {
-      console.error("Failed to update stats counts:", err);
+    console.error("Failed to update stats counts:", err);
   }
 }
+
 
 export async function refreshProgramsDashboard() {
     await updateProgramsTable();

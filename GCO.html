@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -8,7 +9,8 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script type="module">
 		import { protectDashboard, logout } from "./auth.js";
-		import { initializeUserManagement, refreshProgramsDashboard, updateUserCounts, fetchAllUsers, filterUsersByType, formatUserData } from './usermanagement.js';
+		import { initializeUserManagement, refreshProgramsDashboard, updateUserCounts,
+			 fetchAllUsers, filterUsersByType, formatUserData, initializePeerFacilitators} from './usermanagement.js';
 		import { loadCounselingForms } from "./counseling.js";
 		window.addEventListener("DOMContentLoaded", async () => {
 			// Allow only authenticated GCO users
@@ -42,6 +44,7 @@
 
 			try {
 				await initializeUserManagement(gcoConfig);
+				initializePeerFacilitators();
 				
 				// Update count cards on overview page
 				const allUsers = await fetchAllUsers();
@@ -784,53 +787,8 @@
 								<th>Date Created</th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr id="peer_row">
-								<td class="table_user">
-									<img src="photos/pic_placeholder.png">
-								</td>
-								<td>
-									<div class="name" onclick="showPeerPage(this)" style="cursor: pointer;">
-										Doe, John A.<br> 
-										<span>email@students.nu-fairview.edu.ph</span>
-									</div>
-								</td>
-								<td></td>
-								<td class="peerInteract"><span>0</span></td>
-								</td>
-								<td id="peer_lastActive">Lorem Ipsum</td>
-								<td id="peer_dateCreated">Lorem Ipsum</td>
-							</tr>
-							<tr id="peer_row">
-								<td class="table_user">
-									<img src="photos/pic_placeholder.png">
-								</td>
-								<td>
-									<div class="name">
-										Doe, John A.<br> 
-										<span>email@students.nu-fairview.edu.ph</span>
-									</div>
-								</td>
-								<td></td>
-								<td class="peerInteract"><span>0</span></td>
-								<td id="peer_lastActive">Lorem Ipsum</td>
-								<td id="peer_dateCreated">Lorem Ipsum</td>
-							</tr>
-							<tr id="peer_row">
-								<td class="table_user">
-									<img src="photos/pic_placeholder.png">
-								</td>
-								<td>
-									<div class="name">
-										Doe, John A.<br> 
-										<span>email@students.nu-fairview.edu.ph</span>
-									</div>
-								</td>
-								<td></td>
-								<td class="peerInteract"><span>0</span></td>
-								<td id="peer_lastActive">Lorem Ipsum</td>
-								<td id="peer_dateCreated">Lorem Ipsum</td>
-							</tr>
+						<tbody id="peerTableBody">
+							<!-- Peer Facilitators will be populated here -->
 						</tbody>
 					</table>
 				</div>
@@ -2171,7 +2129,7 @@
 				}
 			}
 		});
-
+		/*	COMMENTED OUT FEEDBACK NO LONGER EXIST
 		// FOR PIE CHART IN FEEDBACK PAGE ----------------------------------------------------
 		const ctx3 = document.getElementById('ratingChart').getContext('2d');
 		const data = {
@@ -2205,6 +2163,8 @@
 			}
 		};
         const ratingChart = new Chart(ctx3, config);
+		*/
+
 
 		// Pages ----------------------------- wag gagalawin ----------------------------------------
 
@@ -2279,6 +2239,7 @@
 
 		updateNotificationBadge(1);
 
+		/* COMMENTED OUT TO REMOVE ERRORS
 
 		// Popup logic REFERENCE ONLY------------------------------------------------------------------
 		const openBtn = document.getElementById("openPopupBtn");
@@ -2300,6 +2261,7 @@
 		});
 
 		//TRY
+		*/
 
 		const gcoReportsData = [
 			{ date: '2025-01-10', student: 'Doe, John A.', type: 'video_call', assignedTo: 'Doe, John A.', role: 'GCO Counselor' },
