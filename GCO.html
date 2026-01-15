@@ -12,9 +12,21 @@
 		import { initializeUserManagement, refreshProgramsDashboard, updateUserCounts,
 			 fetchAllUsers, filterUsersByType, formatUserData, initializePeerFacilitators} from './usermanagement.js';
 		import { loadCounselingForms } from "./counseling.js";
+		import { initSupportGroups, createSupportGroup, openCreateGroupModal, closeCreateGroupModal,
+			 triggerImageUpload, handleImageUpload } from "./supportgroup.js";
+
+		window.createSupportGroup = createSupportGroup;
+		window.openCreateGroupModal = openCreateGroupModal;
+		window.closeCreateGroupModal = closeCreateGroupModal;
+		window.triggerImageUpload = triggerImageUpload;
+		window.handleImageUpload = handleImageUpload;
+		
 		window.addEventListener("DOMContentLoaded", async () => {
 			// Allow only authenticated GCO users
 			protectDashboard(["gco"]);
+
+							
+			initSupportGroups();
 
 			// Logout handler
 			const signOutLink = document.getElementById("signOutLink");
@@ -1075,29 +1087,31 @@
 		<div id="support-group" class="page">
 			<div class="support-container">
 				<div class="support-groups">
+					<!--
 					<div class="support-card" onclick="showPage('haven')">
-					<img src="photos/haven.png" alt="Group">
+					<img id="supportgroup_pic" src="photos/haven.png" alt="Group">
 					<div class="support-info">
-						<h4>HAVEN Support Group</h4>
-						<span>0 Members</span>
+						<h4 id="supportgroup_name">HAVEN Support Group</h4>
+						<span id="supportgroup_memcount">0 Members</span>
 					</div>
 					</div>
 
 					<div class="support-card" onclick="showPage('yakap')">
-					<img src="photos/yakap.png" alt="Group">
+					<img id="supportgroup_pic" src="photos/yakap.png" alt="Group">
 					<div class="support-info">
-						<h4>YAKAP Support Group</h4>
-						<span>0 Members</span>
+						<h4 id="supportgroup_name">YAKAP Support Group</h4>
+						<span id="supportgroup_memcount">0 Members</span>
 					</div>
 					</div>
 
 					<div class="support-card" onclick="showPage('rise')">
-					<img src="photos/rise.png" alt="Group">
+					<img id="supportgroup_pic" src="photos/rise.png" alt="Group">
 					<div class="support-info">
-						<h4>RISE Support Group</h4>
-						<span>0 Members</span>
+						<h4 id="supportgroup_name">RISE Support Group</h4>
+						<span id="supportgroup_memcount">0 Members</span>
 					</div>
 					</div>
+					-->
 				</div>
 
 				<div class="add-btn" onclick="openCreateGroupModal()">
@@ -2821,7 +2835,7 @@
 				}
 			});
 		}
-
+/*
 		// FOR SUPPORT GROUP EDIT FUNCTIONALITY (HAVEN, YAKAP, RISE)
 		function initSupportGroupEdits(pageId) {
 			const page = document.getElementById(pageId);
@@ -3099,7 +3113,7 @@
 				});
 			}
 		}
-
+*/
 
 
 
