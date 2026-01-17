@@ -207,16 +207,10 @@ button {
     min-width: 400px; 
     max-width: 450px;
     max-height: 500px; 
-    overflow-y: auto;
     z-index: 1000;
-    border-radius: 3px;
+    border-radius: 8px;
     padding: 0;
-    scrollbar-width: none; 
-    -ms-overflow-style: none; 
-}
-
-.notif-menu::-webkit-scrollbar {
-    display: none; 
+    flex-direction: column;
 }
 
 .notif-header {
@@ -226,8 +220,23 @@ button {
     font-size: 18px;
     color: black;
     background: #f8f9fa;
-    border-radius: 8px 8px 0 0;
+    border-radius: 2px 2px 0 0;
     font-family: 'PublicSans', sans-serif;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    flex-shrink: 0;
+}
+
+.notif-content {
+    overflow-y: auto;
+    flex: 1;
+    scrollbar-width: none; 
+    -ms-overflow-style: none;
+}
+
+.notif-content::-webkit-scrollbar {
+    display: none; 
 }
 
 .notif-card {
@@ -394,7 +403,7 @@ button {
 }
 
 .notification.show .notif-menu {
-    display: block;
+    display: flex;
 }
 
 .badge-referral {
@@ -909,6 +918,13 @@ td.down::after {
 
 /* -------------------------------------- COUNSELING -------------------------------------- */
 
+.row-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
 .btn-white{
 	height: 30px;
 	background: white;
@@ -918,6 +934,12 @@ td.down::after {
 	color: #6d6d6d;
 	padding: 0px 25px;
 	box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+
+.btn-white:focus {
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
 .btn-reqForm{
@@ -999,6 +1021,111 @@ td.down::after {
 	margin: 0; 
 	padding: 0;
 }
+
+.row-sessions {
+	display: flex;
+	gap: 20px;
+	margin-bottom: 20px;
+
+	overflow-x: auto;
+	overflow-y: hidden;
+	max-width: calc((370px * 3) + (20px * 2));
+	padding-bottom: 10px;
+}
+
+.card-session {
+	background: white;
+	border-radius: 5px;
+	padding-bottom: 20px;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+	width: 370px;
+	min-width: 360px;
+	flex-shrink: 0;
+}
+
+.row-schedule {
+	display: flex;
+	gap: 15px;
+	margin-bottom: 20px;
+
+	overflow-x: auto;
+	overflow-y: hidden;
+
+	max-width: calc((218px * 5) + (15px * 4));
+	padding-bottom: 10px;
+}
+
+.card-schedule {
+	background: white;
+	border-radius: 5px;
+	padding-bottom: 20px;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+	width: 218px; 
+	min-width: 212px;
+	flex-shrink: 0;
+}
+
+@media (max-width: 1400px) {
+	.card-session {
+		width: 340px;
+		min-width: 340px;
+	}
+	
+	.card-schedule {
+		width: 200px;
+		min-width: 200px;
+	}
+}
+
+@media (max-width: 768px) {
+	.card-session {
+		width: 300px;
+		min-width: 300px;
+	}
+	
+	.card-schedule {
+		width: 180px;
+		min-width: 180px;
+	}
+}
+
+
+.row-sessions::-webkit-scrollbar {
+    height: 4px;
+}
+
+.row-sessions::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 2px;
+}
+
+.row-sessions::-webkit-scrollbar-thumb {
+    background: #c0c0c0;
+    border-radius: 2px;
+}
+
+.row-sessions::-webkit-scrollbar-thumb:hover {
+    background: #a0a0a0;
+}
+
+.row-schedule::-webkit-scrollbar {
+    height: 4px;
+}
+
+.row-schedule::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 2px;
+}
+
+.row-schedule::-webkit-scrollbar-thumb {
+    background: #c0c0c0;
+    border-radius: 2px;
+}
+
+.row-schedule::-webkit-scrollbar-thumb:hover {
+    background: #a0a0a0;
+}
+
 
 
 
@@ -3714,6 +3841,28 @@ video.file-preview2 {
 
 .report-btn:hover { 
   background: #a0d4f0;
+}
+
+/* ADD THIS NEW CSS FOR THE OVERLAY */
+.file-count-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.file-count-number {
+  color: white;
+  font-size: 48px;
+  font-weight: bold;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* --------------------------------------NOTE: CSS FOR POP UP REPORT CONFIRMATION -------------------------------------- */
