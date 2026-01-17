@@ -111,75 +111,77 @@
 				<span class="notif-badge">1</span>
 			<div class="notif-menu" id="notifMenu">
 				<div class="notif-header">Notifications</div>
-				<div class="notif-card">
-					<h3>
-					<span class="notif-type-badge badge-verification" style="font-weight: 900;">VERIFICATION</span>
-						Peer Facilitator Verification
-					</h3>
-					<p class="usrName">
-						John Doe<br>
-						<span>email@admin.nu-fairview.edu.ph</span>
-					</p>
-					<div class="notif-buttons">
-						<button class="btn-decline" onclick="handleAction('decline')">Decline</button>
-						<button class="btn-accept" onclick="handleAction('accept')">Accept</button>
+				<div class="notif-content">
+					<div class="notif-card">
+						<h3>
+						<span class="notif-type-badge badge-verification" style="font-weight: 900;">VERIFICATION</span>
+							Peer Facilitator Verification
+						</h3>
+						<p class="usrName">
+							John Doe<br>
+							<span>email@admin.nu-fairview.edu.ph</span>
+						</p>
+						<div class="notif-buttons">
+							<button class="btn-decline" onclick="handleAction('decline')">Decline</button>
+							<button class="btn-accept" onclick="handleAction('accept')">Accept</button>
+						</div>
 					</div>
-				</div>
-				<div class="notif-card">
-					<h3>
-						<span class="notif-type-badge badge-flagged" style="font-weight: 900;">FLAGGED</span>
-						Flagged Words Detected
-					</h3>
-					<div class="flagged-info">
-						<div class="flagged-participants">
-							<div class="participant-row">
-								<span class="participant-label">Student:</span>
-								<span class="participant-name" style="margin-left:-70px;">Lorem Ipsum</span>
+					<div class="notif-card">
+						<h3>
+							<span class="notif-type-badge badge-flagged" style="font-weight: 900;">FLAGGED</span>
+							Flagged Words Detected
+						</h3>
+						<div class="flagged-info">
+							<div class="flagged-participants">
+								<div class="participant-row">
+									<span class="participant-label">Student:</span>
+									<span class="participant-name" style="margin-left:-70px;">Lorem Ipsum</span>
+								</div>
+								<div class="participant-row" style="margin-left: 59px;">
+									<span style="font-size: 11px; color: #888;">email@student.nu-fairview.edu.ph</span>
+								</div>
+								<div class="participant-row">
+									<span class="participant-label">Peer Facilitator:</span>
+									<span class="participant-name" style="margin-left:-25px;">Lorem Ipsum</span>
+								</div>
 							</div>
-							<div class="participant-row" style="margin-left: 59px;">
-								<span style="font-size: 11px; color: #888;">email@student.nu-fairview.edu.ph</span>
+							<div class="conversation-preview">
+								"Happy New Year!"
 							</div>
-							<div class="participant-row">
-								<span class="participant-label">Peer Facilitator:</span>
-								<span class="participant-name" style="margin-left:-25px;">Lorem Ipsum</span>
+							<div class="timestamp">Today, 2:45 PM</div>
+						</div>
+						<div class="notif-buttons">
+							<button class="btn-export" onclick="exportConversation()">Export Chat</button>
+						</div>
+					</div>
+					<div class="notif-card">
+						<h3>
+							<span class="notif-type-badge badge-referral" style="font-weight: 900;">REFERRAL</span>
+							Student Referred to GCO
+						</h3>
+						<div class="referral-info">
+							<div class="referral-field">
+								<span class="field-label">Student:</span>
+								<span class="field-value" style="margin-left:-90px;" >Lorem Ipsum</span>
 							</div>
+							<div class="referral-field" style="margin-left: 57px;">
+								<span class="field-value" style="font-size: 11px; color: #888;">email@student.nu-fairview.edu.ph</span>
+							</div>
+							<div class="referral-field">
+								<span class="field-label">Peer Facilitator:</span>
+								<span class="field-value" style="margin-left:-45px;">Lorem Ipsum</span>
+							</div>
+							<div class="referral-reason">
+								<span class="field-label">Reason for Referral:</span>
+								<p class="reason-text">
+									Try
+								</p>
+							</div>
+							<div class="timestamp">Today, 3:15 PM</div>
 						</div>
-						<div class="conversation-preview">
-							"Happy New Year!"
+						<div class="notif-buttons">
+							<button class="btn-export" onclick="exportReferralChat()">Export Chat</button>
 						</div>
-						<div class="timestamp">Today, 2:45 PM</div>
-					</div>
-					<div class="notif-buttons">
-						<button class="btn-export" onclick="exportConversation()">Export Chat</button>
-					</div>
-				</div>
-				<div class="notif-card">
-					<h3>
-						<span class="notif-type-badge badge-referral" style="font-weight: 900;">REFERRAL</span>
-						Student Referred to GCO
-					</h3>
-					<div class="referral-info">
-						<div class="referral-field">
-							<span class="field-label">Student:</span>
-							<span class="field-value" style="margin-left:-90px;" >Lorem Ipsum</span>
-						</div>
-						<div class="referral-field" style="margin-left: 57px;">
-							<span class="field-value" style="font-size: 11px; color: #888;">email@student.nu-fairview.edu.ph</span>
-						</div>
-						<div class="referral-field">
-							<span class="field-label">Peer Facilitator:</span>
-							<span class="field-value" style="margin-left:-45px;">Lorem Ipsum</span>
-						</div>
-						<div class="referral-reason">
-							<span class="field-label">Reason for Referral:</span>
-							<p class="reason-text">
-								Try
-							</p>
-						</div>
-						<div class="timestamp">Today, 3:15 PM</div>
-					</div>
-					<div class="notif-buttons">
-						<button class="btn-export" onclick="exportReferralChat()">Export Chat</button>
 					</div>
 				</div>
 			</div>
@@ -406,92 +408,181 @@
 	<!---------------------------------------------------------------------------------------->	
 	<!---------------------------------------------------------------------------------------->	
 	<!---------------- COUNSELING ------------------------------------------------------------>
-		<div id="guidance-counseling" class="page">
-			<div class="row">
-				<div class="left-half">
-					<button class="btn-white">Today</button>
-					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
-					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
+	<!-- HTML SECTION -->
+	<div id="guidance-counseling" class="page">
+		<div class="row-nav">
+			<div class="left-half">
+				<select class="btn-white">
+					<option value="all">All</option>
+					<option value="newest">Newest</option>
+					<option value="oldest">Oldest</option>
+				</select>
+			</div>
+			<div class="right-half">
+				<button class="btn-reqForm" onclick="openRequestFormPopup()">Edit Request Form</button>
+			</div>
+		</div>
+
+		<div class="row-sessions" id="sessions-container">
+			
+			<div class="card-session">
+				<h3>Sept 22 - Video Call</h3> 
+				<div class="session-mode-left">
+					<img src="photos/pic_placeholder.png" alt="Avatar"> 
+					<div class="session-details-left">
+						<div class="time">0:00 PM - 0:00 PM</div>
+						<div class="name">John Doe</div>
+						<div class="info">2023-123456</div>
+						<div class="info">Not Urgent</div>
+						<div class="info">Prefers <strong>Male</strong> Counselor</div>
+					</div>
 				</div>
-				<div class="right-half">
-					<button class="btn-reqForm" onclick="openRequestFormPopup()">Edit Request Form</button>
+				<div class="session-btn-left">
+					<button class="btn start">Start Call</button>
+					<button class="btn details" onclick="openDetailsPopup()">See Details</button>
+				</div>
+			</div>
+			
+			<div class="card-session">
+				<h3>Sept 22 - In Person</h3> 
+				<div class="session-mode-mid">
+					<img src="photos/pic_placeholder.png" alt="Avatar"> 
+					<div class="session-details-mid">
+						<div class="time">0:00 PM - 0:00 PM</div>
+						<div class="name">John Doe</div>
+						<div class="info">2023-123456</div>
+						<div class="info"><strong><span class="urgent">Urgent</span></strong></div>
+						<div class="info">Prefers <strong>Female</strong> Counselor</div>
+					</div>
+				</div>
+				<div class="session-btn-mid">
+					<button class="btn start">Confirmed</button>
+					<button class="btn details" onclick="openDetailsPopup()">See Details</button>
+				</div>
+			</div>
+			
+			<div class="card-session">
+				<h3>Sept 22 - In Person</h3> 
+				<div class="session-mode-right">
+					<img src="photos/pic_placeholder.png" alt="Avatar"> 
+					<div class="session-details-right">
+						<div class="time">0:00 PM - 0:00 PM</div>
+						<div class="name">John Doe</div>
+						<div class="info">2023-123456</div>
+						<div class="info">Not Urgent</div>
+						<div class="info">Prefers <strong>Female</strong> Counselor</div>
+					</div>
+				</div>
+				<div class="session-btn-right">
+					<button class="btn start">Take Session</button>
+					<button class="btn details" onclick="openDetailsPopup()">See Details</button>
 				</div>
 			</div>
 
-			<div class="row" id="sessions-container">
-			</div>
-			
-			<div class="row">
-				<div class="left-half">
-					<button class="btn-white">Today</button>
-					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
-					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
-				</div>
-			</div>
-			<div class="row" id="schedule" style="gap: 15px;">
-				<div class="card">
-					<h4 class="sched-date">23</h4>
-					<h5 style="padding-left: 30px;">MON</h5>
-					<div class="sched">
-						<p class="sched-type">Face to Face</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-					<div class="sched">
-						<p class="sched-type">Face to Face</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
+			<div class="card-session">
+				<h3>Sept 22 - In Person</h3> 
+				<div class="session-mode-right">
+					<img src="photos/pic_placeholder.png" alt="Avatar"> 
+					<div class="session-details-right">
+						<div class="time">0:00 PM - 0:00 PM</div>
+						<div class="name">John Doe</div>
+						<div class="info">2023-123456</div>
+						<div class="info">Not Urgent</div>
+						<div class="info">Prefers <strong>Female</strong> Counselor</div>
 					</div>
 				</div>
-				
-				<div class="card">
-					<h4 class="sched-date">23</h4>
-					<h5 style="padding-left: 30px;">MON</h5>
-					<div class="sched">
-						<p class="sched-type">Video Call</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-					<div class="sched">
-						<p class="sched-type">Video Call</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-				</div>
-				<div class="card">
-					<h4 class="sched-date">23</h4>
-					<h5 style="padding-left: 30px;">MON</h5>
-					<div class="sched">
-						<p class="sched-type">Call</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-					<div class="sched">
-						<p class="sched-type">Call</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-				</div>
-				<div class="card">
-					<h4 class="sched-date">23</h4>
-					<h5 style="padding-left: 30px;">MON</h5>
-					<div class="sched">
-						<p class="sched-type">Face to Face</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-					<div class="sched">
-						<p class="sched-type">Face to Face</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-				</div>
-				<div class="card">
-					<h4 class="sched-date">23</h4>
-					<h5 style="padding-left: 30px;">MON</h5>
-					<div class="sched">
-						<p class="sched-type">Video Call</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-					<div class="sched">
-						<p class="sched-type">Video Call</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
+				<div class="session-btn-right">
+					<button class="btn start">Take Session</button>
+					<button class="btn details" onclick="openDetailsPopup()">See Details</button>
 				</div>
 			</div>
 		</div>
+		
+		<div class="row-nav">
+			<div class="left-half">
+				<button class="btn-white">Today</button>
+			</div>
+		</div>
+		<div class="row-schedule" id="schedule">
+			<div class="card-schedule">
+				<h4 class="sched-date">23</h4>
+				<h5 style="padding-left: 30px;">MON</h5>
+				<div class="sched">
+					<p class="sched-type">Face to Face</p>
+					<p class="sched-time">0:00 PM - 0:00 PM</p>
+				</div>
+				<div class="sched">
+					<p class="sched-type">Face to Face</p>
+					<p class="sched-time">0:00 PM - 0:00 PM</p>
+				</div>
+			</div>
+			
+			<div class="card-schedule">
+				<h4 class="sched-date">23</h4>
+				<h5 style="padding-left: 30px;">MON</h5>
+				<div class="sched">
+					<p class="sched-type">Video Call</p>
+					<p class="sched-time">0:00 PM - 0:00 PM</p>
+				</div>
+				<div class="sched">
+					<p class="sched-type">Video Call</p>
+					<p class="sched-time">0:00 PM - 0:00 PM</p>
+				</div>
+			</div>
+			
+			<div class="card-schedule">
+				<h4 class="sched-date">23</h4>
+				<h5 style="padding-left: 30px;">MON</h5>
+				<div class="sched">
+					<p class="sched-type">Call</p>
+					<p class="sched-time">0:00 PM - 0:00 PM</p>
+				</div>
+				<div class="sched">
+					<p class="sched-type">Call</p>
+					<p class="sched-time">0:00 PM - 0:00 PM</p>
+				</div>
+			</div>
+			
+			<div class="card-schedule">
+				<h4 class="sched-date">23</h4>
+				<h5 style="padding-left: 30px;">MON</h5>
+				<div class="sched">
+					<p class="sched-type">Face to Face</p>
+					<p class="sched-time">0:00 PM - 0:00 PM</p>
+				</div>
+				<div class="sched">
+					<p class="sched-type">Face to Face</p>
+					<p class="sched-time">0:00 PM - 0:00 PM</p>
+				</div>
+			</div>
+			
+			<div class="card-schedule">
+				<h4 class="sched-date">23</h4>
+				<h5 style="padding-left: 30px;">MON</h5>
+				<div class="sched">
+					<p class="sched-type">Video Call</p>
+					<p class="sched-time">0:00 PM - 0:00 PM</p>
+				</div>
+				<div class="sched">
+					<p class="sched-type">Video Call</p>
+					<p class="sched-time">0:00 PM - 0:00 PM</p>
+				</div>
+			</div>
+
+			<div class="card-schedule">
+				<h4 class="sched-date">23</h4>
+				<h5 style="padding-left: 30px;">MON</h5>
+				<div class="sched">
+					<p class="sched-type">Video Call</p>
+					<p class="sched-time">0:00 PM - 0:00 PM</p>
+				</div>
+				<div class="sched">
+					<p class="sched-type">Video Call</p>
+					<p class="sched-time">0:00 PM - 0:00 PM</p>
+				</div>
+			</div>
+		</div>
+	</div>
 	
 	<!---------------------------------------------------------------------------------------->	
 	<!---------------- COUNSELING 'SEE DETAILS' BUTTON POP UP -------------------------------->
@@ -944,13 +1035,11 @@
 			<div class="row">
 				<div class="left-half">
 					<button class="btn-white">Today</button>
-					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
-					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
 				</div>
 			</div>
 			
-			<div class="row" id="schedule" style="gap: 15px;">
-				<div class="card">
+			<div class="row-schedule" id="schedule" style="gap: 15px;">
+				<div class="card-schedule">
 					<h4 class="sched-date">23</h4>
 					<h5 style="padding-left: 30px;">MON</h5>
 					<div class="sched" onclick="openPeersPopup()">
@@ -963,7 +1052,7 @@
 					</div>
 				</div>
 				
-				<div class="card">
+				<div class="card-schedule">
 					<h4 class="sched-date">23</h4>
 					<h5 style="padding-left: 30px;">MON</h5>
 					<div class="sched" onclick="openPeersPopup()">
@@ -975,7 +1064,7 @@
 						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
 				</div>
-				<div class="card">
+				<div class="card-schedule">
 					<h4 class="sched-date">23</h4>
 					<h5 style="padding-left: 30px;">MON</h5>
 					<div class="sched" onclick="openPeersPopup()">
@@ -987,7 +1076,7 @@
 						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
 				</div>
-				<div class="card">
+				<div class="card-schedule">
 					<h4 class="sched-date">23</h4>
 					<h5 style="padding-left: 30px;">MON</h5>
 					<div class="sched" onclick="openPeersPopup()">
@@ -999,7 +1088,7 @@
 						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
 				</div>
-				<div class="card">
+				<div class="card-schedule">
 					<h4 class="sched-date">23</h4>
 					<h5 style="padding-left: 30px;">MON</h5>
 					<div class="sched" onclick="openPeersPopup()">
@@ -1011,7 +1100,7 @@
 						<p class="sched-time">0:00 PM - 0:00 PM</p>
 					</div>
 				</div>
-				<div class="card">
+				<div class="card-schedule">
 					<h4 class="sched-date">23</h4>
 					<h5 style="padding-left: 30px;">MON</h5>
 					<div class="sched" onclick="openPeersPopup()">
@@ -2220,12 +2309,20 @@
 		}
 
 
-		// NOTIFICATION ----------------------------------------------------------------
+		// NOTIFICATION ----------------------------------------------------------------NOT WORKING ON NOTIF CLICK
 
 		function toggleNotif(event) {
 			event.stopPropagation(); // prevent document click
 			const notification = document.querySelector('.notification');
-			notification.classList.toggle('show');
+			const isCurrentlyShown = notification.classList.contains('show');
+			
+			// Remove 'show' from all notifications first
+			document.querySelectorAll('.notification').forEach(n => n.classList.remove('show'));
+			
+			// If it wasn't shown, show it now
+			if (!isCurrentlyShown) {
+				notification.classList.add('show');
+			}
 		}
 
 		// Prevent clicks inside notif menu from closing it
@@ -2233,12 +2330,16 @@
 			event.stopPropagation();
 		});
 
-		// Close notif ONLY when clicking outside
-		document.addEventListener('click', function () {
+		// Close notif when clicking outside
+		document.addEventListener('click', function (event) {
 			const notification = document.querySelector('.notification');
-			notification.classList.remove('show');
+			const notifMenu = document.getElementById('notifMenu');
+			
+			// Check if click is outside notification area
+			if (!notification.contains(event.target)) {
+				notification.classList.remove('show');
+			}
 		});
-
 
 		// INCREMENTS BADGE COUNT
 		function updateNotificationBadge(count) {

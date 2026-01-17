@@ -148,7 +148,7 @@ async function createSessionCard(data, formId) {
   const avatarUrl = await getAvatarUrl(data.createdBy);
 
   const card = document.createElement("div");
-  card.classList.add("card");
+  card.classList.add("card-session");
 
   card.innerHTML = `
       <h3>${formatDate(data.createdAt)} - ${formatPlatform(data.preferredPlatform)}</h3>
