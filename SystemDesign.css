@@ -927,19 +927,35 @@ td.down::after {
 
 .btn-white{
 	height: 30px;
+	min-width: 100px;
 	background: white;
 	border: none;
 	border-radius: 5px;
 	font-family: "MediumFont", sans-serif;
-	color: #6d6d6d;
+	color: #000000;
+	font-weight: bold;
 	padding: 0px 25px;
 	box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    cursor: pointer;
+	cursor: pointer;
+/* Remove default dropdown arrow */
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	/* Optional: Add custom arrow */
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23000000' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 10px center;
+	padding-right: 35px;
 }
 
+
 .btn-white:focus {
-    outline: none;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+	border-color: #0847b2;
+	box-shadow: 0 0 4px rgba(8, 71, 178, 0.4);
+}
+
+.btn-white:hover {
+	border-color: #0847b2;
 }
 
 .btn-reqForm{
@@ -961,11 +977,10 @@ td.down::after {
 .slider-btn{
   height: 15px; 
   width: 15px; 
-	margin: 0px 15px;
+  margin: 0px 15px;
 }
 
-
-.left-half, .right-half {
+.right-half {
 	width: 50%;
 }
 
