@@ -579,11 +579,11 @@ table {
 }
 
 
-/* ADD THIS CSS FOR GCO REPORTS */
+/* GCO REPORTS */
 
 .gco-reports-section {
     margin-top: 20px;
-    margin-bottom: 30px; /* ADD PADDING BETWEEN SECTIONS */
+    margin-bottom: 30px; 
 }
 
 
@@ -612,7 +612,7 @@ table {
 
 .export-btn {
     padding: 10px 25px;
-    background: #bbdefb; /* CHANGED TO MATCH YOUR IMAGE */
+    background: #bbdefb; 
     color: #0067c4;
     border: none;
     border-radius: 4px;
@@ -621,12 +621,12 @@ table {
     font-family: 'PublicSans', sans-serif;
     cursor: pointer;
     transition: 0.3s;
-    width: 100%; /* MAKE FULL WIDTH */
-    max-width: 1500px; /* LIMIT MAX WIDTH */
+    width: 100%; 
+    max-width: 1500px; 
 }
 
 .export-btn:hover {
-    background: #90caf9; /* CHANGED HOVER COLOR */
+    background: #90caf9; 
 }
 
 .gco-reports-grid {
@@ -690,6 +690,8 @@ table {
     color: #0847b2;
     line-height: 1;               
     margin-top: 4px;
+
+    pointer-events: none;
 }
 
 
@@ -757,7 +759,7 @@ table {
 }
 
 .gco-details-table tbody tr:last-child td {
-    padding-bottom: 20px; /* ADD EXTRA SPACING TO LAST ROW */
+    padding-bottom: 20px; 
 }
 
 .report-type-badge {
@@ -829,6 +831,15 @@ table {
     .gco-reports-grid {
         grid-template-columns: 1fr;
     }
+}
+
+.gco-report-card {
+    cursor: pointer;
+    position: relative;
+}
+
+.gco-report-card * {
+    pointer-events: none;
 }
 
 /* ----------------------ETO DESIGN FOR TABLES-------------------------------------------------- */
