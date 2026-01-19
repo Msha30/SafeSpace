@@ -203,7 +203,7 @@ function openGroupPage(groupId) {
             <a href="#" class="edit-link edit-3" id="desc-edit-${groupId}">Edit</a>
           </div>
           <div class="info-description" id="desc-container-${groupId}">
-            <p id="desc-text-${groupId}">N/A</p>
+            <p id="desc-text-${groupId}">Enter Your Description Here</p>
           </div>
         </div>
       </div>
