@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -8,50 +9,68 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script type="module">
 		import { protectDashboard, logout } from "./auth.js";
-		import { initializeUserManagement, updateUserCounts, fetchAllUsers, filterUsersByType, formatUserData } from './userManagement.js';
+		import { initializeUserManagement, refreshProgramsDashboard, updateUserCounts,
+			 fetchAllUsers, filterUsersByType, formatUserData, initializePeerFacilitators} from './usermanagement.js';
+		import { loadCounselingForms } from "./counseling.js";
+		import { initSupportGroups, createSupportGroup, openCreateGroupModal, closeCreateGroupModal,
+			 triggerImageUpload, handleImageUpload } from "./supportgroup.js";
 
+		window.createSupportGroup = createSupportGroup;
+		window.openCreateGroupModal = openCreateGroupModal;
+		window.closeCreateGroupModal = closeCreateGroupModal;
+		window.triggerImageUpload = triggerImageUpload;
+		window.handleImageUpload = handleImageUpload;
+		
 		window.addEventListener("DOMContentLoaded", async () => {
 			// Allow only authenticated GCO users
 			protectDashboard(["gco"]);
 
+							
+			initSupportGroups();
+
 			// Logout handler
 			const signOutLink = document.getElementById("signOutLink");
 			if (signOutLink) {
-			signOutLink.addEventListener("click", async (e) => {
-				e.preventDefault();
-				await logout();
-			});
+				signOutLink.addEventListener("click", async (e) => {
+					e.preventDefault();
+					await logout();
+				});
 			}
 
 			// Initialize User Management
 			console.log("Initializing GCO User Management...");
 			
 			const gcoConfig = {
-			allowedUserTypes: ['student', 'peer'],
-			tableBodyId: 'gcousers',
-			searchInputId: 'gcoUserSearch',
-			filterSelectId: 'gcoUserFilter',
-			showActions: false,
-			showType: false,
-			onUserClick: (user) => {
-				// Store user data for popup
-				window.selectedUser = user;
-				openUsersPopup();
-			}
+				allowedUserTypes: ['student', 'peer'],
+				tableBodyId: 'gcousers',
+				searchInputId: 'gcoUserSearch',
+				filterSelectId: 'gcoUserFilter',
+				showActions: false,
+				showType: false,
+				onUserClick: (user) => {
+					// Store user data for popup
+					window.selectedUser = user;
+					openUsersPopup(user.uid);
+				}
 			};
 
 			try {
-			await initializeUserManagement(gcoConfig);
-			
-			// Update count cards on overview page
-			const allUsers = await fetchAllUsers();
-			const allowedUsers = filterUsersByType(allUsers, ['student', 'peer']);
-			const formattedUsers = allowedUsers.map(formatUserData);
-			updateUserCounts(formattedUsers);
-			
-			console.log("GCO User Management initialized successfully");
+				await initializeUserManagement(gcoConfig);
+				initializePeerFacilitators();
+				
+				// Update count cards on overview page
+				const allUsers = await fetchAllUsers();
+				const allowedUsers = filterUsersByType(allUsers, ['student', 'peer']);
+				const formattedUsers = allowedUsers.map(formatUserData);
+				updateUserCounts(formattedUsers);
+				await refreshProgramsDashboard();
+
+
+				await loadCounselingForms();
+				
+				console.log("GCO User Management initialized successfully");
 			} catch (error) {
-			console.error("Failed to initialize GCO user management:", error);
+				console.error("Failed to initialize GCO user management:", error);
 			}
 		});
 	</script>
@@ -194,7 +213,7 @@
 			<div class="row">
 				<div class="card table-card">
 					<h3>Programs</h3>
-					<table>
+					<table id="programsTable">
 						<thead>
 							<tr>
 								<th id="left">Programs</th>
@@ -205,82 +224,82 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td id="left">Senior High School - ABM</td>
-								<td >0</td>
-								<td>0</td>
-								<td class="up">0 %</td>
+								<td class="left_table" id="rw1">Senior High School - ABM</td>
+								<td id="rw1_newusers" >0</td>
+								<td id="rw1_totalusers" >0</td>
+								<td id="rw1_change" class="up">0 %</td>
 							</tr>
 							<tr>
-								<td id="left">Senior High School - HUMSS</td>
-								<td>0</td>
-								<td>0</td>
-								<td class="up">0 %</td>
+								<td class="left_table" id="rw2">Senior High School - HUMSS</td>
+								<td id="rw2_newusers" >0</td>
+								<td id="rw2_totalusers" >0</td>
+								<td id="rw2_change" class="up">0 %</td>
 							</tr>
 							<tr>
-								<td id="left">Senior High School - STEM</td>
-								<td>0</td>
-								<td>0</td>
-								<td class="down">0 %</td>
+								<td class="left_table" id="rw3">Senior High School - STEM</td>
+								<td id="rw3_newusers" >0</td>
+								<td id="rw3_totalusers" >0</td>
+								<td id="rw3_change" class="down">0 %</td>
 							</tr>
 							<tr>
-								<td id="left">BS Hospitality Management</td>
-								<td >0</td>
-								<td>0</td>
-								<td class="up">0 %</td>
+								<td class="left_table" id="rw4">BS Hospitality Management</td>
+								<td id="rw4_newusers" >0</td>
+								<td id="rw4_totalusers" >0</td>
+								<td id="rw4_change" class="up">0 %</td>
 							</tr>
 							<tr>
-								<td id="left">BS Tourism Management</td>
-								<td>0</td>
-								<td>0</td>
-								<td class="up">0 %</td>
+								<td class="left_table" id="rw5">BS Tourism Management</td>
+								<td id="rw5_newusers" >0</td>
+								<td id="rw5_totalusers" >0</td>
+								<td id="rw5_change" class="up">0 %</td>
 							</tr>
 							<tr>
-								<td id="left">BS Computer Engineering</td>
-								<td>0</td>
-								<td>0</td>
-								<td class="down">0 %</td>
+								<td class="left_table" id="rw6">BS Computer Engineering</td>
+								<td id="rw6_newusers" >0</td>
+								<td id="rw6_totalusers" >0</td>
+								<td id="rw6_change" class="down">0 %</td>
 							</tr>
 							<tr>
-								<td id="left">BS Civil Engineering</td>
-								<td >0</td>
-								<td>0</td>
-								<td class="up">0 %</td>
+								<td class="left_table" id="rw7">BS Civil Engineering</td>
+								<td id="rw7_newusers" >0</td>
+								<td id="rw7_totalusers" >0</td>
+								<td id="rw7_change" class="up">0 %</td>
 							</tr>
 							<tr>
-								<td id="left">BS Information Technology</td>
-								<td>0</td>
-								<td>0</td>
-								<td class="up">0 %</td>
+								<td class="left_table" id="rw8">BS Information Technology</td>
+								<td id="rw8_newusers" >0</td>
+								<td id="rw8_totalusers" >0</td>
+								<td id="rw8_change" class="up">0 %</td>
 							</tr>
 							<tr>
-								<td id="left">BS Psychology</td>
-								<td>0</td>
-								<td>0</td>
-								<td class="down">0 %</td>
+								<td class="left_table" id="rw9">BS Psychology</td>
+								<td id="rw9_newusers" >0</td>
+								<td id="rw9_totalusers" >0</td>
+								<td id="rw9_change" class="down">0 %</td>
 							</tr>
 							<tr>
-								<td id="left">BA Communication</td>
-								<td >0</td>
-								<td>0</td>
-								<td class="up">0 %</td>
+								<td class="left_table" id="rw10">BA Communication</td>
+								<td id="rw10_newusers" >0</td>
+								<td id="rw10_totalusers" >0</td>
+								<td id="rw10_change" class="up">0 %</td>
 							</tr>
 							<tr>
-								<td id="left">BS Architecture</td>
-								<td>0</td>
-								<td>0</td>
-								<td class="up">0 %</td>
+								<td class="left_table" id="rw11">BS Architecture</td>
+								<td id="rw11_newusers" >0</td>
+								<td id="rw11_totalusers" >0</td>
+								<td id="rw11_change" class="up">0 %</td>
 							</tr>
 							<tr>
-								<td id="left">BS Accountancy</td>
-								<td>0</td>
-								<td>0</td>
-								<td class="down">0 %</td>
+								<td class="left_table" id="rw12">BS Accountancy</td>
+								<td id="rw12_newusers" >0</td>
+								<td id="rw12_totalusers" >0</td>
+								<td id="rw12_change" class="down">0 %</td>
 							</tr>
 							<tr>
-								<td id="left">BS Business Administration</td>
-								<td>0</td>
-								<td>0</td>
-								<td class="down">0 %</td>
+								<td class="left_table" id="rw13">BS Business Administration</td>
+								<td id="rw13_newusers" >0</td>
+								<td id="rw13_totalusers" >0</td>
+								<td id="rw13_change" class="down">0 %</td>
 							</tr>
 						</tbody>
 					</table>
@@ -400,7 +419,8 @@
 			</div>
 		</div>
 
-		<div class="row-sessions">
+		<div class="row-sessions" id="sessions-container">
+			
 			<div class="card-session">
 				<h3>Sept 22 - Video Call</h3> 
 				<div class="session-mode-left">
@@ -856,7 +876,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row" id="peer_list">
 				<div class="card">
 					<h3>Peer List</h3>
 					<table class="user">
@@ -870,53 +890,8 @@
 								<th>Date Created</th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr>
-								<td class="table_user">
-									<img src="photos/pic_placeholder.png">
-								</td>
-								<td>
-									<div class="name" onclick="showPeerPage(this)" style="cursor: pointer;">
-										Doe, John A.<br> 
-										<span>email@students.nu-fairview.edu.ph</span>
-									</div>
-								</td>
-								<td></td>
-								<td class="peerInteract"><span>0</span></td>
-								</td>
-								<td>Lorem Ipsum</td>
-								<td>Lorem Ipsum</td>
-							</tr>
-							<tr>
-								<td class="table_user">
-									<img src="photos/pic_placeholder.png">
-								</td>
-								<td>
-									<div class="name">
-										Doe, John A.<br> 
-										<span>email@students.nu-fairview.edu.ph</span>
-									</div>
-								</td>
-								<td></td>
-								<td class="peerInteract"><span>0</span></td>
-								<td>Lorem Ipsum</td>
-								<td>Lorem Ipsum</td>
-							</tr>
-							<tr>
-								<td class="table_user">
-									<img src="photos/pic_placeholder.png">
-								</td>
-								<td>
-									<div class="name">
-										Doe, John A.<br> 
-										<span>email@students.nu-fairview.edu.ph</span>
-									</div>
-								</td>
-								<td></td>
-								<td class="peerInteract"><span>0</span></td>
-								<td>Lorem Ipsum</td>
-								<td>Lorem Ipsum</td>
-							</tr>
+						<tbody id="peerTableBody">
+							<!-- Peer Facilitators will be populated here -->
 						</tbody>
 					</table>
 				</div>
@@ -935,10 +910,10 @@
 							<h2 id="peerNameTitle">Dominguez, Samantha Aeries</h2>
 							<div class="informationDateLeft">
 								<p>Last Active</p>
-								<strong>May 15, 2025</strong>
+								<strong id="peerInfo_lastactive">May 15, 2025</strong>
 								<br><br>
 								<p>Date Account Created</p>
-								<strong>January 28, 2025</strong>
+								<strong id="peerInfo_dateCreated">January 28, 2025</strong>
 							</div>
 						</div>
 						
@@ -968,11 +943,11 @@
 							<div class="informationDetailRow">
 								<div class="informationDetailItem">
 									<label>Student No.</label>
-									<p>2022-123456</p>
+									<p id="peerStudentNum">2022-123456</p>
 								</div>
 								<div class="informationDetailItem">
 									<label>Program</label>
-									<p>B.S. Psychology</p>
+									<p id="peerProgram">B.S. Psychology</p>
 								</div>
 							</div>
 						</div>
@@ -1206,29 +1181,31 @@
 		<div id="support-group" class="page">
 			<div class="support-container">
 				<div class="support-groups">
+					<!--
 					<div class="support-card" onclick="showPage('haven')">
-					<img src="photos/haven.png" alt="Group">
+					<img id="supportgroup_pic" src="photos/haven.png" alt="Group">
 					<div class="support-info">
-						<h4>HAVEN Support Group</h4>
-						<span>0 Members</span>
+						<h4 id="supportgroup_name">HAVEN Support Group</h4>
+						<span id="supportgroup_memcount">0 Members</span>
 					</div>
 					</div>
 
 					<div class="support-card" onclick="showPage('yakap')">
-					<img src="photos/yakap.png" alt="Group">
+					<img id="supportgroup_pic" src="photos/yakap.png" alt="Group">
 					<div class="support-info">
-						<h4>YAKAP Support Group</h4>
-						<span>0 Members</span>
+						<h4 id="supportgroup_name">YAKAP Support Group</h4>
+						<span id="supportgroup_memcount">0 Members</span>
 					</div>
 					</div>
 
 					<div class="support-card" onclick="showPage('rise')">
-					<img src="photos/rise.png" alt="Group">
+					<img id="supportgroup_pic" src="photos/rise.png" alt="Group">
 					<div class="support-info">
-						<h4>RISE Support Group</h4>
-						<span>0 Members</span>
+						<h4 id="supportgroup_name">RISE Support Group</h4>
+						<span id="supportgroup_memcount">0 Members</span>
 					</div>
 					</div>
+					-->
 				</div>
 
 				<div class="add-btn" onclick="openCreateGroupModal()">
@@ -2260,7 +2237,7 @@
 				}
 			}
 		});
-
+		/*	COMMENTED OUT FEEDBACK NO LONGER EXIST
 		// FOR PIE CHART IN FEEDBACK PAGE ----------------------------------------------------
 		const ctx3 = document.getElementById('ratingChart').getContext('2d');
 		const data = {
@@ -2294,6 +2271,8 @@
 			}
 		};
         const ratingChart = new Chart(ctx3, config);
+		*/
+
 
 		// Pages ----------------------------- wag gagalawin ----------------------------------------
 
@@ -2380,6 +2359,7 @@
 
 		updateNotificationBadge(1);
 
+		/* COMMENTED OUT TO REMOVE ERRORS
 
 		// Popup logic REFERENCE ONLY------------------------------------------------------------------
 		const openBtn = document.getElementById("openPopupBtn");
@@ -2400,7 +2380,8 @@
 		}
 		});
 
-		// GCO REPORTS
+		//TRY
+		*/
 
 		const gcoReportsData = [
 			{ date: '2025-01-10', student: 'Doe, John A.', type: 'video_call', assignedTo: 'Doe, John A.', role: 'GCO Counselor' },
@@ -2964,7 +2945,7 @@
 				}
 			});
 		}
-
+/*
 		// FOR SUPPORT GROUP EDIT FUNCTIONALITY (HAVEN, YAKAP, RISE)
 		function initSupportGroupEdits(pageId) {
 			const page = document.getElementById(pageId);
@@ -3242,7 +3223,7 @@
 				});
 			}
 		}
-
+*/
 
 
 
@@ -3437,8 +3418,6 @@
 			btn.closest('.file2').remove();
 		}
 
-		
-
 
 		//FOR REPORT POP UP DIALOGUE
 		function showReportConfirm() {
@@ -3481,10 +3460,6 @@
 				}
 			}
 		});
-
-		
-
-
 	</script>
 </body>
 </html>

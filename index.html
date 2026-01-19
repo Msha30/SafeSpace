@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In</title>
+  <link rel="icon" type="image/png" href="photos/pic_logo2.png">
+  <link rel="stylesheet" href="IT Login.css">
+</head>
+<body>
+  <!-- ================= SIGN IN ================= -->
+  <div id="ITLogIn" class="login">
+    <div class="left">
+      <div class="logos">
+        <img src="icons/NU FV logo.svg" alt="NU Fairview Logo" class="logo-nufv">
+        <img src="icons/Peers logo.svg" alt="NU Fairview Peers Logo" class="logo-peer">
+      </div>
+      <img src="photos/pic_logo2.png" alt="SafeSpace Logo" class="SafeSpaceLogo">
+      <h1>Creating<br>Safe Spaces!</h1>
+    </div>
+    <div class="right">
+      <h2>Sign In</h2>
+      <form onsubmit="return handleLogin(event)">
+        <div class="input-box">
+          <input type="email" id="loginEmail" placeholder="Work Email" required>
+        </div>
+        <div class="input-box">
+          <input type="password" id="loginPassword" placeholder="Password" required>
+          <span class="toggle-password" onclick="togglePassword('loginPassword','loginEye')">
+          <svg id="loginEye" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#888" viewBox="0 0 24 24" style="transform: translateY(3px);">
+            <path d="M12 5c-7.633 0-12 7-12 7s4.367 7 12 7 12-7 12-7-4.367-7-12-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/>
+            <circle cx="12" cy="12" r="2.5"/>
+          </svg>
+          </span>
+        </div>
+        <button type="submit" class="btn">Log In</button>
+        <div class="forgot">
+          <a href="#" onclick="showResetPassword()">Forgot Password?</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+ <!-- ================= RESET PASSWORD ================= -->
+  <div id="ITResetPassword" class="login hidden">
+    <div class="left">
+      <div class="logos">
+        <img src="icons/NU FV logo.svg" alt="NU Fairview Logo" class="logo-nufv">
+        <img src="icons/Peers logo.svg" alt="NU Fairview Peers Logo" class="logo-peer">
+      </div>
+
+      <img src="photos/pic_logo2.png" alt="SafeSpace Logo" class="SafeSpaceLogo">
+      <h1>Creating<br>Safe Spaces!</h1>
+    </div>
+
+    <div class="right">
+      <div class="header-with-back">
+        <button class="back-btn" onclick="backToSignIn()">&larr;</button>
+      </div>
+
+      <h3>Reset Password</h3>
+
+      <form onsubmit="return sendResetEmailHandler(event)">
+        <div class="input-box">
+          <input type="email" id="resetEmail" placeholder="Email" required>
+        </div>
+
+        <button type="submit" class="btn">Send Reset Email</button>
+
+        <div class="forgot">
+          <a href="#" onclick="resendEmail()">Resend Email</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- ================= JS ================= -->
+  <script type="module" src="auth.js"></script>
+  <script>
+    function togglePassword(inputId, eyeId) {
+      const passwordInput = document.getElementById(inputId);
+      const eyeIcon = document.getElementById(eyeId);
+
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        eyeIcon.setAttribute("fill", "#0067c4");
+      } else {
+        passwordInput.type = "password";
+        eyeIcon.setAttribute("fill", "#888");
+      }
+    }
+
+    // Show Reset Password Page
+    function showResetPassword() {
+      document.getElementById('ITLogIn').classList.add('hidden');
+      document.getElementById('ITResetPassword').classList.remove('hidden');
+      document.getElementById('resetEmail').value = '';
+      document.getElementById('resetEmail').focus();
+    }
+
+    // Show Login Page
+    function showLogin() {
+      document.getElementById("ITResetPassword").classList.add("hidden");
+      document.getElementById("ITLogIn").classList.remove("hidden");
+    }
+
+    function backToSignIn() {
+      // Hide reset password section
+      document.getElementById('ITResetPassword').classList.add('hidden');
+      
+      // Show sign in section
+      document.getElementById('ITLogIn').classList.remove('hidden');
+    }
+
+    // Login submit
+    window.handleLogin = async function(event) {
+      event.preventDefault();
+      const email = document.getElementById("loginEmail").value;
+      const password = document.getElementById("loginPassword").value;
+      await loginUser(email, password);
+    };
+
+    // Reset Password submit
+    window.sendResetEmailHandler = async function(event) {
+      event.preventDefault();
+      const email = document.getElementById("resetEmail").value;
+      await sendResetEmail(email);
+    };
+
+    // Resend Reset Email
+    window.resendEmail = async function() {
+      const email = document.getElementById("resetEmail").value;
+      await resendResetEmail(email);
+    };
+  </script>
+</body>
+</html>
