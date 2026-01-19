@@ -1198,34 +1198,38 @@
 								<input type="text" class="editUserInput" id="editFirstName" value="Samantha Aeries" oninput="updateEditDisplayName()" onfocus="showEditSaveBtn()">
 							</div>
 							<div class="editUserGroup">
-								<label class="editUserLabel">Last Name</label>
-								<input type="text" class="editUserInput" id="editLastName" value="Dominguez" oninput="updateEditDisplayName()" onfocus="showEditSaveBtn()">
+								<label class="editUserLabel">Middle Name</label>
+								<input type="text" class="editUserInput" id="editMiddleName" value="Sample" oninput="updateEditDisplayName()" onfocus="showEditSaveBtn()">
 							</div>
 						</div>
 						
 						<div class="editUserRow">
+							<div class="editUserGroup">
+								<label class="editUserLabel">Last Name</label>
+								<input type="text" class="editUserInput" id="editLastName" value="Dominguez" oninput="updateEditDisplayName()" onfocus="showEditSaveBtn()">
+							</div>
 							<div class="editUserGroup">
 								<label class="editUserLabel">School Email</label>
 								<input type="email" class="editUserInput" id="editSchoolEmail" value="email@students.nu-fairview.edu.ph" onfocus="showEditSaveBtn()">
 							</div>
+						</div>
+						
+						<div class="editUserRow">
 							<div class="editUserGroup">
 								<label class="editUserLabel">Access</label>
 								<input type="text" class="editUserInput editUserInputReadonly" id="editAccess" value="PEERS" readonly>
 							</div>
-						</div>
-						
-						<div class="editUserRow">
 							<div class="editUserGroup">
 								<label class="editUserLabel">Student ID</label>
 								<input type="text" class="editUserInput" id="editStudentNo" value="2022-123456" onfocus="showEditSaveBtn()">
 							</div>
+						</div>
+						
+						<div class="editUserRow">
 							<div class="editUserGroup">
 								<label class="editUserLabel">Program</label>
 								<input type="text" class="editUserInput" id="editProgram" value="B.S. Psychology" onfocus="showEditSaveBtn()">
 							</div>
-						</div>
-						
-						<div class="editUserRow">
 							<div class="editUserGroup">
 								<label class="editUserLabel">Preferred Name</label>
 								<input type="text" class="editUserInput" id="editPreferredName" value="- - - - - - -" onfocus="showEditSaveBtn()">
@@ -2125,14 +2129,21 @@
 		}
 
 		function updateEditDisplayName() {
-			const firstName = document.getElementById('editFirstName').value.trim();
-			const lastName = document.getElementById('editLastName').value.trim();
-			
-			if (firstName && lastName) {
-				const displayName = `${lastName}, ${firstName}`;
-				document.getElementById('editDisplayUserName').textContent = displayName;
+		const firstName = document.getElementById('editFirstName').value.trim();
+		const middleName = document.getElementById('editMiddleName').value.trim();
+		const lastName = document.getElementById('editLastName').value.trim();
+
+		if (firstName && lastName) {
+			let displayName = `${lastName}, ${firstName}`;
+
+			if (middleName !== "") {
+			displayName += ` ${middleName}`;
 			}
+
+			document.getElementById('editDisplayUserName').textContent = displayName;
 		}
+		}
+
 
 		function saveEditUser() {
 			alert('User information saved successfully!');

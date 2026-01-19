@@ -200,7 +200,7 @@ button {
     display: none;
     position: absolute;
     top: 100%; 
-    left: -210px;
+    left: -170px;
     margin-top: 25px;
     background-color: #fff;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
@@ -578,6 +578,9 @@ table {
 	text-align: left;
 }
 
+.left_table {
+	text-align: left;
+}
 
 /* GCO REPORTS */
 
@@ -661,7 +664,6 @@ table {
     background: #e3f2fd;
     border: 2px solid #0067c4;
     box-shadow: 0 8px 18px rgba(0,103,196,0.25);
-    transform: translateY(-4px);
 }
 
 
@@ -1784,6 +1786,9 @@ select option:focus {
     height: auto;
     position: relative;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+
+    max-height: 75vh;      
+    overflow-y: auto;     
 }
 
 .close {
@@ -1877,7 +1882,7 @@ select option:focus {
 }
 
 .detail-item {
-    flex: 1;
+    flex: 0 0 calc(50% - 10px); 
 }
 
 .detail-item label {
@@ -1899,6 +1904,9 @@ select option:focus {
     font-weight: 500;
     margin: 0;
 }
+
+
+
 
 /*--------------- session-mid ---------------*/
 .session-mode-mid {
@@ -2656,7 +2664,7 @@ select option:focus {
 }
 
 .informationDetailItem {
-	flex: 1;
+	flex: 0 0 calc(50% - 10px);
 }
 
 .informationDetailItem label {
@@ -2769,9 +2777,11 @@ select option:focus {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  position: absolute;
-  bottom: 250px;
-  right: 20px;
+
+  position: fixed !important;
+  top: 100px;
+  right: 55px;
+  z-index: 999;     
 }
 
 .add-btn .plus {
@@ -2779,6 +2789,7 @@ select option:focus {
   font-weight: bold;
   color: white;
 }
+
 
 
 /* Create Support Group Modal Styles */
@@ -4900,7 +4911,7 @@ video.file-preview2 {
     padding: 25px;
     max-width: 840px;
     width: 100%;
-    height: 350px;
+    height: 390px;
     margin-left: 260px;
     margin-top: 70px;
     margin-bottom: 40px; 
@@ -4915,7 +4926,7 @@ video.file-preview2 {
 
 .editUserLeft {
     width: 250px;
-    padding: 10px 20px;
+    padding: 40px 20px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -5040,7 +5051,7 @@ video.file-preview2 {
     width: 130px;
     background: #cce1f7;
     color: #0067c4;
-    margin-top: -120px;
+    margin-top: -100px;
     margin-right: 30px;
  
 }
