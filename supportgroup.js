@@ -278,6 +278,18 @@ function openGroupPage(groupId) {
 
       // Update members list
       renderMembersList(groupId, Array.isArray(data.member_list) ? data.member_list : []);
+      
+      const title = `
+				<a href="#" onclick="showPage('support-group')" style="text-decoration:none; color:inherit;">
+					Support Group
+				</a>
+				<img src="icons/ic_arrow right.svg" 
+					style="width:14px; vertical-align:middle; margin:0 5px; cursor:pointer;" 
+					onclick="showPage('support-group)">
+				${titleElem.textContent}
+			`;
+      document.getElementById("pageTitle").innerHTML = title;
+
     }, err => {
       console.error("group doc listener error", err);
     });
