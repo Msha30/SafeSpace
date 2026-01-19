@@ -2778,10 +2778,10 @@ select option:focus {
   align-items: center;
   cursor: pointer;
 
-  position: fixed !important;
-  top: 100px;
-  right: 55px;
-  z-index: 999;     
+  position: absolute;   
+  top: 0;
+  right: 20px;
+  z-index: 1;
 }
 
 .add-btn .plus {
