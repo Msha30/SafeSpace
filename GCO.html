@@ -320,7 +320,6 @@
 			<div class="gco-reports-section">
 				<div class="gco-reports-header">
 					<h3 class="gco-reports-title">GCO Consultation Reports</h3>
-					<button class="export-btn" id="exportBtn">Export Reports</button>
 				</div>
 
 				<div class="gco-reports-grid">
@@ -377,6 +376,9 @@
 							<tbody id="gco-details-tbody"></tbody>
 						</table>
 					</div>
+				</div>
+				<div class="gco-export-wrapper">
+					<button class="export-btn" id="exportBtn">Export Reports</button>
 				</div>
 			</div>
 
@@ -1697,8 +1699,6 @@
 					<div class="file-boxes">
 						<div class="file"></div>
 						<div class="file"></div>
-						
-						 <div class="file more-count hidden" id="moreCount"></div>
 
 						<div class="file add-file" id="dropArea" onclick="document.getElementById('fileInput').click();">
 							<img src="icons/addfile_btn.svg" alt="Upload" class="add-icon">
@@ -1708,6 +1708,15 @@
 					<input type="file" id="fileInput" accept="image/*,video/*" multiple style="display:none" onchange="handleFileUpload(this.files)">
 					<button class="post-btn" onclick="showPostConfirm()">Post</button>
 				</div>
+
+				<div class="file-viewer-modal" id="fileViewer">
+					<div class="file-viewer-content">
+						<span class="close-viewer" onclick="closeViewer()">&times;</span>
+						<div class="file-viewer-grid" id="fileViewerGrid"></div>
+					</div>
+				</div>
+
+
 				<div class="card2">
 						<h3>History</h3>
 						<div class="blue_bg">
@@ -2101,6 +2110,14 @@
 						</form>
 					</div>
 				</div>
+
+				<div class="file-viewer-modal" id="fileViewer2">
+					<div class="file-viewer-content">
+						<span class="close-viewer" onclick="closeViewer2()">&times;</span>
+						<div class="file-viewer-grid" id="fileViewerGrid2"></div>
+					</div>
+				</div>
+
 				<div class="card2">
 					<h3>System Updates</h3>
 					<div class="leftscroll">
@@ -3280,55 +3297,77 @@
 		});
 
 
-		// FOR UPLOADING IMAGES & VIDEOS IN ANNOUNCEMENT
+		// FOR ANNOUNCEMENT UPLOADING IMAGES & VIDEOS
+
+		let uploadedFiles = [];
 
 		function handleFileUpload(files) {
-			console.log('Files uploaded:', files.length);
-			const fileBoxesContainer = document.querySelector('.file-boxes');
-			const dropArea = document.getElementById('dropArea');
-			
-			const emptyFileBoxes = Array.from(fileBoxesContainer.querySelectorAll('.file:not(.add-file)')).filter(box => {
-				return !box.querySelector('img') && !box.querySelector('video');
-			});
-			
-			[...files].forEach((file, index) => {
-				if (file.type.startsWith('image/') || file.type.startsWith('video/')) {
-					let targetBox;
-					
-					if (emptyFileBoxes[index]) {
-						targetBox = emptyFileBoxes[index];
-					} else {
-						targetBox = document.createElement('div');
-						targetBox.className = 'file';
-						fileBoxesContainer.insertBefore(targetBox, dropArea);
-					}
-					
-					const reader = new FileReader();
-					reader.onload = function(e) {
-						if (file.type.startsWith('image/')) {
-							targetBox.innerHTML = `
-								<img src="${e.target.result}" alt="Preview" class="file-preview">
-								<button class="remove-file-btn" onclick="removeFile(this)">×</button>
-							`;
-						} else if (file.type.startsWith('video/')) {
-							targetBox.innerHTML = `
-								<video src="${e.target.result}" class="file-preview" controls></video>
-								<button class="remove-file-btn" onclick="removeFile(this)">×</button>
-							`;
-						}
-					};
-					reader.readAsDataURL(file);
+			const maxFiles = 10;
+
+			for (let file of files) {
+				if (!file.type.startsWith('image/') && !file.type.startsWith('video/')) continue;
+
+				if (uploadedFiles.length >= maxFiles) {
+					alert("Maximum of 10 files only.");
+					break;
 				}
-			});
+
+				uploadedFiles.push(file);
+			}
+
+			renderFiles();
 		}
 
-		function removeFile(btn) {
-			btn.closest('.file').remove();
+		function renderFiles() {
+			const container = document.querySelector('.file-boxes');
+			const dropArea = document.getElementById('dropArea');
+
+			// remove old previews
+			container.querySelectorAll('.file:not(.add-file)').forEach(e => e.remove());
+
+			const previewCount = Math.min(2, uploadedFiles.length);
+
+			for (let i = 0; i < previewCount; i++) {
+				const file = uploadedFiles[i];
+				const box = document.createElement('div');
+				box.className = 'file';
+
+				const reader = new FileReader();
+				reader.onload = function (e) {
+					let media = "";
+
+					if (file.type.startsWith('image/')) {
+						media = `<img src="${e.target.result}" class="file-preview">`;
+					} else {
+						media = `<video src="${e.target.result}" class="file-preview" controls></video>`;
+					}
+
+					box.innerHTML = `
+						${media}
+						<button class="remove-file-btn" onclick="removeFile(${i})">×</button>
+					`;
+
+					// +N overlay on second preview
+					if (i === 1 && uploadedFiles.length > 2) {
+						const overlay = document.createElement('div');
+						overlay.className = 'file-count-overlay';
+						overlay.innerHTML = `<div class="file-count-number">+${uploadedFiles.length - 2}</div>`;
+						box.appendChild(overlay);
+					}
+				};
+
+				reader.readAsDataURL(file);
+				container.insertBefore(box, dropArea);
+			}
 		}
 
-		
+		function removeFile(index) {
+			uploadedFiles.splice(index, 1);
+			renderFiles();
+		}
 
 
+	
 		// FOR POST POP UP DIALOGUE
 		function showPostConfirm() {
 			const popup = document.getElementById('postConfirmPopup');
@@ -3412,49 +3451,106 @@
 
 
 		//FOR REPORT UPLOADING IMAGES AND VIDEOS
+		let uploadedFiles2 = [];
+
 		function handleFileUpload2(files) {
-			console.log('Files uploaded:', files.length);
-			const fileBoxesContainer = document.querySelector('.file-boxes2');
-			const dropArea = document.getElementById('dropArea2');
-			
-			const emptyFileBoxes = Array.from(fileBoxesContainer.querySelectorAll('.file2:not(.add-file2)')).filter(box => {
-				return !box.querySelector('img') && !box.querySelector('video');
-			});
-			
-			[...files].forEach((file, index) => {
-				if (file.type.startsWith('image/') || file.type.startsWith('video/')) {
-					let targetBox;
-					
-					if (emptyFileBoxes[index]) {
-						targetBox = emptyFileBoxes[index];
-					} else {
-						targetBox = document.createElement('div');
-						targetBox.className = 'file2';
-						fileBoxesContainer.insertBefore(targetBox, dropArea);
-					}
-					
-					const reader = new FileReader();
-					reader.onload = function(e) {
-						if (file.type.startsWith('image/')) {
-							targetBox.innerHTML = `
-								<img src="${e.target.result}" alt="Preview" class="file-preview2">
-								<button class="remove-file-btn2" onclick="removeFile2(this)">×</button>
-							`;
-						} else if (file.type.startsWith('video/')) {
-							targetBox.innerHTML = `
-								<video src="${e.target.result}" class="file-preview2" controls></video>
-								<button class="remove-file-btn2" onclick="removeFile2(this)">×</button>
-							`;
-						}
-					};
-					reader.readAsDataURL(file);
+			const maxFiles = 10;
+
+			for (let file of files) {
+				if (!file.type.startsWith('image/') && !file.type.startsWith('video/')) continue;
+
+				if (uploadedFiles2.length >= maxFiles) {
+					alert("Maximum of 10 files only.");
+					break;
 				}
-			});
+
+				uploadedFiles2.push(file);
+			}
+
+			renderFiles2();
 		}
 
-		function removeFile2(btn) {
-			btn.closest('.file2').remove();
+		function renderFiles2() {
+			const container = document.querySelector('.file-boxes2');
+			const dropArea = document.getElementById('dropArea2');
+
+			container.querySelectorAll('.file2:not(.add-file2)').forEach(e => e.remove());
+
+			const previewCount = Math.min(2, uploadedFiles2.length);
+
+			for (let i = 0; i < previewCount; i++) {
+				const file = uploadedFiles2[i];
+				const box = document.createElement('div');
+				box.className = 'file2';
+
+				const reader = new FileReader();
+				reader.onload = function (e) {
+					let media = "";
+
+					if (file.type.startsWith('image/')) {
+						media = `<img src="${e.target.result}" class="file-preview2">`;
+					} else {
+						media = `<video src="${e.target.result}" class="file-preview2" controls></video>`;
+					}
+
+					box.innerHTML = `
+						${media}
+						<button class="remove-file-btn2" onclick="removeFile2(${i})">×</button>
+					`;
+
+					// Overlay count on second preview
+					if (i === 1 && uploadedFiles2.length > 2) {
+						const overlay = document.createElement('div');
+						overlay.className = 'file-count-overlay';
+						overlay.innerHTML = `<div class="file-count-number">+${uploadedFiles2.length - 2}</div>`;
+						box.appendChild(overlay);
+					}
+				};
+
+				reader.readAsDataURL(file);
+
+				// Click to open modal viewer
+				box.addEventListener("click", (e) => {
+					if (!e.target.classList.contains("remove-file-btn2")) {
+						openViewer2();
+					}
+				});
+
+				container.insertBefore(box, dropArea);
+			}
 		}
+
+		function removeFile2(index) {
+			uploadedFiles2.splice(index, 1);
+			renderFiles2();
+		}
+
+		function openViewer2() {
+			const modal = document.getElementById('fileViewer2');
+			const grid = document.getElementById('fileViewerGrid2');
+			grid.innerHTML = "";
+
+			uploadedFiles2.forEach(file => {
+				const reader = new FileReader();
+				reader.onload = e => {
+					if (file.type.startsWith('image/')) {
+						grid.innerHTML += `<img src="${e.target.result}">`;
+					} else {
+						grid.innerHTML += `<video src="${e.target.result}" controls></video>`;
+					}
+				};
+				reader.readAsDataURL(file);
+			});
+
+			modal.style.display = "flex";
+		}
+
+		function closeViewer2() {
+			document.getElementById('fileViewer2').style.display = "none";
+		}
+
+
+
 
 
 		//FOR REPORT POP UP DIALOGUE

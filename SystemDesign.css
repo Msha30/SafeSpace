@@ -616,8 +616,19 @@ table {
     font-family: 'PublicSans', sans-serif;
 }
 
+.gco-export-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    margin-top: -10px;  
+    margin-bottom: 5px;
+    border-bottom: none;
+}
+
+
 .export-btn {
-    padding: 10px 25px;
+    padding: 10px 5px;
     background: #bbdefb; 
     color: #0067c4;
     border: none;
@@ -660,7 +671,6 @@ table {
 
 .gco-report-card:hover:not(.active) {
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    transform: translateY(-1px);
 }
 
 .gco-report-card.active {
@@ -1790,8 +1800,8 @@ select option:focus {
 
 .popup-content {
     background-color: #ffffff;
-    margin-left: 450px;
-    margin-top: 85px;
+    margin-left: 470px;
+    margin-top: 120px;
     margin-bottom: 150px; 
     padding: 0;
     border-radius: 5px;
@@ -3383,110 +3393,181 @@ select option:focus {
     display: block;
 }
 
+/* ================= ANNOUNCEMENT FILE BOXES ================= */
+
 .file-boxes {
-    display: flex;
-    gap: 20px;
-    margin: 12px auto;
-    width: 88%;
-    height: 150px;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
+  display: flex;
+  gap: 20px;
+  margin: 10px auto 12px auto;
+  width: 88%;
+  height: 150px;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
 }
+
 
 .file {
-    flex: 1;
-    height: 130px;
-    background: #bdc1c4;
-    border-radius: 4px;
-    min-width: 0;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  flex: 1;
+  height: 130px;
+  background: #bdc1c4;
+  border-radius: 4px;
+  min-width: 0;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+/* ================= PREVIEW ================= */
 
 .file-preview {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
 }
 
+video.file-preview {
+  background: #000;
+}
+
+/* ================= REMOVE BUTTON ================= */
+
 .remove-file-btn {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background: rgba(0, 0, 0, 0.7);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    font-size: 15px;
-    line-height: 1;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-    transition: all 0.2s ease;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: all 0.2s ease;
 }
 
 .remove-file-btn:hover {
-    background: rgba(217, 48, 37, 0.9);
-    transform: scale(1.1);
+  background: rgba(217, 48, 37, 0.9);
+  transform: scale(1.1);
 }
 
+/* ================= ADD FILE ================= */
+
 .add-file {
-    background: #f4f4f4;
-    height: 130px;
-    color: #555;
-    text-align: center;
-    font-size: 14px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 6px;
-    cursor: pointer;
-    flex: 1;
-    min-width: 0;
-    border-radius: 4px;
-    transition: all 0.3s ease;
-    user-select: none;
+  background: #f4f4f4;
+  height: 130px;
+  color: #555;
+  text-align: center;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  flex: 1;
+  min-width: 0;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  user-select: none;
 }
 
 .add-file * {
-    pointer-events: none;
-}
-
-.add-file.drag-highlight {
-    background: #e8f4f8;
-    border: 2px solid #1a73e8;
-    transform: scale(1.02);
+  pointer-events: none;
 }
 
 .add-file .add-icon {
-    width: 30px;
-    height: 30px;
+  width: 30px;
+  height: 30px;
 }
 
-.file video.file-preview {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.file-count-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  pointer-events: none;
 }
 
-.more-count {
-    background: #e0e0e0;
-    font-size: 18px;
-    font-weight: 600;
-    color: #333;
+.file-count-number {
+  color: white;
+  font-size: 38px;
+  font-weight: 500;
+  font-family: 'PublicSans', sans-serif;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.hidden {
-    display: none;
+
+.file-viewer-modal {
+	position: fixed;
+	inset: 0;
+	background: rgba(0,0,0,0.6);
+	display: none;
+	align-items: center;
+	justify-content: center;
+	z-index: 9999;
+}
+
+.file-viewer-content {
+	background: #fff;
+	width: 80%;
+	max-width: 800px;
+	max-height: 80vh;
+	border-radius: 4px;
+	padding: 20px;
+	overflow: hidden;
+	position: relative;
+	margin-top: 10px;   
+	margin-left: 270px;  
+}
+
+
+.close-viewer {
+	position: absolute;
+	top: 10px;
+	right: 14px;
+    color: #aaa;
+	font-size: 26px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    z-index: 10;
+}
+
+.close-viewer:hover {
+    color: #000;
+}
+
+.file-viewer-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+	gap: 12px;
+	overflow-y: auto;
+	max-height: 65vh;
+	padding-top: 20px;
+}
+
+.file-viewer-grid img,
+.file-viewer-grid video {
+	width: 100%;
+	height: 160px;  
+	object-fit: cover;
+	border-radius: 2px;
 }
 
 
@@ -3816,7 +3897,9 @@ small {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  cursor: pointer; /* add this */
 }
+
 
 video.file-preview2 {
     background: #000;
@@ -3895,7 +3978,6 @@ video.file-preview2 {
   background: #a0d4f0;
 }
 
-/* ADD THIS NEW CSS FOR THE OVERLAY */
 .file-count-overlay {
   position: absolute;
   top: 0;
@@ -3912,10 +3994,71 @@ video.file-preview2 {
 
 .file-count-number {
   color: white;
-  font-size: 48px;
-  font-weight: bold;
+  font-size: 38px;
+  font-weight: 500;
+  font-family: 'PublicSans', sans-serif;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
+
+
+.file-viewer-modal {
+	position: fixed;
+	inset: 0;
+	background: rgba(0,0,0,0.6);
+	display: none;
+	align-items: center;
+	justify-content: center;
+	z-index: 9999;
+}
+
+.file-viewer-content {
+	background: #fff;
+	width: 80%;
+	max-width: 800px;
+	max-height: 80vh;
+	border-radius: 4px;
+	padding: 20px;
+	overflow: hidden;
+	position: relative;
+	margin-top: 10px;   
+	margin-left: 270px;  
+}
+
+
+.close-viewer {
+	position: absolute;
+	top: 10px;
+	right: 14px;
+    color: #aaa;
+	font-size: 26px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    z-index: 10;
+}
+
+.close-viewer:hover {
+    color: #000;
+}
+
+.file-viewer-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+	gap: 12px;
+	overflow-y: auto;
+	max-height: 65vh;
+	padding-top: 20px;
+}
+
+.file-viewer-grid img,
+.file-viewer-grid video {
+	width: 100%;
+	height: 160px;  
+	object-fit: cover;
+	border-radius: 2px;
+}
+
+
 
 /* --------------------------------------NOTE: CSS FOR POP UP REPORT CONFIRMATION -------------------------------------- */
 .reportPopup {
