@@ -11,7 +11,7 @@
 		import { protectDashboard, logout } from "./auth.js";
 		import { initializeUserManagement, refreshProgramsDashboard, updateUserCounts,
 			 fetchAllUsers, filterUsersByType, formatUserData, initializePeerFacilitators} from './usermanagement.js';
-		import { loadCounselingForms } from "./counseling.js";
+		import { loadCounselingForms, loadRequestFormFromFirebase, saveRequestFormToFirebase } from "./counseling.js";
 		import { initSupportGroups, createSupportGroup, openCreateGroupModal, closeCreateGroupModal,
 			 triggerImageUpload, handleImageUpload } from "./supportgroup.js";
 
@@ -20,6 +20,8 @@
 		window.closeCreateGroupModal = closeCreateGroupModal;
 		window.triggerImageUpload = triggerImageUpload;
 		window.handleImageUpload = handleImageUpload;
+		window.loadRequestFormFromFirebase = loadRequestFormFromFirebase;
+		window.saveRequestFormToFirebase = saveRequestFormToFirebase;
 		
 		window.addEventListener("DOMContentLoaded", async () => {
 			// Allow only authenticated GCO users
@@ -586,7 +588,7 @@
 	
 	<!---------------------------------------------------------------------------------------->	
 	<!---------------- COUNSELING 'SEE DETAILS' BUTTON POP UP -------------------------------->
-	<div id="detailsPopup" class="popup">
+	<div id="detailsPopup" class="popup-counseling">
 		<div class="popup-content">
 			<span class="close" onclick="closeDetailsPopup()">&times;</span>
 			
@@ -2564,6 +2566,7 @@
 
 		function openRequestFormPopup() {
 			document.getElementById('requestFormOverlay').classList.add('active');
+			loadRequestFormFromFirebase();
 		}
 
 		function closeRequestFormPopup() {
@@ -2720,7 +2723,6 @@
 				});
 			}
 		});
-		
 
 		
 		//GUIDANCE COUNSELING SESSION: SAVED FORM POPUP

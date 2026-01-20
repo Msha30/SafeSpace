@@ -1,8 +1,10 @@
-import { app } from "./auth.js";
+import { app, auth } from "./auth.js";
 import {
   getFirestore,
   collection,
   getDocs,
+  addDoc,
+  setDoc,
   doc,
   getDoc
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -196,4 +198,133 @@ export async function loadCounselingForms() {
   } catch (err) {
     console.error("Failed to load counseling forms:", err);
   }
+}
+
+
+// ------------------- REQUEST FORM SERIALIZE & SAVE TO FIREBASE -------------------
+
+export async function saveRequestFormToFirebase() {
+    const title = document.querySelector('.request-form-title')?.value || "";
+    const description = document.querySelector('.request-form-description')?.value || "";
+
+    const questions = [];
+    document.querySelectorAll('.request-question-card').forEach((card, index) => {
+        const text = card.querySelector('.request-question-input')?.value || "";
+        const type = card.querySelector('.request-question-type')?.value || "short";
+        const desc = card.querySelector('.request-question-subtext')?.value || "";
+
+        let options = [];
+        if (type === 'multiple' || type === 'checkbox' || type === 'dropdown') {
+            card.querySelectorAll('.request-answer-area input[type="text"]').forEach(optInput => {
+                const val = optInput.value.trim();
+                if (val !== '') options.push(val);
+            });
+        }
+
+        questions.push({
+            id: `q${index + 1}`,
+            text: text,
+            type: type,
+            description: desc,
+            ...(options.length > 0 && { options })
+        });
+    });
+
+    const currentUser = auth.currentUser;
+    if (!currentUser) {
+        return alert("You must be logged in to save the form!");
+    }
+
+    const formData = {
+        title,
+        description,
+        questions,
+        createdAt: new Date(),
+        savedBy: currentUser.uid
+    };
+
+    try {
+        const docRef = doc(db, 'CounselingForm', 'RequestForm_Format'); // fixed doc ID
+        await setDoc(docRef, formData, { merge: true }); // merge updates existing
+        console.log("Form saved as 'RequestForm_Format' by", currentUser.uid);
+        showSavedFormPopup();
+        formCache.set('RequestForm_Format', formData);
+    } catch (err) {
+        console.error("Error saving form:", err);
+    }
+}
+
+// Replace your old saveRequestForm call in the request popup
+document.querySelector('.request-btn-save')?.addEventListener('click', () => {
+    closeRequestFormPopup();
+    saveRequestFormToFirebase();
+});
+
+export async function loadRequestFormFromFirebase() {
+    try {
+        const docRef = doc(db, 'CounselingForm', 'RequestForm_Format');
+        const snap = await getDoc(docRef);
+        if (!snap.exists()) return; // nothing saved yet
+
+        const data = snap.data();
+
+        // Set title and description
+        const titleInput = document.querySelector('.request-form-title');
+        if (titleInput) titleInput.value = data.title || "";
+
+        const descInput = document.querySelector('.request-form-description');
+        if (descInput) descInput.value = data.description || "";
+
+        // Clear existing questions in UI
+        const container = document.getElementById('requestQuestionsContainer');
+        if (!container) return;
+        container.innerHTML = "";
+
+        // Add questions
+        if (Array.isArray(data.questions)) {
+            data.questions.forEach((q, index) => {
+                addNewRequestQuestion(); // create a new card
+                const card = container.lastElementChild;
+
+                // Set question fields
+                card.querySelector('.request-question-input').value = q.text || "";
+                card.querySelector('.request-question-type').value = q.type || "short";
+                card.querySelector('.request-question-subtext').value = q.description || "";
+
+                // Update answer area based on type
+                changeRequestQuestionType(card.querySelector('.request-question-type'));
+
+                // Populate options if applicable
+                if (q.options && Array.isArray(q.options)) {
+                    const answerArea = card.querySelector('.request-answer-area');
+                    answerArea.innerHTML = ""; // clear placeholder
+
+                    q.options.forEach((opt, idx) => {
+                        const optionDiv = document.createElement('div');
+                        optionDiv.className = 'request-option-input';
+
+                        if (q.type === 'multiple' || q.type === 'checkbox') {
+                            const iconClass = q.type === 'multiple' ? 'request-radio-icon' : 'request-checkbox-icon';
+                            optionDiv.innerHTML = `
+                                <span class="${iconClass}"></span>
+                                <input type="text" value="${opt}" onfocus="addRequestOptionOnFocus(this)">
+                                <button class="request-option-remove" onclick="removeRequestOption(this)">×</button>
+                            `;
+                        } else if (q.type === 'dropdown') {
+                            optionDiv.innerHTML = `
+                                <span class="request-option-number">${idx + 1}.</span>
+                                <input type="text" value="${opt}" onfocus="addRequestOptionOnFocus(this)">
+                                <button class="request-option-remove" onclick="removeRequestOption(this)">×</button>
+                            `;
+                        }
+
+                        answerArea.appendChild(optionDiv);
+                    });
+                }
+            });
+        }
+
+    } catch (err) {
+        console.error("Failed to load request form from Firebase:", err);
+    }
 }
