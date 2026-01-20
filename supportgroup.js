@@ -344,7 +344,7 @@ function openGroupPage(groupId) {
 
       // Update description
       const descText = document.getElementById(`desc-text-${groupId}`);
-      if (descText) descText.textContent = data.supportgroup_description || "N/A";
+      if (descText) descText.textContent = data.supportgroup_description || "Enter Description Here";
 
       // Update profile picture
       const pfp = data.supportgroup_pfp_URL || "photos/suppGroup_placeholder.png";

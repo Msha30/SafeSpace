@@ -1776,10 +1776,22 @@ select option:focus {
     overflow: auto;
 }
 
+.popup-counseling {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: visible;
+}
+
 .popup-content {
     background-color: #ffffff;
     margin-left: 450px;
-    margin-top: 150px;
+    margin-top: 85px;
     margin-bottom: 150px; 
     padding: 0;
     border-radius: 5px;
