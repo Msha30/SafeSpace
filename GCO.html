@@ -3357,6 +3357,14 @@
 				};
 
 				reader.readAsDataURL(file);
+
+				// Click to open modal viewer
+				box.addEventListener("click", (e) => {
+					if (!e.target.classList.contains("remove-file-btn")) {
+						openViewer();
+					}
+				});
+
 				container.insertBefore(box, dropArea);
 			}
 		}
@@ -3547,6 +3555,34 @@
 
 		function closeViewer2() {
 			document.getElementById('fileViewer2').style.display = "none";
+		}
+		function removeFile2(index) {
+			uploadedFiles2.splice(index, 1);
+			renderFiles2();
+		}
+
+		function openViewer() {
+			const modal = document.getElementById('fileViewer');
+			const grid = document.getElementById('fileViewerGrid');
+			grid.innerHTML = "";
+
+			uploadedFiles.forEach(file => {
+				const reader = new FileReader();
+				reader.onload = e => {
+					if (file.type.startsWith('image/')) {
+						grid.innerHTML += `<img src="${e.target.result}">`;
+					} else {
+						grid.innerHTML += `<video src="${e.target.result}" controls></video>`;
+					}
+				};
+				reader.readAsDataURL(file);
+			});
+
+			modal.style.display = "flex";
+		}
+
+		function closeViewer() {
+			document.getElementById('fileViewer').style.display = "none";
 		}
 
 

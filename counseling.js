@@ -160,8 +160,10 @@ async function createSessionCard(data, formId) {
           <div class="time">Pending Schedule</div>
           <div class="name">${data.fname || "N/A"} ${data.lname || "N/A"}</div>
           <div class="info">${data.studentId || "N/A"}</div>
+          <!--
           <div class="info">${urgent ? `<strong><span class="urgent">Urgent</span></strong>` : "Not Urgent"}</div>
           <div class="info">Prefers <strong>${data.preferredCounselor || "N/A"}</strong></div>
+          -->
         </div>
       </div>
       <div class="session-btn-right">
