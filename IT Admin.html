@@ -1186,7 +1186,7 @@
 				<div class="editUserBody">
 					<div class="editUserLeft">
 						<img src="photos/pic_placeholder.png" class="editUserAvatar" alt="User Avatar">
-						<h2 class="editUserName" id="editDisplayUserName">Dominguez, Samantha Aeries</h2>
+						<h2 class="editUserName" id="editDisplayUserName">Dominguez, Samantha Aeries Sample</h2>
 						<p class="editUserLastActive">Last Active<br><span>May 15, 2025</span></p>
 						<p class="editUserDateCreated">Date Account Created<br><span>January 28, 2025</span></p>
 					</div>
@@ -1264,26 +1264,30 @@
 								<input type="text" class="createUserInput" id="firstName" oninput="updateDisplayName()">
 							</div>
 							<div class="createUserGroup">
-								<label class="createUserLabel">Last Name</label>
-								<input type="text" class="createUserInput" id="lastName" oninput="updateDisplayName()">
+								<label class="createUserLabel">Middle Name</label>
+								<input type="text" class="createUserInput" id="middleName" oninput="updateDisplayName()">
 							</div>
 						</div>
 						
 						<div class="createUserRow">
+							<div class="createUserGroup">
+								<label class="createUserLabel">Last Name</label>
+								<input type="text" class="createUserInput" id="lastName" oninput="updateDisplayName()">
+							</div>
 							<div class="createUserGroup">
 								<label class="createUserLabel">Work Email</label>
 								<input type="email" class="createUserInput" id="workEmail">
 							</div>
-							<div class="createUserGroup">
-								<label class="createUserLabel">Access</label>
-								<input type="text" class="createUserInput createUserInputReadonly" id="access" value="GCO Admin" readonly>
-							</div>
 						</div>
 						
 						<div class="createUserRow">
 							<div class="createUserGroup">
-							<label class="createUserLabel">Password</label>
-							<input type="text" class="createUserInput" id="password">
+								<label class="createUserLabel">Access</label>
+								<input type="text" class="createUserInput createUserInputReadonly" id="access" value="GCO Admin" readonly>
+							</div>
+							<div class="createUserGroup">
+								<label class="createUserLabel">Password</label>
+								<input type="text" class="createUserInput" id="password">
 							</div>
 						</div>
 					</div>
@@ -2168,10 +2172,14 @@
 
 		function updateDisplayName() {
 			const firstName = document.getElementById('firstName').value.trim();
+			const middleName = document.getElementById('middleName').value.trim();
 			const lastName = document.getElementById('lastName').value.trim();
-			
+
 			if (firstName && lastName) {
-				const displayName = `${lastName}, ${firstName}`;
+				const displayName = middleName
+					? `${lastName}, ${firstName} ${middleName}`
+					: `${lastName}, ${firstName}`;
+
 				document.getElementById('displayUserName').textContent = displayName;
 				document.getElementById('confirmUserName').textContent = displayName;
 			}
@@ -2186,20 +2194,25 @@
 			document.getElementById('confirmPopup').classList.remove('active');
 		}
 
+		// CONFIRM CREATE USER (WITH MIDDLE NAME)
 		function confirmCreateUser() {
 			const firstName = document.getElementById('firstName').value.trim();
+			const middleName = document.getElementById('middleName').value.trim();
 			const lastName = document.getElementById('lastName').value.trim();
 			const email = document.getElementById('workEmail').value.trim();
-			const displayName = `${lastName}, ${firstName}`;
-			
-			const currentDate = new Date().toLocaleDateString('en-US', { 
-				year: 'numeric', 
-				month: 'short', 
-				day: 'numeric' 
+
+			const displayName = middleName
+				? `${lastName}, ${firstName} ${middleName}`
+				: `${lastName}, ${firstName}`;
+
+			const currentDate = new Date().toLocaleDateString('en-US', {
+				year: 'numeric',
+				month: 'short',
+				day: 'numeric'
 			});
-			
+
 			const userTable = document.querySelector('#users .user tbody');
-			
+
 			if (userTable) {
 				const newRow = document.createElement('tr');
 				newRow.innerHTML = `
@@ -2227,15 +2240,17 @@
 						</div>
 					</td>
 				`;
-				
+
 				userTable.insertBefore(newRow, userTable.firstChild);
-				
+
 				alert(`User "${displayName}" created successfully!`);
-				
+
 				closeConfirmPopup();
 				closeCreateUserPopup();
-				
+
+				// RESET FORM
 				document.getElementById('firstName').value = '';
+				document.getElementById('middleName').value = '';
 				document.getElementById('lastName').value = '';
 				document.getElementById('workEmail').value = 'email@students.nu-fairview.edu.ph';
 				document.getElementById('password').value = 'sample';
@@ -2245,7 +2260,8 @@
 			}
 		}
 
-		document.addEventListener('click', function(e) {
+		// CLOSE POPUPS WHEN CLICKING OUTSIDE
+		document.addEventListener('click', function (e) {
 			if (e.target === document.getElementById('createUserPopup')) {
 				closeCreateUserPopup();
 			}
@@ -2253,6 +2269,7 @@
 				closeConfirmPopup();
 			}
 		});
+
 		
 		//EXPORT CHAT MODAL
 		function openExportChatModal() {
