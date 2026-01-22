@@ -110,10 +110,6 @@ async function renderGroupChatsForPage(supportGroupData, groupId) {
     nameDiv.textContent = chat.name ? chat.name : "Unnamed";
     nameTd.appendChild(nameDiv);
 
-    const small = document.createElement("small");
-    small.textContent = `${(chat.member_list?.length) || 0} members`;
-    nameTd.appendChild(small);
-
     // click to open edit modal (we pass the row element)
     nameTd.addEventListener("click", () => openGroupChatEditModal(tr));
 
@@ -394,13 +390,11 @@ export async function createSupportGroup() {
       groupchatId: `${groupId}_gc1`,
       name: "Default Group Chat",
       pfp_URL: "",
-      member_list: []
     },
     {
       groupchatId: `${groupId}_gc2`,
       name: "Announcements",
       pfp_URL: "",
-      member_list: []
     }
   ];
 
