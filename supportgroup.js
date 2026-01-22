@@ -8,8 +8,10 @@ import {
   orderBy,
   onSnapshot,
   doc,
-  updateDoc
+  updateDoc,
+  getDoc
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
 
 /* ---------------- Config ---------------- */
 const SUPPORTGROUP_COLLECTION = "supportgroup";
@@ -73,6 +75,273 @@ function renderSupportGroups(groups = []) {
   });
 }
 
+async function renderGroupChatsForPage(supportGroupData, groupId) {
+  const tbody = document.getElementById(`groupchat-list-${groupId}`);
+  if (!tbody) return;
+
+  tbody.innerHTML = "";
+
+  const groupchats = supportGroupData.groupchats || [];
+
+  if (groupchats.length === 0) {
+    tbody.innerHTML = `<tr><td>No group chats yet</td></tr>`;
+    return;
+  }
+
+  for (const chat of groupchats) {
+    const tr = document.createElement("tr");
+    // store ids so modal can find them later
+    tr.dataset.groupchatId = chat.groupchatId || "";
+    tr.dataset.groupId = groupId || "";
+
+    // avatar cell
+    const avatarTd = document.createElement("td");
+    avatarTd.className = "table_user";
+    const img = document.createElement("img");
+    img.src = chat.pfp_URL || 'photos/pic_placeholder.png';
+    avatarTd.appendChild(img);
+    tr.appendChild(avatarTd);
+
+    // name + members cell (clickable)
+    const nameTd = document.createElement("td");
+    nameTd.style.cursor = "pointer";
+
+    const nameDiv = document.createElement("div");
+    nameDiv.textContent = chat.name ? chat.name : "Unnamed";
+    nameTd.appendChild(nameDiv);
+
+    const small = document.createElement("small");
+    small.textContent = `${(chat.member_list?.length) || 0} members`;
+    nameTd.appendChild(small);
+
+    // click to open edit modal (we pass the row element)
+    nameTd.addEventListener("click", () => openGroupChatEditModal(tr));
+
+    tr.appendChild(nameTd);
+    tbody.appendChild(tr);
+  }
+}
+
+// ---------------- Group Chat Edit Modal ----------------
+
+export function closeGroupChatEditModal() {
+  const modal = document.getElementById('groupChatEditModal');
+  if (!modal) return;
+  modal.style.display = 'none';
+}
+
+async function openGroupChatEditModal(rowElement) {
+  const modal = document.getElementById('groupChatEditModal');
+  if (!modal || !rowElement) return;
+
+  const groupId = rowElement.dataset.groupId;
+  const groupchatId = rowElement.dataset.groupchatId;
+  if (!groupId || !groupchatId) return console.warn("Missing ids for groupchat edit");
+
+  // Load group doc to get current groupchat state
+  try {
+    const snap = await getDoc(doc(db, SUPPORTGROUP_COLLECTION, groupId));
+    if (!snap.exists()) return alert("Support group not found");
+    const data = snap.data();
+    const groupchats = Array.isArray(data.groupchats) ? data.groupchats : [];
+    const chat = groupchats.find(c => c.groupchatId === groupchatId);
+    if (!chat) return alert("Group chat not found");
+
+    // Prefill modal UI
+    const h3Title = modal.querySelector('h3');
+    const nameInput = modal.querySelector('#groupChatNameInput');
+    const circleImg = modal.querySelector('.groupChatEditCircle img');
+
+    if (h3Title) h3Title.textContent = chat.name || "Unnamed";
+    if (nameInput) {
+      nameInput.value = chat.name || "";
+      nameInput.disabled = true; // locked until Edit clicked
+    }
+    if (circleImg) circleImg.src = chat.pfp_URL || rowElement.querySelector('.table_user img')?.src || 'photos/pic_placeholder.png';
+
+    // store references on modal for later (helps event handlers)
+    modal._kg_editContext = { groupId, groupchatId, rowElement };
+
+    // initialise modal interactions (wires Edit/Save + upload)
+    initGroupChatEditModal(modal);
+
+    modal.style.display = 'flex';
+  } catch (err) {
+    console.error("openGroupChatEditModal error", err);
+    alert("Failed to open group chat editor");
+  }
+}
+
+/**
+ * initGroupChatEditModal(modal)
+ * - reads modal._kg_editContext for {groupId, groupchatId, rowElement}
+ * - wires Edit/Save for name and Upload for pfp
+ */
+function initGroupChatEditModal(modal) {
+  if (!modal) return;
+  const ctx = modal._kg_editContext;
+  if (!ctx) return;
+
+  const { groupId, groupchatId, rowElement } = ctx;
+
+  const h3Title = modal.querySelector('h3');
+  const nameInput = modal.querySelector('#groupChatNameInput');
+  const editLinks = modal.querySelectorAll('.groupChatEditLink'); // [editName, editPicture]
+  const circleImg = modal.querySelector('.groupChatEditCircle img');
+
+  // --- Name edit handler ---
+  const editNameLink = editLinks && editLinks[0];
+  if (editNameLink && nameInput) {
+    // clone to remove any previous listeners
+    const newEdit = editNameLink.cloneNode(true);
+    editNameLink.parentNode.replaceChild(newEdit, editNameLink);
+
+    newEdit.addEventListener('click', async function (e) {
+      e.preventDefault();
+
+      if (newEdit.textContent.trim() === 'Edit') {
+        nameInput.disabled = false;
+        nameInput.focus();
+        nameInput.select();
+        newEdit.textContent = 'Save';
+        return;
+      }
+
+      // Save flow
+      const newName = nameInput.value.trim();
+      nameInput.disabled = true;
+      newEdit.textContent = 'Edit';
+
+      try {
+        const docRef = doc(db, SUPPORTGROUP_COLLECTION, groupId);
+        const snap = await getDoc(docRef);
+        if (!snap.exists()) throw new Error("Group not found");
+
+        const groupData = snap.data();
+        const groupchats = Array.isArray(groupData.groupchats) ? groupData.groupchats : [];
+
+        const next = groupchats.map(gc => {
+          if (gc.groupchatId === groupchatId) {
+            return { ...gc, name: newName };
+          }
+          return gc;
+        });
+
+        await updateDoc(docRef, { groupchats: next });
+
+        // Update UI immediately
+        if (h3Title) h3Title.textContent = newName || "Unnamed";
+        // rowElement second td first child is the name div (render function uses that)
+        const nameDiv = rowElement.querySelector('td:nth-child(2) > div');
+        if (nameDiv) nameDiv.textContent = newName || "Unnamed";
+
+        alert("Group chat name saved.");
+      } catch (err) {
+        console.error("Failed to save group chat name", err);
+        alert("Failed to save group chat name");
+      }
+    });
+  }
+
+  // --- Picture edit handler ---
+  const editPictureLink = editLinks && editLinks[1];
+  if (editPictureLink) {
+    const newEditPic = editPictureLink.cloneNode(true);
+    editPictureLink.parentNode.replaceChild(newEditPic, editPictureLink);
+
+    newEditPic.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'image/*';
+      input.onchange = async function (evt) {
+        const file = evt.target.files[0];
+        if (!(file && file.type.startsWith('image/'))) return;
+
+        // immediate preview in modal and row
+        const reader = new FileReader();
+        reader.onload = function (ev) {
+          if (circleImg) circleImg.src = ev.target.result;
+          const rowImg = rowElement.querySelector('.table_user img');
+          if (rowImg) rowImg.src = ev.target.result;
+        };
+        reader.readAsDataURL(file);
+
+        // upload to Supabase and persist into the groupchats array
+        try {
+          const ext = (file.name.split('.').pop() || 'png').split(/[?#]/)[0];
+          // file name pattern: supportgroup_<groupId>_<groupchatId>_pfp.ext
+          const safeFileName = `${groupId}_${groupchatId}_pfp.${ext}`;
+          const objectPath = `supportgroup/${safeFileName}`;
+          const { publicUrl } = await uploadToSupabase(file, SUPABASE_BUCKET, objectPath);
+
+          // update array
+          const docRef = doc(db, SUPPORTGROUP_COLLECTION, groupId);
+          const snap = await getDoc(docRef);
+          if (!snap.exists()) throw new Error("Group not found");
+
+          const groupData = snap.data();
+          const groupchats = Array.isArray(groupData.groupchats) ? groupData.groupchats : [];
+
+          const next = groupchats.map(gc => {
+            if (gc.groupchatId === groupchatId) {
+              return { ...gc, pfp_URL: publicUrl };
+            }
+            return gc;
+          });
+
+          await updateDoc(docRef, { groupchats: next });
+
+          // update modal + row immediately
+          if (circleImg) circleImg.src = publicUrl;
+          const rowImg = rowElement.querySelector('.table_user img');
+          if (rowImg) rowImg.src = publicUrl;
+
+          alert("Group chat picture uploaded and saved.");
+        } catch (err) {
+          console.error("Failed to upload/save groupchat picture", err);
+          alert("Failed to upload picture: " + (err.message || err));
+        }
+      };
+
+      input.click();
+    });
+  }
+}
+
+
+
+
+
+async function renderMembersList(groupId, memberList = []) {
+  const tbody = document.getElementById(`members-list-${groupId}`);
+  if (!tbody) return;
+  tbody.innerHTML = "";
+
+  if (!Array.isArray(memberList) || memberList.length === 0) {
+    tbody.innerHTML = `<tr><td>No members</td></tr>`;
+    return;
+  }
+
+  for (const uid of memberList) {
+    try {
+      const accSnap = await getDoc(doc(db, "account_details", uid));
+      const user = accSnap.exists() ? accSnap.data() : null;
+
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td class="table_user"><img src="${(user?.avatarUrl) || "photos/pic_placeholder.png"}"></td>
+        <td id="name">${escapeHtml((user?.fname || "") + " " + (user?.lname || ""))}</td>
+      `;
+      tbody.appendChild(tr);
+    } catch (err) {
+      console.error("Failed to load account for member:", uid, err);
+    }
+  }
+}
+
+
 /* ---------------- Firebase live listener ---------------- */
 export function initSupportGroups() {
   if (!supportGroupsContainer) {
@@ -96,42 +365,56 @@ export async function createSupportGroup() {
   if (!name) return alert("Support group name is required");
   if (!user) return alert("You must be logged in to create a support group");
 
-  try {
-    // Reserve a new document reference (client-side id) but DO NOT write yet.
-    const newDocRef = doc(collection(db, SUPPORTGROUP_COLLECTION));
-    const groupId = newDocRef.id;
+  // Reserve a doc id
+  const newDocRef = doc(collection(db, SUPPORTGROUP_COLLECTION));
+  const groupId = newDocRef.id;
 
-    // We'll compute public URLs only after successful upload(s)
-    let supportgroup_pfp_URL = "";
-    let supportgroup_cover_URL = "";
+  // Prepare upload placeholders
+  let supportgroup_pfp_URL = "";
+  let supportgroup_cover_URL = "";
 
-    // If an image was selected, upload it first. If upload fails, throw and do not create doc.
-    if (selectedImageFile) {
-      try {
-        const ext = (selectedImageFile.name.split(".").pop() || "png").split(/[?#]/)[0];
-        const safeFileName = `${groupId}_pfp.${ext}`;
-        const objectPath = `supportgroup/${safeFileName}`;
-
-        const uploadResult = await uploadToSupabase(selectedImageFile, SUPABASE_BUCKET, objectPath);
-        supportgroup_pfp_URL = uploadResult.publicUrl;
-      } catch (uploadErr) {
-        console.error("Supabase upload failed (aborting group creation):", uploadErr);
-        // Show a friendly message
-        alert("Failed to upload profile picture. Support group was not created.");
-        // Do not create the Firestore doc; exit early
-        return;
-      }
+  // If an image was selected, upload it first. If upload fails, abort.
+  if (selectedImageFile) {
+    try {
+      const ext = (selectedImageFile.name.split(".").pop() || "png").split(/[?#]/)[0];
+      const safeFileName = `${groupId}_pfp.${ext}`;
+      const objectPath = `supportgroup/${safeFileName}`;
+      const uploadResult = await uploadToSupabase(selectedImageFile, SUPABASE_BUCKET, objectPath);
+      supportgroup_pfp_URL = uploadResult.publicUrl;
+    } catch (uploadErr) {
+      console.error("Supabase upload failed (aborting group creation):", uploadErr);
+      alert("Failed to upload profile picture. Support group was not created.");
+      return;
     }
+  }
 
-    // No upload failure — create the Firestore document now.
-    await setDoc(newDocRef, {
+   // DEFAULT GROUP CHATS
+  const defaultGroupChats = [
+    {
+      groupchatId: `${groupId}_gc1`,
+      name: "Default Group Chat",
+      pfp_URL: "",
+      member_list: []
+    },
+    {
+      groupchatId: `${groupId}_gc2`,
+      name: "Announcements",
+      pfp_URL: "",
+      member_list: []
+    }
+  ];
+
+  // Create Firestore doc once with everything
+  try {
+     await setDoc(newDocRef, {
       supportgroup_name: name,
+      supportgroup_description: "",
+      supportgroup_pfp_URL,
+      supportgroup_cover_URL,
       createdBy: user.uid,
       createdAt: new Date(),
-      supportgroup_description: "",
-      supportgroup_pfp_URL: supportgroup_pfp_URL,
-      supportgroup_cover_URL: supportgroup_cover_URL,
-      member_list: []
+      member_list: [],
+      groupchats: defaultGroupChats
     });
 
     // UX: reset modal inputs
@@ -142,13 +425,15 @@ export async function createSupportGroup() {
     if (modal) modal.style.display = "none";
     selectedImageFile = null;
 
-    alert("Support group created successfully (live listener will update the list).");
+    closeCreateGroupModal();
 
+    alert("Support group created successfully (live listener will update the list).");
   } catch (err) {
     console.error("createSupportGroup failed", err);
     alert("Failed to create support group: " + (err.message || err));
   }
 }
+
 
 
 /* ---------------- Modal helpers ---------------- */
@@ -332,11 +617,18 @@ function openGroupPage(groupId) {
   initSupportGroupEdits(pageId);
 
   // ------------------ Firestore live listener ------------------
+  // ------------------ Firestore live listener ------------------
   if (!openedGroupListeners.has(groupId)) {
     const docRef = doc(db, SUPPORTGROUP_COLLECTION, groupId);
     const unsub = onSnapshot(docRef, snap => {
       if (!snap.exists()) return;
       const data = snap.data();
+
+      // Render group chats INTO this page
+      renderGroupChatsForPage(data, groupId);
+
+      // Update members list (resolves uids -> names)
+      renderMembersList(groupId, Array.isArray(data.member_list) ? data.member_list : []);
 
       // Update title in page
       const titleElem = document.getElementById(`sg-title-${groupId}`);
@@ -344,7 +636,7 @@ function openGroupPage(groupId) {
 
       // Update description
       const descText = document.getElementById(`desc-text-${groupId}`);
-      if (descText) descText.textContent = data.supportgroup_description || "N/A";
+      if (descText) descText.textContent = data.supportgroup_description || "Enter Description Here";
 
       // Update profile picture
       const pfp = data.supportgroup_pfp_URL || "photos/suppGroup_placeholder.png";
@@ -355,15 +647,13 @@ function openGroupPage(groupId) {
       const coverElem = page.querySelector(".info-block:nth-child(2) .info-images img");
       if (coverElem) coverElem.src = cover;
 
-      // Update members list
-      renderMembersList(groupId, Array.isArray(data.member_list) ? data.member_list : []);
-
       // Only update breadcrumb if this page is visible
       updatePageTitleIfVisible(pageId);
     }, err => console.error("group doc listener error", err));
 
     openedGroupListeners.set(groupId, unsub);
   }
+
 }
 
 // ------------------ Utility to update pageTitle only if visible ------------------
@@ -393,27 +683,6 @@ function showOnlyThisPage(pageId) {
   });
   const page = document.getElementById(pageId);
   if (page) page.style.display = "block";
-}
-
-/* ---------------- Render members ---------------- */
-function renderMembersList(groupId, memberList = []) {
-  const tbody = document.getElementById(`members-list-${groupId}`);
-  if (!tbody) return;
-  tbody.innerHTML = "";
-
-  if (!Array.isArray(memberList) || memberList.length === 0) {
-    tbody.innerHTML = `<tr><td>No members</td></tr>`;
-    return;
-  }
-
-  memberList.forEach(uid => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td class="table_user"><img src="photos/pic_placeholder.png"></td>
-      <td id="name">${escapeHtml(uid)}</td>
-    `;
-    tbody.appendChild(tr);
-  });
 }
 
 /* ---------------- Edit handlers integration ----------------
@@ -633,6 +902,32 @@ function initSupportGroupEdits(pageId) {
     });
   }
 }
+
+/* ---------------- Group Chat Edit Modal: close handlers ---------------- */
+
+function wireGroupChatEditModalClose() {
+  const modal = document.getElementById('groupChatEditModal');
+  if (!modal) return;
+
+  // X button
+  const closeBtn = modal.querySelector('.close, #closeGroupChatEditModal');
+  if (closeBtn) {
+    closeBtn.onclick = () => closeGroupChatEditModal();
+  }
+
+  // Click outside (overlay)
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeGroupChatEditModal();
+    }
+  });
+}
+
+// Wire once after DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  wireGroupChatEditModalClose();
+});
+
 
 /* ---------------- Optional: teardown ---------------- */
 export function closeAllGroupListeners() {

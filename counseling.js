@@ -6,7 +6,8 @@ import {
   addDoc,
   setDoc,
   doc,
-  getDoc
+  getDoc,
+  onSnapshot
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const db = getFirestore(app);
@@ -64,53 +65,111 @@ async function getFormData(formId) {
   }
 }
 
-// Open details popup (uid + formId)
+function tsToMillis(ts) {
+  if (!ts) return 0;
+  // Firestore Timestamp has toDate()
+  if (typeof ts.toDate === "function") {
+    return ts.toDate().getTime();
+  }
+  if (ts instanceof Date) return ts.getTime();
+  if (typeof ts === "number") return ts;
+  // fallback: try Date parse
+  const parsed = Date.parse(ts);
+  return isNaN(parsed) ? 0 : parsed;
+}
+
+
 export async function openDetailsPopup(uid, formId) {
   const popup = document.getElementById("detailsPopup");
   if (!popup) return;
 
   try {
-    // Fetch cached data
-    const [accData, formData] = await Promise.all([
-      getAccountData(uid),
-      getFormData(formId)
-    ]);
+    // Fetch submission
+    const submissionSnap = await getDoc(doc(db, "CounselingForm_Submissions", formId));
+    const isSubmission = submissionSnap.exists();
+    const submission = isSubmission ? submissionSnap.data() : null;
 
-    const data = { ...accData, ...formData };
+    // Determine account UID
+    const accUid = (submission && submission.createdBy) ? submission.createdBy : uid;
+    const accData = await getAccountData(accUid);
 
-    // Left side
+    // Fallback for template
+    const formData = isSubmission ? {} : await getFormData(formId);
+
+    // LEFT SIDE: profile & name
     const img = popup.querySelector(".popup-profile-img");
-    img.src = data.avatarUrl || "photos/pic_placeholder.png";
+    if (img) img.src = accData.avatarUrl || "photos/pic_placeholder.png";
 
     const nameElem = popup.querySelector(".popup-left h2");
-    nameElem.textContent = `${data.lname || ""}, ${data.fname || ""}`;
+    if (nameElem) nameElem.textContent = `${accData.lname || ""}${accData.lname && accData.fname ? ", " : ""}${accData.fname || ""}`.trim();
 
     const dateElem = popup.querySelector(".date-created-left strong");
-    if (data.createdAt) dateElem.textContent = formatDate(data.createdAt);
+    const createdAt = (submission && submission.createdAt) ? submission.createdAt : (formData && formData.createdAt) ? formData.createdAt : accData.createdAt;
+    if (dateElem) dateElem.textContent = createdAt ? formatDate(createdAt) : "N/A";
 
-    // Right side details
-    const setDetail = (label, value) => {
-      const elem = Array.from(popup.querySelectorAll(".detail-item"))
-        .find(d => d.querySelector("label").textContent === label);
-      if (elem) elem.querySelector("p").textContent = value || "N/A";
-    };
+    // RIGHT SIDE
+    const rightContainer = popup.querySelector(".popup-right");
+    if (!rightContainer) return;
+    rightContainer.innerHTML = ""; // clear old content
 
-    setDetail("First Name", data.fname);
-    setDetail("Last Name", data.lname);
-    setDetail("Program", data.program);
-    setDetail("Student ID", data.studentId);
-    setDetail("Age", data.age || data.ageForm || "N/A");
-    setDetail("Sex assigned at birth", data.assignedSex || data.sex || "N/A");
-    setDetail("Gender Identity", data.genderId || data.genderIdentity || "N/A");
-    setDetail("Preferred mode of platform", data.preferredPlatform || "N/A");
-    setDetail("Preferred Counselor", data.preferredCounselor || "N/A");
-    setDetail("Is it urgent?", data.urgent || "N/A");
+    // Combine all fields into a flat array
+    const fields = [
+      { label: "First Name", value: accData.fname },
+      { label: "Middle Name", value: accData.mname || "" },
+      { label: "Last Name", value: accData.lname },
+      { label: "Program", value: accData.program },
+      { label: "Student ID", value: accData.studentId }
+    ];
+
+    // Include submission questions after account info
+    if (isSubmission) {
+      const questions = Array.isArray(submission.questions) ? submission.questions : [];
+      questions.forEach(q => {
+        let answer = q.answer;
+        if (Array.isArray(answer)) answer = answer.join(", ");
+        fields.push({ label: q.text || q.id || "Question", value: answer || "" });
+      });
+    }
+
+    // Now build rows: 2 items per row
+    for (let i = 0; i < fields.length; i += 2) {
+      const row = document.createElement("div");
+      row.classList.add("detail-row");
+
+      // Left item
+      const left = document.createElement("div");
+      left.classList.add("detail-item");
+      const leftLabel = document.createElement("label");
+      leftLabel.textContent = fields[i].label;
+      const leftP = document.createElement("p");
+      leftP.textContent = fields[i].value || "N/A";
+      left.appendChild(leftLabel);
+      left.appendChild(leftP);
+      row.appendChild(left);
+
+      // Right item if exists
+      if (fields[i + 1]) {
+        const right = document.createElement("div");
+        right.classList.add("detail-item");
+        const rightLabel = document.createElement("label");
+        rightLabel.textContent = fields[i + 1].label;
+        const rightP = document.createElement("p");
+        rightP.textContent = fields[i + 1].value || "N/A";
+        right.appendChild(rightLabel);
+        right.appendChild(rightP);
+        row.appendChild(right);
+      }
+
+      rightContainer.appendChild(row);
+    }
 
     popup.style.display = "block";
+
   } catch (err) {
     console.error("Failed to load details:", err);
   }
 }
+
 
 // Close popup
 export function closeDetailsPopup() {
@@ -130,8 +189,9 @@ window.closeDetailsPopup = closeDetailsPopup;
 function formatDate(timestamp) {
   if (!timestamp) return "N/A";
   const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
-  return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  return date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
 }
+
 
 function formatPlatform(platform) {
   if (!platform) return "N/A";
@@ -143,25 +203,28 @@ function formatPlatform(platform) {
     default: return "N/A";
   }
 }
+// Create session card from submission (submissionId)
+async function createSessionCardFromData(submissionId, submission) {
+  // submission is the object from snapshot.docs[i].data()
+  if (!submission) return null;
 
-// Create session card
-async function createSessionCard(data, formId) {
-  const urgent = data.urgent?.trim().toLowerCase() === "yes";
-  const avatarUrl = await getAvatarUrl(data.createdBy);
+  // Fetch account data of the submission creator (cached)
+  const accData = await getAccountData(submission.createdBy);
+  const avatarUrl = accData.avatarUrl || (submission.createdBy ? await getAvatarUrl(submission.createdBy) : null);
 
   const card = document.createElement("div");
   card.classList.add("card-session");
 
+  const urgent = (submission.urgent || "").toString().trim().toLowerCase() === "yes";
+
   card.innerHTML = `
-      <h3>${formatDate(data.createdAt)} - ${formatPlatform(data.preferredPlatform)}</h3>
+      <h3>${formatDate(submission.createdAt)} - ${formatPlatform(submission.preferredPlatform)}</h3>
       <div class="session-mode-left">
         <img src="${avatarUrl || 'photos/pic_placeholder.png'}" alt="Avatar">
         <div class="session-details-left">
           <div class="time">Pending Schedule</div>
-          <div class="name">${data.fname || "N/A"} ${data.lname || "N/A"}</div>
-          <div class="info">${data.studentId || "N/A"}</div>
-          <div class="info">${urgent ? `<strong><span class="urgent">Urgent</span></strong>` : "Not Urgent"}</div>
-          <div class="info">Prefers <strong>${data.preferredCounselor || "N/A"}</strong></div>
+          <div class="name">${accData.fname || submission.fname || "N/A"} ${accData.lname || submission.lname || "N/A"}</div>
+          <div class="info">${accData.studentId || submission.studentId || "N/A"}</div>
         </div>
       </div>
       <div class="session-btn-right">
@@ -170,33 +233,101 @@ async function createSessionCard(data, formId) {
       </div>
   `;
 
-  card.querySelector(".btn.details").addEventListener("click", () => {
-    openDetailsPopup(data.createdBy, formId);
-  });
+  // details button opens popup using the submission id (we still pass createdBy for lookup)
+  const detailsBtn = card.querySelector(".btn.details");
+  if (detailsBtn) {
+    detailsBtn.addEventListener("click", () => {
+      openDetailsPopup(submission.createdBy || accData.uid, submissionId);
+    });
+  }
 
   return card;
 }
 
-// Load all counseling forms
+
+let _submissionsListenerUnsub = null;
+let _submissionsCache = []; // array of { id, data }
+let _currentSort = 'newest'; // default
+
 export async function loadCounselingForms() {
+  const container = document.getElementById("sessions-container");
+  if (!container) return;
+
+  // attach sort select handler
+  const sortSelect = document.querySelector('#guidance-counseling .btn-white');
+  if (sortSelect && !sortSelect._listenerAttached) {
+    // set initial value if needed
+    sortSelect.value = _currentSort;
+    sortSelect.addEventListener('change', (ev) => {
+      _currentSort = ev.target.value || 'newest';
+      renderSubmissionsFromCache();
+    });
+    sortSelect._listenerAttached = true;
+  }
+
+  // clear container while we attach listener
+  container.innerHTML = `<div class="loading">Loading...</div>`;
+
+  // if already listening, unsubscribe first to avoid duplicate listeners
+  if (typeof _submissionsListenerUnsub === 'function') {
+    _submissionsListenerUnsub();
+    _submissionsListenerUnsub = null;
+  }
+
+  try {
+    const collRef = collection(db, "CounselingForm_Submissions");
+
+    // Realtime listener: update cache and render on every change
+    _submissionsListenerUnsub = onSnapshot(collRef, (snapshot) => {
+      _submissionsCache = snapshot.docs.map(docSnap => ({
+        id: docSnap.id,
+        data: docSnap.data()
+      }));
+      // render according to current sort
+      renderSubmissionsFromCache();
+    }, (err) => {
+      console.error("Counseling submissions listener error:", err);
+      container.innerHTML = `<div class="error">Failed to load submissions</div>`;
+    });
+  } catch (err) {
+    console.error("Failed to attach submissions listener:", err);
+    container.innerHTML = `<div class="error">Failed to load submissions</div>`;
+  }
+}
+
+async function renderSubmissionsFromCache() {
   const container = document.getElementById("sessions-container");
   if (!container) return;
 
   container.innerHTML = "";
 
-  try {
-    const snapshot = await getDocs(collection(db, "CounselingForm"));
-    for (const docSnap of snapshot.docs) {
-      const data = docSnap.data();
-      const formId = docSnap.id;
-      const cardElement = await createSessionCard(data, formId);
-      container.appendChild(cardElement);
+  // Copy array so sort won't mutate original
+  const items = _submissionsCache.slice();
 
-      // Cache form data immediately for instant popup later
-      formCache.set(formId, data);
+  // sort comparator by createdAt millis
+  items.sort((a, b) => {
+    const ta = tsToMillis(a.data.createdAt);
+    const tb = tsToMillis(b.data.createdAt);
+    if (_currentSort === 'oldest') return ta - tb;
+    // 'newest' or 'all' default newest first
+    return tb - ta;
+  });
+
+  if (items.length === 0) {
+    container.innerHTML = `<div class="empty">No submissions yet.</div>`;
+    return;
+  }
+
+  // Build cards sequentially, but we need to await account fetch inside createSessionCardFromData
+  for (const item of items) {
+    try {
+      const cardElement = await createSessionCardFromData(item.id, item.data);
+      if (cardElement) container.appendChild(cardElement);
+      // cache item form data for quick popup
+      formCache.set(item.id, item.data);
+    } catch (err) {
+      console.error("Failed to render submission card", item.id, err);
     }
-  } catch (err) {
-    console.error("Failed to load counseling forms:", err);
   }
 }
 

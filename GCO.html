@@ -1638,7 +1638,7 @@
 	<!---------------- GROUP CHAT EDIT MODAL ---------------------------------------------->
 		<div id="groupChatEditModal" class="groupChatEditModal">
 			<div class="groupChatEditContent">
-				<span class="groupChatEditClose" onclick="closeGroupChatEditModal()">&times;</span>
+				<span class="groupChatEditClose" id="closeGroupChatEditModal" onclick="closeGroupChatEditModal()">&times;</span>
 				<h3>Lorem Ipsum</h3>
 				
 				<div class="groupChatEditFormGroup">
@@ -1689,6 +1689,21 @@
 								</div>
 								<div class="dropdown-item" onclick="selectProfile('NU FV PEERS - NU Fairview Peer Facilitators')">
 									NU FV PEERS - NU Fairview Peer Facilitators
+								</div>
+								<div class="dropdown-item" onclick="selectProfile('HAVEN')">
+									HAVEN
+								</div>
+								<div class="dropdown-item" onclick="selectProfile('YAKAP')">
+									YAKAP
+								</div>
+								<div class="dropdown-item" onclick="selectProfile('SUCCESS')">
+									SUCCESS
+								</div>
+								<div class="dropdown-item" onclick="selectProfile('WISE')">
+									WISE
+								</div>
+								<div class="dropdown-item" onclick="selectProfile('SYNC')">
+									SYNC
 								</div>
 							</div>
 						</div>
@@ -3357,6 +3372,14 @@
 				};
 
 				reader.readAsDataURL(file);
+
+				// Click to open modal viewer
+				box.addEventListener("click", (e) => {
+					if (!e.target.classList.contains("remove-file-btn")) {
+						openViewer();
+					}
+				});
+
 				container.insertBefore(box, dropArea);
 			}
 		}
@@ -3547,6 +3570,34 @@
 
 		function closeViewer2() {
 			document.getElementById('fileViewer2').style.display = "none";
+		}
+		function removeFile2(index) {
+			uploadedFiles2.splice(index, 1);
+			renderFiles2();
+		}
+
+		function openViewer() {
+			const modal = document.getElementById('fileViewer');
+			const grid = document.getElementById('fileViewerGrid');
+			grid.innerHTML = "";
+
+			uploadedFiles.forEach(file => {
+				const reader = new FileReader();
+				reader.onload = e => {
+					if (file.type.startsWith('image/')) {
+						grid.innerHTML += `<img src="${e.target.result}">`;
+					} else {
+						grid.innerHTML += `<video src="${e.target.result}" controls></video>`;
+					}
+				};
+				reader.readAsDataURL(file);
+			});
+
+			modal.style.display = "flex";
+		}
+
+		function closeViewer() {
+			document.getElementById('fileViewer').style.display = "none";
 		}
 
 
