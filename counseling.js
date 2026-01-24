@@ -7,7 +7,10 @@ import {
   setDoc,
   doc,
   getDoc,
-  onSnapshot
+  onSnapshot,
+  updateDoc,
+  runTransaction,
+  serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const db = getFirestore(app);
@@ -77,7 +80,6 @@ function tsToMillis(ts) {
   const parsed = Date.parse(ts);
   return isNaN(parsed) ? 0 : parsed;
 }
-
 
 export async function openDetailsPopup(uid, formId) {
   const popup = document.getElementById("detailsPopup");
@@ -170,7 +172,6 @@ export async function openDetailsPopup(uid, formId) {
   }
 }
 
-
 // Close popup
 export function closeDetailsPopup() {
   const popup = document.getElementById("detailsPopup");
@@ -192,7 +193,6 @@ function formatDate(timestamp) {
   return date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
 }
 
-
 function formatPlatform(platform) {
   if (!platform) return "N/A";
   const value = platform.replace(/\s+/g, " ").trim().toLowerCase();
@@ -203,10 +203,68 @@ function formatPlatform(platform) {
     default: return "N/A";
   }
 }
+
+function toLocalDatetimeInputValue(dateLike) {
+  if (!dateLike) return "";
+  const ms = tsToMillis(dateLike);
+  if (!ms) return "";
+  const d = new Date(ms);
+  // format YYYY-MM-DDTHH:MM (no seconds) for datetime-local
+  const YYYY = d.getFullYear();
+  const MM = String(d.getMonth() + 1).padStart(2, "0");
+  const DD = String(d.getDate()).padStart(2, "0");
+  const hh = String(d.getHours()).padStart(2, "0");
+  const mm = String(d.getMinutes()).padStart(2, "0");
+  return `${YYYY}-${MM}-${DD}T${hh}:${mm}`;
+}
+
+function formatTimeRange(assigned_sched) {
+  if (!assigned_sched || (!assigned_sched.start && !assigned_sched.end)) return "Pending Schedule";
+  const sMs = tsToMillis(assigned_sched.start);
+  const eMs = tsToMillis(assigned_sched.end);
+  if (!sMs || !eMs) return "Pending Schedule";
+  const sDate = new Date(sMs);
+  const eDate = new Date(eMs);
+  const sStr = sDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+  const eStr = eDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+  return `${sStr} - ${eStr}`;
+}
+
+// START CALL stub - replace with your call integration
+async function startCall(submissionId) {
+  const currentUser = auth.currentUser;
+  if (!currentUser) {
+    alert("You must be logged in to start the call.");
+    return;
+  }
+
+  try {
+    const docRef = doc(db, "CounselingForm_Submissions", submissionId);
+    // mark as in_progress (owner-only)
+    await updateDoc(docRef, {
+      status: "in_progress",
+      started_by: currentUser.uid,
+      started_at: serverTimestamp()
+    });
+    // Replace with actual call-launch logic
+    alert("Starting call... (replace startCall() stub with your integration)");
+  } catch (err) {
+    console.error("Failed to mark in_progress:", err);
+    alert("Failed to start call. See console.");
+  }
+}
+
 // Create session card from submission (submissionId)
-async function createSessionCardFromData(submissionId, submission) {
+export async function createSessionCardFromData(submissionId, submission) {
   // submission is the object from snapshot.docs[i].data()
   if (!submission) return null;
+
+  const currentUid = auth.currentUser ? auth.currentUser.uid : null;
+
+  // if submission is taken by someone else -> do not render for this user
+  if (submission.taken_by && submission.taken_by !== currentUid) {
+    return null;
+  }
 
   // Fetch account data of the submission creator (cached)
   const accData = await getAccountData(submission.createdBy);
@@ -217,18 +275,45 @@ async function createSessionCardFromData(submissionId, submission) {
 
   const urgent = (submission.urgent || "").toString().trim().toLowerCase() === "yes";
 
+  // compute time text from assigned_sched if present
+  const timeText = (submission.assigned_sched) ? formatTimeRange(submission.assigned_sched) : "Pending Schedule";
+
+  // show Assigned Schedule instead of Preferred Schedule when assigned exists
+  const scheduleLine = submission.assigned_sched
+    ? `Assigned Schedule: <strong>${formatDate(submission.assigned_sched.start)} ${timeText}</strong>`
+    : `Preferred Schedule: <strong>${submission.preferredSchedule || "N/A"}</strong>`;
+
+  // determine button + wrapper alignment
+  let actionButtonHtml = '';
+  let actionBtnWrapperClass = '';
+
+  if (!submission.taken_by) {
+    // not taken
+    actionBtnWrapperClass = 'session-btn-right';
+    // keep class 'btn start' but use data-action to disambiguate behavior
+    actionButtonHtml = `<button class="btn start" data-action="take">Take Session</button>`;
+  } else if (submission.taken_by === currentUid) {
+    // taken by current user
+    actionBtnWrapperClass = 'session-btn-left';
+    actionButtonHtml = `<button class="btn start" data-action="start">Start Call</button>`;
+  } else {
+    // safety fallback (should not happen due to early return)
+    return null;
+  }
+
   card.innerHTML = `
       <h3>${formatDate(submission.createdAt)} - ${formatPlatform(submission.preferredPlatform)}</h3>
       <div class="session-mode-left">
         <img src="${avatarUrl || 'photos/pic_placeholder.png'}" alt="Avatar">
         <div class="session-details-left">
-          <div class="time">Pending Schedule</div>
+          <div class="time">${timeText}</div>
           <div class="name">${accData.fname || submission.fname || "N/A"} ${accData.lname || submission.lname || "N/A"}</div>
           <div class="info">${accData.studentId || submission.studentId || "N/A"}</div>
+          <div class="info schedule-line">${scheduleLine}</div>
         </div>
       </div>
-      <div class="session-btn-right">
-        <button class="btn start">Take Session</button>
+      <div class="${actionBtnWrapperClass}">
+        ${actionButtonHtml}
         <button class="btn details">See Details</button>
       </div>
   `;
@@ -241,9 +326,197 @@ async function createSessionCardFromData(submissionId, submission) {
     });
   }
 
+  // Single handler for the action button (button always has class 'btn start')
+  const actionBtn = card.querySelector(".btn.start");
+  if (actionBtn) {
+    actionBtn.addEventListener("click", (ev) => {
+      const action = actionBtn.dataset.action;
+      if (action === "take") {
+        openTakeSessionPopup(submissionId, submission);
+      } else if (action === "start") {
+        startCall(submissionId);
+      } else {
+        console.warn("Unknown action on session button:", action);
+      }
+    });
+  }
+
   return card;
 }
 
+async function openTakeSessionPopup(submissionId, submission) {
+  // create modal overlay
+  const overlay = document.createElement("div");
+  overlay.classList.add("take-session-overlay");
+  overlay.style.position = "fixed";
+  overlay.style.left = 0;
+  overlay.style.top = 0;
+  overlay.style.right = 0;
+  overlay.style.bottom = 0;
+  overlay.style.background = "rgba(0,0,0,0.4)";
+  overlay.style.display = "flex";
+  overlay.style.alignItems = "center";
+  overlay.style.justifyContent = "center";
+  overlay.style.zIndex = 9999;
+
+  // --- compute presets from submission.assigned_sched if present ---
+  let presetDate = "";
+  let presetStartTime = "";
+  let presetEndTime = "";
+
+  if (submission && submission.assigned_sched && submission.assigned_sched.start) {
+    const sMs = tsToMillis(submission.assigned_sched.start);
+    if (sMs) {
+      const sd = new Date(sMs);
+      const YYYY = sd.getFullYear();
+      const MM = String(sd.getMonth() + 1).padStart(2, "0");
+      const DD = String(sd.getDate()).padStart(2, "0");
+      presetDate = `${YYYY}-${MM}-${DD}`;
+
+      const sh = String(sd.getHours()).padStart(2, "0");
+      const sm = String(sd.getMinutes()).padStart(2, "0");
+      presetStartTime = `${sh}:${sm}`;
+    }
+  }
+
+  if (submission && submission.assigned_sched && submission.assigned_sched.end) {
+    const eMs = tsToMillis(submission.assigned_sched.end);
+    if (eMs) {
+      const ed = new Date(eMs);
+      const eh = String(ed.getHours()).padStart(2, "0");
+      const em = String(ed.getMinutes()).padStart(2, "0");
+      presetEndTime = `${eh}:${em}`;
+    }
+  }
+
+  // Build modal (date on top, two time inputs below)
+  overlay.innerHTML = `
+    <div class="take-session-modal" style="background:white; padding:20px; border-radius:8px; width: 420px; max-width: 95%;">
+      <h3 style="margin-top:0;">Assign Schedule</h3>
+
+      <div style="margin-bottom:12px;">
+        <label style="display:block; font-weight:600; margin-bottom:6px;">Date</label>
+        <input id="ts_date" type="date" style="width:100%; padding:8px;" value="${presetDate}">
+      </div>
+
+      <div style="display:flex; gap:8px; margin-bottom:12px;">
+        <div style="flex:1;">
+          <label style="display:block; font-weight:600; margin-bottom:6px;">Start time</label>
+          <input id="ts_time_start" type="time" style="width:100%; padding:8px;" value="${presetStartTime}">
+        </div>
+        <div style="flex:1;">
+          <label style="display:block; font-weight:600; margin-bottom:6px;">End time</label>
+          <input id="ts_time_end" type="time" style="width:100%; padding:8px;" value="${presetEndTime}">
+        </div>
+      </div>
+
+      <div style="color:#666; font-size:13px; margin-bottom:12px;">
+        Note: Choose a single date, then pick the start and end time for that date.
+      </div>
+
+      <div style="display:flex; gap:8px; justify-content:flex-end;">
+        <button id="ts_cancel" style="padding:8px 12px;">Cancel</button>
+        <button id="ts_submit" style="padding:8px 12px;">Submit</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+
+  // close handler
+  overlay.querySelector("#ts_cancel").addEventListener("click", () => {
+    if (document.body.contains(overlay)) document.body.removeChild(overlay);
+  });
+
+  // submit handler
+  overlay.querySelector("#ts_submit").addEventListener("click", async () => {
+    const dateVal = overlay.querySelector("#ts_date").value;            // YYYY-MM-DD
+    const startTimeVal = overlay.querySelector("#ts_time_start").value; // HH:MM
+    const endTimeVal = overlay.querySelector("#ts_time_end").value;     // HH:MM
+
+    if (!dateVal) {
+      alert("Please choose a date.");
+      return;
+    }
+    if (!startTimeVal || !endTimeVal) {
+      alert("Please enter both start and end times.");
+      return;
+    }
+
+    // compose full ISO-ish strings compatible with Date constructor
+    // Append seconds to avoid timezone oddities: "YYYY-MM-DDTHH:MM:00"
+    const startIso = `${dateVal}T${startTimeVal}:00`;
+    const endIso = `${dateVal}T${endTimeVal}:00`;
+
+    const startDate = new Date(startIso);
+    const endDate = new Date(endIso);
+
+    if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+      alert("Invalid date or time.");
+      return;
+    }
+
+    if (startDate.getTime() > endDate.getTime()) {
+      alert("Start must be before or equal to End.");
+      return;
+    }
+
+    const currentUser = auth.currentUser;
+    if (!currentUser) {
+      alert("You must be logged in to take a session.");
+      return;
+    }
+
+    const sY = startDate.getFullYear(), sM = startDate.getMonth(), sD = startDate.getDate();
+    const slotRef = doc(db, "CounselingForm_Submissions", submissionId);
+
+    try {
+      // transaction ensures single taker
+      await runTransaction(db, async (tx) => {
+        const snap = await tx.get(slotRef);
+
+        if (!snap.exists()) {
+          throw new Error("Session does not exist.");
+        }
+
+        const data = snap.data();
+
+        // If already taken by someone else -> abort
+        if (data.taken_by && data.taken_by !== currentUser.uid) {
+          throw new Error("Session already taken by another user.");
+        }
+
+        // Update to taken by current user and set assigned_sched
+        tx.update(slotRef, {
+          taken_by: currentUser.uid,
+          taken_when: serverTimestamp(),
+          assigned_sched: {
+            start: startDate,
+            end: endDate,
+            date: `${sY}-${String(sM+1).padStart(2,'0')}-${String(sD).padStart(2,'0')}`
+          },
+          status: "taken"
+        });
+      });
+
+      // onSnapshot will refresh UI. notify and close modal
+      alert("Session successfully taken.");
+      if (document.body.contains(overlay)) document.body.removeChild(overlay);
+
+    } catch (err) {
+      console.error("Failed to take session:", err);
+      alert(err.message || "Failed to take session. See console.");
+      if (document.body.contains(overlay)) document.body.removeChild(overlay);
+    }
+  });
+
+  // click outside modal to close
+  overlay.addEventListener("click", (ev) => {
+    if (ev.target === overlay) {
+      if (document.body.contains(overlay)) document.body.removeChild(overlay);
+    }
+  });
+}
 
 let _submissionsListenerUnsub = null;
 let _submissionsCache = []; // array of { id, data }
