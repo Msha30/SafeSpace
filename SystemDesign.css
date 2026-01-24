@@ -1914,18 +1914,18 @@ select option:focus {
     font-family: 'PublicSans', sans-serif; 
     display: block;
     font-size: 12px;
-    color: #666;
+    color: black;
     margin-bottom: 5px;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .detail-item p {
     min-height: 20px; 
-    background-color: #e8f0f7;
-    padding: 10px 15px;
+    padding-top: 5px;
     border-radius: 4px;
     font-size: 13px;
-    color: #000;
+    font-family: 'PublicSans', sans-serif;
+    color: #666;
     font-weight: 500;
     margin: 0;
 }
@@ -2619,13 +2619,14 @@ select option:focus {
 }
 
 .informationLeft {
-	width: 200px;
+	width: 240px;
 	background-color: #ffffff;
 	padding: 30px 30px 00px 30px;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-	border-radius: 5px 0 0 5px;
+	border-radius: 5px 0 0 5px; 
+    border-right: 1px solid #e4f4ff;
 	min-height: auto;
 }
 
@@ -2677,7 +2678,7 @@ select option:focus {
 
 .informationRight {
 	flex: 1;
-	padding: 30px 30px 0px 30px;
+	padding: 30px 30px 0px 60px;
 	font-family: 'PublicSans', sans-serif;
 	height: auto;
 }
@@ -2685,7 +2686,7 @@ select option:focus {
 .informationDetailRow {
 	display: flex;
 	gap: 20px;
-	margin-bottom: 35px;
+	margin-bottom: 25px;
 }
 
 .informationDetailItem {
@@ -2696,22 +2697,23 @@ select option:focus {
 	font-family: 'PublicSans', sans-serif;
 	display: block;
 	font-size: 12px;
-	color: #666;
+	color: black;
 	margin-bottom: 5px;
-	font-weight: 500;
+	font-weight: 600;
 }
 
 .informationDetailItem p {
-	min-height: 20px;
-	background-color: #e8f0f7;
-	padding: 15px 15px;
-	border-radius: 4px;
-	font-size: 13px;
-  font-family: 'PublicSans', sans-serif;
-	color: #000;
-	font-weight: normal;
-	margin: 0;
+    min-height: 20px; 
+    padding-top: 5px;
+    padding-bottom: 0;
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: 'PublicSans', sans-serif;
+    color: #666;
+    font-weight: 500;
+    margin: 0;
 }
+
 
 
 .peerScheduleHeader {
@@ -3051,7 +3053,6 @@ select option:focus {
   border: 2px solid #062b6b;
   outline: none;
   cursor: text;
-  -webkit-user-modify: read-write-plaintext-only;
 }
 
 .info-description[contenteditable="true"]:focus {
