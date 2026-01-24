@@ -1,4 +1,5 @@
 import { app, auth } from "./auth.js";
+import * as Call from "./call.js";
 import {
   getFirestore,
   collection,
@@ -239,18 +240,68 @@ async function startCall(submissionId) {
   }
 
   try {
+    // 1. Update submission status
     const docRef = doc(db, "CounselingForm_Submissions", submissionId);
-    // mark as in_progress (owner-only)
     await updateDoc(docRef, {
       status: "in_progress",
       started_by: currentUser.uid,
       started_at: serverTimestamp()
     });
-    // Replace with actual call-launch logic
-    alert("Starting call... (replace startCall() stub with your integration)");
+
+    // 2. SHOW THE VIDEO OVERLAY
+    const overlay = document.getElementById("videoCallOverlay");
+    const statusText = document.getElementById("callStatus");
+    if (overlay) overlay.style.display = "flex";
+    if (statusText) statusText.textContent = "Connecting...";
+
+    // 3. Get video elements
+    const localVideo = document.getElementById("callLocalVideo");
+    const remoteVideo = document.getElementById("callRemoteVideo");
+    
+    // 4. Start the WebRTC call
+    const mode = "video"; // or "audio"
+    const meteredApiKey = undefined; // Add your key here if you have one
+
+    const hangup = await Call.startCall({
+      submissionId,
+      mode,
+      meteredApiKey,
+      dom: { localVideo, remoteVideo },
+      onStatusChange(status) {
+        console.log("Call status:", status);
+        // Update the text on screen
+        if (statusText) {
+            if (status === "ringing") statusText.textContent = "Ringing...";
+            if (status === "connected") statusText.textContent = "Connected";
+            if (status === "ended") statusText.textContent = "Call Ended";
+        }
+      },
+      onError(err) {
+        console.error("Call error:", err);
+        alert("Call error: " + err.message);
+        // Hide overlay on error
+        if (overlay) overlay.style.display = "none";
+      }
+    });
+
+    // 5. Wire up the Hang Up button
+    const btnHangup = document.getElementById("btnHangup");
+    if (btnHangup) {
+      // Remove old listener to prevent duplicates if button clicked multiple times
+      const newBtn = btnHangup.cloneNode(true);
+      btnHangup.parentNode.replaceChild(newBtn, btnHangup);
+      
+      newBtn.addEventListener("click", () => {
+        hangup(); // Stop WebRTC
+        if (overlay) overlay.style.display = "none"; // Hide UI
+      });
+    }
+
   } catch (err) {
-    console.error("Failed to mark in_progress:", err);
+    console.error("Failed to start call:", err);
     alert("Failed to start call. See console.");
+    // Ensure overlay is hidden if start failed
+    document.getElementById("videoCallOverlay").style.display = "none";
   }
 }
 

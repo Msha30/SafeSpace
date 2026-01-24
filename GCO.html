@@ -776,6 +776,26 @@
 			</div>
 		</div>
 	</div>
+	<!---------------------------------------------------------------------------------------->	
+    <!---------------- VIDEO CALL OVERLAY -------------------------------------------------->
+    
+    <!-- This container is hidden by default and appears when a call starts -->
+    <div id="videoCallOverlay" class="video-call-overlay" style="display: none;">
+        
+        <!-- 1. Remote Video (The Student) - Full Screen -->
+        <video id="callRemoteVideo" autoplay playsinline></video>
+        
+        <!-- 2. Local Video (You/Counselor) - Small Box in Corner -->
+        <div class="local-video-wrapper">
+            <video id="callLocalVideo" autoplay playsinline muted></video>
+        </div>
+
+        <!-- 3. Call Controls -->
+        <div class="call-controls-wrapper">
+            <div id="callStatus" class="call-status">Connecting...</div>
+            <button id="btnHangup" class="btn-hangup">Hang Up</button>
+        </div>
+    </div>
 
 	<!---------------- SAVE FORM MODAL ------------------------------------------------------->
 	<div id="successPopup" class="saved-form-overlay">
