@@ -685,6 +685,22 @@ async function openTakeSessionPopup(submissionId, submission) {
   `;
 
   document.body.appendChild(overlay);
+  const dateInput = overlay.querySelector("#ts_date");
+
+  // Today's date in YYYY-MM-DD (local)
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth() + 1).padStart(2, "0");
+  const dd = String(today.getDate()).padStart(2, "0");
+  const todayStr = `${yyyy}-${mm}-${dd}`;
+
+  // Disallow past dates
+  dateInput.min = todayStr;
+
+  // If presetDate exists but is in the past, force it to today
+  if (presetDate && presetDate < todayStr) {
+    dateInput.value = todayStr;
+  }
 
   // close handler
   overlay.querySelector("#ts_cancel").addEventListener("click", () => {
