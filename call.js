@@ -1,4 +1,4 @@
-// call.js - Fixed version with proper bidirectional signaling
+// call.js - Enhanced version with multi-type calling support
 import { app, auth } from "./auth.js";
 import {
   getFirestore,
@@ -53,9 +53,11 @@ export function createPeerConnectionWithStream(localStream, iceServers, callback
   const config = getPeerConfiguration(iceServers);
   const pc = new RTCPeerConnection(config);
 
-  localStream.getTracks().forEach(track => {
-    pc.addTrack(track, localStream);
-  });
+  if (localStream) {
+    localStream.getTracks().forEach(track => {
+      pc.addTrack(track, localStream);
+    });
+  }
 
   if (callbacks.ontrack) {
     pc.ontrack = callbacks.ontrack;
@@ -76,14 +78,19 @@ export function createPeerConnectionWithStream(localStream, iceServers, callback
 
 export async function getCallStream(mode = "video") {
   const constraints = {
-    audio: true,
+    audio: mode === "audio" || mode === "video",
     video: mode === "video" ? {
       width: { ideal: 640 },
       height: { ideal: 480 },
       frameRate: { ideal: 30 }
     } : false
   };
-  return navigator.mediaDevices.getUserMedia(constraints);
+  
+  if (mode === "audio" || mode === "video") {
+    return navigator.mediaDevices.getUserMedia(constraints);
+  }
+  
+  return null; // For face-to-face, no media stream needed
 }
 
 export async function createCallDoc({ callId, callerId, createdBy, submissionId, type }) {
@@ -117,7 +124,6 @@ export function listenForAnswer(callRef, callbacks) {
   return unsub;
 }
 
-// FIXED: Listen for answer candidates from Android
 export function listenForRemoteAnswerCandidates(callRef, callbacks) {
   const col = collection(callRef, "answerCandidates");
   const q = query(col, orderBy("createdAt", "asc"));
@@ -127,7 +133,6 @@ export function listenForRemoteAnswerCandidates(callRef, callbacks) {
       if (change.type === "added") {
         const data = change.doc.data();
         
-        // Android sends nested candidate object
         if (data.candidate && callbacks.onCandidate) {
           callbacks.onCandidate(data.candidate);
         }
@@ -140,7 +145,7 @@ export function listenForRemoteAnswerCandidates(callRef, callbacks) {
 // HIGH-LEVEL START CALL (COUNSELOR SIDE)
 export async function startCall({
   submissionId,
-  mode = "video",
+  mode = "video", // "video", "audio", or "face-to-face"
   meteredApiKey,
   dom,
   onStatusChange,
@@ -156,6 +161,8 @@ export async function startCall({
   let callDocRef = null;
   let pc = null;
   let localStream = null;
+  let remoteAnswerCandidatesUnsub = null;
+  let answerUnsub = null;
 
   try {
     // 1) Get submission to find the student (createdBy)
@@ -171,28 +178,61 @@ export async function startCall({
       throw new Error("Submission has no createdBy field.");
     }
 
-    console.log("[call.js] Starting call to student:", createdBy);
+    console.log(`[call.js] Starting ${mode} call to student:`, createdBy);
 
-    // 2) Get local media
-    localStream = await getCallStream(mode);
+    // 2) Handle different call modes
+    if (mode === "face-to-face") {
+      // For face-to-face, just create call document without WebRTC
+      const callId = `call_${submissionId}_${Date.now()}`;
+      callDocRef = await createCallDoc({
+        callId,
+        callerId: currentUser.uid,
+        createdBy,
+        submissionId,
+        type: mode
+      });
 
-    if (dom && dom.localVideo) {
-      dom.localVideo.srcObject = localStream;
-      dom.localVideo.muted = true;
+      console.log("[call.js] Face-to-face session created:", callId);
+      if (onStatusChange) onStatusChange("in_session");
+
+      // Return cleanup function for face-to-face
+      return function endSession() {
+        console.log("[call.js] Ending face-to-face session...");
+        
+        if (callDocRef) {
+          updateDoc(callDocRef, { status: "ended" }).catch(console.error);
+        }
+      };
     }
 
-    // 3) Get ICE servers (optional)
+    // 3) Get local media for audio/video calls
+    localStream = await getCallStream(mode);
+
+    if (dom) {
+      if (mode === "video" && dom.localVideo) {
+        dom.localVideo.srcObject = localStream;
+        dom.localVideo.muted = true;
+      }
+      
+      // For audio calls, hide video elements
+      if (mode === "audio") {
+        if (dom.localVideo) dom.localVideo.style.display = 'none';
+        if (dom.remoteVideo) dom.remoteVideo.style.display = 'none';
+      }
+    }
+
+    // 4) Get ICE servers (optional)
     let iceServers = null;
     if (meteredApiKey) {
       iceServers = await getIceServersFromMetered(meteredApiKey);
     }
 
-    // 4) Create PeerConnection
+    // 5) Create PeerConnection
     pc = createPeerConnectionWithStream(localStream, iceServers, {
       ontrack(event) {
         console.log("[call.js] Remote track received");
         const remoteStream = event.streams[0];
-        if (dom && dom.remoteVideo) {
+        if (dom && dom.remoteVideo && mode === "video") {
           dom.remoteVideo.srcObject = remoteStream;
         }
       },
@@ -201,7 +241,6 @@ export async function startCall({
         
         console.log("[call.js] New ICE candidate");
         
-        // Store in format Android expects
         addDoc(collection(callDocRef, "offerCandidates"), {
           candidate: {
             candidate: event.candidate.candidate,
@@ -224,7 +263,7 @@ export async function startCall({
       }
     });
 
-    // 5) Create call document
+    // 6) Create call document
     const callId = `call_${submissionId}_${Date.now()}`;
     callDocRef = await createCallDoc({
       callId,
@@ -235,15 +274,13 @@ export async function startCall({
     });
 
     console.log("[call.js] Call document created:", callId);
-
     if (onStatusChange) onStatusChange("ringing");
 
-    // 6) CRITICAL: Listen for answer candidates from Android
-    const remoteAnswerCandidatesUnsub = listenForRemoteAnswerCandidates(callDocRef, {
+    // 7) Listen for answer candidates from Android
+    remoteAnswerCandidatesUnsub = listenForRemoteAnswerCandidates(callDocRef, {
       onCandidate(candidateData) {
         console.log("[call.js] Received answer candidate from Android");
         
-        // candidateData already contains {candidate, sdpMid, sdpMLineIndex}
         const candidate = new RTCIceCandidate({
           candidate: candidateData.candidate,
           sdpMid: candidateData.sdpMid,
@@ -259,10 +296,10 @@ export async function startCall({
       }
     });
 
-    // 7) Create offer
+    // 8) Create offer
     console.log("[call.js] Creating offer...");
     const offer = await pc.createOffer({
-      offerToReceiveVideo: true,
+      offerToReceiveVideo: mode === "video",
       offerToReceiveAudio: true
     });
     
@@ -279,8 +316,8 @@ export async function startCall({
 
     console.log("[call.js] Offer sent to Firestore");
 
-    // 8) Listen for answer from Android
-    const answerUnsub = listenForAnswer(callDocRef, {
+    // 9) Listen for answer from Android
+    answerUnsub = listenForAnswer(callDocRef, {
       onAnswer(answerData) {
         if (pc.currentRemoteDescription) {
           console.log("[call.js] Already have remote description, ignoring");
@@ -301,19 +338,21 @@ export async function startCall({
       }
     });
 
-    // 9) Return cleanup function
+    // 10) Return cleanup function
     return function hangup() {
       console.log("[call.js] Hanging up...");
       
-      remoteAnswerCandidatesUnsub();
-      answerUnsub();
+      if (remoteAnswerCandidatesUnsub) remoteAnswerCandidatesUnsub();
+      if (answerUnsub) answerUnsub();
       
       if (pc) {
         pc.close();
+        pc = null;
       }
       
       if (localStream) {
         localStream.getTracks().forEach(track => track.stop());
+        localStream = null;
       }
 
       if (dom && dom.localVideo) {
@@ -332,6 +371,8 @@ export async function startCall({
     console.error("[call.js] startCall error:", err);
     
     // Cleanup on error
+    if (remoteAnswerCandidatesUnsub) remoteAnswerCandidatesUnsub();
+    if (answerUnsub) answerUnsub();
     if (pc) pc.close();
     if (localStream) {
       localStream.getTracks().forEach(track => track.stop());

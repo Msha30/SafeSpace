@@ -4,6 +4,7 @@ import {
   getFirestore,
   collection,
   getDocs,
+  deleteDoc,
   addDoc,
   setDoc,
   doc,
@@ -20,6 +21,9 @@ const db = getFirestore(app);
 const avatarCache = new Map();
 const accountCache = new Map();
 const formCache = new Map();
+
+let activeCallCleanup = null;
+let activeCallId = null;
 
 // Fetch avatar with cache
 async function getAvatarUrl(uid) {
@@ -240,27 +244,59 @@ async function startCall(submissionId) {
   }
 
   try {
-    // 1. Update submission status
+    // 1. Get submission data to determine call type
     const docRef = doc(db, "CounselingForm_Submissions", submissionId);
+    const submissionSnap = await getDoc(docRef);
+    
+    if (!submissionSnap.exists()) {
+      alert("Submission not found.");
+      return;
+    }
+
+    const submission = submissionSnap.data();
+    const preferredPlatform = (submission.preferredPlatform || "").toLowerCase().trim();
+    
+    // Determine call mode based on preferred platform
+    let mode = "video"; // default
+    if (preferredPlatform.includes("call") && !preferredPlatform.includes("video")) {
+      mode = "audio";
+    } else if (preferredPlatform.includes("face to face") || preferredPlatform.includes("in-person")) {
+      mode = "face-to-face";
+    }
+
+    console.log("[counseling.js] Starting call with mode:", mode);
+
+    // 2. Update submission status
     await updateDoc(docRef, {
       status: "in_progress",
       started_by: currentUser.uid,
       started_at: serverTimestamp()
     });
 
-    // 2. SHOW THE VIDEO OVERLAY
+    // 3. Handle Face-to-Face differently
+    if (mode === "face-to-face") {
+      showFaceToFaceOverlay(submissionId);
+      return;
+    }
+
+    // 4. SHOW THE VIDEO/AUDIO CALL OVERLAY
     const overlay = document.getElementById("videoCallOverlay");
     const statusText = document.getElementById("callStatus");
-    if (overlay) overlay.style.display = "flex";
-    if (statusText) statusText.textContent = "Connecting...";
-
-    // 3. Get video elements
     const localVideo = document.getElementById("callLocalVideo");
     const remoteVideo = document.getElementById("callRemoteVideo");
     
-    // 4. Start the WebRTC call
-    const mode = "video"; // or "audio"
-    const meteredApiKey = undefined; // Add your key here if you have one
+    if (overlay) {
+      overlay.style.display = "flex";
+      
+      // Add appropriate class for styling
+      overlay.classList.remove('audio-call', 'video-call');
+      overlay.classList.add(mode === "audio" ? 'audio-call' : 'video-call');
+    }
+    
+    if (statusText) statusText.textContent = "Connecting...";
+
+    // 5. Start the WebRTC call
+    const meteredApiKey = undefined;
 
     const hangup = await Call.startCall({
       submissionId,
@@ -269,39 +305,190 @@ async function startCall(submissionId) {
       dom: { localVideo, remoteVideo },
       onStatusChange(status) {
         console.log("Call status:", status);
-        // Update the text on screen
         if (statusText) {
-            if (status === "ringing") statusText.textContent = "Ringing...";
-            if (status === "connected") statusText.textContent = "Connected";
-            if (status === "ended") statusText.textContent = "Call Ended";
+          if (status === "ringing") statusText.textContent = "Ringing...";
+          if (status === "connected") statusText.textContent = "Connected";
+          if (status === "ended") {
+            statusText.textContent = "Call Ended";
+            showCallCompleteButton(submissionId);
+          }
         }
       },
       onError(err) {
         console.error("Call error:", err);
         alert("Call error: " + err.message);
-        // Hide overlay on error
         if (overlay) overlay.style.display = "none";
+        activeCallCleanup = null;
+        activeCallId = null;
       }
     });
 
-    // 5. Wire up the Hang Up button
+    // Store cleanup function globally
+    activeCallCleanup = hangup;
+    activeCallId = submissionId;
+
+    // 6. Wire up the Hang Up button
     const btnHangup = document.getElementById("btnHangup");
     if (btnHangup) {
-      // Remove old listener to prevent duplicates if button clicked multiple times
       const newBtn = btnHangup.cloneNode(true);
       btnHangup.parentNode.replaceChild(newBtn, btnHangup);
       
       newBtn.addEventListener("click", () => {
-        hangup(); // Stop WebRTC
-        if (overlay) overlay.style.display = "none"; // Hide UI
+        if (activeCallCleanup) {
+          activeCallCleanup();
+          activeCallCleanup = null;
+        }
+        showCallCompleteButton(submissionId);
       });
     }
 
   } catch (err) {
     console.error("Failed to start call:", err);
     alert("Failed to start call. See console.");
-    // Ensure overlay is hidden if start failed
     document.getElementById("videoCallOverlay").style.display = "none";
+    activeCallCleanup = null;
+    activeCallId = null;
+  }
+}
+
+function showFaceToFaceOverlay(submissionId) {
+  const overlay = document.getElementById("faceToFaceOverlay");
+  if (!overlay) {
+    // Create overlay if it doesn't exist
+    const newOverlay = document.createElement("div");
+    newOverlay.id = "faceToFaceOverlay";
+    newOverlay.className = "face-to-face-overlay";
+    newOverlay.innerHTML = `
+      <div class="face-to-face-content">
+        <div class="face-to-face-icon">
+          <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+        </div>
+        <h2>Face-to-Face Session</h2>
+        <p>Session is currently in progress</p>
+        <div class="face-to-face-timer" id="sessionTimer">00:00</div>
+        <button id="btnEndSession" class="btn-end-session">End Session</button>
+      </div>
+    `;
+    document.body.appendChild(newOverlay);
+  }
+  
+  const faceOverlay = document.getElementById("faceToFaceOverlay");
+  faceOverlay.style.display = "flex";
+  
+  // Start timer
+  startSessionTimer();
+  
+  // End session button
+  const btnEnd = document.getElementById("btnEndSession");
+  if (btnEnd) {
+    btnEnd.onclick = () => {
+      stopSessionTimer();
+      showCallCompleteButton(submissionId);
+    };
+  }
+}
+
+let timerInterval = null;
+let timerSeconds = 0;
+
+function startSessionTimer() {
+  timerSeconds = 0;
+  const timerEl = document.getElementById("sessionTimer");
+  
+  timerInterval = setInterval(() => {
+    timerSeconds++;
+    const mins = Math.floor(timerSeconds / 60).toString().padStart(2, '0');
+    const secs = (timerSeconds % 60).toString().padStart(2, '0');
+    if (timerEl) timerEl.textContent = `${mins}:${secs}`;
+  }, 1000);
+}
+
+function stopSessionTimer() {
+  if (timerInterval) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
+}
+
+function showCallCompleteButton(submissionId) {
+  const videoOverlay = document.getElementById("videoCallOverlay");
+  const faceOverlay = document.getElementById("faceToFaceOverlay");
+  
+  // Hide hangup button, show complete button
+  const btnHangup = document.getElementById("btnHangup");
+  if (btnHangup) btnHangup.style.display = "none";
+  
+  const btnEndSession = document.getElementById("btnEndSession");
+  if (btnEndSession) btnEndSession.style.display = "none";
+  
+  // Create complete button if it doesn't exist
+  let completeBtn = document.getElementById("btnCompleteCall");
+  if (!completeBtn) {
+    completeBtn = document.createElement("button");
+    completeBtn.id = "btnCompleteCall";
+    completeBtn.className = "btn-complete-call";
+    completeBtn.textContent = "Mark as Complete";
+    
+    // Add to appropriate overlay
+    if (videoOverlay && videoOverlay.style.display !== "none") {
+      const controlsWrapper = videoOverlay.querySelector(".call-controls-wrapper");
+      if (controlsWrapper) controlsWrapper.appendChild(completeBtn);
+    } else if (faceOverlay && faceOverlay.style.display !== "none") {
+      const content = faceOverlay.querySelector(".face-to-face-content");
+      if (content) content.appendChild(completeBtn);
+    }
+  }
+  
+  completeBtn.style.display = "block";
+  completeBtn.onclick = async () => {
+    await completeCall(submissionId);
+    
+    // Hide overlays
+    if (videoOverlay) videoOverlay.style.display = "none";
+    if (faceOverlay) faceOverlay.style.display = "none";
+    
+    // Reset
+    if (completeBtn) completeBtn.remove();
+    if (btnHangup) btnHangup.style.display = "block";
+    if (btnEndSession) btnEndSession.style.display = "block";
+    
+    activeCallCleanup = null;
+    activeCallId = null;
+  };
+}
+
+async function completeCall(submissionId) {
+  try {
+    const docRef = doc(db, "CounselingForm_Submissions", submissionId);
+    
+    await updateDoc(docRef, {
+      status: "completed",
+      completed_at: serverTimestamp(),
+      completed_by: auth.currentUser.uid
+    });
+    
+    // Delete any active call documents
+    const callsRef = collection(db, "calls");
+    const callsSnapshot = await getDocs(callsRef);
+    
+    for (const callDoc of callsSnapshot.docs) {
+      const callData = callDoc.data();
+      if (callData.submissionId === submissionId) {
+        await deleteDoc(callDoc.ref);
+      }
+    }
+    
+    console.log("[counseling.js] Call completed and cleaned up");
+    alert("Session marked as complete!");
+    
+  } catch (err) {
+    console.error("Error completing call:", err);
+    alert("Failed to complete session. Please try again.");
   }
 }
 
@@ -628,7 +815,7 @@ async function renderSubmissionsFromCache() {
   // Copy array so sort won't mutate original
   const items = _submissionsCache.slice();
 
-  // sort comparator by createdAt millis
+  // Sort comparator by createdAt millis
   items.sort((a, b) => {
     const ta = tsToMillis(a.data.createdAt);
     const tb = tsToMillis(b.data.createdAt);
@@ -644,6 +831,14 @@ async function renderSubmissionsFromCache() {
 
   // Build cards sequentially, but we need to await account fetch inside createSessionCardFromData
   for (const item of items) {
+    
+    // --- NEW: Check if the session is completed ---
+    // If the status is "completed", skip this iteration so it doesn't show up.
+    if (item.data.status === "completed") {
+      console.log("Skipping completed submission:", item.id);
+      continue; 
+    }
+
     try {
       const cardElement = await createSessionCardFromData(item.id, item.data);
       if (cardElement) container.appendChild(cardElement);
