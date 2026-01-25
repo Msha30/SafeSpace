@@ -41,6 +41,31 @@ async function getAvatarUrl(uid) {
   }
 }
 
+export function resolveAvatarUrl(avatarUrl) {
+    if (!avatarUrl) return 'photos/pic_placeholder.png';
+
+    // CASE 1: Student Presets (Local Files)
+    if (avatarUrl.startsWith('image_')) {
+        const mapping = {
+            'image_1': 'photos/avatar_panda.png',
+            'image_2': 'photos/avatar_butterfly.png',
+            'image_3': 'photos/avatar_wolf.png',
+            'image_4': 'photos/avatar_buffalo.png'
+        };
+        return mapping[avatarUrl] || 'photos/pic_placeholder.png';
+    }
+
+    // CASE 2: Peer URLs (Web/Supabase)
+    if (avatarUrl.startsWith('http')) {
+        // Append timestamp to force browser to reload the image immediately
+        // if the user just changed it.
+        const separator = avatarUrl.includes('?') ? '&' : '?';
+        return `${avatarUrl}${separator}t=${Date.now()}`;
+    }
+
+    return avatarUrl;
+}
+
 // Fetch account data with cache
 async function getAccountData(uid) {
   if (!uid) return {};
@@ -105,7 +130,7 @@ export async function openDetailsPopup(uid, formId) {
 
     // LEFT SIDE: profile & name
     const img = popup.querySelector(".popup-profile-img");
-    if (img) img.src = accData.avatarUrl || "photos/pic_placeholder.png";
+    if (img) img.src = resolveAvatarUrl(accData.avatarUrl) || "photos/pic_placeholder.png";
 
     const nameElem = popup.querySelector(".popup-left h2");
     if (nameElem) nameElem.textContent = `${accData.lname || ""}${accData.lname && accData.fname ? ", " : ""}${accData.fname || ""}`.trim();
@@ -506,7 +531,7 @@ export async function createSessionCardFromData(submissionId, submission) {
 
   // Fetch account data of the submission creator (cached)
   const accData = await getAccountData(submission.createdBy);
-  const avatarUrl = accData.avatarUrl || (submission.createdBy ? await getAvatarUrl(submission.createdBy) : null);
+  const avatarUrl = resolveAvatarUrl(accData.avatarUrl) || (submission.createdBy ? await getAvatarUrl(submission.createdBy) : null);
 
   const card = document.createElement("div");
   card.classList.add("card-session");
@@ -542,7 +567,7 @@ export async function createSessionCardFromData(submissionId, submission) {
   card.innerHTML = `
       <h3>${formatDate(submission.createdAt)} - ${formatPlatform(submission.preferredPlatform)}</h3>
       <div class="session-mode-left">
-        <img src="${avatarUrl || 'photos/pic_placeholder.png'}" alt="Avatar">
+        <img src="${resolveAvatarUrl(avatarUrl) || 'photos/pic_placeholder.png'}" alt="Avatar">
         <div class="session-details-left">
           <div class="time">${timeText}</div>
           <div class="name">${accData.fname || submission.fname || "N/A"} ${accData.lname || submission.lname || "N/A"}</div>

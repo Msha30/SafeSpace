@@ -36,6 +36,32 @@ const programs = [
     "BS Business Administration"
 ];
 
+export function resolveAvatarUrl(avatarUrl) {
+    if (!avatarUrl) return 'photos/pic_placeholder.png';
+
+    // CASE 1: Student Presets (Local Files)
+    if (avatarUrl.startsWith('image_')) {
+        const mapping = {
+            'image_1': 'photos/avatar_panda.png',
+            'image_2': 'photos/avatar_butterfly.png',
+            'image_3': 'photos/avatar_wolf.png',
+            'image_4': 'photos/avatar_buffalo.png'
+        };
+        return mapping[avatarUrl] || 'photos/pic_placeholder.png';
+    }
+
+    // CASE 2: Peer URLs (Web/Supabase)
+    if (avatarUrl.startsWith('http')) {
+        // Append timestamp to force browser to reload the image immediately
+        // if the user just changed it.
+        const separator = avatarUrl.includes('?') ? '&' : '?';
+        return `${avatarUrl}${separator}t=${Date.now()}`;
+    }
+
+    return avatarUrl;
+}
+
+
 /**
  * Fetch all users from Firebase
  * @param {boolean} forceRefresh - Force refresh ignoring cache
@@ -261,7 +287,7 @@ export function populatePeerTable() {
 
     row.innerHTML = `
       <td class="table_user">
-        <img src="${peer.avatarUrl}" onerror="this.src='photos/pic_placeholder.png'">
+        <img src="${resolveAvatarUrl(peer.avatarUrl)}" onerror="this.src='photos/pic_placeholder.png'">
       </td>
       <td>
         <div class="name" style="cursor:pointer">
@@ -286,7 +312,7 @@ function openPerPeerPage(peer) {
   document.getElementById("perPeerPage").style.display = "block";
 
   document.querySelector(".informationProfileImg").src =
-    peer.avatarUrl || "photos/pic_placeholder.png";
+    resolveAvatarUrl(peer.avatarUrl) || "photos/pic_placeholder.png";
 
   document.getElementById("peerNameTitle").textContent = peer.fullName;
   document.getElementById("peerInfo_lastactive").textContent = peer.lastActive;
@@ -359,7 +385,7 @@ function renderPeerRows(peers, tbody) {
 
     tr.innerHTML = `
       <td class="table_user">
-        <img src="${peer.avatarUrl}" onerror="this.src='photos/pic_placeholder.png'">
+        <img src="${resolveAvatarUrl(peer.avatarUrl)}" onerror="this.src='photos/pic_placeholder.png'">
       </td>
       <td>
         <div class="name" style="cursor:pointer;">
@@ -400,7 +426,7 @@ function createUserRow(user, options = {}) {
 
   row.innerHTML = `
     <td class="table_user">
-      <img src="${user.avatarUrl}" alt="${user.fullName}" onerror="this.src='photos/pic_placeholder.png'">
+      <img src="${resolveAvatarUrl(user.avatarUrl)}" alt="${user.fullName}" onerror="this.src='photos/pic_placeholder.png'">
     </td>
     <td class="name" ${onClick ? 'style="cursor: pointer;"' : ''}>
       ${user.fullName}<br>
@@ -688,7 +714,7 @@ export async function openUsersPopup(uid) {
 
     // Left side
     popup.querySelector(".popup-profile-img").src =
-      data.avatarUrl || "photos/pic_placeholder.png";
+      resolveAvatarUrl(data.avatarUrl) || "photos/pic_placeholder.png";
 
     popup.querySelector(".popup-left h2").textContent =
       `${data.lname || ""}, ${data.fname || ""}`;
