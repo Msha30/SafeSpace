@@ -784,27 +784,42 @@ async function openTakeSessionPopup(submissionId, submission) {
 let _submissionsListenerUnsub = null;
 let _submissionsCache = []; // array of { id, data }
 let _currentSort = 'newest'; // default
+let _currentScheduleSort = 'newest';
 
 export async function loadCounselingForms() {
   const container = document.getElementById("sessions-container");
   if (!container) return;
 
-  // attach sort select handler
-  const sortSelect = document.querySelector('#guidance-counseling .btn-white');
-  if (sortSelect && !sortSelect._listenerAttached) {
-    // set initial value if needed
-    sortSelect.value = _currentSort;
-    sortSelect.addEventListener('change', (ev) => {
+  // --- LOGIC FOR THE SESSIONS LIST DROPDOWN (First row_nav) ---
+  const sessionsSortSelect = document.querySelector('#guidance-counseling .row-nav:first-of-type .btn-white');
+  if (sessionsSortSelect && !sessionsSortSelect._listenerAttached) {
+    sessionsSortSelect.value = _currentSort;
+    sessionsSortSelect.addEventListener('change', (ev) => {
       _currentSort = ev.target.value || 'newest';
-      renderSubmissionsFromCache();
+      renderSubmissionsFromCache(); // Re-render sessions list only
     });
-    sortSelect._listenerAttached = true;
+    sessionsSortSelect._listenerAttached = true;
+  }
+
+  // --- NEW LOGIC FOR THE SCHEDULE DROPDOWN (Second row_nav) ---
+  // We target the row_nav that sits immediately before #schedule
+  const scheduleRowNav = document.getElementById("schedule").previousElementSibling;
+  if (scheduleRowNav) {
+    const scheduleSortSelect = scheduleRowNav.querySelector('.btn-white');
+    if (scheduleSortSelect && !scheduleSortSelect._scheduleListenerAttached) {
+      scheduleSortSelect.value = _currentScheduleSort; // Set initial value
+      scheduleSortSelect.addEventListener('change', (ev) => {
+        _currentScheduleSort = ev.target.value || 'newest';
+        renderSchedule(); // Re-render schedule row only
+      });
+      scheduleSortSelect._scheduleListenerAttached = true;
+    }
   }
 
   // clear container while we attach listener
   container.innerHTML = `<div class="loading">Loading...</div>`;
 
-  // if already listening, unsubscribe first to avoid duplicate listeners
+  // if already listening, unsubscribe first
   if (typeof _submissionsListenerUnsub === 'function') {
     _submissionsListenerUnsub();
     _submissionsListenerUnsub = null;
@@ -813,14 +828,15 @@ export async function loadCounselingForms() {
   try {
     const collRef = collection(db, "CounselingForm_Submissions");
 
-    // Realtime listener: update cache and render on every change
     _submissionsListenerUnsub = onSnapshot(collRef, (snapshot) => {
-      _submissionsCache = snapshot.docs.map(docSnap => ({
+      _submissionsCache = snapshot.docs.map((docSnap) => ({
         id: docSnap.id,
-        data: docSnap.data()
+        data: docSnap.data(),
       }));
-      // render according to current sort
+
+      // Render both views
       renderSubmissionsFromCache();
+      renderSchedule(); 
     }, (err) => {
       console.error("Counseling submissions listener error:", err);
       container.innerHTML = `<div class="error">Failed to load submissions</div>`;
@@ -830,7 +846,6 @@ export async function loadCounselingForms() {
     container.innerHTML = `<div class="error">Failed to load submissions</div>`;
   }
 }
-
 async function renderSubmissionsFromCache() {
   const container = document.getElementById("sessions-container");
   if (!container) return;
@@ -873,6 +888,120 @@ async function renderSubmissionsFromCache() {
       console.error("Failed to render submission card", item.id, err);
     }
   }
+}
+
+function renderSchedule() {
+  const container = document.getElementById("schedule");
+  if (!container) return;
+
+  // 1. Clear existing schedule cards
+  container.innerHTML = "";
+
+  // 2. Calculate the Current Week (Monday to Sunday)
+  const today = new Date();
+  const day = today.getDay() || 7; // Get current day (1-7), making Sunday 7
+  const monday = new Date(today);
+  monday.setDate(today.getDate() - day + 1); // Set to Monday
+  monday.setHours(0, 0, 0, 0); // Normalize time to 00:00:00
+
+  // Generate array of dates for Mon-Sun of this week
+  const daysOfWeek = [];
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(monday);
+    d.setDate(monday.getDate() + i);
+    daysOfWeek.push(d);
+  }
+
+  // 3. Filter and Sort assigned requests from cache
+  let assignedItems = _submissionsCache.filter((item) => {
+    const data = item.data;
+    // Must have assigned_sched and must not be completed
+    if (!data.assigned_sched || !data.assigned_sched.start || data.status === "completed") {
+      return false;
+    }
+
+    const startMs = tsToMillis(data.assigned_sched.start);
+    const itemDate = new Date(startMs);
+
+    // Check if item falls within the current week range
+    const startOfWeekMs = daysOfWeek[0].getTime();
+    const endOfWeekMs = new Date(daysOfWeek[6]).setHours(23, 59, 59, 999);
+
+    return startMs >= startOfWeekMs && startMs <= endOfWeekMs;
+  });
+
+  // 4. Sort items based on the schedule dropdown selection (Newest/Oldest)
+  // This controls the order of items *within* the day
+  assignedItems.sort((a, b) => {
+    const tA = tsToMillis(a.data.assigned_sched.start);
+    const tB = tsToMillis(b.data.assigned_sched.start);
+    return _currentScheduleSort === "newest" ? tB - tA : tA - tB;
+  });
+
+  // 5. Handle "Reverse Week Thingy" for the row_sched
+  // If Newest, display Sunday -> Monday. If Oldest, Monday -> Sunday.
+  const displayDays = _currentScheduleSort === "newest" ? [...daysOfWeek].reverse() : daysOfWeek;
+  const dayNames = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
+  // Reverse day names if we reversed the days
+  const displayDayNames = _currentScheduleSort === "newest" ? [...dayNames].reverse() : dayNames;
+
+  // 6. Build the Calendar UI
+  displayDays.forEach((dateObj, index) => {
+    const dayCard = document.createElement("div");
+    dayCard.className = "card-schedule";
+
+    const dateNum = dateObj.getDate();
+    const dayName = displayDayNames[index];
+
+    // Header: Date and Day Name
+    dayCard.innerHTML = `
+      <h4 class="sched-date">${dateNum}</h4>
+      <h5 style="padding-left: 30px;">${dayName}</h5>
+    `;
+
+    // Find items that specifically match this day
+    const daysItems = assignedItems.filter((item) => {
+      const startMs = tsToMillis(item.data.assigned_sched.start);
+      const itemDate = new Date(startMs);
+      return (
+        itemDate.getDate() === dateObj.getDate() &&
+        itemDate.getMonth() === dateObj.getMonth() &&
+        itemDate.getFullYear() === dateObj.getFullYear()
+      );
+    });
+
+    // Append items OR Placeholder
+    if (daysItems.length === 0) {
+      // --- PLACEHOLDER ---
+      const schedDiv = document.createElement("div");
+      schedDiv.className = "sched";
+      schedDiv.style.border = "1px dashed #ccc";
+      schedDiv.style.background = "#fcfcfc";
+      schedDiv.innerHTML = `<p class="sched-type" style="color:#999; font-weight:normal; font-style:italic;">No Scheduled Counseling</p>`;
+      dayCard.appendChild(schedDiv);
+    } else {
+      // --- RENDER ITEMS ---
+      daysItems.forEach((item) => {
+        const schedDiv = document.createElement("div");
+        schedDiv.className = "sched";
+
+        const platform = formatPlatform(item.data.preferredPlatform);
+        const timeRange = formatTimeRange(item.data.assigned_sched);
+
+        schedDiv.innerHTML = `
+          <p class="sched-type">${platform}</p>
+          <p class="sched-time">${timeRange}</p>
+        `;
+
+        schedDiv.style.cursor = "pointer";
+        schedDiv.onclick = () => openDetailsPopup(item.data.createdBy, item.id);
+
+        dayCard.appendChild(schedDiv);
+      });
+    }
+
+    container.appendChild(dayCard);
+  });
 }
 
 
