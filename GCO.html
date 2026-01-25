@@ -19,6 +19,7 @@
 		import { confirmPost, handleFileUpload, removeFile, showPostConfirm, closePostConfirm, toggleAnnouncementDropdown,
         selectProfile, initAnnouncementDropdown, loadAnnouncementHistory } from "./announcement.js";
 		import { initializeSettingsLogs } from "./settings_logs.js";
+		import { submitReport, uploadToSupabase } from "./report.js";
 
 		// Window Global Assignments
 		window.createSupportGroup = createSupportGroup;
@@ -39,6 +40,10 @@
 		window.toggleAnnouncementDropdown = toggleAnnouncementDropdown;
 		window.selectProfile = selectProfile;
 		window.initAnnouncementDropdown = initAnnouncementDropdown;
+
+		window.submitReport = submitReport;
+
+		window.uploadToSupabase = uploadToSupabase;
 
 		window.addEventListener("DOMContentLoaded", async () => {
 			// Allow only authenticated GCO users
@@ -2099,14 +2104,14 @@
 						<h3>Report to IT Admin</h3>
 						<form>
 							 <div class="options">
-								<label><input type="radio" name="type"> Technical</label>
-								<label><input type="radio" name="type"> Edit</label>
-								<label><input type="radio" name="type"> Account</label>
-								<label><input type="radio" name="type"> Removal</label>
-								<label><input type="radio" name="type"> Chat History</label>
-								<label><input type="radio" name="type"> Other</label>
-								<label><input type="radio" name="type"> Update</label>
-							 </div>
+								<label><input type="radio" name="type" value="Technical"> Technical</label>
+								<label><input type="radio" name="type" value="Edit"> Edit</label>
+								<label><input type="radio" name="type" value="Account"> Account</label>
+								<label><input type="radio" name="type" value="Removal"> Removal</label>
+								<label><input type="radio" name="type" value="Chat History"> Chat History</label>
+								<label><input type="radio" name="type" value="Other"> Other</label>
+								<label><input type="radio" name="type" value="Update"> Update</label>
+							</div>
 							 <textarea placeholder="Report Description..." class="report"></textarea>
 							<div class="file-boxes2">
 								<div class="file2"></div>
@@ -2423,29 +2428,6 @@
 
 		updateNotificationBadge(1);
 
-		/* COMMENTED OUT TO REMOVE ERRORS
-
-		// Popup logic REFERENCE ONLY------------------------------------------------------------------
-		const openBtn = document.getElementById("openPopupBtn");
-		const closeBtn = document.getElementById("closePopupBtn");
-		const overlay = document.getElementById("popupOverlay");
-
-		openBtn.addEventListener("click", () => {
-		overlay.classList.toggle("hidden");
-		});
-
-		closeBtn.addEventListener("click", () => {
-		overlay.classList.add("hidden");
-		});
-
-		overlay.addEventListener("click", (e) => {
-		if (e.target === overlay) {
-		overlay.classList.add("hidden");
-		}
-		});
-
-		//TRY
-		*/
 
 		const gcoReportsData = [
 			{ date: '2025-01-10', student: 'Doe, John A.', type: 'video_call', assignedTo: 'Doe, John A.', role: 'GCO Counselor' },
