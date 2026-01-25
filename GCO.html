@@ -10,22 +10,15 @@
 	<script type="module">
 		import { protectDashboard, logout } from "./auth.js";
 		
-		// 1. Remove updateUserCounts, fetchAllUsers, etc., from here as they are now handled internally by overview.js
-		import { 
-			initializeUserManagement, 
-			initializePeerFacilitators, 
-			openUsersPopup,
-			closeUsersPopup 
+		import { initializeUserManagement, initializePeerFacilitators, openUsersPopup, closeUsersPopup 
 		} from './userManagement.js';
-		
-		// 2. Import the overview functions from the new file
 		import { refreshProgramsDashboard } from "./overview.js";
-		
 		import { loadCounselingForms, loadRequestFormFromFirebase, saveRequestFormToFirebase } from "./counseling.js";
 		import { initSupportGroups, createSupportGroup, openCreateGroupModal, closeCreateGroupModal,
 				triggerImageUpload, handleImageUpload } from "./supportgroup.js";
 		import { confirmPost, handleFileUpload, removeFile, showPostConfirm, closePostConfirm, toggleAnnouncementDropdown,
         selectProfile, initAnnouncementDropdown, loadAnnouncementHistory } from "./announcement.js";
+		import { initializeSettingsLogs } from "./settings_logs.js";
 
 		// Window Global Assignments
 		window.createSupportGroup = createSupportGroup;
@@ -89,6 +82,8 @@
 				await loadCounselingForms();
 
 				await loadAnnouncementHistory();
+
+				await initializeSettingsLogs();
 				
 				console.log("GCO User Management initialized successfully");
 			} catch (error) {
