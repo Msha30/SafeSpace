@@ -7,6 +7,8 @@ import {
   addDoc,
   setDoc,
   getDoc,
+  getDocs,
+  deleteDoc,
   onSnapshot,
   updateDoc,
   serverTimestamp,
@@ -340,32 +342,55 @@ export async function startCall({
 
     // 10) Return cleanup function
     return function hangup() {
-      console.log("[call.js] Hanging up...");
-      
-      if (remoteAnswerCandidatesUnsub) remoteAnswerCandidatesUnsub();
-      if (answerUnsub) answerUnsub();
-      
-      if (pc) {
+    console.log("[call.js] Hanging up...");
+    
+    if (remoteAnswerCandidatesUnsub) remoteAnswerCandidatesUnsub();
+    if (answerUnsub) answerUnsub();
+    
+    if (pc) {
         pc.close();
         pc = null;
-      }
-      
-      if (localStream) {
+    }
+    
+    if (localStream) {
         localStream.getTracks().forEach(track => track.stop());
         localStream = null;
-      }
+    }
 
-      if (dom && dom.localVideo) {
+    if (dom && dom.localVideo) {
         dom.localVideo.srcObject = null;
-      }
-      if (dom && dom.remoteVideo) {
+    }
+    if (dom && dom.remoteVideo) {
         dom.remoteVideo.srcObject = null;
-      }
+    }
 
-      if (callDocRef) {
-        updateDoc(callDocRef, { status: "ended" }).catch(console.error);
-      }
-    };
+    // NEW: Delete call document and subcollections
+    if (callDocRef) {
+        deleteCallDocument(callDocRef).catch(console.error);
+    }
+  };
+  async function deleteCallDocument(callDocRef) {
+    try {
+        // 1. Delete offerCandidates subcollection
+        const offerCandidatesRef = collection(callDocRef, "offerCandidates");
+        const offerSnapshot = await getDocs(offerCandidatesRef);
+        const offerDeletes = offerSnapshot.docs.map(doc => deleteDoc(doc.ref));
+        await Promise.all(offerDeletes);
+        
+        // 2. Delete answerCandidates subcollection
+        const answerCandidatesRef = collection(callDocRef, "answerCandidates");
+        const answerSnapshot = await getDocs(answerCandidatesRef);
+        const answerDeletes = answerSnapshot.docs.map(doc => deleteDoc(doc.ref));
+        await Promise.all(answerDeletes);
+        
+        // 3. Delete the call document itself
+        await deleteDoc(callDocRef);
+        
+        console.log("[call.js] Call document and subcollections deleted");
+    } catch (err) {
+        console.error("[call.js] Error deleting call document:", err);
+    }
+  }
 
   } catch (err) {
     console.error("[call.js] startCall error:", err);

@@ -12,7 +12,9 @@ import {
   onSnapshot,
   updateDoc,
   runTransaction,
-  serverTimestamp
+  serverTimestamp,
+  query, 
+  where
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const db = getFirestore(app);
@@ -497,15 +499,13 @@ async function completeCall(submissionId) {
       completed_by: auth.currentUser.uid
     });
     
-    // Delete any active call documents
+    // NEW: Delete specific call for this submission
     const callsRef = collection(db, "calls");
-    const callsSnapshot = await getDocs(callsRef);
+    const q = query(callsRef, where("submissionId", "==", submissionId));
+    const callsSnapshot = await getDocs(q);
     
     for (const callDoc of callsSnapshot.docs) {
-      const callData = callDoc.data();
-      if (callData.submissionId === submissionId) {
-        await deleteDoc(callDoc.ref);
-      }
+      await deleteCallDocument(callDoc.ref);
     }
     
     console.log("[counseling.js] Call completed and cleaned up");
