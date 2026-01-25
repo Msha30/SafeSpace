@@ -523,7 +523,7 @@
 			
 			<div class="card-schedule">
 				<h4 class="sched-date">23</h4>
-				<h5 style="padding-left: 30px;">MON</h5>
+				<h5 style="padding-left: 30px;">TUE</h5>
 				<div class="sched">
 					<p class="sched-type">Video Call</p>
 					<p class="sched-time">0:00 PM - 0:00 PM</p>
@@ -536,7 +536,7 @@
 			
 			<div class="card-schedule">
 				<h4 class="sched-date">23</h4>
-				<h5 style="padding-left: 30px;">MON</h5>
+				<h5 style="padding-left: 30px;">WED</h5>
 				<div class="sched">
 					<p class="sched-type">Call</p>
 					<p class="sched-time">0:00 PM - 0:00 PM</p>
@@ -549,7 +549,7 @@
 			
 			<div class="card-schedule">
 				<h4 class="sched-date">23</h4>
-				<h5 style="padding-left: 30px;">MON</h5>
+				<h5 style="padding-left: 30px;">THU</h5>
 				<div class="sched">
 					<p class="sched-type">Face to Face</p>
 					<p class="sched-time">0:00 PM - 0:00 PM</p>
@@ -562,7 +562,7 @@
 			
 			<div class="card-schedule">
 				<h4 class="sched-date">23</h4>
-				<h5 style="padding-left: 30px;">MON</h5>
+				<h5 style="padding-left: 30px;">FRI</h5>
 				<div class="sched">
 					<p class="sched-type">Video Call</p>
 					<p class="sched-time">0:00 PM - 0:00 PM</p>
@@ -575,7 +575,7 @@
 
 			<div class="card-schedule">
 				<h4 class="sched-date">23</h4>
-				<h5 style="padding-left: 30px;">MON</h5>
+				<h5 style="padding-left: 30px;">SAT</h5>
 				<div class="sched">
 					<p class="sched-type">Video Call</p>
 					<p class="sched-time">0:00 PM - 0:00 PM</p>
@@ -774,6 +774,25 @@
 				<button class="request-btn-cancel" onclick="closeRequestFormPopup()">Cancel</button>
 				<button class="request-btn-save" onclick="saveRequestForm()">Save Form</button>
 			</div>
+		</div>
+	</div>
+	<!---------------- VIDEO/AUDIO CALL OVERLAY -------------------------------------------------->
+	<div id="videoCallOverlay" class="video-call-overlay" style="display: none;">
+		
+		<!-- 1. Remote Video (The Student) - Full Screen -->
+		<video id="callRemoteVideo" autoplay playsinline></video>
+		
+		<!-- 2. Local Video (You/Counselor) - Small Box in Corner -->
+		<div class="local-video-wrapper">
+			<video id="callLocalVideo" autoplay playsinline muted></video>
+		</div>
+
+		<!-- 3. Call Controls -->
+		<div class="call-controls-wrapper">
+			<div id="callStatus" class="call-status">Connecting...</div>
+			<button id="btnHangup" class="btn-hangup">
+				📞 Hang Up
+			</button>
 		</div>
 	</div>
 
@@ -3415,7 +3434,7 @@
 
 
 		//ANNOUNCEMENT-----------------------------------------------------------
-
+		/*
 		document.getElementById('announcementBtn').addEventListener('click', function() {
 			this.classList.add('active');
 			document.getElementById('joinableBtn').classList.remove('active');
@@ -3425,7 +3444,7 @@
 			this.classList.add('active');
 			document.getElementById('announcementBtn').classList.remove('active');
 		});
-
+		*/
 
 		// FOR ANNOUNCEMENT UPLOADING IMAGES & VIDEOS
 

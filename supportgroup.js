@@ -75,6 +75,31 @@ function renderSupportGroups(groups = []) {
   });
 }
 
+export function resolveAvatarUrl(avatarUrl) {
+    if (!avatarUrl) return 'photos/pic_placeholder.png';
+
+    // CASE 1: Student Presets (Local Files)
+    if (avatarUrl.startsWith('image_')) {
+        const mapping = {
+            'image_1': 'photos/avatar_panda.png',
+            'image_2': 'photos/avatar_butterfly.png',
+            'image_3': 'photos/avatar_wolf.png',
+            'image_4': 'photos/avatar_buffalo.png'
+        };
+        return mapping[avatarUrl] || 'photos/pic_placeholder.png';
+    }
+
+    // CASE 2: Peer URLs (Web/Supabase)
+    if (avatarUrl.startsWith('http')) {
+        // Append timestamp to force browser to reload the image immediately
+        // if the user just changed it.
+        const separator = avatarUrl.includes('?') ? '&' : '?';
+        return `${avatarUrl}${separator}t=${Date.now()}`;
+    }
+
+    return avatarUrl;
+}
+
 async function renderGroupChatsForPage(supportGroupData, groupId) {
   const tbody = document.getElementById(`groupchat-list-${groupId}`);
   if (!tbody) return;
@@ -327,7 +352,7 @@ async function renderMembersList(groupId, memberList = []) {
 
       const tr = document.createElement("tr");
       tr.innerHTML = `
-        <td class="table_user"><img src="${(user?.avatarUrl) || "photos/pic_placeholder.png"}"></td>
+        <td class="table_user"><img src="${resolveAvatarUrl(user?.avatarUrl) || "photos/pic_placeholder.png"}"></td>
         <td id="name">${escapeHtml((user?.fname || "") + " " + (user?.lname || ""))}</td>
       `;
       tbody.appendChild(tr);
