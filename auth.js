@@ -5,6 +5,7 @@ import {
   setPersistence, signInWithEmailAndPassword, sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getDatabase } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
 // ----- Firebase config -----
 const firebaseConfig = {
@@ -14,13 +15,15 @@ const firebaseConfig = {
   storageBucket: "safespace-af7ec.firebasestorage.app",
   messagingSenderId: "991289668478",
   appId: "1:991289668478:web:3801f6f457dcd05669392f",
-  measurementId: "G-Y15M17H93J"
+  measurementId: "G-Y15M17H93J",
+  databaseURL: "https://safespace-af7ec-default-rtdb.asia-southeast1.firebasedatabase.app"
 };
 
 // ----- Initialize Firebase -----
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+export const rtdb = getDatabase(app);
 
 // ----- Force session-only persistence -----
 (async () => { await setPersistence(auth, browserSessionPersistence); })();

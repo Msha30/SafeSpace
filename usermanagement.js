@@ -1,5 +1,5 @@
 // userManagement.js
-import { db } from "./auth.js";
+import { db, rtdb } from "./auth.js";
 import { 
   collection, 
   getDocs,
@@ -11,6 +11,7 @@ import {
   updateDoc,
   deleteDoc 
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
 // Cache for users to avoid repeated fetches
 let usersCache = null;
@@ -19,6 +20,9 @@ const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
 
 // popup cache (was missing)
 const userPopupCache = new Map();
+
+// Track RTDB presence listeners we already attached to avoid duplicates
+const observedPresence = new Set();
 
 const programs = [
     "Accountancy, Business and Management (ABM) Strand",
@@ -156,6 +160,7 @@ export function formatUserData(user) {
     }
   }
   
+  // If Firestore has a lastActive value (legacy), format it, but RTDB watcher will overwrite this.
   if (user.lastActive) {
     try {
       const date = user.lastActive.toDate ? user.lastActive.toDate() : new Date(user.lastActive);
@@ -165,13 +170,14 @@ export function formatUserData(user) {
         day: 'numeric' 
       });
     } catch (e) {
-      console.error("Error formatting lastActive:", e);
+      // If it's already a string (e.g. 'Online' or 'Offline'), just use it
+      try { lastActive = String(user.lastActive); } catch(_) { }
     }
   }
 
   return {
     id: user.id || user.uid,
-    uid: user.uid,
+    uid: user.uid || user.id,
     fullName,
     displayName,
     email: user.email || 'N/A',
@@ -185,6 +191,34 @@ export function formatUserData(user) {
     rawData: user
   };
 }
+
+function normalizeLastActiveForDisplay(value) {
+  if (!value) return "—";
+  const s = String(value).trim();
+  if (s === "" || s.toUpperCase() === "N/A") return "—";
+  return s;
+}
+
+/**
+ * Returns the latest formatted user object for a uid:
+ * 1) tries window.currentUsers (formatted)
+ * 2) falls back to usersCache and formats it
+ */
+function getLatestUser(uid) {
+  if (!uid) return null;
+  // try formatted list first
+  if (window.currentUsers && Array.isArray(window.currentUsers)) {
+    const found = window.currentUsers.find(u => (u.id || u.uid) === uid);
+    if (found) return found;
+  }
+  // fallback to raw cache
+  if (usersCache && Array.isArray(usersCache)) {
+    const raw = usersCache.find(u => (u.id || u.uid) === uid || (u.uid && u.uid === uid));
+    if (raw) return formatUserData(raw);
+  }
+  return null;
+}
+
 
 function switchPage(pageId) {
   document.querySelectorAll(".page").forEach(p => {
@@ -265,13 +299,18 @@ export function populatePeerTable() {
 
   tbody.innerHTML = "";
 
-  if (!usersCache) return;
+  if (!usersCache && !(window.currentUsers && window.currentUsers.length)) return;
 
-  const peers = usersCache
-    .filter(u => u.userType === "peer")
-    .map(formatUserData);
+  // build peers list from latest data to ensure lastActive is current
+  const peersRaw = (window.currentUsers || [])
+    .filter(u => u.rawData && u.rawData.userType === "peer");
 
-  if (peers.length === 0) {
+  // If window.currentUsers is empty, fallback to usersCache
+  if (!peersRaw.length && usersCache) {
+    peersRaw.push(...usersCache.filter(u => u.userType === "peer").map(formatUserData));
+  }
+
+  if (peersRaw.length === 0) {
     tbody.innerHTML = `
       <tr>
         <td colspan="6" style="text-align:center; padding:20px;">
@@ -282,47 +321,56 @@ export function populatePeerTable() {
     return;
   }
 
-  peers.forEach(peer => {
+  peersRaw.forEach(peer => {
+    const latest = getLatestUser(peer.id) || peer;
     const row = document.createElement("tr");
+
+    // --- ensure the row contains the data-user-id attribute for updates ---
+    row.setAttribute('data-user-id', latest.id);
 
     row.innerHTML = `
       <td class="table_user">
-        <img src="${resolveAvatarUrl(peer.avatarUrl)}" onerror="this.src='photos/pic_placeholder.png'">
+        <img src="${resolveAvatarUrl(latest.avatarUrl)}" onerror="this.src='photos/pic_placeholder.png'">
       </td>
       <td>
         <div class="name" style="cursor:pointer">
-          ${peer.fullName}<br>
-          <span>${peer.email}</span>
+          ${latest.fullName}<br>
+          <span>${latest.email}</span>
         </div>
       </td>
       <td></td>
       <td class="peerInteract"><span>0</span></td>
-      <td>${peer.lastActive}</td>
-      <td>${peer.createdDate}</td>
+      <td class="lastActive">${normalizeLastActiveForDisplay(latest.lastActive)}</td>
+      <td>${latest.createdDate}</td>
     `;
 
-    row.querySelector(".name").onclick = () => openPerPeerPage(peer.uid);
+    // Pass the full formatted peer object (not just uid)
+    row.querySelector(".name").onclick = () => openPerPeerPage(latest);
 
     tbody.appendChild(row);
   });
 }
 
 function openPerPeerPage(peer) {
+  // Accept either uid or the formatted object: normalize
+  const effectivePeer = (typeof peer === 'string') ? getLatestUser(peer) : (getLatestUser(peer.id) || peer);
+  if (!effectivePeer) return;
+
   document.querySelectorAll(".page").forEach(p => p.style.display = "none");
   document.getElementById("perPeerPage").style.display = "block";
 
   document.querySelector(".informationProfileImg").src =
-    resolveAvatarUrl(peer.avatarUrl) || "photos/pic_placeholder.png";
+    resolveAvatarUrl(effectivePeer.avatarUrl) || "photos/pic_placeholder.png";
 
-  document.getElementById("peerNameTitle").textContent = peer.fullName;
-  document.getElementById("peerInfo_lastactive").textContent = peer.lastActive;
-  document.getElementById("peerInfo_dateCreated").textContent = peer.createdDate;
+  document.getElementById("peerNameTitle").textContent = effectivePeer.fullName;
+  document.getElementById("peerInfo_lastactive").textContent = normalizeLastActiveForDisplay(effectivePeer.lastActive);
+  document.getElementById("peerInfo_dateCreated").textContent = effectivePeer.createdDate;
 
-  document.getElementById("peerFirstName").textContent = peer.rawData.fname || "N/A";
-  document.getElementById("peerLastName").textContent = peer.rawData.lname || "N/A";
-  document.getElementById("peerEmail").textContent = peer.email;
-  document.getElementById("peerStudentNum").textContent = peer.studentId;
-  document.getElementById("peerProgram").textContent = peer.program;
+  document.getElementById("peerFirstName").textContent = effectivePeer.rawData.fname || "N/A";
+  document.getElementById("peerLastName").textContent = effectivePeer.rawData.lname || "N/A";
+  document.getElementById("peerEmail").textContent = effectivePeer.email;
+  document.getElementById("peerStudentNum").textContent = effectivePeer.studentId;
+  document.getElementById("peerProgram").textContent = effectivePeer.program;
   const title = `
 				<a href="#" onclick="showPage('peer-facilitators')" style="text-decoration:none; color:inherit;">
 					Peer Facilitators
@@ -330,7 +378,7 @@ function openPerPeerPage(peer) {
 				<img src="icons/ic_arrow right.svg" 
 					style="width:14px; vertical-align:middle; margin:0 5px; cursor:pointer;" 
 					onclick="showPage('peer-facilitators')">
-				${peer.fullName}
+				${effectivePeer.fullName}
 			`;
   document.getElementById("pageTitle").innerHTML = title;
 }
@@ -344,26 +392,37 @@ export function initializePeerFacilitators() {
     return;
   }
 
-  // peers only
+  // peers only (use the formatted list if available)
   const peers = (window.currentUsers || [])
-    .filter(u => u.rawData.userType === "peer");
+    .filter(u => u.rawData && u.rawData.userType === "peer");
 
-  renderPeerRows(peers, tbody);
+  // If no formatted list yet, fallback to usersCache formatted
+  const initialPeers = peers.length ? peers : (usersCache ? usersCache.filter(u => u.userType === "peer").map(formatUserData) : []);
+
+  renderPeerRows(initialPeers, tbody);
+
+  // --- Start watching last active times for these peers ---
+  watchUserPresence(initialPeers);
 
   // 🔍 search behavior (same logic as userManagement)
   if (searchInput) {
-    searchInput.addEventListener("input", () => {
-      const term = searchInput.value.toLowerCase();
+  searchInput.addEventListener("input", () => {
+    const term = searchInput.value.toLowerCase();
 
-      const filtered = peers.filter(p =>
-        p.fullName.toLowerCase().includes(term) ||
-        p.email.toLowerCase().includes(term) ||
-        p.studentId.toLowerCase().includes(term)
-      );
+    // Recompute peer users from currentUsers
+    const currentPeers = (window.currentUsers || [])
+      .filter(u => u.rawData.userType === "peer");
 
-      renderPeerRows(filtered, tbody);
-    });
-  }
+    const filtered = currentPeers.filter(p =>
+      p.fullName.toLowerCase().includes(term) ||
+      p.email.toLowerCase().includes(term) ||
+      p.studentId.toLowerCase().includes(term)
+    );
+
+    renderPeerRows(filtered, tbody);
+  });
+}
+
 }
 
 function renderPeerRows(peers, tbody) {
@@ -381,26 +440,30 @@ function renderPeerRows(peers, tbody) {
   }
 
   peers.forEach(peer => {
+    const latest = getLatestUser(peer.id) || peer;
+
     const tr = document.createElement("tr");
+
+    tr.setAttribute('data-user-id', latest.id);
 
     tr.innerHTML = `
       <td class="table_user">
-        <img src="${resolveAvatarUrl(peer.avatarUrl)}" onerror="this.src='photos/pic_placeholder.png'">
+        <img src="${resolveAvatarUrl(latest.avatarUrl)}" onerror="this.src='photos/pic_placeholder.png'">
       </td>
       <td>
         <div class="name" style="cursor:pointer;">
-          ${peer.fullName}<br>
-          <span>${peer.email}</span>
+          ${latest.fullName}<br>
+          <span>${latest.email}</span>
         </div>
       </td>
       <td></td>
       <td class="peerInteract"><span>0</span></td>
-      <td>${peer.lastActive}</td>
-      <td>${peer.createdDate}</td>
+      <td class="lastActive">${normalizeLastActiveForDisplay(latest.lastActive)}</td>
+      <td>${latest.createdDate}</td>
     `;
 
     tr.querySelector(".name").addEventListener("click", () => {
-      openPerPeerPage(peer);
+      openPerPeerPage(latest);
     });
 
     tbody.appendChild(tr);
@@ -441,7 +504,7 @@ function createUserRow(user, options = {}) {
       </div>
     </td>
     ` : ''}
-    <td>${user.lastActive}</td>
+    <td class="lastActive">${normalizeLastActiveForDisplay(user.lastActive)}</td>
     <td>${user.createdDate}</td>
     ${showActions ? `
     <td class="action">
@@ -544,6 +607,8 @@ export async function initializeUserManagement(config) {
       onClick: onUserClick 
     });
 
+    watchUserPresence(formattedUsers);
+
     // Setup search
     const searchInput = document.getElementById(searchInputId);
     if (searchInput) {
@@ -623,6 +688,131 @@ export async function updateProgramsTable() {
     }
 }
 
+export function watchUserPresence(users) {
+  if (!rtdb) {
+    console.warn("RTDB not initialized. Cannot watch presence.");
+    return;
+  }
+
+  if (!users || users.length === 0) return;
+
+  users.forEach((user) => {
+    const uid = user.id || user.uid;
+    if (!uid) return;
+
+    // Avoid attaching multiple listeners for same uid
+    if (observedPresence.has(uid)) return;
+    observedPresence.add(uid);
+
+    // Path: status > {uid} > last_changed
+    const statusRef = ref(rtdb, `status/${uid}/last_changed`);
+
+    onValue(statusRef, (snapshot) => {
+      const data = snapshot.val();
+      if (!data) return;
+
+      // Helper to extract timestamp & state robustly
+      let timestamp = null;
+      let state = null;
+
+      if (typeof data === 'number') {
+        timestamp = data;
+      } else if (typeof data === 'string' && !isNaN(Number(data))) {
+        timestamp = Number(data);
+      } else if (typeof data === 'object') {
+        // iterate entries; keys could be numeric timestamps or 'state'; values might be numbers
+        Object.entries(data).forEach(([k, v]) => {
+          if (k === 'state') {
+            state = v;
+          }
+          // value is numeric timestamp
+          if (typeof v === 'number' && (!timestamp || v > timestamp)) {
+            timestamp = v;
+          }
+          // key is numeric timestamp (some RTDB patterns use dynamic keys)
+          const keyNum = Number(k);
+          if (!isNaN(keyNum) && (!timestamp || keyNum > timestamp)) {
+            timestamp = keyNum;
+          }
+        });
+      }
+
+      // Determine display text: prefer timestamp; if none, fall back to state; else Offline
+      let displayText = 'Offline';
+      if (timestamp && timestamp > 0) {
+        try {
+          const date = new Date(timestamp);
+          displayText = date.toLocaleDateString('en-US', {
+             year: 'numeric', month: 'long', day: 'numeric'
+          });
+        } catch (e) {
+          displayText = String(timestamp);
+        }
+      } else if (state === 'online') {
+        displayText = 'Online';
+      }
+
+      // 3. Update Raw Cache (usersCache)
+      try {
+        const userIndex = usersCache ? usersCache.findIndex(u => (u.id || u.uid) === uid) : -1;
+        if (userIndex !== -1) {
+          usersCache[userIndex].lastActive = displayText;
+        }
+      } catch (e) { console.warn(e); }
+
+      // 4. Update Display List (window.currentUsers)
+      try {
+        if (window.currentUsers && Array.isArray(window.currentUsers)) {
+          const gIndex = window.currentUsers.findIndex(u => (u.id || u.uid) === uid);
+          if (gIndex !== -1) {
+            window.currentUsers[gIndex].lastActive = displayText;
+          }
+        }
+      } catch (e) { console.warn(e); }
+
+      // 5. Update DOM row(s) (works for both peer and user tables)
+      updateUserRowInDOM(uid, displayText);
+
+    }, (err) => {
+      console.error("RTDB presence listener error for uid=" + uid, err);
+    });
+  });
+}
+
+/**
+ * Helper to update specific row(s) in DOM based on data-user-id
+ */
+function updateUserRowInDOM(userId, newStatusText) {
+  // Update all matching rows (peer or user tables may have multiple)
+  const rows = document.querySelectorAll(`tr[data-user-id="${userId}"]`);
+  if (!rows || rows.length === 0) return;
+
+  rows.forEach(row => {
+    // If there is an explicit .lastActive cell, update that; else fallback to index-based logic
+    const lastActiveCell = row.querySelector('.lastActive');
+    if (lastActiveCell) {
+      lastActiveCell.textContent = normalizeLastActiveForDisplay(newStatusText);
+      lastActiveCell.style.color = '';
+      lastActiveCell.style.fontWeight = '';
+      return;
+    }
+
+    // --- Detect if this is a Peer Row or User Row ---
+    const isPeerRow = !!row.querySelector('.peerInteract');
+
+    // Target index depends on table type
+    const targetIndex = isPeerRow ? 4 : 5;
+    const cells = row.querySelectorAll('td');
+
+    if (cells.length > targetIndex) {
+        cells[targetIndex].textContent = normalizeLastActiveForDisplay(newStatusText);
+
+        // Reset styling
+        cells[targetIndex].style.color = ''; 
+        cells[targetIndex].style.fontWeight = '';
+    }
+  });
+}
 /**
  * Update user count displays
  * @param {Array} users - Array of users
@@ -720,8 +910,11 @@ export async function openUsersPopup(uid) {
       `${data.lname || ""}, ${data.fname || ""}`;
 
     const dateEls = popup.querySelectorAll(".date-created-left strong");
-    if (dateEls[0]) dateEls[0].textContent = formatPopupDate(data.lastActive);
-    if (dateEls[1]) dateEls[1].textContent = formatPopupDate(data.createdAt);
+
+    // Try to use cached RTDB-derived lastActive if available (so popup shows current last-active)
+    const cached = usersCache ? usersCache.find(u => (u.id || u.uid) === effectiveUid) : null;
+    if (dateEls[0]) dateEls[0].textContent = cached ? (cached.lastActive || 'N/A') : (data.lastActive ? String(data.lastActive) : 'N/A');
+    if (dateEls[1]) dateEls[1].textContent = data.createdAt ? (data.createdAt.toDate ? data.createdAt.toDate().toLocaleDateString('en-US', { month:'long', day:'numeric', year:'numeric'}) : String(data.createdAt)) : 'N/A';
 
     // Right side fields
     setPopupDetail(popup, "First Name", data.fname);
