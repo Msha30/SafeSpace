@@ -36,6 +36,10 @@ export async function updateProgramsTable() {
         const currentMonth = now.getMonth();
         const currentYear = now.getFullYear();
 
+        // Previous month calculation
+        const prevMonth = currentMonth === 0 ? 11 : currentMonth - 1;
+        const prevMonthYear = currentMonth === 0 ? currentYear - 1 : currentYear;
+
         programs.forEach((program, index) => {
             const rowNum = index + 1;
             const newUsersCell = document.getElementById(`rw${rowNum}_newusers`);
@@ -44,33 +48,50 @@ export async function updateProgramsTable() {
 
             if (!newUsersCell || !totalUsersCell || !changeCell) return;
 
-            // Filter users by program
-            const programUsers = users.filter(u => u.program === program);
+            // Filter users by program and valid createdAt
+            const programUsers = users.filter(
+                u => u.program === program && u.createdAt
+            );
 
-            // Count total users
             const totalUsers = programUsers.length;
 
-            // Count new users this month
+            // Users created this month
             const newUsersThisMonth = programUsers.filter(u => {
                 const createdAt = u.createdAt?.toDate ? u.createdAt.toDate() : new Date(u.createdAt);
                 return createdAt.getMonth() === currentMonth && createdAt.getFullYear() === currentYear;
             }).length;
 
-            // Placeholder for change %, can compute with historical data if available
-            const changePercent = 0; 
-            const changeClass = changePercent >= 0 ? 'up' : 'down';
+            // Users created last month
+            const newUsersPrevMonth = programUsers.filter(u => {
+                const createdAt = u.createdAt?.toDate ? u.createdAt.toDate() : new Date(u.createdAt);
+                return createdAt.getMonth() === prevMonth && createdAt.getFullYear() === prevMonthYear;
+            }).length;
+
+            // Calculate % change
+            let changePercent = 0;
+            if (newUsersPrevMonth === 0) {
+                changePercent = newUsersThisMonth > 0 ? 100 : 0;
+            } else {
+                changePercent = Math.round(((newUsersThisMonth - newUsersPrevMonth) / newUsersPrevMonth) * 100);
+            }
+
+            // Determine class
+            const changeClass = changePercent > 0 ? 'up' : (changePercent < 0 ? 'down' : 'mid');
 
             // Update table cells
             newUsersCell.textContent = newUsersThisMonth;
             totalUsersCell.textContent = totalUsers;
             changeCell.textContent = `${changePercent} %`;
-            changeCell.className = changeClass; // update class to reflect up/down
+            changeCell.className = changeClass; 
         });
 
     } catch (err) {
         console.error("Failed to update programs table:", err);
     }
 }
+
+
+
 
 /**
  * Updates the Student Count and PEERS Count stat cards
