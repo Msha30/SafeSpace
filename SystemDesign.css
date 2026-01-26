@@ -6181,11 +6181,14 @@ video.file-preview2 {
     }
 }
 
-/* COUNSELING TAKE SESSION MODAL*/
+
+/* =====================================
+   COUNSELING TAKE SESSION MODAL
+===================================== */
 .take-session-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -6201,7 +6204,7 @@ video.file-preview2 {
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
   box-sizing: border-box;
   font-family: 'PublicSans', sans-serif;
-  transform: translateY(40px);
+  transform: translateY(40px); 
   transform: translateX(90px);
   animation: modalFade 0.25s ease;
 }
@@ -6217,15 +6220,15 @@ video.file-preview2 {
   }
 }
 
-
+/* Title */
 .take-session-modal h3 {
   margin: 0 0 18px;
   font-size: 18px;
   font-weight: 600;
-  font-family: 'PublicSans', sans-serif;
-  color: black;
+  color: #000;
 }
 
+/* Labels */
 .take-session-modal label {
   display: block;
   margin-bottom: 6px;
@@ -6234,28 +6237,20 @@ video.file-preview2 {
   color: #374151;
 }
 
+/* Inputs */
 .take-session-modal input[type="date"],
-
 .take-session-modal input[type="time"] {
-    width: 100%;         
-    height: 44px;        
-    padding: 10px 14px;  
-    border-radius: 4px; 
-    border: 1px solid #d1d5db; 
-    font-size: 14px;
-    font-weight: 500;
-    color: #111827;
-    background: #ffffff;
-    outline: none;
-    box-sizing: border-box;
-}
-
-.take-session-modal input[type="time"]:focus {
-    border-color: #2563eb;
-    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
-}
-
-.take-session-modal input[type="date"] {
+  width: 100%;
+  height: 44px;
+  padding: 10px 14px;
+  border-radius: 4px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  font-weight: 500;
+  color: #111827;
+  background: #ffffff;
+  outline: none;
+  box-sizing: border-box;
   margin-bottom: 16px;
 }
 
@@ -6264,29 +6259,37 @@ video.file-preview2 {
   box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
 }
 
-.take-session-modal div[style*="display:flex"] {
-    display: flex;
-    gap: 5px;        
-    margin-bottom: 14px;
+/* Start & End Time Row */
+.time-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
 }
 
-.take-session-modal div[style*="display:flex"] > div {
-    flex: 1;         
+.time-field {
+  flex: 1;
 }
 
-
-.take-session-modal .note,
-.take-session-modal div[style*="font-size:13px"] {
+/* Note text */
+.note {
   font-size: 13px;
   color: #6b7280;
+  margin-top:-15px;
   margin-bottom: 14px;
 }
 
+/* Buttons */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 10px;
+}
 
 .take-session-modal button {
   min-height: 42px;
   padding: 10px 18px;
-  border-radius: 8px;
+  border-radius: 4px;
   font-size: 14px;
   font-weight: 600;
   border: none;
@@ -6294,57 +6297,141 @@ video.file-preview2 {
   transition: all 0.2s ease;
 }
 
+/* Cancel */
 #ts_cancel {
-    background: #bdc1c4;
-    color: #ffffff;
-    border: none;
-    padding: 10px 24px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
+  background: #bdc1c4;
+  color: #ffffff;
 }
 
 #ts_cancel:hover {
-    background: #d5d5d5; 
-    color: #ffffff;
+  background: #9ca3af;
 }
 
+/* Submit */
 #ts_submit {
-    background: #c3e1f4;
-    color: #0847b2;
-    border: none;
-    padding: 10px 24px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
+  background: #c3e1f4;
+  color: #0847b2;
 }
 
 #ts_submit:hover {
-    background: #007bff;   
-    color: white;
+  background: #007bff;
+  color: white;
 }
 
-.take-session-modal div:last-child {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-  margin-top: 20px;
-}
-
+/* Mobile */
 @media (max-width: 480px) {
-  .take-session-modal {
-    width: 100%;
-    margin: 0 12px;
-    padding: 20px;
+  .time-row {
+    flex-direction: column;
   }
 
-  .take-session-modal div[style*="display:flex"] {
+  .modal-actions {
     flex-direction: column;
   }
 
   .take-session-modal button {
     width: 100%;
   }
+}
+
+
+
+
+
+/* FOR ANNOUNCEMENT DELETE BUTTON */
+.announcementTopBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+/* Delete X button */
+.deleteAnnouncementBtn {
+  background: transparent;
+  border: none;
+  font-size: 25px;
+  color: #9ca3af; /* soft gray default */
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
+  transition: color 0.2s ease, transform 0.1s ease;
+}
+
+.deleteAnnouncementBtn:hover {
+  color: #dc2626; 
+  transform: scale(1.1);
+}
+
+/* Overlay */
+.confirm-popup {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+.confirm-popup.active {
+  display: flex;
+}
+
+/* Popup box */
+.confirm-box {
+  background: #ffffff;
+  padding: 22px 24px;
+  border-radius: 10px;
+  width: 340px;
+  max-width: 90%;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+  animation: popupFade 0.2s ease;
+}
+
+@keyframes popupFade {
+  from { transform: translateY(10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.confirm-text {
+  font-size: 15px;
+  color: #111827;
+  margin-bottom: 18px;
+}
+
+/* Buttons row */
+.confirm-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* Cancel */
+.cancel-delete-btn {
+  background: #e5e7eb;
+  color: #111827;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cancel-delete-btn:hover {
+  background: #d1d5db;
+}
+
+/* Delete */
+.confirm-delete-btn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.confirm-delete-btn:hover {
+  background: #dc2626;
 }

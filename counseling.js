@@ -689,36 +689,36 @@ async function openTakeSessionPopup(submissionId, submission) {
   }
 
   // Build modal (date on top, two time inputs below)
-  overlay.innerHTML = `
-    <div class="take-session-modal" style="background:white; padding:20px; border-radius:8px; width: 420px; max-width: 95%;">
-      <h3 style="margin-top:0;">Assign Schedule</h3>
+overlay.innerHTML = `
+  <div class="take-session-modal">
+    <h3>Assign Schedule</h3>
 
-      <div style="margin-bottom:12px;">
-        <label style="display:block; font-weight:600; margin-bottom:6px;">Date</label>
-        <input id="ts_date" type="date" style="width:100%; padding:8px;" value="${presetDate}">
+    <label for="ts_date">Date</label>
+    <input id="ts_date" type="date" value="${presetDate}">
+
+    <div class="time-row">
+      <div class="time-field">
+        <label for="ts_time_start">Start time</label>
+        <input id="ts_time_start" type="time" value="${presetStartTime}">
       </div>
 
-      <div style="display:flex; gap:8px; margin-bottom:12px;">
-        <div style="flex:1;">
-          <label style="display:block; font-weight:600; margin-bottom:6px;">Start time</label>
-          <input id="ts_time_start" type="time" style="width:100%; padding:8px;" value="${presetStartTime}">
-        </div>
-        <div style="flex:1;">
-          <label style="display:block; font-weight:600; margin-bottom:6px;">End time</label>
-          <input id="ts_time_end" type="time" style="width:100%; padding:8px;" value="${presetEndTime}">
-        </div>
-      </div>
-
-      <div style="color:#666; font-size:13px; margin-bottom:12px;">
-        Note: Choose a single date, then pick the start and end time for that date.
-      </div>
-
-      <div style="display:flex; gap:8px; justify-content:flex-end;">
-        <button id="ts_cancel" style="padding:8px 12px;">Cancel</button>
-        <button id="ts_submit" style="padding:8px 12px;">Submit</button>
+      <div class="time-field">
+        <label for="ts_time_end">End time</label>
+        <input id="ts_time_end" type="time" value="${presetEndTime}">
       </div>
     </div>
-  `;
+
+    <div class="note">
+      Note: Choose a single date, then pick the start and end time for that date.
+    </div>
+
+    <div class="modal-actions">
+      <button id="ts_cancel">Cancel</button>
+      <button id="ts_submit">Submit</button>
+    </div>
+  </div>
+`;
+
 
   document.body.appendChild(overlay);
   const dateInput = overlay.querySelector("#ts_date");

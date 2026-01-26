@@ -17,7 +17,8 @@
 		import { initSupportGroups, createSupportGroup, openCreateGroupModal, closeCreateGroupModal,
 				triggerImageUpload, handleImageUpload } from "./supportgroup.js";
 		import { confirmPost, handleFileUpload, removeFile, showPostConfirm, closePostConfirm, toggleAnnouncementDropdown,
-        selectProfile, initAnnouncementDropdown, loadAnnouncementHistory } from "./announcement.js";
+        selectProfile, initAnnouncementDropdown, loadAnnouncementHistory, openDeleteConfirm, closeDeleteConfirm,
+		confirmDeleteAnnouncement } from "./announcement.js";
 		import { initializeSettingsLogs } from "./settings_logs.js";
 		import { submitReport, uploadToSupabase } from "./report.js";
 
@@ -44,6 +45,10 @@
 		window.submitReport = submitReport;
 
 		window.uploadToSupabase = uploadToSupabase;
+
+		window.openDeleteConfirm = openDeleteConfirm;
+		window.closeDeleteConfirm = closeDeleteConfirm;
+		window.confirmDeleteAnnouncement = confirmDeleteAnnouncement;
 
 		window.addEventListener("DOMContentLoaded", async () => {
 			// Allow only authenticated GCO users
@@ -1806,6 +1811,19 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- Delete Confirmation Popup -->
+		<div id="deleteConfirmPopup" class="confirm-popup">
+		<div class="confirm-box">
+			<p class="confirm-text">Are you sure you want to delete this announcement?</p>
+			
+			<div class="confirm-actions">
+			<button class="cancel-delete-btn">Cancel</button>
+			<button class="confirm-delete-btn">Delete</button>
+			</div>
+		</div>
+		</div>
+
 		<!---------------------------------------------------------------------------------------->
 		<!---------------------------------------------------------------------------------------->	
 		<!---------------- SETTINGS & LOGS-------------------------------------------------------->
