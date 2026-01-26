@@ -12,7 +12,9 @@ import {
   onSnapshot,
   updateDoc,
   runTransaction,
-  serverTimestamp
+  serverTimestamp,
+  query, 
+  where
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const db = getFirestore(app);
@@ -497,15 +499,13 @@ async function completeCall(submissionId) {
       completed_by: auth.currentUser.uid
     });
     
-    // Delete any active call documents
+    // NEW: Delete specific call for this submission
     const callsRef = collection(db, "calls");
-    const callsSnapshot = await getDocs(callsRef);
+    const q = query(callsRef, where("submissionId", "==", submissionId));
+    const callsSnapshot = await getDocs(q);
     
     for (const callDoc of callsSnapshot.docs) {
-      const callData = callDoc.data();
-      if (callData.submissionId === submissionId) {
-        await deleteDoc(callDoc.ref);
-      }
+      await deleteCallDocument(callDoc.ref);
     }
     
     console.log("[counseling.js] Call completed and cleaned up");
@@ -685,6 +685,22 @@ async function openTakeSessionPopup(submissionId, submission) {
   `;
 
   document.body.appendChild(overlay);
+  const dateInput = overlay.querySelector("#ts_date");
+
+  // Today's date in YYYY-MM-DD (local)
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth() + 1).padStart(2, "0");
+  const dd = String(today.getDate()).padStart(2, "0");
+  const todayStr = `${yyyy}-${mm}-${dd}`;
+
+  // Disallow past dates
+  dateInput.min = todayStr;
+
+  // If presetDate exists but is in the past, force it to today
+  if (presetDate && presetDate < todayStr) {
+    dateInput.value = todayStr;
+  }
 
   // close handler
   overlay.querySelector("#ts_cancel").addEventListener("click", () => {
@@ -912,14 +928,27 @@ function renderSchedule() {
     daysOfWeek.push(d);
   }
 
-  // 3. Filter and Sort assigned requests from cache
+  // 3. Filter assigned requests from cache
   let assignedItems = _submissionsCache.filter((item) => {
     const data = item.data;
-    // Must have assigned_sched and must not be completed
+
+    // --- NEW: SECURITY CHECK ---
+    // Ensure the user is logged in
+    const currentUid = auth.currentUser ? auth.currentUser.uid : null;
+    if (!currentUid) return false;
+
+    // Filter A: Must have assigned_sched and must not be completed
     if (!data.assigned_sched || !data.assigned_sched.start || data.status === "completed") {
       return false;
     }
 
+    // Filter B: MUST be assigned (taken) by the current user
+    // If taken_by exists and it's NOT the current user, hide it.
+    if (data.taken_by && data.taken_by !== currentUid) {
+        return false;
+    }
+
+    // --- DATE RANGE CHECK ---
     const startMs = tsToMillis(data.assigned_sched.start);
     const itemDate = new Date(startMs);
 
@@ -931,18 +960,15 @@ function renderSchedule() {
   });
 
   // 4. Sort items based on the schedule dropdown selection (Newest/Oldest)
-  // This controls the order of items *within* the day
   assignedItems.sort((a, b) => {
     const tA = tsToMillis(a.data.assigned_sched.start);
     const tB = tsToMillis(b.data.assigned_sched.start);
     return _currentScheduleSort === "newest" ? tB - tA : tA - tB;
   });
 
-  // 5. Handle "Reverse Week Thingy" for the row_sched
-  // If Newest, display Sunday -> Monday. If Oldest, Monday -> Sunday.
+  // 5. Handle "Reverse Week Thingy"
   const displayDays = _currentScheduleSort === "newest" ? [...daysOfWeek].reverse() : daysOfWeek;
   const dayNames = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
-  // Reverse day names if we reversed the days
   const displayDayNames = _currentScheduleSort === "newest" ? [...dayNames].reverse() : dayNames;
 
   // 6. Build the Calendar UI
@@ -953,13 +979,13 @@ function renderSchedule() {
     const dateNum = dateObj.getDate();
     const dayName = displayDayNames[index];
 
-    // Header: Date and Day Name
+    // Header
     dayCard.innerHTML = `
       <h4 class="sched-date">${dateNum}</h4>
       <h5 style="padding-left: 30px;">${dayName}</h5>
     `;
 
-    // Find items that specifically match this day
+    // Find items that match this specific day
     const daysItems = assignedItems.filter((item) => {
       const startMs = tsToMillis(item.data.assigned_sched.start);
       const itemDate = new Date(startMs);

@@ -24,22 +24,6 @@ const userPopupCache = new Map();
 // Track RTDB presence listeners we already attached to avoid duplicates
 const observedPresence = new Set();
 
-const programs = [
-    "Accountancy, Business and Management (ABM) Strand",
-    "Humanities and Social Sciences (HUMSS) Strand",
-    "Science, Technology, Engineering and Mathematics (STEM) Strand",
-    "BS Hospitality Management",
-    "BS Tourism Management",
-    "BS Computer Engineering",
-    "BS Civil Engineering",
-    "BS Information Technology",
-    "BS Psychology",
-    "AB Communication",
-    "BS Architecture",
-    "BS Accountancy",
-    "BS Business Administration"
-];
-
 export function resolveAvatarUrl(avatarUrl) {
     if (!avatarUrl) return 'photos/pic_placeholder.png';
 
@@ -372,14 +356,14 @@ function openPerPeerPage(peer) {
   document.getElementById("peerStudentNum").textContent = effectivePeer.studentId;
   document.getElementById("peerProgram").textContent = effectivePeer.program;
   const title = `
-				<a href="#" onclick="showPage('peer-facilitators')" style="text-decoration:none; color:inherit;">
-					Peer Facilitators
-				</a>
-				<img src="icons/ic_arrow right.svg" 
-					style="width:14px; vertical-align:middle; margin:0 5px; cursor:pointer;" 
-					onclick="showPage('peer-facilitators')">
-				${effectivePeer.fullName}
-			`;
+                <a href="#" onclick="showPage('peer-facilitators')" style="text-decoration:none; color:inherit;">
+                    Peer Facilitators
+                </a>
+                <img src="icons/ic_arrow right.svg" 
+                    style="width:14px; vertical-align:middle; margin:0 5px; cursor:pointer;" 
+                    onclick="showPage('peer-facilitators')">
+                ${effectivePeer.fullName}
+            `;
   document.getElementById("pageTitle").innerHTML = title;
 }
 
@@ -644,50 +628,6 @@ export async function initializeUserManagement(config) {
 }
 
 
-export async function updateProgramsTable() {
-    try {
-        const users = await fetchAllUsers();
-
-        const now = new Date();
-        const currentMonth = now.getMonth();
-        const currentYear = now.getFullYear();
-
-        programs.forEach((program, index) => {
-            const rowNum = index + 1;
-            const newUsersCell = document.getElementById(`rw${rowNum}_newusers`);
-            const totalUsersCell = document.getElementById(`rw${rowNum}_totalusers`);
-            const changeCell = document.getElementById(`rw${rowNum}_change`);
-
-            if (!newUsersCell || !totalUsersCell || !changeCell) return;
-
-            // Filter users by program
-            const programUsers = users.filter(u => u.program === program);
-
-            // Count total users
-            const totalUsers = programUsers.length;
-
-            // Count new users this month
-            const newUsersThisMonth = programUsers.filter(u => {
-                const createdAt = u.createdAt?.toDate ? u.createdAt.toDate() : new Date(u.createdAt);
-                return createdAt.getMonth() === currentMonth && createdAt.getFullYear() === currentYear;
-            }).length;
-
-            // Placeholder for change %, can compute with historical data if available
-            const changePercent = 0; 
-            const changeClass = changePercent >= 0 ? 'up' : 'down';
-
-            // Update table cells
-            newUsersCell.textContent = newUsersThisMonth;
-            totalUsersCell.textContent = totalUsers;
-            changeCell.textContent = `${changePercent} %`;
-            changeCell.className = changeClass; // update class to reflect up/down
-        });
-
-    } catch (err) {
-        console.error("Failed to update programs table:", err);
-    }
-}
-
 export function watchUserPresence(users) {
   if (!rtdb) {
     console.warn("RTDB not initialized. Cannot watch presence.");
@@ -813,35 +753,6 @@ function updateUserRowInDOM(userId, newStatusText) {
     }
   });
 }
-/**
- * Update user count displays
- * @param {Array} users - Array of users
- */
-export async function updateUserCounts(users) {
-  try {
-    if (!users) {
-      users = (await fetchAllUsers()).map(formatUserData);
-    }
-
-    const students = users.filter(u => u.rawData.userType === 'student');
-    const peers = users.filter(u => u.rawData.userType === 'peer');
-
-    const studentCountEl = document.getElementById('student_count');
-    const peersCountEl = document.getElementById('peers_count');
-
-    if (studentCountEl) studentCountEl.textContent = students.length;
-    if (peersCountEl) peersCountEl.textContent = peers.length;
-  } catch (err) {
-    console.error("Failed to update stats counts:", err);
-  }
-}
-
-
-export async function refreshProgramsDashboard() {
-    await updateProgramsTable();
-    await updateUserCounts();
-}
-
 
 /**
  * Refresh user list
@@ -972,6 +883,5 @@ export default {
   populateUserTable,
   searchAndFilterUsers,
   initializeUserManagement,
-  updateUserCounts,
   refreshUserList
 };

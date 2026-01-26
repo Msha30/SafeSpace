@@ -9,25 +9,46 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script type="module">
 		import { protectDashboard, logout } from "./auth.js";
-		import { initializeUserManagement, refreshProgramsDashboard, updateUserCounts,
-			 fetchAllUsers, filterUsersByType, formatUserData, initializePeerFacilitators} from './usermanagement.js';
+		
+		import { initializeUserManagement, initializePeerFacilitators, openUsersPopup, closeUsersPopup 
+		} from './userManagement.js';
+		import { refreshProgramsDashboard } from "./overview.js";
 		import { loadCounselingForms, loadRequestFormFromFirebase, saveRequestFormToFirebase } from "./counseling.js";
 		import { initSupportGroups, createSupportGroup, openCreateGroupModal, closeCreateGroupModal,
-			 triggerImageUpload, handleImageUpload } from "./supportgroup.js";
+				triggerImageUpload, handleImageUpload } from "./supportgroup.js";
+		import { confirmPost, handleFileUpload, removeFile, showPostConfirm, closePostConfirm, toggleAnnouncementDropdown,
+        selectProfile, initAnnouncementDropdown, loadAnnouncementHistory } from "./announcement.js";
+		import { initializeSettingsLogs } from "./settings_logs.js";
+		import { submitReport, uploadToSupabase } from "./report.js";
 
+		// Window Global Assignments
 		window.createSupportGroup = createSupportGroup;
 		window.openCreateGroupModal = openCreateGroupModal;
 		window.closeCreateGroupModal = closeCreateGroupModal;
 		window.triggerImageUpload = triggerImageUpload;
 		window.handleImageUpload = handleImageUpload;
+
 		window.loadRequestFormFromFirebase = loadRequestFormFromFirebase;
 		window.saveRequestFormToFirebase = saveRequestFormToFirebase;
-		
+
+		// ANNOUNCEMENT GLOBALS
+		window.confirmPost = confirmPost;
+		window.handleFileUpload = handleFileUpload;
+		window.removeFile = removeFile;
+		window.showPostConfirm = showPostConfirm;
+		window.closePostConfirm = closePostConfirm;
+		window.toggleAnnouncementDropdown = toggleAnnouncementDropdown;
+		window.selectProfile = selectProfile;
+		window.initAnnouncementDropdown = initAnnouncementDropdown;
+
+		window.submitReport = submitReport;
+
+		window.uploadToSupabase = uploadToSupabase;
+
 		window.addEventListener("DOMContentLoaded", async () => {
 			// Allow only authenticated GCO users
 			protectDashboard(["gco"]);
 
-							
 			initSupportGroups();
 
 			// Logout handler
@@ -50,7 +71,6 @@
 				showActions: false,
 				showType: false,
 				onUserClick: (user) => {
-					// Store user data for popup
 					window.selectedUser = user;
 					openUsersPopup(user.uid);
 				}
@@ -60,15 +80,15 @@
 				await initializeUserManagement(gcoConfig);
 				initializePeerFacilitators();
 				
-				// Update count cards on overview page
-				const allUsers = await fetchAllUsers();
-				const allowedUsers = filterUsersByType(allUsers, ['student', 'peer']);
-				const formattedUsers = allowedUsers.map(formatUserData);
-				updateUserCounts(formattedUsers);
 				await refreshProgramsDashboard();
 
+				await initAnnouncementDropdown();
 
 				await loadCounselingForms();
+
+				await loadAnnouncementHistory();
+
+				await initializeSettingsLogs();
 				
 				console.log("GCO User Management initialized successfully");
 			} catch (error) {
@@ -1705,21 +1725,6 @@
 								<div class="dropdown-item" onclick="selectProfile('NU FV PEERS - NU Fairview Peer Facilitators')">
 									NU FV PEERS - NU Fairview Peer Facilitators
 								</div>
-								<div class="dropdown-item" onclick="selectProfile('HAVEN')">
-									HAVEN
-								</div>
-								<div class="dropdown-item" onclick="selectProfile('YAKAP')">
-									YAKAP
-								</div>
-								<div class="dropdown-item" onclick="selectProfile('SUCCESS')">
-									SUCCESS
-								</div>
-								<div class="dropdown-item" onclick="selectProfile('WISE')">
-									WISE
-								</div>
-								<div class="dropdown-item" onclick="selectProfile('SYNC')">
-									SYNC
-								</div>
 							</div>
 						</div>
 					</div>
@@ -1801,144 +1806,6 @@
 				</div>
 			</div>
 		</div>
-
-
-		<!---------------------------------------------------------------------------------------->
-		<!---------------------------------------------------------------------------------------->	
-		<!---------------- FEEDBACK -------------------------------------------------------------->
-
-<!--	<div id="feedback" class="page">
-			<div class="row">
-				<div class="card2" style="flex: 2;">
-					<h3>Feedback</h3>
-
-					<div class="leftscroll2">
-						<img src="photos/pic_placeholder.png" alt="User" class="feedback-avatar">
-						<div class="feedback-content">
-							<div class="feedback-top">
-								<h4 class="feedback-name">Doe, John</h4>
-								<span class="feedback-date">December 0, 0000</span>
-							</div>
-							<div class="feedback-stars">
-								<img src="icons/ic_star.svg" class="star">
-								<img src="icons/ic_star.svg" class="star">
-								<img src="icons/ic_star.svg" class="star">
-								<img src="icons/ic_star.svg" class="star">
-								<img src="icons/ic_star.svg" class="star">
-							</div>
-							<p class="feedback-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-						</div>
-					</div>
-
-					<div class="leftscroll2">
-						<img src="photos/pic_placeholder.png" alt="User" class="feedback-avatar">
-						<div class="feedback-content">
-							<div class="feedback-top">
-								<h4 class="feedback-name">Doe, John</h4>
-								<span class="feedback-date">December 0, 0000</span>
-							</div>
-							<div class="feedback-stars">
-								<img src="icons/ic_star.svg" class="star">
-								<img src="icons/ic_star.svg" class="star">
-								<img src="icons/ic_star.svg" class="star">
-								<img src="icons/ic_star.svg" class="star">
-								<img src="icons/ic_star.svg" class="star">
-							</div>
-							<p class="feedback-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-						</div>
-					</div>
-
-					<div class="leftscroll2">
-						<img src="photos/pic_placeholder.png" alt="User" class="feedback-avatar">
-						<div class="feedback-content">
-							<div class="feedback-top">
-								<h4 class="feedback-name">Doe, John</h4>
-								<span class="feedback-date">December 0, 0000</span>
-							</div>
-							<div class="feedback-stars">
-								<img src="icons/ic_star.svg" class="star">
-								<img src="icons/ic_star.svg" class="star">
-								<img src="icons/ic_star.svg" class="star">
-								<img src="icons/ic_star.svg" class="star">
-								<img src="icons/ic_star.svg" class="star">
-							</div>
-							<p class="feedback-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-						</div>
-					</div>
-
-					
-				</div>
-				<div class="right">
-					<div class="card">
-						<h3>Overview</h3>
-						<table>
-						<thead>
-							<tr>
-								<th id="left">Rating</th>
-								<th>Count</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td id="left" style="padding-top: 20px;">
-									<img src="icons/ic_star.svg" class="star">
-									<img src="icons/ic_star.svg" class="star">
-									<img src="icons/ic_star.svg" class="star">
-									<img src="icons/ic_star.svg" class="star">
-									<img src="icons/ic_star.svg" class="star">
-								</td>
-								<td style="padding-top: 30px;">0</td>
-							</tr>
-							<tr>
-								<td id="left">
-									<img src="icons/ic_star.svg" class="star">
-									<img src="icons/ic_star.svg" class="star">
-									<img src="icons/ic_star.svg" class="star">
-									<img src="icons/ic_star.svg" class="star">
-									<img src="icons/ic_star_gray.svg" class="star">
-								</td>
-								<td >0</td>
-							</tr>
-							<tr>
-								<td id="left">
-									<img src="icons/ic_star.svg" class="star">
-									<img src="icons/ic_star.svg" class="star">
-									<img src="icons/ic_star.svg" class="star">
-									<img src="icons/ic_star_gray.svg" class="star">
-									<img src="icons/ic_star_gray.svg" class="star">
-								</td>
-								<td >0</td>
-							</tr>
-							<tr>
-								<td id="left">
-									<img src="icons/ic_star.svg" class="star">
-									<img src="icons/ic_star.svg" class="star">
-									<img src="icons/ic_star_gray.svg" class="star">
-									<img src="icons/ic_star_gray.svg" class="star">
-									<img src="icons/ic_star_gray.svg" class="star">
-								</td>
-								<td >0</td>
-							</tr>
-							<tr>
-								<td id="left">
-									<img src="icons/ic_star.svg" class="star">
-									<img src="icons/ic_star_gray.svg" class="star">
-									<img src="icons/ic_star_gray.svg" class="star">
-									<img src="icons/ic_star_gray.svg" class="star">
-									<img src="icons/ic_star_gray.svg" class="star">
-								</td>
-								<td >0</td>
-							</tr>
-						</tbody>
-					</table>
-					<div style="width: 220px; height: 220px; margin-left: auto; margin-right: auto; margin-top: 30px;">
-						<canvas id="ratingChart" class="rating"></canvas>
-					</div>
-					</div>
-				</div>
-			</div>
-		</div>
--->	
 		<!---------------------------------------------------------------------------------------->
 		<!---------------------------------------------------------------------------------------->	
 		<!---------------- SETTINGS & LOGS-------------------------------------------------------->
@@ -2237,14 +2104,14 @@
 						<h3>Report to IT Admin</h3>
 						<form>
 							 <div class="options">
-								<label><input type="radio" name="type"> Technical</label>
-								<label><input type="radio" name="type"> Edit</label>
-								<label><input type="radio" name="type"> Account</label>
-								<label><input type="radio" name="type"> Removal</label>
-								<label><input type="radio" name="type"> Chat History</label>
-								<label><input type="radio" name="type"> Other</label>
-								<label><input type="radio" name="type"> Update</label>
-							 </div>
+								<label><input type="radio" name="type" value="Technical"> Technical</label>
+								<label><input type="radio" name="type" value="Edit"> Edit</label>
+								<label><input type="radio" name="type" value="Account"> Account</label>
+								<label><input type="radio" name="type" value="Removal"> Removal</label>
+								<label><input type="radio" name="type" value="Chat History"> Chat History</label>
+								<label><input type="radio" name="type" value="Other"> Other</label>
+								<label><input type="radio" name="type" value="Update"> Update</label>
+							</div>
 							 <textarea placeholder="Report Description..." class="report"></textarea>
 							<div class="file-boxes2">
 								<div class="file2"></div>
@@ -2561,29 +2428,6 @@
 
 		updateNotificationBadge(1);
 
-		/* COMMENTED OUT TO REMOVE ERRORS
-
-		// Popup logic REFERENCE ONLY------------------------------------------------------------------
-		const openBtn = document.getElementById("openPopupBtn");
-		const closeBtn = document.getElementById("closePopupBtn");
-		const overlay = document.getElementById("popupOverlay");
-
-		openBtn.addEventListener("click", () => {
-		overlay.classList.toggle("hidden");
-		});
-
-		closeBtn.addEventListener("click", () => {
-		overlay.classList.add("hidden");
-		});
-
-		overlay.addEventListener("click", (e) => {
-		if (e.target === overlay) {
-		overlay.classList.add("hidden");
-		}
-		});
-
-		//TRY
-		*/
 
 		const gcoReportsData = [
 			{ date: '2025-01-10', student: 'Doe, John A.', type: 'video_call', assignedTo: 'Doe, John A.', role: 'GCO Counselor' },
@@ -3434,18 +3278,6 @@
 
 
 		//ANNOUNCEMENT-----------------------------------------------------------
-		/*
-		document.getElementById('announcementBtn').addEventListener('click', function() {
-			this.classList.add('active');
-			document.getElementById('joinableBtn').classList.remove('active');
-		});
-
-		document.getElementById('joinableBtn').addEventListener('click', function() {
-			this.classList.add('active');
-			document.getElementById('announcementBtn').classList.remove('active');
-		});
-		*/
-
 		// FOR ANNOUNCEMENT UPLOADING IMAGES & VIDEOS
 
 		let uploadedFiles = [];
