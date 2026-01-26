@@ -342,35 +342,54 @@ export async function startCall({
 
     // 10) Return cleanup function
     return function hangup() {
-    console.log("[call.js] Hanging up...");
-    
-    if (remoteAnswerCandidatesUnsub) remoteAnswerCandidatesUnsub();
-    if (answerUnsub) answerUnsub();
-    
-    if (pc) {
+      console.log("[call.js] Hanging up...");
+      
+      // 1. Unsubscribe from Firestore listeners
+      if (remoteAnswerCandidatesUnsub) remoteAnswerCandidatesUnsub();
+      if (answerUnsub) answerUnsub();
+      
+      // 2. Stop all tracks from peer connection senders (THIS IS THE FIX!)
+      if (pc) {
+        // Get all senders and stop their tracks
+        pc.getSenders().forEach(sender => {
+          if (sender.track) {
+            console.log("[call.js] Stopping track from sender:", sender.track.kind);
+            sender.track.stop();
+          }
+        });
+        
+        // Close the peer connection
         pc.close();
         pc = null;
-    }
-    
-    if (localStream) {
-        localStream.getTracks().forEach(track => track.stop());
+      }
+      
+      // 3. Stop all tracks from local stream (redundant but safe)
+      if (localStream) {
+        localStream.getTracks().forEach(track => {
+          console.log("[call.js] Stopping track from localStream:", track.kind);
+          track.stop();
+        });
         localStream = null;
-    }
+      }
 
-    if (dom && dom.localVideo) {
+      // 4. Clear video elements
+      if (dom && dom.localVideo) {
         dom.localVideo.srcObject = null;
-    }
-    if (dom && dom.remoteVideo) {
+      }
+      if (dom && dom.remoteVideo) {
         dom.remoteVideo.srcObject = null;
-    }
+      }
 
-    // NEW: Delete call document and subcollections
-    if (callDocRef) {
+      // 5. Delete call document and subcollections
+      if (callDocRef) {
         deleteCallDocument(callDocRef).catch(console.error);
-    }
-  };
-  async function deleteCallDocument(callDocRef) {
-    try {
+      }
+      
+      console.log("[call.js] Cleanup complete - camera should be off");
+    };
+    
+    async function deleteCallDocument(callDocRef) {
+      try {
         // 1. Delete offerCandidates subcollection
         const offerCandidatesRef = collection(callDocRef, "offerCandidates");
         const offerSnapshot = await getDocs(offerCandidatesRef);
@@ -387,10 +406,10 @@ export async function startCall({
         await deleteDoc(callDocRef);
         
         console.log("[call.js] Call document and subcollections deleted");
-    } catch (err) {
+      } catch (err) {
         console.error("[call.js] Error deleting call document:", err);
+      }
     }
-  }
 
   } catch (err) {
     console.error("[call.js] startCall error:", err);
@@ -398,7 +417,16 @@ export async function startCall({
     // Cleanup on error
     if (remoteAnswerCandidatesUnsub) remoteAnswerCandidatesUnsub();
     if (answerUnsub) answerUnsub();
-    if (pc) pc.close();
+    
+    // Stop all tracks from peer connection
+    if (pc) {
+      pc.getSenders().forEach(sender => {
+        if (sender.track) sender.track.stop();
+      });
+      pc.close();
+    }
+    
+    // Stop all tracks from local stream
     if (localStream) {
       localStream.getTracks().forEach(track => track.stop());
     }
