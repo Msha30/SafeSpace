@@ -3,7 +3,7 @@ import { db, rtdb } from "./auth.js";
 import { 
   collection, 
   getDocs,
-  getDoc,      // <-- added
+  getDoc,
   query, 
   where, 
   orderBy,
