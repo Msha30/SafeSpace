@@ -167,7 +167,11 @@ async function createAnnouncementCard(announcementId, data) {
   const cardDiv = document.createElement("div");
   cardDiv.className = "card3";
   cardDiv.innerHTML = `
-    ${headerContent}
+    <div class="announcementTopBar">
+      ${headerContent}
+      <button class="deleteAnnouncementBtn">&times;</button>
+    </div>
+
     <p class="announcementText">
       ${data.description ? data.description.replace(/\n/g, '<br>') : ''}
     </p>
