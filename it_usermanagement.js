@@ -18,6 +18,7 @@ import {
   createUserWithEmailAndPassword,
   deleteUser as authDeleteUser
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { logAdmin } from "./logger.js";
 
 // Cache
 let usersCache = [];
@@ -372,6 +373,7 @@ async function confirmCreateUser() {
     }
     
     alert('User created successfully!');
+    await logAdmin("user_management", `Created new GCO user: ${email}`);
     closeConfirmPopup();
     closeCreateUserPopup();
     
@@ -525,6 +527,7 @@ async function saveEditUser() {
     await updateDoc(userRef, updates);
     
     alert('User updated successfully!');
+    await logAdmin("user_management", `Updated user: ${firstName} ${lastName}`);
     closeEditUserPopup();
     
     // Refresh will happen via listener
@@ -608,6 +611,7 @@ async function confirmRemoveUser() {
     }
     
     alert('User removed successfully!');
+    await logAdmin("user_management", `Removed user: ${userName}`);
     closeRemovePopup();
     
     // Refresh will happen via listener

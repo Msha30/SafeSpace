@@ -16,6 +16,7 @@ import {
   query, 
   where
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { logGCO } from "./logger.js";
 
 const db = getFirestore(app);
 
@@ -292,6 +293,7 @@ async function startCall(submissionId) {
     }
 
     console.log("[counseling.js] Starting call with mode:", mode);
+    await logGCO("counseling", `Started ${mode} counseling session`);
 
     // 2. Update submission status
     await updateDoc(docRef, {
@@ -516,7 +518,7 @@ async function completeCall(submissionId) {
     for (const callDoc of callsSnapshot.docs) {
       await deleteCallDocument(callDoc.ref);
     }
-    
+    await logGCO("counseling", "Completed counseling session");
     console.log("[counseling.js] Call completed and cleaned up");
     alert("Session marked as complete!");
     

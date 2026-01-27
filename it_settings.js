@@ -11,6 +11,7 @@ import {
   orderBy,
   deleteDoc
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { logAdmin } from "./logger.js";
 
 // Cache for terms and privacy
 let termsContent = "";
@@ -174,6 +175,7 @@ async function saveTerms() {
     }
     
     alert('Saved successfully!');
+    await logAdmin("settings", "Updated Terms and Conditions");
     closeTermsModal(modalToSave.id);
     
   } catch (error) {
@@ -290,6 +292,7 @@ async function deleteSupportGroup(groupId, groupName) {
     await deleteDoc(groupRef);
     
     alert(`"${groupName}" has been deleted successfully.`);
+    await logAdmin("support_group", `Deleted support group: ${groupName}`);
     
     // Remove from UI
     const item = document.querySelector(`.supportGroupItem[data-group-id="${groupId}"]`);
@@ -324,144 +327,6 @@ function checkEmptyState() {
 }
 
 /**
- * Load System Logs (GCO and Peer Facilitator)
- */
-export async function loadSystemLogs() {
-  try {
-    // Load GCO Coordinator Logs
-    await loadGCOLogs();
-    
-    // Load Peer Facilitator Logs
-    await loadPeerLogs();
-    
-  } catch (error) {
-    console.error("Error loading system logs:", error);
-  }
-}
-
-/**
- * Load GCO Coordinator Logs
- */
-async function loadGCOLogs() {
-  try {
-    const logsRef = collection(db, "system_logs");
-    const q = query(
-      logsRef,
-      where("userType", "==", "gco"),
-      orderBy("timestamp", "desc")
-    );
-    const snapshot = await getDocs(q);
-    
-    const logs = [];
-    snapshot.forEach((doc) => {
-      logs.push(doc.data());
-    });
-    
-    renderLogs(logs, 'gco');
-    
-  } catch (error) {
-    console.error("Error loading GCO logs:", error);
-    // If no logs collection exists, just show placeholder
-    renderLogs([], 'gco');
-  }
-}
-
-/**
- * Load Peer Facilitator Logs
- */
-async function loadPeerLogs() {
-  try {
-    const logsRef = collection(db, "system_logs");
-    const q = query(
-      logsRef,
-      where("userType", "==", "peer"),
-      orderBy("timestamp", "desc")
-    );
-    const snapshot = await getDocs(q);
-    
-    const logs = [];
-    snapshot.forEach((doc) => {
-      logs.push(doc.data());
-    });
-    
-    renderLogs(logs, 'peer');
-    
-  } catch (error) {
-    console.error("Error loading Peer logs:", error);
-    // If no logs collection exists, just show placeholder
-    renderLogs([], 'peer');
-  }
-}
-
-/**
- * Render logs in the UI
- */
-function renderLogs(logs, type) {
-  const containers = document.querySelectorAll('.logs-list');
-  if (containers.length === 0) return;
-  
-  const container = type === 'gco' ? containers[0] : containers[1];
-  if (!container) return;
-  
-  container.innerHTML = '';
-  
-  if (logs.length === 0) {
-    container.innerHTML = `
-      <div class="log-entry" style="text-align: center; color: #888;">
-        <p>No logs available</p>
-      </div>
-    `;
-    return;
-  }
-  
-  // Show first 10 logs
-  logs.slice(0, 10).forEach(log => {
-    const entry = document.createElement('div');
-    entry.className = 'log-entry';
-    
-    const avatarUrl = log.avatarUrl || 'photos/pic_placeholder.png';
-    const userName = log.userName || 'Unknown User';
-    const timestamp = formatLogTimestamp(log.timestamp);
-    const message = log.message || 'No message';
-    
-    entry.innerHTML = `
-      <img src="${avatarUrl}" class="avatar" alt="Avatar" onerror="this.src='photos/pic_placeholder.png'">
-      <div class="log-top">
-        <span class="log-name">${escapeHtml(userName)}</span>
-        <span class="log-time">${timestamp}</span>
-      </div>
-      <div class="log-message">
-        ${escapeHtml(message)}
-      </div>
-    `;
-    
-    container.appendChild(entry);
-  });
-}
-
-/**
- * Format log timestamp
- */
-function formatLogTimestamp(timestamp) {
-  if (!timestamp) return 'Unknown time';
-  
-  try {
-    const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
-    return date.toLocaleDateString('en-US', {
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric'
-    }) + ' at ' + date.toLocaleTimeString('en-US', {
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true
-    });
-  } catch (error) {
-    return 'Invalid date';
-  }
-}
-
-/**
  * Escape HTML to prevent XSS
  */
 function escapeHtml(text) {
@@ -480,6 +345,5 @@ export function cleanupITSettings() {
 
 export default {
   initializeITSettings,
-  loadSystemLogs,
   cleanupITSettings
 };

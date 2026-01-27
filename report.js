@@ -8,6 +8,7 @@ import {
   serverTimestamp,
   getDoc
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { logGCO } from "./logger.js";
 
 const SUPABASE_URL = "https://saqbiryyijzntzizkncv.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNhcWJpcnl5aWp6bnR6aXprbmN2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQxNjg3NjgsImV4cCI6MjA3OTc0NDc2OH0.wr-zLfv5jLsPv-iXJb8fDRCTfIntnwYfTc4DgV4bNds";
@@ -310,6 +311,7 @@ export async function submitReport() {
     if(checkedRadio) checkedRadio.checked = false;
 
     alert("Report submitted successfully.");
+    await logGCO("report", `Submitted ${reportTypeId} report`);
     console.log("Report created:", { reportTypeId, taskId, uploadedUrls });
     return { reportTypeId, taskId, uploadedUrls };
   } catch (err) {

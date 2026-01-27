@@ -11,7 +11,10 @@
 		import { protectDashboard, logout } from "./auth.js";
 		import { initializeITTasks } from "./it_tasks.js";
 		import { initializeITUserManagement } from "./it_usermanagement.js";
-		import { initializeITSettings, loadSystemLogs } from "./it_settings.js";
+		import { initializeITSettings} from "./it_settings.js";
+		import { log, logGCO } from "./logger.js";
+		import { loadITAdminGCOReports, loadITAdminSystemUpdates, loadGCOCoordinatorLogs, loadPeerFacilitatorLogs, 
+		} from "./log_reader.js";
 
 		window.addEventListener("DOMContentLoaded", async () => {
 			// Allow only authenticated IT Admin users
@@ -31,7 +34,10 @@
 			await initializeITTasks();
 			await initializeITUserManagement();
 			await initializeITSettings();
-			await loadSystemLogs();
+			await loadITAdminGCOReports("itAdminGCOReports", 10);
+  			await loadITAdminSystemUpdates("itAdminSystemUpdates", 10);
+			await loadGCOCoordinatorLogs("gcoCoordinatorLogsContainer", 10);
+			await loadPeerFacilitatorLogs("peerFacilitatorLogsContainer", 10);
 		});
 
 		// Helper function
@@ -1428,7 +1434,7 @@
 			<div class="row">
 				<div class="card">
 					   <h3>GCO Coordinator Logs</h3>
-  					   <div class="logs-list">
+  					   <div class="logs-list" id="gcoCoordinatorLogsContainer">
       						<div class="log-entry">
         						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
         						<div class="log-top">
@@ -1474,7 +1480,7 @@
 					</div>
 				<div class="card">
 					<h3>Peer Facilitator Logs</h3>
-					<div class="logs-list">
+					<div class="logs-list" id="peerFacilitatorLogsContainer">
       						<div class="log-entry">
         						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
         						<div class="log-top">
@@ -1531,7 +1537,7 @@
 				<div class="right">
 					<div class="card2">
 						<h3>GCO Reports</h3>
-						<div class="leftscroll">
+						<div class="leftscroll" id="itAdminGCOReports">
 							<div class="update">
 								<div class="update-header">
 									<strong>Lorem Ipsum</strong>
@@ -1572,7 +1578,7 @@
 				</div>
 				<div class="card2">
 					<h3>System Updates</h3>
-					<div class="leftscroll">
+					<div class="leftscroll" id="itAdminSystemUpdates">
 						<div class="update">
 							 <div class="update-header">
 								<strong>Lorem Ipsum</strong>

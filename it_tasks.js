@@ -13,6 +13,7 @@ import {
   onSnapshot,
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { logAdmin } from "./logger.js";
 
 // Constants
 const REPORT_TYPES = [
@@ -28,6 +29,7 @@ const REPORT_TYPES = [
 // Cache for tasks
 let tasksCache = new Map();
 let activeListeners = new Map();
+let lastSeenTimestamps = new Map(); // Track when user last viewed each task type
 
 /**
  * Initialize IT Tasks system
@@ -35,13 +37,19 @@ let activeListeners = new Map();
 export async function initializeITTasks() {
   console.log("Initializing IT Tasks...");
   
+  // Load last seen timestamps from localStorage
+  loadLastSeenTimestamps();
+  
   // Setup listeners for each report type
   REPORT_TYPES.forEach(type => {
     setupTaskListener(type.id);
   });
   
-  // Update task counts in overview cards
+  // Update task counts and NEW badges in overview cards
   updateTaskCounts();
+  
+  // Wire up overview card clicks to navigate to task pages
+  wireOverviewCards();
 }
 
 /**
@@ -71,7 +79,7 @@ function setupTaskListener(reportType) {
         renderTasksForType(reportType, tasks);
       }
       
-      // Update counts
+      // Update counts and badges
       updateTaskCounts();
     }, (error) => {
       console.error(`Error listening to ${reportType} tasks:`, error);
@@ -80,6 +88,109 @@ function setupTaskListener(reportType) {
     activeListeners.set(reportType, unsubscribe);
   } catch (error) {
     console.error(`Failed to setup listener for ${reportType}:`, error);
+  }
+}
+
+/**
+ * Load last seen timestamps from localStorage
+ */
+function loadLastSeenTimestamps() {
+  const currentUser = auth.currentUser;
+  if (!currentUser) return;
+  
+  const key = `lastSeenTasks_${currentUser.uid}`;
+  const stored = localStorage.getItem(key);
+  
+  if (stored) {
+    try {
+      const data = JSON.parse(stored);
+      lastSeenTimestamps = new Map(Object.entries(data));
+    } catch (e) {
+      console.error("Failed to parse last seen timestamps:", e);
+    }
+  }
+}
+
+/**
+ * Save last seen timestamp for a report type
+ */
+function saveLastSeenTimestamp(reportType) {
+  const currentUser = auth.currentUser;
+  if (!currentUser) return;
+  
+  lastSeenTimestamps.set(reportType, Date.now());
+  
+  const key = `lastSeenTasks_${currentUser.uid}`;
+  const data = Object.fromEntries(lastSeenTimestamps);
+  localStorage.setItem(key, JSON.stringify(data));
+  
+  // Update badge immediately
+  updateTaskCounts();
+}
+
+/**
+ * Wire up overview cards to navigate to task pages
+ */
+function wireOverviewCards() {
+  const overviewPage = document.getElementById('tasks');
+  if (!overviewPage) return;
+  
+  const cards = overviewPage.querySelectorAll('.task-card');
+  
+  cards.forEach((card, index) => {
+    if (index >= REPORT_TYPES.length) return;
+    
+    const reportType = REPORT_TYPES[index];
+    const pageId = reportType.id.toLowerCase().replace(/_/g, '-');
+    
+    // Remove old click listeners by cloning
+    const newCard = card.cloneNode(true);
+    card.parentNode.replaceChild(newCard, card);
+    
+    newCard.style.cursor = 'pointer';
+    newCard.addEventListener('click', () => {
+      navigateToTaskPage(pageId, reportType.id);
+    });
+  });
+}
+
+/**
+ * Navigate to a specific task page
+ */
+function navigateToTaskPage(pageId, reportType) {
+  // Hide all pages
+  document.querySelectorAll('.page').forEach(p => {
+    p.style.display = 'none';
+    p.classList.remove('active');
+  });
+  
+  // Show the target page
+  const page = document.getElementById(pageId);
+  if (page) {
+    page.style.display = 'block';
+    page.classList.add('active');
+    
+    // Update page title
+    const pageTitle = document.getElementById('pageTitle');
+    if (pageTitle) {
+      const typeName = REPORT_TYPES.find(t => t.id === reportType)?.label || reportType;
+      pageTitle.innerHTML = `
+        <a href="#" onclick="showPage('tasks')" style="text-decoration:none; color:inherit;">
+          Tasks
+        </a>
+        <img src="icons/ic_arrow right.svg" 
+            style="width:14px; vertical-align:middle; margin:0 5px; cursor:pointer;" 
+            onclick="showPage('tasks')">
+        ${typeName}
+      `;
+    }
+    
+    // Mark as seen
+    saveLastSeenTimestamp(reportType);
+    
+    // Render tasks for this type
+    const tasks = tasksCache.get(reportType) || [];
+    renderTasksForType(reportType, tasks);
   }
 }
 
@@ -98,14 +209,25 @@ function getCurrentTaskPage() {
  * Render tasks for a specific type on its page
  */
 function renderTasksForType(reportType, tasks) {
-  const pageId = reportType.toLowerCase();
+  const pageId = reportType.toLowerCase().replace(/_/g, '-');
   const page = document.getElementById(pageId);
   if (!page) return;
   
+  const currentUser = auth.currentUser;
+  if (!currentUser) return;
+  
   // Group tasks by status
   const todoTasks = tasks.filter(t => t.task_status === "To_Do");
-  const pendingTasks = tasks.filter(t => t.task_status === "Pending");
-  const completedTasks = tasks.filter(t => t.task_status === "Completed");
+  
+  // Filter pending to show only tasks started by current user
+  const pendingTasks = tasks.filter(t => 
+    t.task_status === "Pending" && t.task_started_by === currentUser.uid
+  );
+  
+  // Filter completed to show only tasks completed by current user
+  const completedTasks = tasks.filter(t => 
+    t.task_status === "Completed" && t.task_completed_by === currentUser.uid
+  );
   
   // Render each section
   renderTaskSection(page, "To Do", todoTasks, "todo");
@@ -220,6 +342,46 @@ async function updateTaskCounts() {
       if (countElem) {
         countElem.textContent = `${todoCount} task${todoCount !== 1 ? 's' : ''}`;
       }
+      
+      // Check if there are new tasks
+      const hasNewTasks = checkForNewTasks(type.id, tasks);
+      
+      // Add or remove NEW badge
+      let badge = cards[index].querySelector('.badge');
+      if (hasNewTasks && !badge) {
+        badge = document.createElement('span');
+        badge.className = 'badge';
+        badge.textContent = 'NEW';
+        cards[index].appendChild(badge);
+      } else if (!hasNewTasks && badge) {
+        badge.remove();
+      }
+    }
+  });
+}
+
+/**
+ * Check if there are new tasks since last seen
+ */
+function checkForNewTasks(reportType, tasks) {
+  const lastSeen = lastSeenTimestamps.get(reportType);
+  if (!lastSeen) {
+    // Never seen before, check if there are any tasks
+    return tasks.length > 0;
+  }
+  
+  // Check if any task was created after last seen
+  return tasks.some(task => {
+    if (!task.task_created_date) return false;
+    
+    try {
+      const createdDate = task.task_created_date.toDate ? 
+        task.task_created_date.toDate() : 
+        new Date(task.task_created_date);
+      
+      return createdDate.getTime() > lastSeen;
+    } catch (e) {
+      return false;
     }
   });
 }
@@ -291,6 +453,7 @@ async function startTask(taskId, reportType) {
     
     window.closeModal();
     alert("Task started successfully");
+    await logAdmin("task", `Started ${reportType} task`);
   } catch (error) {
     console.error("Error starting task:", error);
     alert("Failed to start task");
@@ -446,6 +609,7 @@ async function completeTask(taskId, reportType) {
     
     window.closeDoneModal();
     alert("Task completed successfully");
+    await logAdmin("task", `Completed ${reportType} task: ${task.task_desc.substring(0, 50)}...`);
   } catch (error) {
     console.error("Error completing task:", error);
     alert("Failed to complete task");
@@ -459,39 +623,172 @@ window.openCompleteModal = async function(taskId, reportType) {
   const task = await getTaskById(taskId, reportType);
   if (!task) return;
   
-  const modal = document.getElementById('pendingModal'); // Reuse pending modal for viewing
-  if (!modal) return;
+  // Create or get complete modal (we'll make a new one)
+  let modal = document.getElementById('completeModal');
   
-  const descElem = document.getElementById('pendingModalTaskDescription');
+  // If modal doesn't exist, create it
+  if (!modal) {
+    modal = createCompleteModal();
+    document.body.appendChild(modal);
+  }
+  
+  // Populate modal with task data
+  const descElem = modal.querySelector('.complete-modal-description');
   if (descElem) {
     descElem.textContent = task.task_desc || "No description";
   }
   
-  // Show completion info
+  // Creator info
   const creatorInfo = await getUserInfo(task.task_creator);
+  const creatorName = modal.querySelector('.complete-info-creator-name');
+  if (creatorName) {
+    creatorName.textContent = creatorInfo.name || "Unknown";
+  }
+  
+  const creatorDate = modal.querySelector('.complete-info-creator-date');
+  if (creatorDate && task.task_created_date) {
+    creatorDate.textContent = formatDate(task.task_created_date);
+  }
+  
+  // Starter info
+  const starterInfo = await getUserInfo(task.task_started_by);
+  const starterName = modal.querySelector('.complete-info-starter-name');
+  if (starterName) {
+    starterName.textContent = starterInfo.name || "Unknown";
+  }
+  
+  const starterDate = modal.querySelector('.complete-info-starter-date');
+  if (starterDate && task.task_started_date) {
+    starterDate.textContent = formatDate(task.task_started_date);
+  }
+  
+  // Completer info
   const completerInfo = await getUserInfo(task.task_completed_by);
-  
-  const creatorNameElem = modal.querySelectorAll('.pending-modal-info-value')[0];
-  if (creatorNameElem) {
-    creatorNameElem.textContent = creatorInfo.name || "Unknown";
+  const completerName = modal.querySelector('.complete-info-completer-name');
+  if (completerName) {
+    completerName.textContent = completerInfo.name || "IT Admin";
   }
   
-  const creatorDateElem = modal.querySelectorAll('.pending-modal-info-value')[2];
-  if (creatorDateElem && task.task_created_date) {
-    creatorDateElem.textContent = formatDate(task.task_created_date);
+  const completerDate = modal.querySelector('.complete-info-completer-date');
+  if (completerDate && task.task_completed_date) {
+    completerDate.textContent = formatDate(task.task_completed_date);
   }
   
-  const completerNameElem = modal.querySelectorAll('.pending-modal-info-value-green')[0];
-  if (completerNameElem) {
-    completerNameElem.textContent = completerInfo.name || "IT Admin";
+  // Completion notes
+  const notesElem = modal.querySelector('.complete-notes-content');
+  if (notesElem) {
+    notesElem.textContent = task.task_completion_notes || "No completion notes provided.";
   }
   
-  const completerDateElem = modal.querySelectorAll('.pending-modal-info-value-green')[1];
-  if (completerDateElem && task.task_completed_date) {
-    completerDateElem.textContent = formatDate(task.task_completed_date);
+  // Show attached files if any
+  const filesContainer = modal.querySelector('.complete-files-container');
+  if (filesContainer && task.task_pic && Array.isArray(task.task_pic) && task.task_pic.length > 0) {
+    filesContainer.style.display = 'block';
+    const filesList = modal.querySelector('.complete-files-list');
+    if (filesList) {
+      filesList.innerHTML = '';
+      task.task_pic.forEach((url, index) => {
+        const fileItem = document.createElement('div');
+        fileItem.className = 'complete-file-item';
+        fileItem.innerHTML = `
+          <a href="${url}" target="_blank" style="color: #0847b2; text-decoration: underline;">
+            📎 Attachment ${index + 1}
+          </a>
+        `;
+        filesList.appendChild(fileItem);
+      });
+    }
+  } else if (filesContainer) {
+    filesContainer.style.display = 'none';
   }
   
   modal.classList.add('active');
+};
+
+/**
+ * Create Complete Modal HTML structure
+ */
+function createCompleteModal() {
+  const modal = document.createElement('div');
+  modal.id = 'completeModal';
+  modal.className = 'complete-modal-overlay';
+  
+  modal.innerHTML = `
+    <div class="complete-modal-content">
+      <button class="complete-close-modal" onclick="window.closeCompleteModal()">&times;</button>
+      <div class="complete-modal-header">Completed Task Details</div>
+      <div class="complete-modal-body">
+        <h3 class="complete-modal-description"></h3>
+        
+        <div class="complete-modal-info-grid">
+          <div class="complete-modal-info-row">
+            <div class="complete-modal-info-block">
+              <div class="complete-modal-info-label">Task Created by</div>
+              <div class="complete-info-creator-name complete-modal-info-value">Unknown</div>
+            </div>
+            
+            <div class="complete-modal-info-block">
+              <div class="complete-modal-info-label">Task Started by</div>
+              <div class="complete-info-starter-name complete-modal-info-value-green">Unknown</div>
+            </div>
+          </div>
+
+          <div class="complete-modal-info-row">
+            <div class="complete-modal-info-block">
+              <div class="complete-modal-info-label">Task Created on</div>
+              <div class="complete-info-creator-date complete-modal-info-value">N/A</div>
+            </div>
+            
+            <div class="complete-modal-info-block">
+              <div class="complete-modal-info-label">Task Started on</div>
+              <div class="complete-info-starter-date complete-modal-info-value-green">N/A</div>
+            </div>
+          </div>
+          
+          <div class="complete-modal-info-row">
+            <div class="complete-modal-info-block">
+              <div class="complete-modal-info-label">Task Completed by</div>
+              <div class="complete-info-completer-name complete-modal-info-value-blue">Unknown</div>
+            </div>
+            
+            <div class="complete-modal-info-block">
+              <div class="complete-modal-info-label">Task Completed on</div>
+              <div class="complete-info-completer-date complete-modal-info-value-blue">N/A</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="complete-notes-section">
+          <div class="complete-notes-label">Completion Notes:</div>
+          <div class="complete-notes-content"></div>
+        </div>
+        
+        <div class="complete-files-container" style="display: none;">
+          <div class="complete-files-label">Attached Files:</div>
+          <div class="complete-files-list"></div>
+        </div>
+      </div>
+    </div>
+  `;
+  
+  // Add click outside to close
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      window.closeCompleteModal();
+    }
+  });
+  
+  return modal;
+}
+
+/**
+ * Close Complete Modal
+ */
+window.closeCompleteModal = function() {
+  const modal = document.getElementById('completeModal');
+  if (modal) {
+    modal.classList.remove('active');
+  }
 };
 
 /**
@@ -579,6 +876,55 @@ export function cleanupITTasks() {
   activeListeners.clear();
   tasksCache.clear();
 }
+
+/**
+ * Global showPage function for navigation
+ */
+window.showPage = function(pageId, element) {
+  // Hide all pages
+  document.querySelectorAll('.page').forEach(p => {
+    p.style.display = 'none';
+    p.classList.remove('active');
+  });
+  
+  // Show target page
+  const page = document.getElementById(pageId);
+  if (page) {
+    page.style.display = 'block';
+    page.classList.add('active');
+  }
+  
+  // Update sidebar
+  if (element) {
+    document.querySelectorAll('.sidebar a').forEach(a => {
+      a.classList.remove('active');
+      const img = a.querySelector('img.icon');
+      if (img) {
+        img.src = img.src.replace('ic_sba_', 'ic_sb_');
+      }
+    });
+    
+    element.classList.add('active');
+    const activeImg = element.querySelector('img.icon');
+    if (activeImg) {
+      activeImg.src = activeImg.src.replace('ic_sb_', 'ic_sba_');
+    }
+  }
+  
+  // Update page title
+  const pageTitle = document.getElementById('pageTitle');
+  if (pageTitle && element) {
+    pageTitle.textContent = element.textContent.trim();
+  }
+  
+  // Re-wire overview cards if going back to tasks page
+  if (pageId === 'tasks') {
+    setTimeout(() => {
+      wireOverviewCards();
+      updateTaskCounts();
+    }, 100);
+  }
+};
 
 // File upload handlers for Done modal
 window.showFileName = function() {
