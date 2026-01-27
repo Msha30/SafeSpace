@@ -1,4 +1,5 @@
 // notification.js
+import { db, auth, rtdb } from "./auth.js";
 import {
   collection,
   query,
