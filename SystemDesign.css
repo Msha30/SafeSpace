@@ -3779,8 +3779,19 @@ small {
   margin: 0;                      
   width: 100%;
   box-sizing: border-box;
-  overflow: hidden;
+
+  max-height: 400px;   /* or whatever height you want */
+  overflow-y: auto;    /* still scrollable */
+
+  /* Hide scrollbar — Firefox */
+  scrollbar-width: none;
 }
+
+/* Hide scrollbar — Chrome, Edge, Safari */
+.logs-list::-webkit-scrollbar {
+  display: none;
+}
+
 
 .log-entry {
   background: #e9f3f9;
@@ -3862,13 +3873,13 @@ small {
 }
 
 .options input[type="radio"]:checked {
-  background-color: #c2e1f5;       
-  border-color: #c0c6cc;           
+  background-color: #ff4d4f;   
+  border-color: #681416;          
 }
 
 .report {
   width: 88%;
-  height: 150px;        
+  height: 260px;        
   resize: none;         
   overflow-y: auto;     
   margin: 20px auto 0 auto;  
@@ -4279,36 +4290,41 @@ video.file-preview2 {
 .horizontal-grid {
   display: flex;
   gap: 15px;
+
   overflow-x: auto;
   overflow-y: hidden;
-  padding-bottom: 0px;
+  max-width: calc((340px * 3) + (50px * 2));
+  padding-bottom: 10px;
+
   scroll-behavior: smooth;
 }
 
 .horizontal-grid::-webkit-scrollbar {
-    height: 4px;
+  height: 4px;
 }
 
 .horizontal-grid::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 2px;
+  background: #f1f1f1;
+  border-radius: 2px;
 }
 
 .horizontal-grid::-webkit-scrollbar-thumb {
-    background: #c0c0c0;
-    border-radius: 2px;
+  background: #c0c0c0;
+  border-radius: 2px;
 }
 
 .horizontal-grid::-webkit-scrollbar-thumb:hover {
-    background: #a0a0a0;
+  background: #a0a0a0;
 }
 
 
-/* only affect task boxes inside technical page */
+/* task cards */
 .horizontal-grid .task-box {
-  flex: 0 0 calc(33.333% - 10px);
-  max-width: calc(33.333% - 10px);
+  width: 320px;
+  min-width: 320px;
+  flex-shrink: 0;
 }
+
 
 
 .task-card {
@@ -6477,7 +6493,204 @@ video.file-preview2 {
     color: #b91c1c;        /* deep red text */
 }
 
-.confirm-delete-btn:hover {
-    background: #b91c1c;   /* strong red on hover */
-    color: #ffffff;        /* white text */
+
+/* -------------------------------------- TASKS -- COMPLETE MODAL (DONE STYLE) -------------------------------------- */
+
+.complete-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.complete-modal-overlay.active {
+  display: flex;
+}
+
+.complete-modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 4px;
+  max-width: 420px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  position: relative;
+  top: 30px;
+  left: 120px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.complete-modal-content::-webkit-scrollbar {
+  display: none;
+}
+
+/* Close button */
+.complete-close-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #999;
+}
+
+.complete-close-modal:hover {
+  color: #333;
+}
+
+/* Header */
+.complete-modal-header {
+  font-family: 'PublicSans', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: black;
+}
+
+/* Body */
+.complete-modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Task description */
+.complete-modal-description {
+  font-family: 'PublicSans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 15px;
+  color: #000;
+  background: #eff5f9;
+  border-radius: 6px;
+  line-height: 1.5;
+}
+
+/* Info grid */
+.complete-modal-info-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.complete-modal-info-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 70px;
+}
+
+.complete-modal-info-block {
+  flex: 1;
+}
+
+.complete-modal-info-label {
+  font-family: 'PublicSans', sans-serif;
+  font-size: 13px;
+  font-style: italic;
+  font-weight: 600;
+  color: #6d6d6d;
+  margin-bottom: 4px;
+}
+
+.complete-modal-info-value {
+  font-family: 'PublicSans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: black;
+}
+
+.complete-modal-info-value-green {
+  font-family: 'PublicSans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #28a745;
+}
+
+.complete-modal-info-value-blue {
+  font-family: 'PublicSans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0847b2;
+}
+
+/* Completion notes */
+.complete-notes-section {
+  background: #eff5f9;
+  border-radius: 6px;
+  padding: 15px;
+}
+
+.complete-notes-label {
+  font-family: 'PublicSans', sans-serif;
+  font-size: 13px;
+  font-style: italic;
+  font-weight: 600;
+  color: #6d6d6d;
+  margin-bottom: 6px;
+}
+
+.complete-notes-content {
+  font-family: 'PublicSans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+/* Attachments */
+.complete-files-container {
+  background: #fff9e6;
+  border-radius: 6px;
+  padding: 15px;
+}
+
+.complete-files-label {
+  font-family: 'PublicSans', sans-serif;
+  font-size: 13px;
+  font-style: italic;
+  font-weight: 600;
+  color: #b8940f;
+  margin-bottom: 8px;
+}
+
+.complete-files-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.complete-file-item {
+  background: white;
+  padding: 10px 12px;
+  border-radius: 6px;
+}
+
+.complete-file-item a {
+  font-family: 'PublicSans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0847b2;
+  text-decoration: underline;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .complete-modal-content {
+    max-width: 95%;
+    padding: 20px;
+  }
+
+  .complete-modal-info-row {
+    flex-direction: column;
+    gap: 15px;
+  }
 }

@@ -175,7 +175,6 @@ async function saveTerms() {
     }
     
     alert('Saved successfully!');
-    await logAdmin("settings", "Updated Terms and Conditions");
     closeTermsModal(modalToSave.id);
     
   } catch (error) {
@@ -185,6 +184,7 @@ async function saveTerms() {
     if (saveBtn) {
       saveBtn.disabled = false;
       saveBtn.textContent = 'Save';
+      await logAdmin("settings", "Updated Terms and Conditions");
     }
   }
 }

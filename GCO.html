@@ -2131,23 +2131,13 @@
 						<form>
 							 <div class="options">
 								<label><input type="radio" name="type" value="Technical"> Technical</label>
-								<label><input type="radio" name="type" value="Edit"> Edit</label>
+								<label><input type="radio" name="type" value="Editing"> Edit</label>
 								<label><input type="radio" name="type" value="Account"> Account</label>
 								<label><input type="radio" name="type" value="Removal"> Removal</label>
-								<label><input type="radio" name="type" value="Chat History"> Chat History</label>
-								<label><input type="radio" name="type" value="Other"> Other</label>
 								<label><input type="radio" name="type" value="Update"> Update</label>
+								<label><input type="radio" name="type" value="Other"> Other</label>
 							</div>
 							 <textarea placeholder="Report Description..." class="report"></textarea>
-							<div class="file-boxes2">
-								<div class="file2"></div>
-								<div class="file2"></div>
-								<div class="file2 add-file2" id="dropArea2" onclick="document.getElementById('fileInput2').click();">
-									<img src="icons/addfile_btn.svg" alt="Upload" class="add-icon2">
-									Add photos/videos
-								</div>
-							</div>
-							<input type="file" id="fileInput2" accept="image/*,video/*" multiple style="display:none" onchange="handleFileUpload2(this.files)">
 							<button type="button" class="report-btn" onclick="showReportConfirm()">Report</button>
 						</form>
 					</div>

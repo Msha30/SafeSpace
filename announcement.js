@@ -682,10 +682,9 @@ export async function confirmDeleteAnnouncement() {
 
     // 1) delete supabase images if any
     await deleteSupabaseObject(pendingDelete.id);
-
+    await logGCO("announcement", `Deleted announcement: ${pendingDelete.id}`);
     // 2) delete firestore doc
     await deleteDoc(doc(db, "announcements", pendingDelete.id));
-    await logGCO("announcement", `Deleted announcement: ${title}`);
     // 3) close popup & notify
     closeDeleteConfirm();
     alert("Announcement deleted.");
