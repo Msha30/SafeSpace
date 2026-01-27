@@ -1,5 +1,5 @@
 // it_usermanagement.js - IT Admin User Management
-import { db, auth } from "./auth.js";
+import { db, auth, rtdb } from "./auth.js";
 import {
   collection,
   doc,
@@ -18,11 +18,16 @@ import {
   createUserWithEmailAndPassword,
   deleteUser as authDeleteUser
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+// Import RTDB functions
+import { ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 import { logAdmin } from "./logger.js";
 
 // Cache
 let usersCache = [];
 let usersListener = null;
+
+// Track RTDB presence listeners we already attached to avoid duplicates
+const observedPresence = new Set();
 
 /**
  * Initialize IT User Management
@@ -60,6 +65,9 @@ function setupUsersListener() {
       
       console.log(`Loaded ${usersCache.length} users`);
       renderUsers(usersCache);
+      
+      // Start watching last active times for these users via RTDB
+      watchUserPresence(usersCache);
       
     }, (error) => {
       console.error("Error listening to users:", error);
@@ -101,7 +109,9 @@ function renderUsers(users) {
  */
 function createUserRow(user) {
   const row = document.createElement('tr');
+  // IMPORTANT: Set data-user-id so RTDB updater can find this row
   row.dataset.userId = user.uid || user.id;
+  row.setAttribute('data-user-id', user.uid || user.id); // Ensure consistency with selector
   
   const fullName = `${user.lname || ''}, ${user.fname || ''}`.trim() || 'N/A';
   const displayName = user.username || user.fname || 'N/A';
@@ -135,7 +145,8 @@ function createUserRow(user) {
         ${typeName}
       </div>
     </td>
-    <td>${lastActive}</td>
+    <!-- Added class="lastActive" here for targeting -->
+    <td class="lastActive">${normalizeLastActiveForDisplay(lastActive)}</td>
     <td>${createdDate}</td>
     <td class="action">
       <div class="dpDots">
@@ -150,6 +161,108 @@ function createUserRow(user) {
   
   return row;
 }
+
+// --- RTDB Presence Logic (Mirrored from userManagement.js) ---
+
+export function watchUserPresence(users) {
+  if (!rtdb) {
+    console.warn("RTDB not initialized. Cannot watch presence.");
+    return;
+  }
+
+  if (!users || users.length === 0) return;
+
+  users.forEach((user) => {
+    const uid = user.id || user.uid;
+    if (!uid) return;
+
+    // Avoid attaching multiple listeners for same uid
+    if (observedPresence.has(uid)) return;
+    observedPresence.add(uid);
+
+    // Path: status > {uid} > last_changed
+    const statusRef = ref(rtdb, `status/${uid}/last_changed`);
+
+    onValue(statusRef, (snapshot) => {
+      const data = snapshot.val();
+      if (!data) return;
+
+      let timestamp = null;
+      let state = null;
+
+      if (typeof data === 'number') {
+        timestamp = data;
+      } else if (typeof data === 'string' && !isNaN(Number(data))) {
+        timestamp = Number(data);
+      } else if (typeof data === 'object') {
+        Object.entries(data).forEach(([k, v]) => {
+          if (k === 'state') {
+            state = v;
+          }
+          if (typeof v === 'number' && (!timestamp || v > timestamp)) {
+            timestamp = v;
+          }
+          const keyNum = Number(k);
+          if (!isNaN(keyNum) && (!timestamp || keyNum > timestamp)) {
+            timestamp = keyNum;
+          }
+        });
+      }
+
+      let displayText = 'Offline';
+      if (timestamp && timestamp > 0) {
+        try {
+          const date = new Date(timestamp);
+          displayText = date.toLocaleDateString('en-US', {
+             year: 'numeric', month: 'long', day: 'numeric'
+          });
+        } catch (e) {
+          displayText = String(timestamp);
+        }
+      } else if (state === 'online') {
+        displayText = 'Online';
+      }
+
+      // Update Cache (usersCache)
+      try {
+        const userIndex = usersCache ? usersCache.findIndex(u => (u.id || u.uid) === uid) : -1;
+        if (userIndex !== -1) {
+          usersCache[userIndex].lastActive = displayText;
+        }
+      } catch (e) { console.warn(e); }
+
+      // Update DOM
+      updateUserRowInDOM(uid, displayText);
+
+    }, (err) => {
+      console.error("RTDB presence listener error for uid=" + uid, err);
+    });
+  });
+}
+
+function updateUserRowInDOM(userId, newStatusText) {
+  // Selector uses the attribute we set in createUserRow
+  const rows = document.querySelectorAll(`tr[data-user-id="${userId}"]`);
+  if (!rows || rows.length === 0) return;
+
+  rows.forEach(row => {
+    // Prefer the class selector added in createUserRow
+    const lastActiveCell = row.querySelector('.lastActive');
+    if (lastActiveCell) {
+      lastActiveCell.textContent = normalizeLastActiveForDisplay(newStatusText);
+      return;
+    }
+  });
+}
+
+function normalizeLastActiveForDisplay(value) {
+  if (!value) return "—";
+  const s = String(value).trim();
+  if (s === "" || s.toUpperCase() === "N/A") return "—";
+  return s;
+}
+
+// -----------------------------------------------------------
 
 /**
  * Setup search and filter functionality
@@ -431,7 +544,7 @@ async function openEditUserPopup(userId) {
     // Set dates
     const lastActive = modal.querySelector('.editUserLastActive span');
     if (lastActive) {
-      lastActive.textContent = user.lastActive || 'N/A';
+      lastActive.textContent = normalizeLastActiveForDisplay(user.lastActive || 'N/A');
     }
     
     const dateCreated = modal.querySelector('.editUserDateCreated span');
@@ -718,7 +831,11 @@ export function cleanupITUserManagement() {
     usersListener();
     usersListener = null;
   }
+  // Note: We aren't unsubscribing from individual RTDB refs here 
+  // because observedPresence tracks them, but typically you'd want to
+  // unsubscribe all if this module is completely destroyed.
   usersCache = [];
+  observedPresence.clear();
 }
 
 export default {

@@ -290,11 +290,14 @@ async function initializePeerToPeerLogic() {
             else if (senderId === selectedStudentId) senderName = studentDisplay;
             else senderName = senderId || "Unknown";
 
-            // Get Fields
-            const moderation = msg.moderation || msg.moderationStatus || "N/A";
+            // Get Fields - Format moderation object properly
+            const moderation = msg.moderation || {};
+            const moderationStr = moderation.flagged ? 
+                `Flagged: ${(moderation.flaggedWords || []).join(', ')}` : 
+                'Clean';
             const messageText = msg.text || msg.message || msg.content || "";
 
-            csvRows.push([moderation, senderName, dateStr, messageText]);
+            csvRows.push([moderationStr, senderName, dateStr, messageText]);
         });
 
         // 9. Trigger CSV Download
@@ -412,7 +415,12 @@ async function initializeSupportGroupLogic() {
 
                 // Map Fields
                 const dateStr = new Date(ts).toLocaleString();
-                const moderation = data.moderation || data.moderationStatus || "N/A";
+                
+                // Format moderation object properly
+                const moderation = data.moderation || {};
+                const moderationStr = moderation.flagged ? 
+                    `Flagged: ${(moderation.flaggedWords || []).join(', ')}` : 
+                    'Clean';
                 
                 // Name: Prefer senderName if stored, else senderId
                 let name = data.senderName || data.senderId || "Unknown";
@@ -421,7 +429,7 @@ async function initializeSupportGroupLogic() {
                 
                 const messageText = data.text || data.message || data.content || "";
 
-                csvRows.push([moderation, name, dateStr, messageText]);
+                csvRows.push([moderationStr, name, dateStr, messageText]);
             });
 
             const sgOption = sgSelect.options[sgSelect.selectedIndex];
