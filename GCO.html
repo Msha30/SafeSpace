@@ -23,6 +23,7 @@
 		import { submitReport, uploadToSupabase } from "./report.js";
 		import { log, logGCO } from "./logger.js";
 		import { loadGCOCoordinatorLogs, loadPeerFacilitatorLogs, loadGCOReportsSystemUpdates } from "./log_reader.js";
+		import { initNotifications, toggleNotif, initNotificationListener } from "./notification.js";
 
 		// Window Global Assignments
 		window.createSupportGroup = createSupportGroup;
@@ -51,12 +52,18 @@
 		window.openDeleteConfirm = openDeleteConfirm;
 		window.closeDeleteConfirm = closeDeleteConfirm;
 		window.confirmDeleteAnnouncement = confirmDeleteAnnouncement;
+		
+		window.toggleNotif = toggleNotif;
+
 
 		window.addEventListener("DOMContentLoaded", async () => {
 			// Allow only authenticated GCO users
 			protectDashboard(["gco"]);
 
 			initSupportGroups();
+			initNotifications();
+			initNotificationListener();
+
 
 			// Logout handler
 			const signOutLink = document.getElementById("signOutLink");
@@ -141,7 +148,7 @@
 		<div class="topbar">
 			<span id="pageTitle">Overview</span>
 			<div class="topbar-right">
-			<div class="notification" onclick="toggleNotif(event)">
+			<div class="notification" id="notifer" onclick="toggleNotif(event)">
 				<img src="icons/ic_notif.svg" class="notif" alt="notification icon">
 				<span class="notif-badge">1</span>
 			<div class="notif-menu" id="notifMenu">

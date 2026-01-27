@@ -1,5 +1,13 @@
 // notification.js
-import { db, auth } from "./auth.js";
+import {
+  collection,
+  query,
+  where,
+  orderBy,
+  limit,
+  onSnapshot
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
 
 
 let notifMenu;
@@ -9,7 +17,7 @@ let notifBadge;
    Initialization
 ============================ */
 export function initNotifications() {
-  notifMenu = document.getElementById("notifMenu");
+  notifMenu = document.getElementById("notifer");
   notifBadge = document.querySelector(".notif-badge");
 
   if (!notifMenu) {
@@ -25,6 +33,52 @@ export function initNotifications() {
     if (e.key === "Escape") closeNotif();
   });
 }
+let unsubscribeNotifications = null;
+
+/**
+ * Placeholder Firebase listener
+ * Replace collection name + mapping later
+ */
+export function initNotificationListener() {
+  const user = auth.currentUser;
+
+  if (!user) {
+    console.warn("No authenticated user for notifications");
+    return;
+  }
+
+  // 🔴 PLACEHOLDER COLLECTION
+  const notifRef = collection(db, "notifications"); // change later
+
+  const q = query(
+    notifRef,
+    where("targetRole", "==", "gco"), // placeholder filter
+    orderBy("createdAt", "desc"),
+    limit(20)
+  );
+
+  unsubscribeNotifications = onSnapshot(
+    q,
+    (snapshot) => {
+      const notifications = [];
+
+      snapshot.forEach((doc) => {
+        notifications.push({
+          id: doc.id,
+          ...doc.data()
+        });
+      });
+
+      // 🔹 TEMPORARY: pass raw data through
+      // Later you will normalize per type
+      renderNotifications(mapFirebaseNotifs(notifications));
+    },
+    (error) => {
+      console.error("Notification listener error:", error);
+    }
+  );
+}
+
 
 /* ============================
    Toggle logic
@@ -87,6 +141,32 @@ export function renderNotifications(notifications = []) {
 
   setNotifBadge(notifications.length);
 }
+
+/**
+ * TEMP mapper
+ * Converts Firebase docs → UI notification objects
+ * Safe place to evolve schema later
+ */
+function mapFirebaseNotifs(docs) {
+  return docs.map((doc) => {
+    // 🔴 PLACEHOLDER mapping
+    // Replace per real notif.type later
+    return {
+      type: doc.type || "verification", // fallback
+      name: doc.name || "Unknown",
+      email: doc.email || "unknown@email",
+      student: doc.student || "Unknown",
+      studentEmail: doc.studentEmail || "",
+      peer: doc.peer || "Unknown",
+      preview: doc.preview || "",
+      reason: doc.reason || "",
+      timestamp: doc.createdAt?.toDate
+        ? doc.createdAt.toDate().toLocaleString()
+        : "Just now"
+    };
+  });
+}
+
 
 function buildNotifCard(notif) {
   switch (notif.type) {
@@ -223,3 +303,11 @@ window.exportConversation = () => {
 window.exportReferralChat = () => {
   console.log("Export referral chat clicked");
 };
+
+export function destroyNotificationListener() {
+  if (unsubscribeNotifications) {
+    unsubscribeNotifications();
+    unsubscribeNotifications = null;
+  }
+}
+
