@@ -5,6 +5,7 @@ import {
   addDoc,
   doc,
   updateDoc,
+  deleteDoc,
   serverTimestamp,
   getDocs,
   query,
@@ -177,6 +178,16 @@ async function createAnnouncementCard(announcementId, data) {
     </p>
     ${imagesHtml}
   `;
+  // attach delete button handler so it opens confirmation with the right id
+  const deleteBtn = cardDiv.querySelector('.deleteAnnouncementBtn');
+  if (deleteBtn) {
+    deleteBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      // pass owner uid for permission checks
+      openDeleteConfirm(announcementId, data.photo_urls || [], data.created_by);
+    });
+  }
+
 
   // --- FIX: Footer with "Created on ... by [User] | [Group]" ---
   const smallTag = document.createElement("small");
@@ -215,7 +226,7 @@ export async function uploadToSupabase(file, bucket = SUPABASE_BUCKET, path) {
     throw new Error(`Supabase upload failed: ${json?.message || res.statusText}`);
   }
 
-  const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/${encodeURIComponent(bucket)}/${encodeURIComponent(path)}`;
+  const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/${bucket}/${path}`;
   return { publicUrl };
 }
 
@@ -379,10 +390,30 @@ document.addEventListener('click', function(e) {
   }
 });
 
+// initialize delete popup buttons once after DOM is ready
+function initDeleteConfirmButtons() {
+  const cancelBtn = document.querySelector('.cancel-delete-btn');
+  const confirmBtn = document.querySelector('.confirm-delete-btn');
+  const popup = document.getElementById('deleteConfirmPopup');
+
+  if (cancelBtn) cancelBtn.addEventListener('click', closeDeleteConfirm);
+  if (confirmBtn) confirmBtn.addEventListener('click', confirmDeleteAnnouncement);
+
+  // Close when clicking outside the box inside the overlay
+  if (popup) {
+    popup.addEventListener('click', (e) => {
+      if (e.target === popup) closeDeleteConfirm();
+    });
+  }
+}
+
+document.addEventListener('DOMContentLoaded', initDeleteConfirmButtons);
+
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
     closePostConfirm();
     closeViewer();
+    closeDeleteConfirm();
   }
 });
 
@@ -478,4 +509,194 @@ export async function saveAnnouncementToFirestore(title, description, represente
   };
 
   await addDoc(collection(db, "announcements"), announcementData);
+}
+// change pendingDelete shape
+let pendingDelete = { id: null, photoUrls: [], owner: null };
+
+// open / close
+export function openDeleteConfirm(announcementId, photoUrls = [], owner = null) {
+  pendingDelete.id = announcementId;
+  pendingDelete.photoUrls = Array.isArray(photoUrls) ? photoUrls : [];
+  pendingDelete.owner = owner || null;
+  const popup = document.getElementById('deleteConfirmPopup');
+  if (popup) popup.classList.add('active');
+}
+
+export function closeDeleteConfirm() {
+  pendingDelete.id = null;
+  pendingDelete.photoUrls = [];
+  pendingDelete.owner = null;
+  const popup = document.getElementById('deleteConfirmPopup');
+  if (popup) popup.classList.remove('active');
+}
+
+async function deleteSupabaseObject(publicUrlOrPathOrId) {
+  if (!publicUrlOrPathOrId) return;
+  
+  try {
+    // --- 1. Determine the Folder Prefix ---
+    let folderPrefix = "";
+    const pubPrefix = `${SUPABASE_URL}/storage/v1/object/public/${SUPABASE_BUCKET}/`;
+
+    if (typeof publicUrlOrPathOrId === 'string') {
+      if (publicUrlOrPathOrId.startsWith(pubPrefix)) {
+        const pathPart = publicUrlOrPathOrId.slice(pubPrefix.length);
+        const parts = pathPart.split('/');
+        folderPrefix = `${parts[0]}/${parts[1]}`; 
+      } 
+      else if (publicUrlOrPathOrId.startsWith('announcement_pic/')) {
+        const parts = publicUrlOrPathOrId.split('/');
+        folderPrefix = `${parts[0]}/${parts[1]}`;
+      } 
+      else {
+        folderPrefix = `announcement_pic/${publicUrlOrPathOrId}`;
+      }
+    } else {
+      const maybeId = String(publicUrlOrPathOrId).trim();
+      if (maybeId) folderPrefix = `announcement_pic/${maybeId}`;
+    }
+
+    if (!folderPrefix) {
+      console.warn('deleteSupabaseObject: cannot determine folder prefix.');
+      return;
+    }
+
+    // Add trailing slash for listing
+    const searchPrefix = `${folderPrefix}/`;
+    const idToken = sessionStorage.getItem("idToken");
+    if (!idToken) throw new Error("Missing idToken for Supabase deletion");
+
+    // --- 2. List all objects in the folder ---
+    const listUrl = `${SUPABASE_URL}/storage/v1/object/list/${SUPABASE_BUCKET}`;
+    
+    const listRes = await fetch(listUrl, {
+      method: "POST",
+      headers: {
+        "apikey": SUPABASE_ANON_KEY,
+        "Authorization": `Bearer ${idToken}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        prefix: searchPrefix,
+        limit: 1000
+      })
+    });
+
+    if (!listRes.ok) {
+      const errorText = await listRes.text().catch(() => null);
+      console.warn(`Failed to list objects for prefix ${searchPrefix}:`, listRes.status, errorText);
+      return;
+    }
+
+    const files = await listRes.json();
+
+    // --- 3. Delete each object individually ---
+    if (Array.isArray(files) && files.length > 0) {
+      console.log(`Found ${files.length} files to delete in ${searchPrefix}`);
+      
+      await Promise.all(files.map(async (fileObj) => {
+        // FIX: Handle relative filenames (e.g., "0.png") vs absolute paths
+        // fileObj.name might be "0.png" or "announcement_pic/id/0.png"
+        let fileName = fileObj.name;
+        
+        let fullPath = fileName;
+        
+        // If the name doesn't already start with the folder prefix, it's relative
+        if (!fileName.startsWith(folderPrefix)) {
+            fullPath = `${folderPrefix}/${fileName}`;
+        }
+
+        const encodedPath = encodeURIComponent(fullPath);
+        const deleteUrl = `${SUPABASE_URL}/storage/v1/object/${SUPABASE_BUCKET}/${encodedPath}`;
+
+        const delRes = await fetch(deleteUrl, {
+          method: "DELETE",
+          headers: {
+            "apikey": SUPABASE_ANON_KEY,
+            "Authorization": `Bearer ${idToken}`
+          }
+        });
+
+        if (!delRes.ok) {
+          console.error(`Failed to delete file: ${fullPath}`, delRes.status);
+        } else {
+          console.log(`Successfully deleted: ${fullPath}`);
+        }
+      }));
+    } else {
+      console.log("No files found in folder, cleanup not needed.");
+    }
+
+  } catch (err) {
+    console.error("deleteSupabaseObject error:", err);
+    throw err;
+  }
+}
+
+
+export async function confirmDeleteAnnouncement() {
+  const confirmBtn = document.querySelector('.confirm-delete-btn');
+  if (!pendingDelete.id) return closeDeleteConfirm();
+
+  const originalText = confirmBtn ? confirmBtn.textContent : null;
+  if (confirmBtn) {
+    confirmBtn.textContent = "Deleting...";
+    confirmBtn.disabled = true;
+  }
+
+  try {
+    if (!auth.currentUser) throw new Error("User not authenticated");
+    const currentUid = auth.currentUser.uid;
+
+    // Basic permission check: owner OR GCO/admin
+    const ownerUid = pendingDelete.owner;
+    let allowed = false;
+
+    // owner can always delete
+    if (ownerUid && ownerUid === currentUid) {
+      allowed = true;
+    } else {
+      // check account_details for admin/userType
+      const accSnap = await getDoc(doc(db, "account_details", currentUid));
+      const acc = accSnap.exists() ? accSnap.data() : {};
+
+      // allow GCO + admins
+      if (
+        acc.userType === 'gco' ||
+        acc.accountType === 'gco' ||
+        acc.role === 'gco' ||
+        acc.isAdmin === true
+      ) {
+        allowed = true;
+      }
+      if (!pendingDelete.owner && acc.userType === 'gco') {
+        allowed = true;
+      }
+    }
+
+    
+
+    if (!allowed) throw new Error("You are not permitted to delete this announcement.");
+
+    // 1) delete supabase images if any
+    await deleteSupabaseObject(pendingDelete.id);
+
+    // 2) delete firestore doc
+    await deleteDoc(doc(db, "announcements", pendingDelete.id));
+
+    // 3) close popup & notify
+    closeDeleteConfirm();
+    alert("Announcement deleted.");
+  } catch (err) {
+    console.error("Failed to delete announcement:", err);
+    alert("Failed to delete announcement: " + (err.message || err));
+  } finally {
+    if (confirmBtn) {
+      confirmBtn.textContent = originalText || "Delete";
+      confirmBtn.disabled = false;
+    }
+    pendingDelete.id = null;
+    pendingDelete.photoUrls = [];
+    pendingDelete.owner = null;
+  }
 }

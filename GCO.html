@@ -11,13 +11,14 @@
 		import { protectDashboard, logout } from "./auth.js";
 		
 		import { initializeUserManagement, initializePeerFacilitators, openUsersPopup, closeUsersPopup 
-		} from './userManagement.js';
+		} from './usermanagement.js';
 		import { refreshProgramsDashboard } from "./overview.js";
 		import { loadCounselingForms, loadRequestFormFromFirebase, saveRequestFormToFirebase } from "./counseling.js";
 		import { initSupportGroups, createSupportGroup, openCreateGroupModal, closeCreateGroupModal,
 				triggerImageUpload, handleImageUpload } from "./supportgroup.js";
 		import { confirmPost, handleFileUpload, removeFile, showPostConfirm, closePostConfirm, toggleAnnouncementDropdown,
-        selectProfile, initAnnouncementDropdown, loadAnnouncementHistory } from "./announcement.js";
+        selectProfile, initAnnouncementDropdown, loadAnnouncementHistory, openDeleteConfirm, closeDeleteConfirm,
+		confirmDeleteAnnouncement } from "./announcement.js";
 		import { initializeSettingsLogs } from "./settings_logs.js";
 		import { submitReport, uploadToSupabase } from "./report.js";
 
@@ -44,6 +45,10 @@
 		window.submitReport = submitReport;
 
 		window.uploadToSupabase = uploadToSupabase;
+
+		window.openDeleteConfirm = openDeleteConfirm;
+		window.closeDeleteConfirm = closeDeleteConfirm;
+		window.confirmDeleteAnnouncement = confirmDeleteAnnouncement;
 
 		window.addEventListener("DOMContentLoaded", async () => {
 			// Allow only authenticated GCO users
@@ -1806,8 +1811,6 @@
 				</div>
 			</div>
 		</div>
-
-
 
 		<!-- Delete Confirmation Popup -->
 		<div id="deleteConfirmPopup" class="confirm-popup">
