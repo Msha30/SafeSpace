@@ -13,6 +13,7 @@ import {
   onSnapshot,
   getDoc
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { logGCO } from "./logger.js";
 
 // --- CONSTANTS ---
 const SUPABASE_URL = "https://saqbiryyijzntzizkncv.supabase.co";
@@ -444,6 +445,7 @@ export async function confirmPost() {
     }
 
     alert('Post published successfully!');
+    await logGCO("announcement", `Created announcement: ${title}`);
     closePostConfirm();
     
     titleInput.value = '';
@@ -683,7 +685,7 @@ export async function confirmDeleteAnnouncement() {
 
     // 2) delete firestore doc
     await deleteDoc(doc(db, "announcements", pendingDelete.id));
-
+    await logGCO("announcement", `Deleted announcement: ${title}`);
     // 3) close popup & notify
     closeDeleteConfirm();
     alert("Announcement deleted.");

@@ -4276,6 +4276,41 @@ video.file-preview2 {
   
 }
 
+.horizontal-grid {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 0px;
+  scroll-behavior: smooth;
+}
+
+.horizontal-grid::-webkit-scrollbar {
+    height: 4px;
+}
+
+.horizontal-grid::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 2px;
+}
+
+.horizontal-grid::-webkit-scrollbar-thumb {
+    background: #c0c0c0;
+    border-radius: 2px;
+}
+
+.horizontal-grid::-webkit-scrollbar-thumb:hover {
+    background: #a0a0a0;
+}
+
+
+/* only affect task boxes inside technical page */
+.horizontal-grid .task-box {
+  flex: 0 0 calc(33.333% - 10px);
+  max-width: calc(33.333% - 10px);
+}
+
+
 .task-card {
   display: flex;
   align-items: center;

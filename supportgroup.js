@@ -11,6 +11,7 @@ import {
   updateDoc,
   getDoc
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { logGCO } from "./logger.js";
 
 
 /* ---------------- Config ---------------- */
@@ -446,7 +447,8 @@ export async function createSupportGroup() {
 
     closeCreateGroupModal();
 
-    alert("Support group created successfully (live listener will update the list).");
+    alert("Support group created successfully.");
+    await logGCO("support_group", `Created support group: ${name}`);
   } catch (err) {
     console.error("createSupportGroup failed", err);
     alert("Failed to create support group: " + (err.message || err));

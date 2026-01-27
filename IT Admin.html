@@ -9,7 +9,12 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script type="module">
 		import { protectDashboard, logout } from "./auth.js";
-		import { initializeUserManagement, updateUserCounts, fetchAllUsers, filterUsersByType, formatUserData } from './usermanagement.js';
+		import { initializeITTasks } from "./it_tasks.js";
+		import { initializeITUserManagement } from "./it_usermanagement.js";
+		import { initializeITSettings} from "./it_settings.js";
+		import { log, logGCO } from "./logger.js";
+		import { loadITAdminGCOReports, loadITAdminSystemUpdates, loadGCOCoordinatorLogs, loadPeerFacilitatorLogs, 
+		} from "./log_reader.js";
 
 		window.addEventListener("DOMContentLoaded", async () => {
 			// Allow only authenticated IT Admin users
@@ -26,30 +31,13 @@
 
 			// Initialize User Management
 			console.log("Initializing IT Admin User Management...");
-			
-			const adminConfig = {
-			allowedUserTypes: ['gco', 'student', 'peer'],
-			tableBodyId: 'itAdminUsers',
-			searchInputId: 'itUserSearch',
-			filterSelectId: 'userdrop',
-			showActions: true,
-			showType: true,
-			onUserClick: null
-			};
-
-			try {
-			await initializeUserManagement(adminConfig);
-			
-			// Update count cards on overview page
-			const allUsers = await fetchAllUsers();
-			const allowedUsers = filterUsersByType(allUsers, ['gco', 'student', 'peer']);
-			const formattedUsers = allowedUsers.map(formatUserData);
-			updateUserCounts(formattedUsers);
-			
-			console.log("IT Admin User Management initialized successfully");
-			} catch (error) {
-			console.error("Failed to initialize IT Admin user management:", error);
-			}
+			await initializeITTasks();
+			await initializeITUserManagement();
+			await initializeITSettings();
+			await loadITAdminGCOReports("itAdminGCOReports", 10);
+  			await loadITAdminSystemUpdates("itAdminSystemUpdates", 10);
+			await loadGCOCoordinatorLogs("gcoCoordinatorLogsContainer", 10);
+			await loadPeerFacilitatorLogs("peerFacilitatorLogsContainer", 10);
 		});
 
 		// Helper function
@@ -218,12 +206,8 @@
 			<div class="task-section-group">
 				<div class="section-header">
 				<h4>To Do</h4>
-				<div class="nav-arrows">
-					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
-					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
 				</div>
-				</div>
-				<div class="task-grid">
+				<div class="task-grid horizontal-grid">
 				<div class="task-box">
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
 					<div class="task-actions">
@@ -249,12 +233,8 @@
 			<div class="task-section-group">
 				<div class="section-header">
 				<h4>Pending</h4>
-				<div class="nav-arrows">
-					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
-					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
 				</div>
-				</div>
-				<div class="task-grid">
+				<div class="task-grid horizontal-grid">
 				<div class="task-box">
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
 					<div class="task-actions">
@@ -276,12 +256,8 @@
 			<div class="task-section-group">
 				<div class="section-header">
 				<h4>Complete</h4>
-				<div class="nav-arrows">
-					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
-					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
 				</div>
-				</div>
-				<div class="task-grid">
+				<div class="task-grid horizontal-grid">
 				<div class="task-box">
 					<p>
 					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
@@ -322,12 +298,8 @@
 			<div class="task-section-group">
 				<div class="section-header">
 				<h4>To Do</h4>
-				<div class="nav-arrows">
-					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
-					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
 				</div>
-				</div>
-				<div class="task-grid">
+				<div class="task-grid horizontal-grid">
 				<div class="task-box">
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
 					<div class="task-actions">
@@ -353,12 +325,8 @@
 			<div class="task-section-group">
 				<div class="section-header">
 				<h4>Pending</h4>
-				<div class="nav-arrows">
-					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
-					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
 				</div>
-				</div>
-				<div class="task-grid">
+				<div class="task-grid horizontal-grid">
 				<div class="task-box">
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
 					<div class="task-actions">
@@ -380,12 +348,8 @@
 			<div class="task-section-group">
 				<div class="section-header">
 				<h4>Complete</h4>
-				<div class="nav-arrows">
-					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
-					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
 				</div>
-				</div>
-				<div class="task-grid">
+				<div class="task-grid horizontal-grid">
 				<div class="task-box">
 					<p>
 					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
@@ -426,12 +390,8 @@
 			<div class="task-section-group">
 				<div class="section-header">
 				<h4>To Do</h4>
-				<div class="nav-arrows">
-					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
-					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
 				</div>
-				</div>
-				<div class="task-grid">
+				<div class="task-grid horizontal-grid">
 				<div class="task-box">
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
 					<div class="task-actions">
@@ -457,10 +417,6 @@
 			<div class="task-section-group">
 				<div class="section-header">
 				<h4>Pending</h4>
-				<div class="nav-arrows">
-					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
-					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
-				</div>
 				</div>
 				<div class="task-grid">
 				<div class="task-box">
@@ -484,12 +440,8 @@
 			<div class="task-section-group">
 				<div class="section-header">
 				<h4>Complete</h4>
-				<div class="nav-arrows">
-					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
-					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
 				</div>
-				</div>
-				<div class="task-grid">
+				<div class="task-grid horizontal-grid">
 				<div class="task-box">
 					<p>
 					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
@@ -530,12 +482,8 @@
 			<div class="task-section-group">
 				<div class="section-header">
 				<h4>To Do</h4>
-				<div class="nav-arrows">
-					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
-					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
 				</div>
-				</div>
-				<div class="task-grid">
+				<div class="task-grid horizontal-grid">
 				<div class="task-box">
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
 					<div class="task-actions">
@@ -561,12 +509,8 @@
 			<div class="task-section-group">
 				<div class="section-header">
 				<h4>Pending</h4>
-				<div class="nav-arrows">
-					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
-					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
 				</div>
-				</div>
-				<div class="task-grid">
+				<div class="task-grid horizontal-grid">
 				<div class="task-box">
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
 					<div class="task-actions">
@@ -588,12 +532,8 @@
 			<div class="task-section-group">
 				<div class="section-header">
 				<h4>Complete</h4>
-				<div class="nav-arrows">
-					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
-					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
 				</div>
-				</div>
-				<div class="task-grid">
+				<div class="task-grid horizontal-grid">
 				<div class="task-box">
 					<p>
 					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
@@ -634,12 +574,8 @@
 			<div class="task-section-group">
 				<div class="section-header">
 				<h4>To Do</h4>
-				<div class="nav-arrows">
-					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
-					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
 				</div>
-				</div>
-				<div class="task-grid">
+				<div class="task-grid horizontal-grid">
 				<div class="task-box">
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
 					<div class="task-actions">
@@ -665,12 +601,8 @@
 			<div class="task-section-group">
 				<div class="section-header">
 				<h4>Pending</h4>
-				<div class="nav-arrows">
-					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
-					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
 				</div>
-				</div>
-				<div class="task-grid">
+				<div class="task-grid horizontal-grid">
 				<div class="task-box">
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
 					<div class="task-actions">
@@ -692,12 +624,8 @@
 			<div class="task-section-group">
 				<div class="section-header">
 				<h4>Complete</h4>
-				<div class="nav-arrows">
-					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
-					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
 				</div>
-				</div>
-				<div class="task-grid">
+				<div class="task-grid horizontal-grid">
 				<div class="task-box">
 					<p>
 					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
@@ -738,12 +666,8 @@
 			<div class="task-section-group">
 				<div class="section-header">
 				<h4>To Do</h4>
-				<div class="nav-arrows">
-					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
-					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
 				</div>
-				</div>
-				<div class="task-grid">
+				<div class="task-grid horizontal-grid">
 				<div class="task-box">
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
 					<div class="task-actions">
@@ -769,12 +693,8 @@
 			<div class="task-section-group">
 				<div class="section-header">
 				<h4>Pending</h4>
-				<div class="nav-arrows">
-					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
-					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
 				</div>
-				</div>
-				<div class="task-grid">
+				<div class="task-grid horizontal-grid">
 				<div class="task-box">
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
 					<div class="task-actions">
@@ -796,12 +716,8 @@
 			<div class="task-section-group">
 				<div class="section-header">
 				<h4>Complete</h4>
-				<div class="nav-arrows">
-					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
-					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
 				</div>
-				</div>
-				<div class="task-grid">
+				<div class="task-grid horizontal-grid">
 				<div class="task-box">
 					<p>
 					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
@@ -842,12 +758,8 @@
 			<div class="task-section-group">
 				<div class="section-header">
 				<h4>To Do</h4>
-				<div class="nav-arrows">
-					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
-					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
 				</div>
-				</div>
-				<div class="task-grid">
+				<div class="task-grid horizontal-grid">
 				<div class="task-box">
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
 					<div class="task-actions">
@@ -873,12 +785,8 @@
 			<div class="task-section-group">
 				<div class="section-header">
 				<h4>Pending</h4>
-				<div class="nav-arrows">
-					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
-					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
 				</div>
-				</div>
-				<div class="task-grid">
+				<div class="task-grid horizontal-grid">
 				<div class="task-box">
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
 					<div class="task-actions">
@@ -900,12 +808,8 @@
 			<div class="task-section-group">
 				<div class="section-header">
 				<h4>Complete</h4>
-				<div class="nav-arrows">
-					<a href="#"><img src="icons/ic_arrow left.svg" class="slider-btn"></a>
-					<a href="#"><img src="icons/ic_arrow right.svg" class="slider-btn"></a>
 				</div>
-				</div>
-				<div class="task-grid">
+				<div class="task-grid horizontal-grid">
 				<div class="task-box">
 					<p>
 					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
@@ -1057,7 +961,7 @@
 				<div class="right-half" style="width: 100%;">
 					<div class="searchbar-IT">
 						<img src="icons/ic_search.svg">
-						<input type="text" placeholder="Search...">
+						<input id="itUserSearch" type="text" placeholder="Search...">
 					</div>
 					<select name="userdrop" class="userdrop">
 						<option value="All">All</option>
@@ -1085,7 +989,7 @@
 								<th></th> 
 							</tr>
 						</thead>
-						<tbody>
+						<tbody id="itAdminUsers">
 							<tr>
 								<td class="table_user">
 									<img src="photos/pic_placeholder.png">
@@ -1446,7 +1350,7 @@
 			<div class="row">
 				<div class="card">
 					   <h3>GCO Coordinator Logs</h3>
-  					   <div class="logs-list">
+  					   <div class="logs-list" id="gcoCoordinatorLogsContainer">
       						<div class="log-entry">
         						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
         						<div class="log-top">
@@ -1492,7 +1396,7 @@
 					</div>
 				<div class="card">
 					<h3>Peer Facilitator Logs</h3>
-					<div class="logs-list">
+					<div class="logs-list" id="peerFacilitatorLogsContainer">
       						<div class="log-entry">
         						<img src="photos/pic_placeholder.png" class="avatar" alt="Avatar">
         						<div class="log-top">
@@ -1549,7 +1453,7 @@
 				<div class="right">
 					<div class="card2">
 						<h3>GCO Reports</h3>
-						<div class="leftscroll">
+						<div class="leftscroll" id="itAdminGCOReports">
 							<div class="update">
 								<div class="update-header">
 									<strong>Lorem Ipsum</strong>
@@ -1590,7 +1494,7 @@
 				</div>
 				<div class="card2">
 					<h3>System Updates</h3>
-					<div class="leftscroll">
+					<div class="leftscroll" id="itAdminSystemUpdates">
 						<div class="update">
 							 <div class="update-header">
 								<strong>Lorem Ipsum</strong>
@@ -1658,95 +1562,6 @@
 
 
 	<script>
-	// Eto yung unang engagement chart ----------------------------------------------------
-		const ctx = document.getElementById('engagementChart').getContext('2d');
-		const engagementChart = new Chart(ctx, {
-		type: 'line',
-		data: {
-			labels: ['Feb', 'Mar', 'Apr', 'May', 'Jun'],
-			datasets: [{
-			label: ' Engagement',
-			data: [55, 12, 9, 28, 11], 
-			borderColor: '#0847b2',
-			borderWidth: 7,
-			fill: false,
-			pointBackgroundColor: '#0847b2',
-			pointRadius: 0
-			}]
-		},
-		options: {
-			responsive: true,
-			maintainAspectRatio: true,
-			plugins: {
-			legend: {
-				display: false
-			}
-			},
-			scales: {
-			y: {
-				beginAtZero: true
-			}
-			}
-		}
-		});
-
-		// Eto yung pangalawang engagement chart ----------------------------------------------------
-
-		const ctx2 = document.getElementById('engagementChart2').getContext('2d');
-		const engagementChart2 = new Chart(ctx2, {
-			type: 'line',
-			data: {
-				labels: ['19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31',
-				'1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18'],
-				datasets: [
-					{
-						label: ' DUA',
-						data: [90, 85, 80, 95, 88, 100, 110, 78, 85, 92, 89, 95, 98, 87, 110, 95, 92, 98, 97, 94, 96, 99, 95, 93, 97, 92, 90, 95, 93, 91, 89],
-						borderColor: '#0847b2',
-						borderWidth: 5,
-						fill: false,
-						pointRadius: 0
-					},
-					{
-						label: ' WUA',
-						data: [120, 120, 121, 122, 121, 123, 125, 127, 126, 128, 129, 130, 131, 128, 126, 124, 123, 122, 121, 122, 124, 125, 126, 128, 130, 132, 133, 130, 128, 126, 120],
-						borderColor: '#e94e1b',
-						borderWidth: 5,
-						fill: false,
-						pointRadius: 0
-					},
-					{
-						label: ' MUA',
-						data: Array(31).fill(190), // flat line at 190
-						borderColor: '#f2c500',
-						borderWidth: 5,
-						fill: false,
-						pointRadius: 0
-					}
-				]
-			},
-			options: {
-				responsive: true,
-				maintainAspectRatio: true,
-				plugins: {
-					legend: {
-						display: true,
-						position: 'top',
-						labels: {
-							usePointStyle: true,
-							boxWidth: 4,
-							boxHeight: 4,
-							padding: 15,
-						}
-					}
-				},
-				scales: {
-					y: {
-						beginAtZero: true
-					}
-				}
-			}
-		});
 
 		// Pages ----------------------------- wag gagalawin ----------------------------------------
 
@@ -1787,7 +1602,7 @@
 			document.querySelector(".dropdown").classList.remove("show");
 		}
 		}
-
+		/*
 		// Popup logic REFERENCE ONLY------------------------------------------------------------------
 		const openBtn = document.getElementById("openPopupBtn");
 		const closeBtn = document.getElementById("closePopupBtn");
@@ -1806,7 +1621,7 @@
 		overlay.classList.add("hidden");
 		}
 		});
-		
+		*/
 
 
 		// SLIDER FOR TERMS AND CONDITIONS AND PRIVACY POLICY

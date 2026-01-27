@@ -3,7 +3,7 @@ import { db, rtdb } from "./auth.js";
 import { 
   collection, 
   getDocs,
-  getDoc,      // <-- added
+  getDoc,
   query, 
   where, 
   orderBy,
@@ -12,6 +12,7 @@ import {
   deleteDoc 
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+import { logAdmin } from "./logger.js";
 
 // Cache for users to avoid repeated fetches
 let usersCache = null;

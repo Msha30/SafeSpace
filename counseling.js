@@ -16,6 +16,7 @@ import {
   query, 
   where
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { logGCO } from "./logger.js";
 
 const db = getFirestore(app);
 
@@ -292,6 +293,7 @@ async function startCall(submissionId) {
     }
 
     console.log("[counseling.js] Starting call with mode:", mode);
+    await logGCO("counseling", `Started ${mode} counseling session`);
 
     // 2. Update submission status
     await updateDoc(docRef, {
@@ -489,8 +491,17 @@ function showCallCompleteButton(submissionId) {
   };
 }
 
+// Key fix: Add activeCallCleanup() call in completeCall function
+
 async function completeCall(submissionId) {
   try {
+    // CRITICAL FIX: Stop all media tracks BEFORE marking as complete
+    if (activeCallCleanup) {
+      console.log("[counseling.js] Stopping media tracks...");
+      activeCallCleanup();
+      activeCallCleanup = null;
+    }
+    
     const docRef = doc(db, "CounselingForm_Submissions", submissionId);
     
     await updateDoc(docRef, {
@@ -499,7 +510,7 @@ async function completeCall(submissionId) {
       completed_by: auth.currentUser.uid
     });
     
-    // NEW: Delete specific call for this submission
+    // Delete specific call for this submission
     const callsRef = collection(db, "calls");
     const q = query(callsRef, where("submissionId", "==", submissionId));
     const callsSnapshot = await getDocs(q);
@@ -507,13 +518,40 @@ async function completeCall(submissionId) {
     for (const callDoc of callsSnapshot.docs) {
       await deleteCallDocument(callDoc.ref);
     }
-    
+    await logGCO("counseling", "Completed counseling session");
     console.log("[counseling.js] Call completed and cleaned up");
     alert("Session marked as complete!");
+    
+    // Reset active call ID
+    activeCallId = null;
     
   } catch (err) {
     console.error("Error completing call:", err);
     alert("Failed to complete session. Please try again.");
+  }
+}
+
+// Helper function to delete call document and subcollections
+async function deleteCallDocument(callDocRef) {
+  try {
+    // 1. Delete offerCandidates subcollection
+    const offerCandidatesRef = collection(callDocRef, "offerCandidates");
+    const offerSnapshot = await getDocs(offerCandidatesRef);
+    const offerDeletes = offerSnapshot.docs.map(doc => deleteDoc(doc.ref));
+    await Promise.all(offerDeletes);
+    
+    // 2. Delete answerCandidates subcollection
+    const answerCandidatesRef = collection(callDocRef, "answerCandidates");
+    const answerSnapshot = await getDocs(answerCandidatesRef);
+    const answerDeletes = answerSnapshot.docs.map(doc => deleteDoc(doc.ref));
+    await Promise.all(answerDeletes);
+    
+    // 3. Delete the call document itself
+    await deleteDoc(callDocRef);
+    
+    console.log("[counseling.js] Call document deleted");
+  } catch (err) {
+    console.error("[counseling.js] Error deleting call document:", err);
   }
 }
 

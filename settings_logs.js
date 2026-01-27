@@ -191,7 +191,7 @@ async function initializePeerToPeerLogic() {
         }
     });
 
-    // 4. Export Handler (replace the existing handler body with this)
+    // 4. Export Handler (CSV)
     exportBtn.addEventListener('click', async () => {
         const selectedPeerId = peerSelect.value;
         const selectedStudentId = studentSelect.value;
@@ -228,7 +228,6 @@ async function initializePeerToPeerLogic() {
             if (!conv) continue;
             if ((conv.peerId === selectedPeerId && conv.studentId === selectedStudentId) ||
                 (conv.peerId === selectedStudentId && conv.studentId === selectedPeerId)) {
-                // include both directional matches just in case storage flips order
                 targetConversation = conv;
                 break;
             }
@@ -239,27 +238,21 @@ async function initializePeerToPeerLogic() {
             return;
         }
 
-        // 6. Flatten messages and filter by each inner message.timestamp
-        // targetConversation.messages is expected to be an array like [ null, { msgId: msgObj, ... }, { ... }, true, ... ]
+        // 6. Flatten messages and filter by timestamp
         const rawMessages = targetConversation.messages;
-        const flattenedMessages = []; // will contain individual message objects
+        const flattenedMessages = [];
 
         if (Array.isArray(rawMessages)) {
             const rangeStartMs = dateRange.start ? dateRange.start.getTime() : null;
             const rangeEndMs = dateRange.end ? dateRange.end.getTime() : null;
 
             rawMessages.forEach(slot => {
-                // Skip nulls and booleans
                 if (!slot || typeof slot !== 'object' || Array.isArray(slot)) return;
-
-                // slot is an object mapping messageId -> messageObject
                 Object.values(slot).forEach(msgObj => {
-                    // guard: ensure msgObj looks like a message
                     if (!msgObj || typeof msgObj !== 'object') return;
                     const ts = Number(msgObj.timestamp || msgObj.time || msgObj.date || 0);
-                    if (!ts) return; // skip messages without timestamp
+                    if (!ts) return;
 
-                    // apply dateRange filter using the message's timestamp
                     const afterStart = (rangeStartMs === null) || (ts >= rangeStartMs);
                     const beforeEnd  = (rangeEndMs === null) || (ts <= rangeEndMs);
                     if (afterStart && beforeEnd) {
@@ -267,61 +260,48 @@ async function initializePeerToPeerLogic() {
                     }
                 });
             });
-        } else {
-            // If messages is not an array (older/other format), try to extract objects directly
-            if (typeof rawMessages === 'object' && rawMessages !== null) {
-                Object.values(rawMessages).forEach(convBlock => {
-                    if (!convBlock) return;
-                    // if convBlock.messages exists and is an array, process recursively
-                    if (Array.isArray(convBlock.messages)) {
-                        convBlock.messages.forEach(slot => {
-                            if (!slot || typeof slot !== 'object') return;
-                            Object.values(slot).forEach(msgObj => {
-                                const ts = Number(msgObj.timestamp || 0);
-                                if (!ts) return;
-                                const rangeStartMs = dateRange.start ? dateRange.start.getTime() : null;
-                                const rangeEndMs = dateRange.end ? dateRange.end.getTime() : null;
-                                const afterStart = (rangeStartMs === null) || (ts >= rangeStartMs);
-                                const beforeEnd  = (rangeEndMs === null) || (ts <= rangeEndMs);
-                                if (afterStart && beforeEnd) flattenedMessages.push(msgObj);
-                            });
-                        });
-                    }
-                });
-            }
         }
 
-        // 7. Normalize and sort messages by timestamp
+        // 7. Sort messages
         flattenedMessages.sort((a, b) => (Number(a.timestamp || 0) - Number(b.timestamp || 0)));
 
-        // Optionally augment messages with readable peer/student names if available
+        // 8. Prepare Data for CSV
         const peerDoc = allPeersMap[selectedPeerId] || null;
         const studentDoc = allStudentsMap[selectedStudentId] || null;
-        const peerDisplay = peerDoc ? ((peerDoc.lname || peerDoc.lastName || '') + (peerDoc.fname || peerDoc.firstName ? `, ${peerDoc.fname || peerDoc.firstName}` : '')).trim() : selectedPeerId;
-        const studentDisplay = studentDoc ? ((studentDoc.lname || studentDoc.lastName || '') + (studentDoc.fname || studentDoc.firstName ? `, ${studentDoc.fname || studentDoc.firstName}` : '')).trim() : selectedStudentId;
+        
+        const peerDisplay = peerDoc ? `${peerDoc.lastName || peerDoc.lname || ''}, ${peerDoc.firstName || peerDoc.fname || ''}`.trim() : selectedPeerId;
+        const studentDisplay = studentDoc ? `${studentDoc.lastName || studentDoc.lname || ''}, ${studentDoc.firstName || studentDoc.fname || ''}`.trim() : selectedStudentId;
 
-        // 8. Build export payload (include metadata + messages array)
-        const exportData = {
-            peerId: targetConversation.peerId || selectedPeerId,
-            peerName: peerDisplay,
-            studentId: targetConversation.studentId || selectedStudentId,
-            studentName: studentDisplay,
-            inSession: !!targetConversation.inSession,
-            currentSessionNo: targetConversation.currentSessionNo || 0,
-            filteredDateRange: {
-                start: dateRange.start ? dateRange.start.toISOString() : "All",
-                end: dateRange.end ? dateRange.end.toISOString() : "All"
-            },
-            totalMessagesFound: flattenedMessages.length,
-            messages: flattenedMessages
-        };
+        // Header Row
+        const csvRows = [
+            ["Moderation", "Name", "Date", "Messages"]
+        ];
 
-        // 9. Trigger download
+        flattenedMessages.forEach(msg => {
+            const ts = Number(msg.timestamp || 0);
+            const dateObj = new Date(ts);
+            const dateStr = dateObj.toLocaleString(); // Readable format
+            
+            // Determine Name based on senderId
+            let senderName = "Unknown";
+            const senderId = msg.senderId || msg.uid || msg.sender;
+            
+            if (senderId === selectedPeerId) senderName = peerDisplay;
+            else if (senderId === selectedStudentId) senderName = studentDisplay;
+            else senderName = senderId || "Unknown";
+
+            // Get Fields
+            const moderation = msg.moderation || msg.moderationStatus || "N/A";
+            const messageText = msg.text || msg.message || msg.content || "";
+
+            csvRows.push([moderation, senderName, dateStr, messageText]);
+        });
+
+        // 9. Trigger CSV Download
         const safePeerId = (peerDisplay || selectedPeerId).replace(/\s+/g, "_").replace(/[^\w\-]/g, "");
         const safeStudentId = (studentDisplay || selectedStudentId).replace(/\s+/g, "_").replace(/[^\w\-]/g, "");
-        downloadJSON(exportData, `export_${safePeerId}_${safeStudentId}.json`);
+        downloadCSV(csvRows, `export_p2p_${safePeerId}_${safeStudentId}.csv`);
     });
-
 }
 
 // --- SUPPORT GROUP LOGIC (Firestore) ---
@@ -334,8 +314,6 @@ async function initializeSupportGroupLogic() {
     // Selectors
     const sgSelect = sgContent.querySelector('.exportChatRow:nth-child(1) .exportChatGroup:nth-child(1) select');
     const gcSelect = sgContent.querySelector('.exportChatRow:nth-child(1) .exportChatGroup:nth-child(2) select');
-    const startDateInput = sgContent.querySelector('.exportChatRow:nth-child(3) .exportChatGroup:nth-child(1) input');
-    const endDateInput = sgContent.querySelector('.exportChatRow:nth-child(3) .exportChatGroup:nth-child(2) input');
     const exportBtn = sgContent.querySelector('.exportChatBtn');
 
     // 1. Setup Date Disablers
@@ -384,7 +362,7 @@ async function initializeSupportGroupLogic() {
         }
     });
 
-    // 4. Export Handler (Support Group)
+    // 4. Export Handler (Support Group CSV)
     exportBtn.addEventListener('click', async () => {
         const selectedGroupId = sgSelect.value;
         const selectedChatId = gcSelect.value;
@@ -398,94 +376,69 @@ async function initializeSupportGroupLogic() {
         if (!dateRange) return;
 
         try {
-            // Correct collection path: supportgroup/{groupId}/groupchats/{groupchatId}/messages
             const messagesRef = collection(db, "supportgroup", selectedGroupId, "groupchats", selectedChatId, "messages");
-
-            // Build Firestore query constraints:
-            // If either start or end exists, we will still fetch messages (we'll additionally filter client-side),
-            // but add orderBy('timestamp') so results are returned in timestamp order.
-            const constraints = [];
-            // If you prefer server-side range filtering, you can add where() constraints here.
-            // We'll still filter client-side to support timestamps that are numbers or Firestore Timestamps.
-            constraints.push(orderBy('timestamp', 'asc'));
-
+            const constraints = [orderBy('timestamp', 'asc')];
             const q = query(messagesRef, ...constraints);
             const querySnapshot = await getDocs(q);
 
             const rangeStartMs = dateRange.start ? dateRange.start.getTime() : null;
             const rangeEndMs = dateRange.end ? dateRange.end.getTime() : null;
 
-            const exportedMessages = [];
+            const csvRows = [
+                ["Moderation", "Name", "Date", "Messages"]
+            ];
 
             querySnapshot.forEach(docSnap => {
                 const data = docSnap.data();
-
-                // Normalize timestamp to milliseconds (support Firestore Timestamp or numeric)
                 let ts = null;
+
+                // Normalize timestamp
                 if (data.timestamp != null) {
                     const cand = data.timestamp;
-                    if (typeof cand === 'number') {
-                        ts = Number(cand);
-                    } else if (cand && typeof cand.toDate === 'function') {
-                        ts = cand.toDate().getTime();
-                    } else {
-                        // Try Date object or ISO string fallback
+                    if (typeof cand === 'number') ts = Number(cand);
+                    else if (cand && typeof cand.toDate === 'function') ts = cand.toDate().getTime();
+                    else {
                         const maybeDate = new Date(cand);
                         if (!isNaN(maybeDate.getTime())) ts = maybeDate.getTime();
                     }
                 }
 
-                // If message has no timestamp, skip it (you said ignore those)
                 if (!ts) return;
 
-                // Apply selected date range filter based on the message's timestamp
+                // Date Filter
                 const afterStart = rangeStartMs === null || ts >= rangeStartMs;
                 const beforeEnd  = rangeEndMs === null || ts <= rangeEndMs;
                 if (!afterStart || !beforeEnd) return;
 
-                // Keep message, include normalized timestamp (ms) for clarity
-                exportedMessages.push({
-                    id: docSnap.id,
-                    ...data,
-                    timestamp: ts
-                });
+                // Map Fields
+                const dateStr = new Date(ts).toLocaleString();
+                const moderation = data.moderation || data.moderationStatus || "N/A";
+                
+                // Name: Prefer senderName if stored, else senderId
+                let name = data.senderName || data.senderId || "Unknown";
+                // Try to lookup name from account_details if not present in message doc (Optional optimization)
+                // For now, stick to what is in the message doc to keep exports fast.
+                
+                const messageText = data.text || data.message || data.content || "";
+
+                csvRows.push([moderation, name, dateStr, messageText]);
             });
 
-            // Sort again client-side to be sure (ascending)
-            exportedMessages.sort((a, b) => (Number(a.timestamp || 0) - Number(b.timestamp || 0)));
-
-            // Resolve display names for group / chat if possible
-            // Resolve display names for group / chat if possible
             const sgOption = sgSelect.options[sgSelect.selectedIndex];
             const gcOption = gcSelect.options[gcSelect.selectedIndex];
             const supportGroupName = sgOption ? sgOption.textContent : selectedGroupId;
-            const groupChatName    = gcOption ? gcOption.textContent : selectedChatId; // <-- make sure name matches
+            const groupChatName    = gcOption ? gcOption.textContent : selectedChatId;
 
-            const exportData = {
-                supportGroupId: selectedGroupId,
-                supportGroupName,
-                groupchatId: selectedChatId,
-                groupChatName,   // <-- use correct variable
-                filteredDateRange: {
-                    start: dateRange.start ? dateRange.start.toISOString() : "All",
-                    end: dateRange.end ? dateRange.end.toISOString() : "All"
-                },
-                totalMessagesFound: exportedMessages.length,
-                messages: exportedMessages
-            };
-
-            // safe filename
             const safeGroup = (supportGroupName || selectedGroupId).replace(/\s+/g, "_").replace(/[^\w\-]/g, "");
             const safeChat  = (groupChatName  || selectedChatId).replace(/\s+/g, "_").replace(/[^\w\-]/g, "");
-            downloadJSON(exportData, `export_sg_${safeGroup}_${safeChat}.json`);
-
+            
+            downloadCSV(csvRows, `export_sg_${safeGroup}_${safeChat}.csv`);
 
         } catch (error) {
             console.error("Error fetching messages for export:", error);
             alert("Failed to export chat. Check console for details.");
         }
     });
-
 }
 
 // --- COMMON HELPERS ---
@@ -525,14 +478,34 @@ function getSelectedDateRange(container, radioGroupName) {
     return { start: startDate, end: endDate };
 }
 
-function downloadJSON(data, filename) {
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2));
-    const downloadAnchorNode = document.createElement('a');
-    downloadAnchorNode.setAttribute("href", dataStr);
-    downloadAnchorNode.setAttribute("download", filename);
-    document.body.appendChild(downloadAnchorNode);
-    downloadAnchorNode.click();
-    downloadAnchorNode.remove();
+/**
+ * Helper to escape CSV strings (handles commas, quotes, newlines)
+ */
+function escapeCSV(str) {
+    if (str === undefined || str === null) return "";
+    str = str.toString();
+    if (str.includes(',') || str.includes('"') || str.includes('\n') || str.includes('\r')) {
+        return `"${str.replace(/"/g, '""')}"`;
+    }
+    return str;
+}
+
+/**
+ * Downloads data as a CSV file
+ */
+function downloadCSV(rows, filename) {
+    const csvContent = rows.map(e => e.map(escapeCSV).join(",")).join("\n");
+    
+    // Create a blob with BOM for Excel UTF-8 compatibility
+    const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", filename);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 }
 
 /**
