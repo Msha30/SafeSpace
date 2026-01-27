@@ -24,6 +24,7 @@
 		import { log, logGCO } from "./logger.js";
 		import { loadGCOCoordinatorLogs, loadPeerFacilitatorLogs, loadGCOReportsSystemUpdates } from "./log_reader.js";
 		import { initNotifications, toggleNotif, initNotificationListener } from "./notification.js";
+		import { initGCOReports, fetchAllGCOReports } from "./gcodetails.js";
 
 		// Window Global Assignments
 		window.createSupportGroup = createSupportGroup;
@@ -93,6 +94,9 @@
 
 			try {
 				await initializeUserManagement(gcoConfig);
+
+				await initGCOReports();
+
 				initializePeerFacilitators();
 				
 				await refreshProgramsDashboard();
