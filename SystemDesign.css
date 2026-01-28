@@ -1403,6 +1403,21 @@ select option:focus {
 	justify-content: center;
 }
 
+.cat_admin {
+	font-size: 13px;
+	width: fit-content;
+	display: flex;
+	height: 30px;
+	background: #91d0ad;
+	color: #225d08;
+	border: none;
+	border-radius: 15px;
+	font-family: "BoldFont", sans-serif;
+	padding: 0px 15px;
+	align-items: center;
+	justify-content: center;
+}
+
 /* -------------------------------------- LAYOUTING -------------------------------------- */
 
 .left {
