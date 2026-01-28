@@ -735,7 +735,7 @@ async function confirmRemoveUser() {
     }
     
     // UPDATE THIS URL TO YOUR VERCEL DEPLOYMENT URL
-    const response = await fetch('https://safe-space-backend.vercel.app/api/delete-user.js', {
+    const response = await fetch('https://safe-space-backend.vercel.app/api/delete-user', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

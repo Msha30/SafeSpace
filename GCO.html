@@ -882,7 +882,7 @@
 								<th id="left">User</th>
 								<th> </th>
 								<th> </th>
-								<th>Peer Interactions</th>
+								<th></th>
 								<th>Last Active</th>
 								<th>Date Created</th>
 							</tr>
@@ -1036,92 +1036,6 @@
 			</div>
 -->	
 
-			<div class="row">
-				<div class="left-half">	
-					<select class="btn-white">
-						<option value="all">All</option>
-						<option value="newest">Newest</option>
-						<option value="oldest">Oldest</option>
-					</select>
-				</div>
-
-			</div>
-			
-			<div class="row-schedule" id="schedule" style="gap: 15px;">
-				<div class="card-schedule">
-					<h4 class="sched-date">23</h4>
-					<h5 style="padding-left: 30px;">MON</h5>
-					<div class="sched" onclick="openPeersPopup()">
-						<p class="sched-type">Face to Face</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-					<div class="sched" onclick="openPeersPopup()">
-						<p class="sched-type">Face to Face</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-				</div>
-				
-				<div class="card-schedule">
-					<h4 class="sched-date">23</h4>
-					<h5 style="padding-left: 30px;">MON</h5>
-					<div class="sched" onclick="openPeersPopup()">
-						<p class="sched-type">Face to Face</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-					<div class="sched" onclick="openPeersPopup()">
-						<p class="sched-type">Face to Face</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-				</div>
-				<div class="card-schedule">
-					<h4 class="sched-date">23</h4>
-					<h5 style="padding-left: 30px;">MON</h5>
-					<div class="sched" onclick="openPeersPopup()">
-						<p class="sched-type">Face to Face</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-					<div class="sched" onclick="openPeersPopup()">
-						<p class="sched-type">Face to Face</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-				</div>
-				<div class="card-schedule">
-					<h4 class="sched-date">23</h4>
-					<h5 style="padding-left: 30px;">MON</h5>
-					<div class="sched" onclick="openPeersPopup()">
-						<p class="sched-type">Face to Face</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-					<div class="sched" onclick="openPeersPopup()">
-						<p class="sched-type">Face to Face</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-				</div>
-				<div class="card-schedule">
-					<h4 class="sched-date">23</h4>
-					<h5 style="padding-left: 30px;">MON</h5>
-					<div class="sched" onclick="openPeersPopup()">
-						<p class="sched-type">Face to Face</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-					<div class="sched" onclick="openPeersPopup()">
-						<p class="sched-type">Face to Face</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-				</div>
-				<div class="card-schedule">
-					<h4 class="sched-date">23</h4>
-					<h5 style="padding-left: 30px;">MON</h5>
-					<div class="sched" onclick="openPeersPopup()">
-						<p class="sched-type">Face to Face</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-					<div class="sched" onclick="openPeersPopup()">
-						<p class="sched-type">Face to Face</p>
-						<p class="sched-time">0:00 PM - 0:00 PM</p>
-					</div>
-				</div>
-			</div>
 		</div>
 
 		<!---------------------------------------------------------------------------------------->	
@@ -2055,20 +1969,10 @@
 								<label><input type="radio" name="type" value="Editing"> Edit</label>
 								<label><input type="radio" name="type" value="Account"> Account</label>
 								<label><input type="radio" name="type" value="Removal"> Removal</label>
-								<label><input type="radio" name="type" value="Chat History"> Chat History</label>
-								<label><input type="radio" name="type" value="Other"> Other</label>
 								<label><input type="radio" name="type" value="Update"> Update</label>
+								<label><input type="radio" name="type" value="Other"> Other</label>
 							</div>
 							 <textarea placeholder="Report Description..." class="report"></textarea>
-							<div class="file-boxes2">
-								<div class="file2"></div>
-								<div class="file2"></div>
-								<div class="file2 add-file2" id="dropArea2" onclick="document.getElementById('fileInput2').click();">
-									<img src="icons/addfile_btn.svg" alt="Upload" class="add-icon2">
-									Add photos/videos
-								</div>
-							</div>
-							<input type="file" id="fileInput2" accept="image/*,video/*" multiple style="display:none" onchange="handleFileUpload2(this.files)">
 							<button type="button" class="report-btn" onclick="showReportConfirm()">Report</button>
 						</form>
 					</div>

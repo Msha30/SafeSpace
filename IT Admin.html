@@ -170,15 +170,6 @@
 				</div>
 				</div>
 
-				<!-- Chat History -->
-				<div class="task-card" onclick="showPage('chat-history')">
-				<div class="task-icon"><img src="photos/CHAT HISTORY.png" alt=""></div>
-				<div class="task-info">
-					<h4>Chat History</h4>
-					<p>0 task</p>
-				</div>
-				</div>
-
 				<!-- Update -->
 				<div class="task-card" onclick="showPage('update')">
 				<div class="task-icon"><img src="photos/UPDATE.png" alt=""></div>
@@ -567,99 +558,7 @@
 				</div>
 			</div>
 		</div>
-
-		<!---------------- CHAT HISTORY PAGE | TASKS ------------------------------------------------------------>
-		<div id="chat-history" class="page" style="display:none;">
-						<!-- To Do Section -->
-			<div class="task-section-group">
-				<div class="section-header">
-				<h4>To Do</h4>
-				</div>
-				<div class="task-grid horizontal-grid">
-				<div class="task-box">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-					<div class="task-actions">
-					<button class="btn-start" onclick="openModal(this)">Start Task</button>
-					</div>
-				</div>
-				<div class="task-box">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-					<div class="task-actions">
-					<button class="btn-start" onclick="openModal(this)">Start Task</button>
-					</div>
-				</div>
-				<div class="task-box">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-					<div class="task-actions">
-					<button class="btn-start" onclick="openModal(this)">Start Task</button>
-					</div>
-				</div>
-				</div>
-			</div>
-
-			<!-- Pending Section -->
-			<div class="task-section-group">
-				<div class="section-header">
-				<h4>Pending</h4>
-				</div>
-				<div class="task-grid horizontal-grid">
-				<div class="task-box">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-					<div class="task-actions">
-					<button class="btn-details" onclick="openPendingModal(this)">See Details</button>
-					<button class="btn-done" onclick="openPendingDoneModal(this)">Done</button>
-					</div>
-				</div>
-				<div class="task-box">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-					<div class="task-actions">
-					<button class="btn-details" onclick="openPendingModal(this)">See Details</button>
-					<button class="btn-done" onclick="openPendingDoneModal(this)">Done</button>
-					</div>
-				</div>
-				</div>
-			</div>
-
-			<!-- Complete Section -->
-			<div class="task-section-group">
-				<div class="section-header">
-				<h4>Complete</h4>
-				</div>
-				<div class="task-grid horizontal-grid">
-				<div class="task-box">
-					<p>
-					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit
-					  </span>
-					</p>
-					<div class="task-actions">
-					<button class="btn-details">See Details</button>
-					</div>
-				</div>
-				<div class="task-box">
-					<p>
-					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit
-					  </span>
-					</p>
-					<div class="task-actions">
-					<button class="btn-details">See Details</button>
-					</div>
-				</div>
-				<div class="task-box">
-					<p>
-					  <span style="color: #6d6d6d; font-style: italic; font-weight: bold;">
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit
-					  </span>
-					</p>
-					<div class="task-actions">
-					<button class="btn-details">See Details</button>
-					</div>
-				</div>
-				</div>
-			</div>
-		</div>
-
+		
 		<!---------------- UPDATE PAGE | TASKS ------------------------------------------------------------>
 		<div id="update" class="page" style="display:none;">
 						<!-- To Do Section -->
@@ -938,10 +837,6 @@
 				</div>
 
 				<div class="done-modal-actions">
-					<button class="done-modal-add-file" onclick="document.getElementById('doneFileInput').click();">
-					<img src="icons/addfile_btn.svg" alt="Upload" class="done-add-icon">
-					<span>Add file</span>
-					</button>
 					<button class="done-modal-submit">Done</button>
 				</div>
 				
@@ -966,7 +861,7 @@
 					<select name="userdrop" class="userdrop">
 						<option value="All">All</option>
 						<option value="Peers">Peers</option>
-						<option value="Users">Users</option>
+						<option value="Users">Students</option>
 					</select>
 					<div class="peer-session">
 						<button class="btn-peersession" onclick="openCreateUserPopup()">Create New User</button>
