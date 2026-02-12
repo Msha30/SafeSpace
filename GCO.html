@@ -24,6 +24,7 @@
 		import { log, logGCO } from "./logger.js";
 		import { loadGCOCoordinatorLogs, loadPeerFacilitatorLogs, loadGCOReportsSystemUpdates } from "./log_reader.js";
 		import { initNotifications, toggleNotif, initNotificationListener } from "./notification.js";
+		import { initGCOReports, fetchAllGCOReports } from "./gcodetails.js";
 
 		// Window Global Assignments
 		window.createSupportGroup = createSupportGroup;
@@ -93,6 +94,9 @@
 
 			try {
 				await initializeUserManagement(gcoConfig);
+
+				await initGCOReports();
+
 				initializePeerFacilitators();
 				
 				await refreshProgramsDashboard();
@@ -749,7 +753,9 @@
 	<!---------------- SAVE FORM MODAL ------------------------------------------------------->
 	<div id="successPopup" class="saved-form-overlay">
 		<div class="saved-form-content">
-			<div class="saved-form-icon">✓</div>
+			<div class="saved-form-icon">
+				<img src="photos/success.png" alt="Success">
+			</div>
 			<h3>Counseling Session Request Form Saved Successfully!</h3>
 			<div class="saved-form-buttons">
 			<button class="saved-form-btn-close" onclick="closeSavedFormPopup()">Close</button>
@@ -878,7 +884,7 @@
 								<th id="left">User</th>
 								<th> </th>
 								<th> </th>
-								<th>Peer Interactions</th>
+								<th></th>
 								<th>Last Active</th>
 								<th>Date Created</th>
 							</tr>
@@ -2051,20 +2057,10 @@
 								<label><input type="radio" name="type" value="Editing"> Edit</label>
 								<label><input type="radio" name="type" value="Account"> Account</label>
 								<label><input type="radio" name="type" value="Removal"> Removal</label>
-								<label><input type="radio" name="type" value="Chat History"> Chat History</label>
-								<label><input type="radio" name="type" value="Other"> Other</label>
 								<label><input type="radio" name="type" value="Update"> Update</label>
+								<label><input type="radio" name="type" value="Other"> Other</label>
 							</div>
 							 <textarea placeholder="Report Description..." class="report"></textarea>
-							<div class="file-boxes2">
-								<div class="file2"></div>
-								<div class="file2"></div>
-								<div class="file2 add-file2" id="dropArea2" onclick="document.getElementById('fileInput2').click();">
-									<img src="icons/addfile_btn.svg" alt="Upload" class="add-icon2">
-									Add photos/videos
-								</div>
-							</div>
-							<input type="file" id="fileInput2" accept="image/*,video/*" multiple style="display:none" onchange="handleFileUpload2(this.files)">
 							<button type="button" class="report-btn" onclick="showReportConfirm()">Report</button>
 						</form>
 					</div>
@@ -2130,6 +2126,20 @@
 				</div>
 			</div>
 		</div>
+
+		<!-------------------------------------FOR ALERT BOXES----------------------------------->
+		<div id="customAlert" class="form-popup-overlay">
+			<div class="form-popup-content">
+				<div class="form-popup-icon">
+				<img id="alertIcon" src="photos/success.png" alt="Alert Icon">
+				</div>
+				<h3 id="alertMessage">Message</h3>
+				<div class="form-popup-buttons">
+				<button class="form-popup-btn" onclick="closeCustomAlert()">OK</button>
+				</div>
+			</div>
+		</div>
+
 
 
 	<!-------------------------------------END OF LAYOUTING----------------------------------->
@@ -2337,6 +2347,37 @@
 		}
 
 		renderGCOTable('all');
+
+
+		// FOR ALERT BOXES
+
+		const originalAlert = window.alert;
+
+		window.alert = function(message) {
+			const popup = document.getElementById("customAlert");
+			const text = document.getElementById("alertMessage");
+			const icon = document.getElementById("alertIcon");
+
+			text.textContent = message;
+
+			// Detect success vs error automatically
+			const lowerMsg = message.toLowerCase();
+			if (lowerMsg.includes("success") || lowerMsg.includes("saved") || lowerMsg.includes("created")) {
+			popup.classList.add("success-alert");
+			popup.classList.remove("error-alert");
+			icon.src = "photos/success.png";
+			} else {
+			popup.classList.add("error-alert");
+			popup.classList.remove("success-alert");
+			icon.src = "photos/error.png";
+			}
+
+			popup.classList.add("active");
+		};
+
+		function closeCustomAlert() {
+			document.getElementById("customAlert").classList.remove("active");
+		}
 
 		
 		

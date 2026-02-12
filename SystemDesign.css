@@ -200,7 +200,7 @@ button {
     display: none;
     position: absolute;
     top: 100%; 
-    left: -170px;
+    left: -215px;
     margin-top: 25px;
     background-color: #fff;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
@@ -1403,6 +1403,21 @@ select option:focus {
 	justify-content: center;
 }
 
+.cat_admin {
+	font-size: 13px;
+	width: fit-content;
+	display: flex;
+	height: 30px;
+	background: #91d0ad;
+	color: #225d08;
+	border: none;
+	border-radius: 15px;
+	font-family: "BoldFont", sans-serif;
+	padding: 0px 15px;
+	align-items: center;
+	justify-content: center;
+}
+
 /* -------------------------------------- LAYOUTING -------------------------------------- */
 
 .left {
@@ -2560,16 +2575,18 @@ select option:focus {
 .saved-form-icon {
   width: 90px;
   height: 90px;
-  background: #4CAF50;
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 55px;
-  color: white;
   margin: 0 auto 20px;
   animation: savedFormPulse 0.6s ease;
 }
+
+.saved-form-icon img {
+  width: 120px;
+  height: 120px;
+}
+
 
 @keyframes savedFormPulse {
   0% {
@@ -2708,7 +2725,7 @@ select option:focus {
 	font-family: 'PublicSans', sans-serif;
 	display: block;
 	font-size: 12px;
-	color: black
+	color: black;
 	margin-bottom: 5px;
 	font-weight: 600;
 }
@@ -6562,7 +6579,6 @@ video.file-preview2 {
   gap: 20px;
 }
 
-/* Task description */
 .complete-modal-description {
   font-family: 'PublicSans', sans-serif;
   font-size: 14px;
@@ -6574,7 +6590,6 @@ video.file-preview2 {
   line-height: 1.5;
 }
 
-/* Info grid */
 .complete-modal-info-grid {
   display: flex;
   flex-direction: column;
@@ -6621,7 +6636,6 @@ video.file-preview2 {
   color: #0847b2;
 }
 
-/* Completion notes */
 .complete-notes-section {
   background: #eff5f9;
   border-radius: 6px;
@@ -6646,7 +6660,6 @@ video.file-preview2 {
   white-space: pre-wrap;
 }
 
-/* Attachments */
 .complete-files-container {
   background: #fff9e6;
   border-radius: 6px;
@@ -6682,7 +6695,6 @@ video.file-preview2 {
   text-decoration: underline;
 }
 
-/* Mobile */
 @media (max-width: 600px) {
   .complete-modal-content {
     max-width: 95%;
@@ -6693,4 +6705,94 @@ video.file-preview2 {
     flex-direction: column;
     gap: 15px;
   }
+}
+
+
+/* -------------------------------------- ALERT BOXES -------------------------------------- */
+
+.form-popup-overlay {
+  position: fixed;
+  inset: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+}
+
+.form-popup-overlay.active {
+  display: flex;
+}
+
+.form-popup-content {
+  background: #fff;
+  border-radius: 6px;
+  padding: 40px 35px;
+  width: 90%;
+  max-width: 420px;
+
+  margin-top: -40px; 
+  margin-left: 200px;      
+
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+  animation: popupIn 0.3s ease;
+  font-family: 'PublicSans', sans-serif;
+}
+
+@keyframes popupIn {
+  from { transform: scale(.85) translateY(-20px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.form-popup-icon img {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 20px;
+  animation: savedFormPulse 0.6s ease;
+}
+
+.form-popup-content h3 {
+  font-size: 20px;
+  margin-bottom: 25px;
+  border: none !important;
+}
+
+.form-popup-btn {
+  padding: 12px 38px;
+  border-radius: 6px;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #fff;
+}
+
+.form-popup-content hr {
+  display: none !important;
+}
+
+@keyframes savedFormPulse {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.success-alert .form-popup-btn { 
+  background: #0847b2; 
+}
+.success-alert .form-popup-btn:hover { 
+  background: #062b6b;  
+.success-alert h3 { 
+  color: #333; 
+}
+
+.error-alert .form-popup-btn { 
+  background: #d32f2f; 
+}
+.error-alert .form-popup-btn:hover { 
+  background: #9a0007;   
+}
+.error-alert h3 { 
+  color: #333; 
 }

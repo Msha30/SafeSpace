@@ -1,4 +1,4 @@
-// it_usermanagement.js - IT Admin User Management
+// it_usermanagement.js - IT Admin User Management (UPDATED VERSION)
 import { db, auth, rtdb } from "./auth.js";
 import {
   collection,
@@ -51,19 +51,32 @@ export async function initializeITUserManagement() {
 function setupUsersListener() {
   try {
     const usersRef = collection(db, "account_details");
-    const q = query(usersRef, orderBy("createdAt", "desc"));
+    // Don't order by createdAt initially as some documents might not have it
+    const q = query(usersRef);
     
     usersListener = onSnapshot(q, (snapshot) => {
       usersCache = [];
       snapshot.forEach((doc) => {
-        usersCache.push({
-          id: doc.id,
-          uid: doc.id,
-          ...doc.data()
-        });
+        const userData = doc.data();
+        // Only add if user has required fields
+        if (userData && (userData.email || userData.fname || userData.lname)) {
+          usersCache.push({
+            id: doc.id,
+            uid: doc.id,
+            ...userData
+          });
+        }
+      });
+      
+      // Sort by createdAt after loading (handle missing dates)
+      usersCache.sort((a, b) => {
+        const aTime = a.createdAt?.toMillis?.() || 0;
+        const bTime = b.createdAt?.toMillis?.() || 0;
+        return bTime - aTime;
       });
       
       console.log(`Loaded ${usersCache.length} users`);
+      console.log('User types found:', [...new Set(usersCache.map(u => u.userType || u.role))]);
       renderUsers(usersCache);
       
       // Start watching last active times for these users via RTDB
@@ -303,10 +316,16 @@ function filterUsers(users, searchTerm, filterValue) {
     const typeMap = {
       'Peers': 'peer',
       'Users': 'student',
-      'GCO': 'gco'
+      'GCO': 'gco',
+      'Admin': 'admin'
     };
-    const userType = typeMap[filterValue] || filterValue.toLowerCase();
-    filtered = filtered.filter(u => (u.userType || u.role) === userType);
+    const userType = typeMap[filterValue];
+    if (userType) {
+      filtered = filtered.filter(u => {
+        const uType = (u.userType || u.role || '').toLowerCase();
+        return uType === userType;
+      });
+    }
   }
   
   // Filter by search term
@@ -462,6 +481,7 @@ async function confirmCreateUser() {
       throw new Error('Not authenticated');
     }
     
+    // UPDATE THIS URL TO YOUR VERCEL DEPLOYMENT URL
     const response = await fetch('https://safe-space-backend.vercel.app/api/create-user.js', {
       method: 'POST',
       headers: {
@@ -626,10 +646,13 @@ async function saveEditUser() {
   }
   
   try {
+    const firstName = document.getElementById('editFirstName').value.trim();
+    const lastName = document.getElementById('editLastName').value.trim();
+    
     const updates = {
-      fname: document.getElementById('editFirstName').value.trim(),
+      fname: firstName,
       mname: document.getElementById('editMiddleName').value.trim(),
-      lname: document.getElementById('editLastName').value.trim(),
+      lname: lastName,
       email: document.getElementById('editSchoolEmail').value.trim(),
       studentId: document.getElementById('editStudentNo').value.trim(),
       program: document.getElementById('editProgram').value.trim(),
@@ -695,6 +718,9 @@ async function confirmRemoveUser() {
     return;
   }
   
+  const user = usersCache.find(u => (u.uid || u.id) === userId);
+  const userName = user ? `${user.fname} ${user.lname}` : 'Unknown User';
+  
   const confirmBtn = document.querySelector('.removeBtnConfirm');
   if (confirmBtn) {
     confirmBtn.disabled = true;
@@ -708,7 +734,8 @@ async function confirmRemoveUser() {
       throw new Error('Not authenticated');
     }
     
-    const response = await fetch('https://safe-space-backend.vercel.app/api/delete-user.js', {
+    // UPDATE THIS URL TO YOUR VERCEL DEPLOYMENT URL
+    const response = await fetch('https://safe-space-backend.vercel.app/api/delete-user', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

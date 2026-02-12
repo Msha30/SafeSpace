@@ -324,7 +324,7 @@ export function populatePeerTable() {
         </div>
       </td>
       <td></td>
-      <td class="peerInteract"><span>0</span></td>
+      <td class="peerInteract"><span></span></td>
       <td class="lastActive">${normalizeLastActiveForDisplay(latest.lastActive)}</td>
       <td>${latest.createdDate}</td>
     `;
@@ -442,7 +442,7 @@ function renderPeerRows(peers, tbody) {
         </div>
       </td>
       <td></td>
-      <td class="peerInteract"><span>0</span></td>
+      <td class="peerInteract"><span></span></td>
       <td class="lastActive">${normalizeLastActiveForDisplay(latest.lastActive)}</td>
       <td>${latest.createdDate}</td>
     `;

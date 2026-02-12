@@ -7,6 +7,8 @@ import {
   addDoc,
   setDoc,
   getDoc,
+  getDocs,
+  deleteDoc,
   onSnapshot,
   updateDoc,
   serverTimestamp,
@@ -342,19 +344,35 @@ export async function startCall({
     return function hangup() {
       console.log("[call.js] Hanging up...");
       
+      // 1. Unsubscribe from Firestore listeners
       if (remoteAnswerCandidatesUnsub) remoteAnswerCandidatesUnsub();
       if (answerUnsub) answerUnsub();
       
+      // 2. Stop all tracks from peer connection senders (THIS IS THE FIX!)
       if (pc) {
+        // Get all senders and stop their tracks
+        pc.getSenders().forEach(sender => {
+          if (sender.track) {
+            console.log("[call.js] Stopping track from sender:", sender.track.kind);
+            sender.track.stop();
+          }
+        });
+        
+        // Close the peer connection
         pc.close();
         pc = null;
       }
       
+      // 3. Stop all tracks from local stream (redundant but safe)
       if (localStream) {
-        localStream.getTracks().forEach(track => track.stop());
+        localStream.getTracks().forEach(track => {
+          console.log("[call.js] Stopping track from localStream:", track.kind);
+          track.stop();
+        });
         localStream = null;
       }
 
+      // 4. Clear video elements
       if (dom && dom.localVideo) {
         dom.localVideo.srcObject = null;
       }
@@ -362,10 +380,36 @@ export async function startCall({
         dom.remoteVideo.srcObject = null;
       }
 
+      // 5. Delete call document and subcollections
       if (callDocRef) {
-        updateDoc(callDocRef, { status: "ended" }).catch(console.error);
+        deleteCallDocument(callDocRef).catch(console.error);
       }
+      
+      console.log("[call.js] Cleanup complete - camera should be off");
     };
+    
+    async function deleteCallDocument(callDocRef) {
+      try {
+        // 1. Delete offerCandidates subcollection
+        const offerCandidatesRef = collection(callDocRef, "offerCandidates");
+        const offerSnapshot = await getDocs(offerCandidatesRef);
+        const offerDeletes = offerSnapshot.docs.map(doc => deleteDoc(doc.ref));
+        await Promise.all(offerDeletes);
+        
+        // 2. Delete answerCandidates subcollection
+        const answerCandidatesRef = collection(callDocRef, "answerCandidates");
+        const answerSnapshot = await getDocs(answerCandidatesRef);
+        const answerDeletes = answerSnapshot.docs.map(doc => deleteDoc(doc.ref));
+        await Promise.all(answerDeletes);
+        
+        // 3. Delete the call document itself
+        await deleteDoc(callDocRef);
+        
+        console.log("[call.js] Call document and subcollections deleted");
+      } catch (err) {
+        console.error("[call.js] Error deleting call document:", err);
+      }
+    }
 
   } catch (err) {
     console.error("[call.js] startCall error:", err);
@@ -373,7 +417,16 @@ export async function startCall({
     // Cleanup on error
     if (remoteAnswerCandidatesUnsub) remoteAnswerCandidatesUnsub();
     if (answerUnsub) answerUnsub();
-    if (pc) pc.close();
+    
+    // Stop all tracks from peer connection
+    if (pc) {
+      pc.getSenders().forEach(sender => {
+        if (sender.track) sender.track.stop();
+      });
+      pc.close();
+    }
+    
+    // Stop all tracks from local stream
     if (localStream) {
       localStream.getTracks().forEach(track => track.stop());
     }
