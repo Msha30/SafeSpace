@@ -1758,8 +1758,9 @@
 		
 		<!---------------------------------------------------------------------------------------->
 		<!---------------------------------------------------------------------------------------->	
-		<!---------------- USER MANAGEMENT ------------------------------------------------------->
+		<!---------------- CHAT MODERATION-------------------------------------------------------->
 		<div id="chat-moderation" class="page">
+
 			<div class="row">
 				<div class="right-half" style="width: 100%;">
 					<div class="searchbar">
@@ -1768,23 +1769,96 @@
 					</div>
 				</div>
 			</div>
+	  		 <!---------------- FLAGGED WORDS TABLE -------------------------------------------------------->
 			<div class="row">
 				<div class="card">
-					<h3>User List</h3>
+					<h3>Flagged Words Detected</h3>
 					<table class="user">
 						<thead>
 							<tr>
-							<th id="left">User</th>
-							<th> </th>
-							<th> </th>
-							<th>Name Displayed</th>
-							<th>Type</th>
-							<th>Last Active</th>
-							<th>Date Created</th>
+								<th id="left">Student</th>
+								<th> </th>
+								<th> </th>
+								<th>Peer Facilitator</th>
+								<th>Flagged Word</th>
+								<th>Date & Time</th>
+								<th>Actions</th>
 							</tr>
 						</thead>
-						<tbody id="gcousers">
-							<!-- Users will be populated here -->
+						<tbody>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td>
+									<div class="name" onclick="openUsersPopup()">
+										Doe, John A.<br> 
+										<span>email@students.nu-fairview.edu.ph</span>
+									</div>
+								</td>
+								<td></td>
+								<td>Doe, John A.</td>
+								<td> 
+									<div class="detected-word">Lorem Ipsum</div>
+								</td>
+								<td>
+									<div class="record-timestamp">Jan 26, 2026<br>3:45 PM</div>
+								</td>
+								<td>
+									<div class="mod-action-btn export">Export Chat</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="right-half" style="width: 100%;">
+					<div class="searchbar">
+						<img src="icons/ic_search.svg">
+						<input type="text" id="gcoUserSearch" placeholder="Search...">
+					</div>
+				</div>
+			</div>
+			<!---------------- STUDENTS REFERRED TO GCO -------------------------------------------------------->
+			<div class="row">
+				<div class="card">
+					<h3>Students Referred to GCO</h3>
+					<table class="user">
+						<thead>
+							<tr>
+								<th id="left">Student</th>
+								<th> </th>
+								<th> </th>
+								<th>Peer Facilitator</th>
+								<th>Reason for Referral</th>
+								<th>Date & Time</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td>
+									<div class="name" onclick="openUsersPopup()">
+										Doe, John A.<br> 
+										<span>email@students.nu-fairview.edu.ph</span>
+									</div>
+								</td>
+								<td></td>
+								<td>Doe, John A.</td>
+								<td> 
+									<div class="gco-reason">Lorem Ipsum</div>
+								</td>
+								<td>
+									<div class="record-timestamp">Jan 26, 2026<br>3:45 PM</div>
+								</td>
+								<td>
+									<div class="mod-action-btn export ">Export Chat</div>
+								</td>
+							</tr>
 						</tbody>
 					</table>
 				</div>

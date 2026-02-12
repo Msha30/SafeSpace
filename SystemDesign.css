@@ -6797,3 +6797,59 @@ video.file-preview2 {
 .error-alert h3 { 
   color: #333; 
 }
+
+
+
+
+
+
+    .detected-word {
+      background-color: #fff5f5;
+      border-left: 3px solid #d32f2f;
+      padding: 10px 12px;
+      border-radius: 4px;
+      font-style: italic;
+      color: #616161;
+      font-weight: 500;
+      font-size: 12px;
+      font-family: 'PublicSans', sans-serif;
+      line-height: 1.4;
+    }
+
+    .gco-reason {
+      background-color: #fff8f0;
+      border-left: 3px solid #ff9800;
+      padding: 10px 12px;
+      border-radius: 4px;
+      font-style: italic;
+      color: #616161;
+      font-weight: 500;
+      font-size: 12px;
+      font-family: 'PublicSans', sans-serif;
+      line-height: 1.4;
+    }
+
+    .record-timestamp {
+      color: #7a8a99;
+      font-size: 13px;
+    }
+
+    .mod-action-btn {
+      padding: 6px 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: 'PublicSans', sans-serif;
+      transition: all 0.2s;
+    }
+
+    .mod-action-btn.export {
+      background-color: #bbdefb;
+      color: #1565c0;
+    }    
+
+    .mod-action-btn.export:hover {
+      background-color: #90caf9;
+    }
