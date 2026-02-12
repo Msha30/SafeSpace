@@ -6504,10 +6504,9 @@ video.file-preview2 {
     color: #ffffff;  
 }
 
-/* Delete */
 .confirm-delete-btn {
-    background: #fee2e2;   /* light red background */
-    color: #b91c1c;        /* deep red text */
+    background: #fee2e2;   
+    color: #b91c1c;        
 }
 
 
@@ -6783,6 +6782,8 @@ video.file-preview2 {
 }
 .success-alert .form-popup-btn:hover { 
   background: #062b6b;  
+}
+
 .success-alert h3 { 
   color: #333; 
 }

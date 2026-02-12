@@ -1429,6 +1429,20 @@
 				</div>
 			</div>
 		</div>
+
+		<!-------------------------------------FOR ALERT BOXES----------------------------------->
+		<div id="customAlert" class="form-popup-overlay">
+			<div class="form-popup-content">
+				<div class="form-popup-icon">
+				<img id="alertIcon" src="photos/success.png" alt="Alert Icon">
+				</div>
+				<h3 id="alertMessage">Message</h3>
+				<div class="form-popup-buttons">
+				<button class="form-popup-btn" onclick="closeCustomAlert()">OK</button>
+				</div>
+			</div>
+		</div>
+
 	<!-------------------------------------END OF LAYOUTING----------------------------------->
 
 
@@ -1517,6 +1531,37 @@
 		}
 		});
 		*/
+
+
+				// FOR ALERT BOXES
+
+		const originalAlert = window.alert;
+
+		window.alert = function(message) {
+			const popup = document.getElementById("customAlert");
+			const text = document.getElementById("alertMessage");
+			const icon = document.getElementById("alertIcon");
+
+			text.textContent = message;
+
+			// Detect success vs error automatically
+			const lowerMsg = message.toLowerCase();
+			if (lowerMsg.includes("success") || lowerMsg.includes("saved") || lowerMsg.includes("created")) {
+			popup.classList.add("success-alert");
+			popup.classList.remove("error-alert");
+			icon.src = "photos/success.png";
+			} else {
+			popup.classList.add("error-alert");
+			popup.classList.remove("success-alert");
+			icon.src = "photos/error.png";
+			}
+
+			popup.classList.add("active");
+		};
+
+		function closeCustomAlert() {
+			document.getElementById("customAlert").classList.remove("active");
+		}
 
 
 		// SLIDER FOR TERMS AND CONDITIONS AND PRIVACY POLICY
