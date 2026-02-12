@@ -136,11 +136,11 @@
 
 		<a href="#" onclick="showPage('peer-facilitators', this)"><img src="icons/ic_sb_support.svg" class="icon"><span>Peer Facilitators</span></a>
 
-		<a href="#" onclick="showPage('support-group', this)"><img src="icons/ic_sb_chat.svg" class="icon"><span>Support Group</span></a>
+		<a href="#" onclick="showPage('support-group', this)"><img src="icons/ic_sb_supportG.svg" class="icon"><span>Support Group</span></a>
 
 		<a href="#" onclick="showPage('announcement', this)"><img src="icons/ic_sb_announcement.svg" class="icon"><span>Announcement</span></a>
 
-<!--	<a href="#" onclick="showPage('feedback', this)"><img src="icons/ic_sb_feedback.svg" class="icon"><span>Feedback</span></a> -->	
+     	<a href="#" onclick="showPage('chat-moderation', this)"><img src="icons/ic_sb_chat.svg" class="icon"><span>Chat Moderation</span></a>
 
 		<a href="#" onclick="showPage('settings and-system-logs', this)"><img src="icons/ic_sb_settings.svg" class="icon"><span>Settings and System Logs</span></a>
 
@@ -1753,6 +1753,42 @@
 			<button class="confirm-delete-btn">Delete</button>
 			</div>
 		</div>
+		</div>
+
+		
+		<!---------------------------------------------------------------------------------------->
+		<!---------------------------------------------------------------------------------------->	
+		<!---------------- USER MANAGEMENT ------------------------------------------------------->
+		<div id="chat-moderation" class="page">
+			<div class="row">
+				<div class="right-half" style="width: 100%;">
+					<div class="searchbar">
+						<img src="icons/ic_search.svg">
+						<input type="text" id="gcoUserSearch" placeholder="Search...">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="card">
+					<h3>User List</h3>
+					<table class="user">
+						<thead>
+							<tr>
+							<th id="left">User</th>
+							<th> </th>
+							<th> </th>
+							<th>Name Displayed</th>
+							<th>Type</th>
+							<th>Last Active</th>
+							<th>Date Created</th>
+							</tr>
+						</thead>
+						<tbody id="gcousers">
+							<!-- Users will be populated here -->
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 
 		<!---------------------------------------------------------------------------------------->
