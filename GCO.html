@@ -136,11 +136,11 @@
 
 		<a href="#" onclick="showPage('peer-facilitators', this)"><img src="icons/ic_sb_support.svg" class="icon"><span>Peer Facilitators</span></a>
 
-		<a href="#" onclick="showPage('support-group', this)"><img src="icons/ic_sb_chat.svg" class="icon"><span>Support Group</span></a>
+		<a href="#" onclick="showPage('support-group', this)"><img src="icons/ic_sb_supportG.svg" class="icon"><span>Support Group</span></a>
 
 		<a href="#" onclick="showPage('announcement', this)"><img src="icons/ic_sb_announcement.svg" class="icon"><span>Announcement</span></a>
 
-<!--	<a href="#" onclick="showPage('feedback', this)"><img src="icons/ic_sb_feedback.svg" class="icon"><span>Feedback</span></a> -->	
+     	<a href="#" onclick="showPage('chat-moderation', this)"><img src="icons/ic_sb_chat.svg" class="icon"><span>Chat Moderation</span></a>
 
 		<a href="#" onclick="showPage('settings and-system-logs', this)"><img src="icons/ic_sb_settings.svg" class="icon"><span>Settings and System Logs</span></a>
 
@@ -753,7 +753,9 @@
 	<!---------------- SAVE FORM MODAL ------------------------------------------------------->
 	<div id="successPopup" class="saved-form-overlay">
 		<div class="saved-form-content">
-			<div class="saved-form-icon">✓</div>
+			<div class="saved-form-icon">
+				<img src="photos/success.png" alt="Success">
+			</div>
 			<h3>Counseling Session Request Form Saved Successfully!</h3>
 			<div class="saved-form-buttons">
 			<button class="saved-form-btn-close" onclick="closeSavedFormPopup()">Close</button>
@@ -1036,6 +1038,92 @@
 			</div>
 -->	
 
+			<div class="row">
+				<div class="left-half">	
+					<select class="btn-white">
+						<option value="all">All</option>
+						<option value="newest">Newest</option>
+						<option value="oldest">Oldest</option>
+					</select>
+				</div>
+
+			</div>
+			
+			<div class="row-schedule" id="schedule" style="gap: 15px;">
+				<div class="card-schedule">
+					<h4 class="sched-date">23</h4>
+					<h5 style="padding-left: 30px;">MON</h5>
+					<div class="sched" onclick="openPeersPopup()">
+						<p class="sched-type">Face to Face</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+					<div class="sched" onclick="openPeersPopup()">
+						<p class="sched-type">Face to Face</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+				</div>
+				
+				<div class="card-schedule">
+					<h4 class="sched-date">23</h4>
+					<h5 style="padding-left: 30px;">MON</h5>
+					<div class="sched" onclick="openPeersPopup()">
+						<p class="sched-type">Face to Face</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+					<div class="sched" onclick="openPeersPopup()">
+						<p class="sched-type">Face to Face</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+				</div>
+				<div class="card-schedule">
+					<h4 class="sched-date">23</h4>
+					<h5 style="padding-left: 30px;">MON</h5>
+					<div class="sched" onclick="openPeersPopup()">
+						<p class="sched-type">Face to Face</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+					<div class="sched" onclick="openPeersPopup()">
+						<p class="sched-type">Face to Face</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+				</div>
+				<div class="card-schedule">
+					<h4 class="sched-date">23</h4>
+					<h5 style="padding-left: 30px;">MON</h5>
+					<div class="sched" onclick="openPeersPopup()">
+						<p class="sched-type">Face to Face</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+					<div class="sched" onclick="openPeersPopup()">
+						<p class="sched-type">Face to Face</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+				</div>
+				<div class="card-schedule">
+					<h4 class="sched-date">23</h4>
+					<h5 style="padding-left: 30px;">MON</h5>
+					<div class="sched" onclick="openPeersPopup()">
+						<p class="sched-type">Face to Face</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+					<div class="sched" onclick="openPeersPopup()">
+						<p class="sched-type">Face to Face</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+				</div>
+				<div class="card-schedule">
+					<h4 class="sched-date">23</h4>
+					<h5 style="padding-left: 30px;">MON</h5>
+					<div class="sched" onclick="openPeersPopup()">
+						<p class="sched-type">Face to Face</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+					<div class="sched" onclick="openPeersPopup()">
+						<p class="sched-type">Face to Face</p>
+						<p class="sched-time">0:00 PM - 0:00 PM</p>
+					</div>
+				</div>
+			</div>
 		</div>
 
 		<!---------------------------------------------------------------------------------------->	
@@ -1667,6 +1755,116 @@
 		</div>
 		</div>
 
+		
+		<!---------------------------------------------------------------------------------------->
+		<!---------------------------------------------------------------------------------------->	
+		<!---------------- CHAT MODERATION-------------------------------------------------------->
+		<div id="chat-moderation" class="page">
+
+			<div class="row">
+				<div class="right-half" style="width: 100%;">
+					<div class="searchbar">
+						<img src="icons/ic_search.svg">
+						<input type="text" id="gcoUserSearch" placeholder="Search...">
+					</div>
+				</div>
+			</div>
+	  		 <!---------------- FLAGGED WORDS TABLE -------------------------------------------------------->
+			<div class="row">
+				<div class="card">
+					<h3>Flagged Words Detected</h3>
+					<table class="user">
+						<thead>
+							<tr>
+								<th id="left">Student</th>
+								<th> </th>
+								<th> </th>
+								<th>Peer Facilitator</th>
+								<th>Flagged Word</th>
+								<th>Date & Time</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td>
+									<div class="name" onclick="openUsersPopup()">
+										Doe, John A.<br> 
+										<span>email@students.nu-fairview.edu.ph</span>
+									</div>
+								</td>
+								<td></td>
+								<td>Doe, John A.</td>
+								<td> 
+									<div class="detected-word">Lorem Ipsum</div>
+								</td>
+								<td>
+									<div class="record-timestamp">Jan 26, 2026<br>3:45 PM</div>
+								</td>
+								<td>
+									<div class="mod-action-btn export">Export Chat</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="right-half" style="width: 100%;">
+					<div class="searchbar">
+						<img src="icons/ic_search.svg">
+						<input type="text" id="gcoUserSearch" placeholder="Search...">
+					</div>
+				</div>
+			</div>
+			<!---------------- STUDENTS REFERRED TO GCO -------------------------------------------------------->
+			<div class="row">
+				<div class="card">
+					<h3>Students Referred to GCO</h3>
+					<table class="user">
+						<thead>
+							<tr>
+								<th id="left">Student</th>
+								<th> </th>
+								<th> </th>
+								<th>Peer Facilitator</th>
+								<th>Reason for Referral</th>
+								<th>Date & Time</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="table_user">
+									<img src="photos/pic_placeholder.png">
+								</td>
+								<td>
+									<div class="name" onclick="openUsersPopup()">
+										Doe, John A.<br> 
+										<span>email@students.nu-fairview.edu.ph</span>
+									</div>
+								</td>
+								<td></td>
+								<td>Doe, John A.</td>
+								<td> 
+									<div class="gco-reason">Lorem Ipsum</div>
+								</td>
+								<td>
+									<div class="record-timestamp">Jan 26, 2026<br>3:45 PM</div>
+								</td>
+								<td>
+									<div class="mod-action-btn export ">Export Chat</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
 		<!---------------------------------------------------------------------------------------->
 		<!---------------------------------------------------------------------------------------->	
 		<!---------------- SETTINGS & LOGS-------------------------------------------------------->
@@ -2039,6 +2237,20 @@
 			</div>
 		</div>
 
+		<!-------------------------------------FOR ALERT BOXES----------------------------------->
+		<div id="customAlert" class="form-popup-overlay">
+			<div class="form-popup-content">
+				<div class="form-popup-icon">
+				<img id="alertIcon" src="photos/success.png" alt="Alert Icon">
+				</div>
+				<h3 id="alertMessage">Message</h3>
+				<div class="form-popup-buttons">
+				<button class="form-popup-btn" onclick="closeCustomAlert()">OK</button>
+				</div>
+			</div>
+		</div>
+
+
 
 	<!-------------------------------------END OF LAYOUTING----------------------------------->
 
@@ -2245,6 +2457,37 @@
 		}
 
 		renderGCOTable('all');
+
+
+		// FOR ALERT BOXES
+
+		const originalAlert = window.alert;
+
+		window.alert = function(message) {
+			const popup = document.getElementById("customAlert");
+			const text = document.getElementById("alertMessage");
+			const icon = document.getElementById("alertIcon");
+
+			text.textContent = message;
+
+			// Detect success vs error automatically
+			const lowerMsg = message.toLowerCase();
+			if (lowerMsg.includes("success") || lowerMsg.includes("saved") || lowerMsg.includes("created")) {
+			popup.classList.add("success-alert");
+			popup.classList.remove("error-alert");
+			icon.src = "photos/success.png";
+			} else {
+			popup.classList.add("error-alert");
+			popup.classList.remove("success-alert");
+			icon.src = "photos/error.png";
+			}
+
+			popup.classList.add("active");
+		};
+
+		function closeCustomAlert() {
+			document.getElementById("customAlert").classList.remove("active");
+		}
 
 		
 		
