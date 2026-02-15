@@ -19,6 +19,8 @@ import {
   get
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
+import { exportChatAsHTML } from "./chat-export.js";
+
 /**
  * Fetches Terms and Conditions from Firestore
  * Path: /TermsAndPrivacy/TermsAndConditions
@@ -191,7 +193,7 @@ async function initializePeerToPeerLogic() {
         }
     });
 
-    // 4. Export Handler (CSV)
+    // 4. Export Handler (HTML with chat bubbles)
     exportBtn.addEventListener('click', async () => {
         const selectedPeerId = peerSelect.value;
         const selectedStudentId = studentSelect.value;
@@ -265,45 +267,53 @@ async function initializePeerToPeerLogic() {
         // 7. Sort messages
         flattenedMessages.sort((a, b) => (Number(a.timestamp || 0) - Number(b.timestamp || 0)));
 
-        // 8. Prepare Data for CSV
+        // 8. Prepare Data for HTML Export
         const peerDoc = allPeersMap[selectedPeerId] || null;
         const studentDoc = allStudentsMap[selectedStudentId] || null;
         
         const peerDisplay = peerDoc ? `${peerDoc.lastName || peerDoc.lname || ''}, ${peerDoc.firstName || peerDoc.fname || ''}`.trim() : selectedPeerId;
         const studentDisplay = studentDoc ? `${studentDoc.lastName || studentDoc.lname || ''}, ${studentDoc.firstName || studentDoc.fname || ''}`.trim() : selectedStudentId;
 
-        // Header Row
-        const csvRows = [
-            ["Moderation", "Name", "Date", "Messages"]
-        ];
-
-        flattenedMessages.forEach(msg => {
-            const ts = Number(msg.timestamp || 0);
-            const dateObj = new Date(ts);
-            const dateStr = dateObj.toLocaleString(); // Readable format
-            
-            // Determine Name based on senderId
-            let senderName = "Unknown";
+        // Format messages for HTML export
+        const messages = flattenedMessages.map(msg => {
             const senderId = msg.senderId || msg.uid || msg.sender;
+            let senderName = "Unknown";
+            let isPeer = false;
             
-            if (senderId === selectedPeerId) senderName = peerDisplay;
-            else if (senderId === selectedStudentId) senderName = studentDisplay;
-            else senderName = senderId || "Unknown";
+            if (senderId === selectedPeerId) {
+                senderName = peerDisplay;
+                isPeer = true;
+            } else if (senderId === selectedStudentId) {
+                senderName = studentDisplay;
+                isPeer = false;
+            } else {
+                senderName = senderId || "Unknown";
+            }
 
-            // Get Fields - Format moderation object properly
-            const moderation = msg.moderation || {};
-            const moderationStr = moderation.flagged ? 
-                `Flagged: ${(moderation.flaggedWords || []).join(', ')}` : 
-                'Clean';
-            const messageText = msg.text || msg.message || msg.content || "";
-
-            csvRows.push([moderationStr, senderName, dateStr, messageText]);
+            return {
+                senderId: senderId,
+                senderName: senderName,
+                sender: senderName,
+                text: msg.text || msg.message || msg.content || "",
+                timestamp: msg.timestamp,
+                moderation: msg.moderation || {},
+                isPeer: isPeer,
+                userType: isPeer ? 'peer' : 'student'
+            };
         });
 
-        // 9. Trigger CSV Download
+        // 9. Trigger HTML Download
+        const title = `Peer to Peer Chat Export`;
+        const participants = {
+            peer: { name: peerDisplay, id: selectedPeerId },
+            student: { name: studentDisplay, id: selectedStudentId }
+        };
+        
         const safePeerId = (peerDisplay || selectedPeerId).replace(/\s+/g, "_").replace(/[^\w\-]/g, "");
         const safeStudentId = (studentDisplay || selectedStudentId).replace(/\s+/g, "_").replace(/[^\w\-]/g, "");
-        downloadCSV(csvRows, `export_p2p_${safePeerId}_${safeStudentId}.csv`);
+        const filename = `chat_p2p_${safePeerId}_${safeStudentId}.html`;
+        
+        exportChatAsHTML(messages, title, filename, participants);
     });
 }
 
@@ -365,7 +375,7 @@ async function initializeSupportGroupLogic() {
         }
     });
 
-    // 4. Export Handler (Support Group CSV)
+    // 4. Export Handler (Support Group HTML with chat bubbles)
     exportBtn.addEventListener('click', async () => {
         const selectedGroupId = sgSelect.value;
         const selectedChatId = gcSelect.value;
@@ -387,9 +397,7 @@ async function initializeSupportGroupLogic() {
             const rangeStartMs = dateRange.start ? dateRange.start.getTime() : null;
             const rangeEndMs = dateRange.end ? dateRange.end.getTime() : null;
 
-            const csvRows = [
-                ["Moderation", "Name", "Date", "Messages"]
-            ];
+            const messages = [];
 
             querySnapshot.forEach(docSnap => {
                 const data = docSnap.data();
@@ -413,34 +421,35 @@ async function initializeSupportGroupLogic() {
                 const beforeEnd  = rangeEndMs === null || ts <= rangeEndMs;
                 if (!afterStart || !beforeEnd) return;
 
-                // Map Fields
-                const dateStr = new Date(ts).toLocaleString();
-                
-                // Format moderation object properly
-                const moderation = data.moderation || {};
-                const moderationStr = moderation.flagged ? 
-                    `Flagged: ${(moderation.flaggedWords || []).join(', ')}` : 
-                    'Clean';
-                
-                // Name: Prefer senderName if stored, else senderId
-                let name = data.senderName || data.senderId || "Unknown";
-                // Try to lookup name from account_details if not present in message doc (Optional optimization)
-                // For now, stick to what is in the message doc to keep exports fast.
-                
-                const messageText = data.text || data.message || data.content || "";
-
-                csvRows.push([moderationStr, name, dateStr, messageText]);
+                // Format message for HTML export
+                messages.push({
+                    senderId: data.senderId,
+                    senderName: data.senderName || data.senderId || "Unknown",
+                    sender: data.senderName || data.senderId || "Unknown",
+                    text: data.text || data.message || data.content || "",
+                    timestamp: ts,
+                    moderation: data.moderation || {}
+                });
             });
 
+            // Get names for display
             const sgOption = sgSelect.options[sgSelect.selectedIndex];
             const gcOption = gcSelect.options[gcSelect.selectedIndex];
             const supportGroupName = sgOption ? sgOption.textContent : selectedGroupId;
             const groupChatName    = gcOption ? gcOption.textContent : selectedChatId;
 
+            // Trigger HTML Download
+            const title = `Support Group Chat Export`;
+            const participants = {
+                groupName: supportGroupName,
+                chatName: groupChatName
+            };
+            
             const safeGroup = (supportGroupName || selectedGroupId).replace(/\s+/g, "_").replace(/[^\w\-]/g, "");
             const safeChat  = (groupChatName  || selectedChatId).replace(/\s+/g, "_").replace(/[^\w\-]/g, "");
+            const filename = `chat_sg_${safeGroup}_${safeChat}.html`;
             
-            downloadCSV(csvRows, `export_sg_${safeGroup}_${safeChat}.csv`);
+            exportChatAsHTML(messages, title, filename, participants);
 
         } catch (error) {
             console.error("Error fetching messages for export:", error);
@@ -484,36 +493,6 @@ function getSelectedDateRange(container, radioGroupName) {
     }
 
     return { start: startDate, end: endDate };
-}
-
-/**
- * Helper to escape CSV strings (handles commas, quotes, newlines)
- */
-function escapeCSV(str) {
-    if (str === undefined || str === null) return "";
-    str = str.toString();
-    if (str.includes(',') || str.includes('"') || str.includes('\n') || str.includes('\r')) {
-        return `"${str.replace(/"/g, '""')}"`;
-    }
-    return str;
-}
-
-/**
- * Downloads data as a CSV file
- */
-function downloadCSV(rows, filename) {
-    const csvContent = rows.map(e => e.map(escapeCSV).join(",")).join("\n");
-    
-    // Create a blob with BOM for Excel UTF-8 compatibility
-    const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    
-    const link = document.createElement("a");
-    link.setAttribute("href", url);
-    link.setAttribute("download", filename);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
 }
 
 /**

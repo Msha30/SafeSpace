@@ -340,13 +340,14 @@ export async function startCall({
       }
     });
 
-    // 10) Return cleanup function
-    return function hangup() {
-      console.log("[call.js] Hanging up...");
-      
-      // 1. Unsubscribe from Firestore listeners
-      if (remoteAnswerCandidatesUnsub) remoteAnswerCandidatesUnsub();
-      if (answerUnsub) answerUnsub();
+    // 10) Return cleanup function and control functions
+    const controlFunctions = {
+      hangup() {
+        console.log("[call.js] Hanging up...");
+        
+        // 1. Unsubscribe from Firestore listeners
+        if (remoteAnswerCandidatesUnsub) remoteAnswerCandidatesUnsub();
+        if (answerUnsub) answerUnsub();
       
       // 2. Stop all tracks from peer connection senders (THIS IS THE FIX!)
       if (pc) {
@@ -386,7 +387,34 @@ export async function startCall({
       }
       
       console.log("[call.js] Cleanup complete - camera should be off");
-    };
+    },
+    
+    toggleMute() {
+      if (localStream) {
+        const audioTrack = localStream.getAudioTracks()[0];
+        if (audioTrack) {
+          audioTrack.enabled = !audioTrack.enabled;
+          console.log("[call.js] Audio", audioTrack.enabled ? "unmuted" : "muted");
+          return !audioTrack.enabled; // return true if muted
+        }
+      }
+      return false;
+    },
+    
+    toggleCamera() {
+      if (localStream && mode === "video") {
+        const videoTrack = localStream.getVideoTracks()[0];
+        if (videoTrack) {
+          videoTrack.enabled = !videoTrack.enabled;
+          console.log("[call.js] Camera", videoTrack.enabled ? "on" : "off");
+          return !videoTrack.enabled; // return true if camera off
+        }
+      }
+      return false;
+    }
+  };
+    
+    return controlFunctions;
     
     async function deleteCallDocument(callDocRef) {
       try {

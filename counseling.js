@@ -25,8 +25,10 @@ const avatarCache = new Map();
 const accountCache = new Map();
 const formCache = new Map();
 
-let activeCallCleanup = null;
+let activeCallControls = null;
 let activeCallId = null;
+let isMuted = false;
+let isCameraOff = false;
 
 // Fetch avatar with cache
 async function getAvatarUrl(uid) {
@@ -263,7 +265,7 @@ function formatTimeRange(assigned_sched) {
   return `${sStr} - ${eStr}`;
 }
 
-// START CALL stub - replace with your call integration
+// START CALL with mute and camera controls
 async function startCall(submissionId) {
   const currentUser = auth.currentUser;
   if (!currentUser) {
@@ -324,10 +326,16 @@ async function startCall(submissionId) {
     
     if (statusText) statusText.textContent = "Connecting...";
 
-    // 5. Start the WebRTC call
+    // Reset button states
+    isMuted = false;
+    isCameraOff = false;
+    updateMuteButton();
+    updateCameraButton();
+
+    // 5. Start the WebRTC call - NOW RETURNS CONTROL OBJECT
     const meteredApiKey = undefined;
 
-    const hangup = await Call.startCall({
+    const callControls = await Call.startCall({
       submissionId,
       mode,
       meteredApiKey,
@@ -347,36 +355,103 @@ async function startCall(submissionId) {
         console.error("Call error:", err);
         alert("Call error: " + err.message);
         if (overlay) overlay.style.display = "none";
-        activeCallCleanup = null;
+        activeCallControls = null;
         activeCallId = null;
       }
     });
 
-    // Store cleanup function globally
-    activeCallCleanup = hangup;
+    // Store control functions globally
+    activeCallControls = callControls;
     activeCallId = submissionId;
 
-    // 6. Wire up the Hang Up button
-    const btnHangup = document.getElementById("btnHangup");
-    if (btnHangup) {
-      const newBtn = btnHangup.cloneNode(true);
-      btnHangup.parentNode.replaceChild(newBtn, btnHangup);
-      
-      newBtn.addEventListener("click", () => {
-        if (activeCallCleanup) {
-          activeCallCleanup();
-          activeCallCleanup = null;
-        }
-        showCallCompleteButton(submissionId);
-      });
-    }
+    // 6. Wire up the control buttons
+    setupCallControls(submissionId, mode);
 
   } catch (err) {
     console.error("Failed to start call:", err);
     alert("Failed to start call. See console.");
     document.getElementById("videoCallOverlay").style.display = "none";
-    activeCallCleanup = null;
+    activeCallControls = null;
     activeCallId = null;
+  }
+}
+
+function setupCallControls(submissionId, mode) {
+  // Hangup button
+  const btnHangup = document.getElementById("btnHangup");
+  if (btnHangup) {
+    const newBtn = btnHangup.cloneNode(true);
+    btnHangup.parentNode.replaceChild(newBtn, btnHangup);
+    
+    newBtn.addEventListener("click", () => {
+      if (activeCallControls && activeCallControls.hangup) {
+        activeCallControls.hangup();
+        activeCallControls = null;
+      }
+      showCallCompleteButton(submissionId);
+    });
+  }
+
+  // Mute button
+  const btnMute = document.getElementById("btnMute");
+  if (btnMute) {
+    const newMuteBtn = btnMute.cloneNode(true);
+    btnMute.parentNode.replaceChild(newMuteBtn, btnMute);
+    
+    newMuteBtn.addEventListener("click", () => {
+      if (activeCallControls && activeCallControls.toggleMute) {
+        isMuted = activeCallControls.toggleMute();
+        updateMuteButton();
+      }
+    });
+  }
+
+  // Camera button (only for video calls)
+  const btnCamera = document.getElementById("btnCamera");
+  if (btnCamera) {
+    if (mode === "video") {
+      btnCamera.style.display = "inline-block";
+      const newCameraBtn = btnCamera.cloneNode(true);
+      btnCamera.parentNode.replaceChild(newCameraBtn, btnCamera);
+      
+      newCameraBtn.addEventListener("click", () => {
+        if (activeCallControls && activeCallControls.toggleCamera) {
+          isCameraOff = activeCallControls.toggleCamera();
+          updateCameraButton();
+        }
+      });
+    } else {
+      // Hide camera button for audio calls
+      btnCamera.style.display = "none";
+    }
+  }
+}
+
+// NEW FUNCTION: Update mute button UI
+function updateMuteButton() {
+  const btn = document.getElementById("btnMute");
+  if (!btn) return;
+  
+  if (isMuted) {
+    btn.textContent = "🔇 Unmute";
+    btn.classList.add("muted");
+  } else {
+    btn.textContent = "🔊 Mute";
+    btn.classList.remove("muted");
+  }
+}
+
+// NEW FUNCTION: Update camera button UI
+function updateCameraButton() {
+  const btn = document.getElementById("btnCamera");
+  if (!btn) return;
+  
+  if (isCameraOff) {
+    btn.textContent = "📹 Turn On Camera";
+    btn.classList.add("camera-off");
+  } else {
+    btn.textContent = "📹 Turn Off Camera";
+    btn.classList.remove("camera-off");
   }
 }
 
@@ -496,10 +571,10 @@ function showCallCompleteButton(submissionId) {
 async function completeCall(submissionId) {
   try {
     // CRITICAL FIX: Stop all media tracks BEFORE marking as complete
-    if (activeCallCleanup) {
+    if (activeCallControls && activeCallControls.hangup) {
       console.log("[counseling.js] Stopping media tracks...");
-      activeCallCleanup();
-      activeCallCleanup = null;
+      activeCallControls.hangup();
+      activeCallControls = null;
     }
     
     const docRef = doc(db, "CounselingForm_Submissions", submissionId);

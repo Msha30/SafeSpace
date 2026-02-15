@@ -17,6 +17,7 @@ import {
   ref,
   get
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+import { exportChatAsHTML } from "./chat-export.js";
 
 let notifMenu;
 let notifBadge;
@@ -688,7 +689,32 @@ async function exportPeerToPeerChat(peerId, studentId) {
         
         Object.values(slot).forEach(msgObj => {
           if (!msgObj || typeof msgObj !== 'object') return;
-          flattenedMessages.push(msgObj);
+          
+          // Determine sender info
+          const senderId = msgObj.senderId || msgObj.uid || msgObj.sender;
+          let senderName = "Unknown";
+          let isPeer = false;
+          
+          if (senderId === peerId) {
+            senderName = peerDisplay;
+            isPeer = true;
+          } else if (senderId === studentId) {
+            senderName = studentDisplay;
+            isPeer = false;
+          } else {
+            senderName = senderId || "Unknown";
+          }
+          
+          flattenedMessages.push({
+            senderId: senderId,
+            senderName: senderName,
+            sender: senderName,
+            text: msgObj.text || msgObj.message || msgObj.content || "",
+            timestamp: msgObj.timestamp,
+            moderation: msgObj.moderation || {},
+            isPeer: isPeer,
+            userType: isPeer ? 'peer' : 'student'
+          });
         });
       });
     }
@@ -696,37 +722,18 @@ async function exportPeerToPeerChat(peerId, studentId) {
     // Sort by timestamp
     flattenedMessages.sort((a, b) => (Number(a.timestamp || 0) - Number(b.timestamp || 0)));
     
-    // Build CSV
-    const csvRows = [
-      ["Moderation", "Name", "Date", "Messages"]
-    ];
+    // Export as HTML with chat bubbles
+    const title = `Peer to Peer Chat Export`;
+    const participants = {
+      peer: { name: peerDisplay, id: peerId },
+      student: { name: studentDisplay, id: studentId }
+    };
     
-    flattenedMessages.forEach(msg => {
-      const ts = Number(msg.timestamp || 0);
-      const dateStr = new Date(ts).toLocaleString();
-      
-      let senderName = "Unknown";
-      const senderId = msg.senderId || msg.uid || msg.sender;
-      
-      if (senderId === peerId) senderName = peerDisplay;
-      else if (senderId === studentId) senderName = studentDisplay;
-      else senderName = senderId || "Unknown";
-      
-      // Format moderation object
-      const moderation = msg.moderation || {};
-      const moderationStr = moderation.flagged ? 
-        `Flagged: ${(moderation.flaggedWords || []).join(', ')}` : 
-        'Clean';
-      
-      const messageText = msg.text || msg.message || msg.content || "";
-      
-      csvRows.push([moderationStr, senderName, dateStr, messageText]);
-    });
-    
-    // Download
     const safePeer = peerDisplay.replace(/\s+/g, "_").replace(/[^\w\-]/g, "");
     const safeStudent = studentDisplay.replace(/\s+/g, "_").replace(/[^\w\-]/g, "");
-    downloadCSV(csvRows, `export_p2p_${safePeer}_${safeStudent}.csv`);
+    const filename = `chat_p2p_${safePeer}_${safeStudent}.html`;
+    
+    exportChatAsHTML(flattenedMessages, title, filename, participants);
     
   } catch (error) {
     console.error('Export error:', error);
@@ -740,55 +747,48 @@ async function exportSupportGroupChat(groupId, chatId) {
     const q = query(messagesRef, orderBy('timestamp', 'asc'));
     const querySnapshot = await getDocs(q);
     
-    const csvRows = [
-      ["Moderation", "Name", "Date", "Messages"]
-    ];
+    // Get group and chat names
+    const groupDoc = await getDoc(doc(db, "supportgroup", groupId));
+    const groupData = groupDoc.exists() ? groupDoc.data() : {};
+    const groupName = groupData.supportgroup_name || "Support Group";
+    
+    const groupchats = groupData.groupchats || [];
+    const chatData = groupchats.find(gc => gc.groupchatId === chatId);
+    const chatName = chatData ? chatData.name : "Group Chat";
+    
+    const messages = [];
     
     querySnapshot.forEach(docSnap => {
       const data = docSnap.data();
       const ts = getTimestamp(data.timestamp);
-      const dateStr = new Date(ts).toLocaleString();
       
-      // Format moderation object
-      const moderation = data.moderation || {};
-      const moderationStr = moderation.flagged ? 
-        `Flagged: ${(moderation.flaggedWords || []).join(', ')}` : 
-        'Clean';
-      
-      const name = data.senderName || data.senderId || "Unknown";
-      const messageText = data.text || data.message || data.content || "";
-      
-      csvRows.push([moderationStr, name, dateStr, messageText]);
+      messages.push({
+        senderId: data.senderId,
+        senderName: data.senderName || data.senderId || "Unknown",
+        sender: data.senderName || data.senderId || "Unknown",
+        text: data.text || data.message || data.content || "",
+        timestamp: ts,
+        moderation: data.moderation || {}
+      });
     });
     
-    downloadCSV(csvRows, `export_sg_${groupId}_${chatId}.csv`);
+    // Export as HTML with chat bubbles
+    const title = `Support Group Chat Export`;
+    const participants = {
+      groupName: groupName,
+      chatName: chatName
+    };
+    
+    const safeGroup = groupName.replace(/\s+/g, "_").replace(/[^\w\-]/g, "");
+    const safeChat = chatName.replace(/\s+/g, "_").replace(/[^\w\-]/g, "");
+    const filename = `chat_sg_${safeGroup}_${safeChat}.html`;
+    
+    exportChatAsHTML(messages, title, filename, participants);
     
   } catch (error) {
     console.error('Export error:', error);
     alert('Failed to export chat');
   }
-}
-
-function escapeCSV(str) {
-  if (str === undefined || str === null) return "";
-  str = str.toString();
-  if (str.includes(',') || str.includes('"') || str.includes('\n') || str.includes('\r')) {
-    return `"${str.replace(/"/g, '""')}"`;
-  }
-  return str;
-}
-
-function downloadCSV(rows, filename) {
-  const csvContent = rows.map(e => e.map(escapeCSV).join(",")).join("\n");
-  const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' });
-  const url = URL.createObjectURL(blob);
-  
-  const link = document.createElement("a");
-  link.setAttribute("href", url);
-  link.setAttribute("download", filename);
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
 }
 
 /* ============================

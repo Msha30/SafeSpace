@@ -1,5 +1,5 @@
 // userManagement.js
-import { db, rtdb } from "./auth.js";
+import { db, rtdb, auth } from "./auth.js";
 import { 
   collection, 
   getDocs,
@@ -9,7 +9,8 @@ import {
   orderBy,
   doc,
   updateDoc,
-  deleteDoc 
+  deleteDoc,
+  onSnapshot 
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 import { logAdmin } from "./logger.js";
@@ -22,8 +23,55 @@ const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
 // popup cache (was missing)
 const userPopupCache = new Map();
 
+// Peer session schedule variables
+let _peerSessionsCache = [];
+let _peerSessionsListenerUnsub = null;
+let _currentPeerScheduleSort = 'newest'; // Can be 'newest' or 'oldest'
+let _currentSelectedPeerUid = null; // Track which peer we're viewing
+
 // Track RTDB presence listeners we already attached to avoid duplicates
 const observedPresence = new Set();
+
+// Helper function to convert timestamps to milliseconds
+function tsToMillis(ts) {
+  if (!ts) return 0;
+  // Firestore Timestamp has toDate()
+  if (typeof ts.toDate === "function") {
+    return ts.toDate().getTime();
+  }
+  if (ts instanceof Date) return ts.getTime();
+  if (typeof ts === "number") return ts;
+  // fallback: try Date parse
+  const parsed = Date.parse(ts);
+  return isNaN(parsed) ? 0 : parsed;
+}
+
+// Format time range for peer sessions
+function formatPeerTimeRange(start, end) {
+  if (!start || !end) return "N/A";
+  
+  const startDate = start.toDate ? start.toDate() : new Date(start);
+  const endDate = end.toDate ? end.toDate() : new Date(end);
+  
+  const formatTime = (date) => {
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    return hours + ':' + minutes + ' ' + ampm;
+  };
+  
+  return formatTime(startDate) + ' - ' + formatTime(endDate);
+}
+
+// Format location type
+function formatLocationType(location) {
+  if (!location) return "Not Specified";
+  return location;
+}
+
 
 export function resolveAvatarUrl(avatarUrl) {
     if (!avatarUrl) return 'photos/pic_placeholder.png';
@@ -178,9 +226,9 @@ export function formatUserData(user) {
 }
 
 function normalizeLastActiveForDisplay(value) {
-  if (!value) return "—";
+  if (!value) return "â€”";
   const s = String(value).trim();
-  if (s === "" || s.toUpperCase() === "N/A") return "—";
+  if (s === "" || s.toUpperCase() === "N/A") return "â€”";
   return s;
 }
 
@@ -366,6 +414,12 @@ function openPerPeerPage(peer) {
                 ${effectivePeer.fullName}
             `;
   document.getElementById("pageTitle").innerHTML = title;
+
+  // Load peer sessions schedule for this peer
+  const peerUid = effectivePeer.id || effectivePeer.uid;
+  if (peerUid) {
+    loadPeerSessionsSchedule(peerUid);
+  }
 }
 
 export function initializePeerFacilitators() {
@@ -389,7 +443,7 @@ export function initializePeerFacilitators() {
   // --- Start watching last active times for these peers ---
   watchUserPresence(initialPeers);
 
-  // 🔍 search behavior (same logic as userManagement)
+  // ðŸ” search behavior (same logic as userManagement)
   if (searchInput) {
   searchInput.addEventListener("input", () => {
     const term = searchInput.value.toLowerCase();
@@ -494,7 +548,7 @@ function createUserRow(user, options = {}) {
     ${showActions ? `
     <td class="action">
       <div class="dpDots">
-        <button class="menu-dots" onclick="toggleDpDots(this)">⋮</button>
+        <button class="menu-dots" onclick="toggleDpDots(this)">â‹®</button>
         <div class="dropdown-content">
           <a href="#" onclick="window.editUser('${user.id}')">Edit</a>
           <a href="#" class="remove" onclick="window.removeUser('${user.id}', '${user.fullName}')">Remove User</a>
@@ -877,6 +931,233 @@ document.addEventListener("click", (e) => {
 });
 
 
+// ==================== PEER SESSION SCHEDULE FUNCTIONS ====================
+
+/**
+ * Initialize peer sessions schedule listener for a specific peer
+ * @param {string} peerUid - UID of the peer facilitator
+ */
+export async function loadPeerSessionsSchedule(peerUid) {
+  if (!peerUid) {
+    console.error("No peer UID provided");
+    return;
+  }
+
+  _currentSelectedPeerUid = peerUid;
+
+  // Attach dropdown listener for schedule sorting
+  const scheduleRowNav = document.querySelector("#perPeerPage .row .left-half");
+  if (scheduleRowNav) {
+    const scheduleSortSelect = scheduleRowNav.querySelector('.btn-white');
+    if (scheduleSortSelect && !scheduleSortSelect._peerScheduleListenerAttached) {
+      scheduleSortSelect.value = _currentPeerScheduleSort;
+      scheduleSortSelect.addEventListener('change', (ev) => {
+        _currentPeerScheduleSort = ev.target.value || 'newest';
+        renderPeerSchedule();
+      });
+      scheduleSortSelect._peerScheduleListenerAttached = true;
+    }
+  }
+
+  // Unsubscribe from previous listener if exists
+  if (typeof _peerSessionsListenerUnsub === 'function') {
+    _peerSessionsListenerUnsub();
+    _peerSessionsListenerUnsub = null;
+  }
+
+  try {
+    // Query peer sessions for this peer
+    const sessionsQuery = query(
+      collection(db, "peertopeer_session"),
+      where("peerUid", "==", peerUid)
+    );
+
+    _peerSessionsListenerUnsub = onSnapshot(sessionsQuery, (snapshot) => {
+      _peerSessionsCache = snapshot.docs.map((docSnap) => ({
+        id: docSnap.id,
+        data: docSnap.data(),
+      }));
+
+      console.log(`Loaded ${_peerSessionsCache.length} peer sessions for peer ${peerUid}`);
+      renderPeerSchedule();
+    }, (err) => {
+      console.error("Peer sessions listener error:", err);
+      const container = document.getElementById("schedule");
+      if (container) {
+        container.innerHTML = `<div class="error">Failed to load peer sessions</div>`;
+      }
+    });
+  } catch (err) {
+    console.error("Failed to attach peer sessions listener:", err);
+  }
+}
+
+/**
+ * Render peer sessions in a weekly schedule view
+ */
+function renderPeerSchedule() {
+  const container = document.getElementById("peer_schedule");
+  if (!container) {
+    console.warn("Schedule container not found");
+    return;
+  }
+
+  // Clear existing content
+  container.innerHTML = "";
+
+  // Calculate the current week (Monday to Sunday)
+  const today = new Date();
+  const day = today.getDay() || 7; // Get current day (1-7), making Sunday 7
+  const monday = new Date(today);
+  monday.setDate(today.getDate() - day + 1); // Set to Monday
+  monday.setHours(0, 0, 0, 0); // Normalize time
+
+  // Generate array of dates for Mon-Sun of this week
+  const daysOfWeek = [];
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(monday);
+    d.setDate(monday.getDate() + i);
+    daysOfWeek.push(d);
+  }
+
+  // Filter sessions for current week, excluding cancelled sessions
+  let weekSessions = _peerSessionsCache.filter((item) => {
+    const data = item.data;
+
+    // Filter out cancelled and confirmed cancellations
+    if (data.isCancelled || data.cancellationConfirmed) {
+      return false;
+    }
+
+    // Must have start_time
+    if (!data.start_time) {
+      return false;
+    }
+
+    // Check if session falls within current week
+    const startMs = tsToMillis(data.start_time);
+    const itemDate = new Date(startMs);
+
+    const startOfWeekMs = daysOfWeek[0].getTime();
+    const endOfWeekMs = new Date(daysOfWeek[6]).setHours(23, 59, 59, 999);
+
+    return startMs >= startOfWeekMs && startMs <= endOfWeekMs;
+  });
+
+  // Sort sessions based on dropdown selection
+  weekSessions.sort((a, b) => {
+    const tA = tsToMillis(a.data.start_time);
+    const tB = tsToMillis(b.data.start_time);
+    return _currentPeerScheduleSort === "newest" ? tB - tA : tA - tB;
+  });
+
+  // Handle reverse week display for "newest" sort
+  const displayDays = _currentPeerScheduleSort === "newest" ? [...daysOfWeek].reverse() : daysOfWeek;
+  const dayNames = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
+  const displayDayNames = _currentPeerScheduleSort === "newest" ? [...dayNames].reverse() : dayNames;
+
+  // Build the schedule UI
+  displayDays.forEach((dateObj, index) => {
+    const dayCard = document.createElement("div");
+    dayCard.className = "card-schedule";
+
+    const dateNum = dateObj.getDate();
+    const dayName = displayDayNames[index];
+
+    // Header
+    dayCard.innerHTML = `
+      <h4 class="sched-date">${dateNum}</h4>
+      <h5 style="padding-left: 30px;">${dayName}</h5>
+    `;
+
+    // Find sessions that match this specific day
+    const daySessions = weekSessions.filter((item) => {
+      const startMs = tsToMillis(item.data.start_time);
+      const itemDate = new Date(startMs);
+      return (
+        itemDate.getDate() === dateObj.getDate() &&
+        itemDate.getMonth() === dateObj.getMonth() &&
+        itemDate.getFullYear() === dateObj.getFullYear()
+      );
+    });
+
+    // Append sessions or placeholder
+    if (daySessions.length === 0) {
+      // Placeholder for no sessions
+      const schedDiv = document.createElement("div");
+      schedDiv.className = "sched";
+      schedDiv.style.border = "1px dashed #ccc";
+      schedDiv.style.background = "#fcfcfc";
+      schedDiv.innerHTML = `<p class="sched-type" style="color:#999; font-weight:normal; font-style:italic;">No Scheduled Sessions</p>`;
+      dayCard.appendChild(schedDiv);
+    } else {
+      // Render sessions
+      daySessions.forEach((item) => {
+        const schedDiv = document.createElement("div");
+        schedDiv.className = "sched";
+
+        const location = formatLocationType(item.data.location);
+        const timeRange = formatPeerTimeRange(item.data.start_time, item.data.end_time);
+
+        schedDiv.innerHTML = `
+          <p class="sched-type">${location}</p>
+          <p class="sched-time">${timeRange}</p>
+        `;
+
+        schedDiv.style.cursor = "pointer";
+        schedDiv.onclick = () => openPeerSessionPopup(item.id, item.data);
+
+        dayCard.appendChild(schedDiv);
+      });
+    }
+
+    container.appendChild(dayCard);
+  });
+}
+
+/**
+ * Open popup to show peer session details
+ * @param {string} sessionId - Session document ID
+ * @param {Object} sessionData - Session data
+ */
+async function openPeerSessionPopup(sessionId, sessionData) {
+  console.log("Opening peer session popup for:", sessionId, sessionData);
+  
+  // For now, just show an alert with session details
+  // You can customize this to open a proper popup modal
+  const studentName = await getStudentName(sessionData.studentUid);
+  const location = sessionData.location || "Not specified";
+  const timeRange = formatPeerTimeRange(sessionData.start_time, sessionData.end_time);
+  
+  alert(`Peer Session Details:\n\nStudent: ${studentName}\nLocation: ${location}\nTime: ${timeRange}`);
+}
+
+/**
+ * Get student name from UID
+ * @param {string} uid - Student UID
+ * @returns {Promise<string>} Student name
+ */
+async function getStudentName(uid) {
+  if (!uid) return "Unknown Student";
+  
+  try {
+    const userData = await getUserForPopup(uid);
+    if (userData) {
+      return `${userData.fname || ""} ${userData.lname || ""}`.trim() || "Unknown Student";
+    }
+  } catch (err) {
+    console.error("Failed to fetch student name:", err);
+  }
+  
+  return "Unknown Student";
+}
+
+// Make functions available globally
+window.loadPeerSessionsSchedule = loadPeerSessionsSchedule;
+
+// ==================== END PEER SESSION SCHEDULE ====================
+
+
 export default {
   fetchAllUsers,
   filterUsersByType,
@@ -884,5 +1165,6 @@ export default {
   populateUserTable,
   searchAndFilterUsers,
   initializeUserManagement,
-  refreshUserList
+  refreshUserList,
+  loadPeerSessionsSchedule
 };
