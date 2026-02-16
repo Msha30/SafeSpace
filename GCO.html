@@ -20,7 +20,7 @@
         selectProfile, initAnnouncementDropdown, loadAnnouncementHistory, openDeleteConfirm, closeDeleteConfirm,
 		confirmDeleteAnnouncement } from "./announcement.js";
 		import { initializeSettingsLogs } from "./settings_logs.js";
-		import { submitReport, uploadToSupabase } from "./report.js";
+		import { submitReport } from "./report.js";
 		import { log, logGCO } from "./logger.js";
 		import { loadGCOCoordinatorLogs, loadPeerFacilitatorLogs, loadGCOReportsSystemUpdates } from "./log_reader.js";
 		import { initNotifications, toggleNotif, initNotificationListener } from "./notification.js";
@@ -48,8 +48,6 @@
 		window.initAnnouncementDropdown = initAnnouncementDropdown;
 
 		window.submitReport = submitReport;
-
-		window.uploadToSupabase = uploadToSupabase;
 
 		window.openDeleteConfirm = openDeleteConfirm;
 		window.closeDeleteConfirm = closeDeleteConfirm;

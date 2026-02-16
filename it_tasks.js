@@ -594,11 +594,16 @@ async function completeTask(taskId, reportType) {
       alert("You must be logged in to complete a task");
       return;
     }
-    
+
     const modal = document.getElementById('doneModal');
-    const textarea = modal.querySelector('.done-modal-textarea');
+    const textarea = modal ? modal.querySelector('.done-modal-textarea') : null;
     const completionNotes = textarea ? textarea.value.trim() : '';
-    
+
+    // Fetch the task so we can use its fields (e.g. task_desc) safely
+    const task = await getTaskById(taskId, reportType);
+    // If task couldn't be fetched, continue but guard when building the log message
+    const taskDesc = task && task.task_desc ? String(task.task_desc) : '';
+
     const taskRef = doc(db, "IT_Reports", reportType, "tasks", taskId);
     await updateDoc(taskRef, {
       task_status: "Completed",
@@ -606,10 +611,15 @@ async function completeTask(taskId, reportType) {
       task_completed_date: serverTimestamp(),
       task_completion_notes: completionNotes
     });
-    
+
     window.closeDoneModal();
     alert("Task completed successfully");
-    await logAdmin("task", `Completed ${reportType} task: ${task.task_desc.substring(0, 50)}...`);
+
+    // Build a safe log message (use task description if available, otherwise fallback to notes)
+    const excerptSource = taskDesc || completionNotes || '(no description)';
+    const excerpt = excerptSource.length > 50 ? excerptSource.substring(0, 50) + '...' : excerptSource;
+    await logAdmin("task", `Completed ${reportType} task: ${excerpt}`);
+
   } catch (error) {
     console.error("Error completing task:", error);
     alert("Failed to complete task");
