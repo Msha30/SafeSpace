@@ -265,6 +265,60 @@ function formatTimeRange(assigned_sched) {
   return `${sStr} - ${eStr}`;
 }
 
+function formatPreferredSchedule(prefSched) {
+  if (!prefSched) return "N/A";
+  
+  // Handle old string format (backward compatibility)
+  if (typeof prefSched === 'string') {
+    return prefSched;
+  }
+  
+  // Handle new array format
+  if (Array.isArray(prefSched) && prefSched.length > 0) {
+    return prefSched.map((slot, idx) => {
+      const date = new Date(slot.date);
+      const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      const startTime = formatTime12Hour(slot.startTime);
+      const endTime = formatTime12Hour(slot.endTime);
+      return `${idx + 1}. ${dateStr}, ${startTime} - ${endTime}`;
+    }).join(' | ');
+  }
+  
+  return "N/A";
+}
+
+function formatTime12Hour(time24) {
+  if (!time24) return "";
+  const [hourStr, minuteStr] = time24.split(':');
+  let hour = parseInt(hourStr);
+  const minute = minuteStr;
+  const amPm = hour >= 12 ? 'PM' : 'AM';
+  
+  if (hour === 0) hour = 12;
+  else if (hour > 12) hour -= 12;
+  
+  return `${hour}:${minute} ${amPm}`;
+}
+
+function formatTimeUntil(futureDate) {
+  const now = Date.now();
+  const diff = futureDate.getTime() - now;
+  
+  if (diff <= 0) return "now";
+  
+  const minutes = Math.floor(diff / (1000 * 60));
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+  
+  if (days > 0) {
+    return `${days}d ${hours % 24}h`;
+  } else if (hours > 0) {
+    return `${hours}h ${minutes % 60}m`;
+  } else {
+    return `${minutes}m`;
+  }
+}
+
 // START CALL with mute and camera controls
 async function startCall(submissionId) {
   const currentUser = auth.currentUser;
@@ -284,6 +338,19 @@ async function startCall(submissionId) {
     }
 
     const submission = submissionSnap.data();
+    
+    // SAFETY CHECK: Verify scheduled time has been reached
+    if (submission.assigned_sched && submission.assigned_sched.start) {
+      const startTime = tsToMillis(submission.assigned_sched.start);
+      const now = Date.now();
+      
+      if (now < startTime) {
+        const scheduledTime = new Date(startTime);
+        alert(`This session is scheduled for ${scheduledTime.toLocaleString()}. Please wait until the scheduled time to start the call.`);
+        return;
+      }
+    }
+    
     const preferredPlatform = (submission.preferredPlatform || "").toLowerCase().trim();
     
     // Determine call mode based on preferred platform
@@ -322,6 +389,68 @@ async function startCall(submissionId) {
       // Add appropriate class for styling
       overlay.classList.remove('audio-call', 'video-call');
       overlay.classList.add(mode === "audio" ? 'audio-call' : 'video-call');
+      
+      // Add X button if it doesn't exist
+      let closeBtn = overlay.querySelector('.btn-close-call');
+      if (!closeBtn) {
+        closeBtn = document.createElement('button');
+        closeBtn.className = 'btn-close-call';
+        closeBtn.innerHTML = '×';
+        closeBtn.title = 'Close call interface (without ending session)';
+        closeBtn.style.cssText = `
+          position: absolute;
+          top: 20px;
+          right: 20px;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background: rgba(0, 0, 0, 0.6);
+          color: white;
+          border: 2px solid rgba(255, 255, 255, 0.3);
+          font-size: 28px;
+          cursor: pointer;
+          z-index: 10001;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.2s ease;
+        `;
+        
+        // Hover effect
+        closeBtn.addEventListener('mouseenter', () => {
+          closeBtn.style.background = 'rgba(255, 0, 0, 0.8)';
+          closeBtn.style.borderColor = 'rgba(255, 255, 255, 0.6)';
+          closeBtn.style.transform = 'scale(1.1)';
+        });
+        closeBtn.addEventListener('mouseleave', () => {
+          closeBtn.style.background = 'rgba(0, 0, 0, 0.6)';
+          closeBtn.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+          closeBtn.style.transform = 'scale(1)';
+        });
+        
+        overlay.appendChild(closeBtn);
+      }
+      
+      // Setup close button handler
+      closeBtn.onclick = () => {
+        if (confirm("Close the call interface? You can restart the call without marking it as complete.")) {
+          // Clean up media and connection
+          if (activeCallControls && activeCallControls.hangup) {
+            activeCallControls.hangup();
+          }
+          activeCallControls = null;
+          
+          // Reset submission status back to "taken" (not completed)
+          updateDoc(docRef, {
+            status: "taken"
+          }).catch(err => console.error("Failed to reset status:", err));
+          
+          // Hide overlay
+          overlay.style.display = "none";
+          
+          console.log("[counseling.js] Call interface closed without completing session");
+        }
+      };
     }
     
     if (statusText) statusText.textContent = "Connecting...";
@@ -344,7 +473,12 @@ async function startCall(submissionId) {
         console.log("Call status:", status);
         if (statusText) {
           if (status === "ringing") statusText.textContent = "Ringing...";
-          if (status === "connected") statusText.textContent = "Connected";
+          if (status === "connected") {
+            statusText.textContent = "Connected";
+            // Hide retry button if it exists
+            const retryBtn = overlay.querySelector('.btn-retry-call');
+            if (retryBtn) retryBtn.style.display = 'none';
+          }
           if (status === "ended") {
             statusText.textContent = "Call Ended";
             showCallCompleteButton(submissionId);
@@ -353,10 +487,72 @@ async function startCall(submissionId) {
       },
       onError(err) {
         console.error("Call error:", err);
-        alert("Call error: " + err.message);
-        if (overlay) overlay.style.display = "none";
+        
+        // Show retry button instead of immediately closing
+        if (statusText) {
+          statusText.textContent = "Connection Error";
+          statusText.style.color = "#ff6b6b";
+        }
+        
+        // Add or show retry button
+        let retryBtn = overlay.querySelector('.btn-retry-call');
+        if (!retryBtn) {
+          retryBtn = document.createElement('button');
+          retryBtn.className = 'btn-retry-call';
+          retryBtn.innerHTML = '🔄 Retry Connection';
+          retryBtn.style.cssText = `
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 15px 30px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10001;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+          `;
+          
+          retryBtn.addEventListener('mouseenter', () => {
+            retryBtn.style.background = '#45a049';
+            retryBtn.style.transform = 'translate(-50%, -50%) scale(1.05)';
+          });
+          retryBtn.addEventListener('mouseleave', () => {
+            retryBtn.style.background = '#4CAF50';
+            retryBtn.style.transform = 'translate(-50%, -50%) scale(1)';
+          });
+          
+          retryBtn.onclick = () => {
+            // Clean up current call attempt
+            if (activeCallControls && activeCallControls.hangup) {
+              activeCallControls.hangup();
+            }
+            activeCallControls = null;
+            
+            // Hide overlay briefly
+            overlay.style.display = "none";
+            
+            // Retry after a short delay
+            setTimeout(() => {
+              startCall(submissionId);
+            }, 500);
+          };
+          
+          overlay.appendChild(retryBtn);
+        } else {
+          retryBtn.style.display = 'block';
+        }
+        
+        // Don't automatically hide overlay on error anymore
+        // alert("Call error: " + err.message);
+        // if (overlay) overlay.style.display = "none";
         activeCallControls = null;
-        activeCallId = null;
+        // Don't clear activeCallId so they can retry
       }
     });
 
@@ -479,6 +675,60 @@ function showFaceToFaceOverlay(submissionId) {
       </div>
     `;
     document.body.appendChild(newOverlay);
+    
+    // Add X button
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'btn-close-face-session';
+    closeBtn.innerHTML = '×';
+    closeBtn.title = 'Close session interface (without ending session)';
+    closeBtn.style.cssText = `
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      font-size: 28px;
+      cursor: pointer;
+      z-index: 10001;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    `;
+    
+    closeBtn.addEventListener('mouseenter', () => {
+      closeBtn.style.background = 'rgba(255, 0, 0, 0.8)';
+      closeBtn.style.borderColor = 'rgba(255, 255, 255, 0.6)';
+      closeBtn.style.transform = 'scale(1.1)';
+    });
+    closeBtn.addEventListener('mouseleave', () => {
+      closeBtn.style.background = 'rgba(0, 0, 0, 0.6)';
+      closeBtn.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+      closeBtn.style.transform = 'scale(1)';
+    });
+    
+    closeBtn.onclick = () => {
+      if (confirm("Close the session interface? You can restart the session without marking it as complete.")) {
+        stopSessionTimer();
+        
+        // Reset submission status back to "taken"
+        const docRef = doc(db, "CounselingForm_Submissions", submissionId);
+        updateDoc(docRef, {
+          status: "taken"
+        }).catch(err => console.error("Failed to reset status:", err));
+        
+        // Hide overlay
+        newOverlay.style.display = "none";
+        
+        console.log("[counseling.js] Face-to-face interface closed without completing session");
+      }
+    };
+    
+    newOverlay.appendChild(closeBtn);
   }
   
   const faceOverlay = document.getElementById("faceToFaceOverlay");
@@ -561,7 +811,6 @@ function showCallCompleteButton(submissionId) {
     if (btnHangup) btnHangup.style.display = "block";
     if (btnEndSession) btnEndSession.style.display = "block";
     
-    activeCallCleanup = null;
     activeCallId = null;
   };
 }
@@ -648,6 +897,7 @@ export async function createSessionCardFromData(submissionId, submission) {
 
   const card = document.createElement("div");
   card.classList.add("card-session");
+  card.dataset.submissionId = submissionId; // Store submission ID for later reference
 
   const urgent = (submission.urgent || "").toString().trim().toLowerCase() === "yes";
 
@@ -657,7 +907,7 @@ export async function createSessionCardFromData(submissionId, submission) {
   // show Assigned Schedule instead of Preferred Schedule when assigned exists
   const scheduleLine = submission.assigned_sched
     ? `Assigned Schedule: <strong>${formatDate(submission.assigned_sched.start)} ${timeText}</strong>`
-    : `Preferred Schedule: <strong>${submission.preferredSchedule || "N/A"}</strong>`;
+    : `Preferred Schedule: <strong>${formatPreferredSchedule(submission.preferredSchedule)}</strong>`;
 
   // determine button + wrapper alignment
   let actionButtonHtml = '';
@@ -669,9 +919,35 @@ export async function createSessionCardFromData(submissionId, submission) {
     // keep class 'btn start' but use data-action to disambiguate behavior
     actionButtonHtml = `<button class="btn start" data-action="take">Take Session</button>`;
   } else if (submission.taken_by === currentUid) {
-    // taken by current user
+    // taken by current user - check if scheduled time has been reached
     actionBtnWrapperClass = 'session-btn-left';
-    actionButtonHtml = `<button class="btn start" data-action="start">Start Call</button>`;
+    
+    // Check if assigned schedule exists and if current time >= start time
+    const canStartNow = submission.assigned_sched && submission.assigned_sched.start 
+      ? Date.now() >= tsToMillis(submission.assigned_sched.start)
+      : true; // If no schedule set, allow starting (backward compatibility)
+    
+    if (canStartNow) {
+      actionButtonHtml = `<button class="btn start" data-action="start">Start Call</button>`;
+    } else {
+      // Show disabled button with countdown/message
+      const startTime = new Date(tsToMillis(submission.assigned_sched.start));
+      const timeUntil = formatTimeUntil(startTime);
+      const scheduledTimeStr = startTime.toLocaleString('en-US', { 
+        weekday: 'short', 
+        month: 'short', 
+        day: 'numeric', 
+        hour: 'numeric', 
+        minute: '2-digit' 
+      });
+      actionButtonHtml = `
+        <div style="text-align: center; margin-bottom: 8px;">
+          <div style="font-size: 12px; color: #666; margin-bottom: 4px;">Scheduled for:</div>
+          <div style="font-size: 13px; font-weight: bold; color: #333;">${scheduledTimeStr}</div>
+        </div>
+        <button class="btn start disabled" data-action="wait" disabled style="opacity: 0.6; cursor: not-allowed; width: 100%;" title="Scheduled for ${scheduledTimeStr}">Start in ${timeUntil}</button>
+      `;
+    }
   } else {
     // safety fallback (should not happen due to early return)
     return null;
@@ -711,6 +987,10 @@ export async function createSessionCardFromData(submissionId, submission) {
         openTakeSessionPopup(submissionId, submission);
       } else if (action === "start") {
         startCall(submissionId);
+      } else if (action === "wait") {
+        // Prevent starting before scheduled time
+        const startTime = new Date(tsToMillis(submission.assigned_sched.start));
+        alert(`This session is scheduled for ${startTime.toLocaleString()}. Please wait until the scheduled time to start the call.`);
       } else {
         console.warn("Unknown action on session button:", action);
       }
@@ -734,6 +1014,32 @@ async function openTakeSessionPopup(submissionId, submission) {
   overlay.style.alignItems = "center";
   overlay.style.justifyContent = "center";
   overlay.style.zIndex = 9999;
+
+  // --- Parse preferred schedule ---
+  let preferredDates = [];
+  const prefSched = submission.preferredSchedule;
+  
+  if (Array.isArray(prefSched) && prefSched.length > 0) {
+    preferredDates = prefSched.map(slot => ({
+      date: slot.date,
+      startTime: slot.startTime,
+      endTime: slot.endTime
+    }));
+  }
+
+  // --- Format preferred schedule for display ---
+  let prefSchedDisplay = "";
+  if (preferredDates.length > 0) {
+    prefSchedDisplay = preferredDates.map((slot, idx) => {
+      const date = new Date(slot.date);
+      const dateStr = date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+      const startTime = formatTime12Hour(slot.startTime);
+      const endTime = formatTime12Hour(slot.endTime);
+      return `<div style="margin: 5px 0;"><strong>${idx + 1}.</strong> ${dateStr}, ${startTime} - ${endTime}</div>`;
+    }).join('');
+  } else {
+    prefSchedDisplay = "<div style='color: #999;'>No preferred schedule specified</div>";
+  }
 
   // --- compute presets from submission.assigned_sched if present ---
   let presetDate = "";
@@ -765,10 +1071,22 @@ async function openTakeSessionPopup(submissionId, submission) {
     }
   }
 
-  // Build modal (date on top, two time inputs below)
+  // Build modal with preferred schedule card
 overlay.innerHTML = `
   <div class="take-session-modal">
     <h3>Assign Schedule</h3>
+
+    <!-- Preferred Schedule Card -->
+    <div class="preferred-schedule-card" style="
+      background: #f5f5f5;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+    ">
+      <h4 style="margin: 0 0 10px 0; color: #333; font-size: 14px;">Student's Preferred Schedule:</h4>
+      ${prefSchedDisplay}
+    </div>
 
     <label for="ts_date">Date</label>
     <input id="ts_date" type="date" value="${presetDate}">
@@ -776,17 +1094,17 @@ overlay.innerHTML = `
     <div class="time-row">
       <div class="time-field">
         <label for="ts_time_start">Start time</label>
-        <input id="ts_time_start" type="time" value="${presetStartTime}">
+        <input id="ts_time_start" type="time" value="${presetStartTime}" min="08:00" max="17:00">
       </div>
 
       <div class="time-field">
         <label for="ts_time_end">End time</label>
-        <input id="ts_time_end" type="time" value="${presetEndTime}">
+        <input id="ts_time_end" type="time" value="${presetEndTime}" min="08:00" max="17:00">
       </div>
     </div>
 
     <div class="note">
-      Note: Choose a single date, then pick the start and end time for that date.
+      Note: Choose a date from the student's preferred schedule above, then pick the start and end time between 8:00 AM and 5:00 PM.
     </div>
 
     <div class="modal-actions">
@@ -799,6 +1117,8 @@ overlay.innerHTML = `
 
   document.body.appendChild(overlay);
   const dateInput = overlay.querySelector("#ts_date");
+  const startTimeInput = overlay.querySelector("#ts_time_start");
+  const endTimeInput = overlay.querySelector("#ts_time_end");
 
   // Today's date in YYYY-MM-DD (local)
   const today = new Date();
@@ -810,10 +1130,64 @@ overlay.innerHTML = `
   // Disallow past dates
   dateInput.min = todayStr;
 
+  // Restrict date selection to preferred schedule dates
+  if (preferredDates.length > 0) {
+    // Get all valid dates from preferred schedule
+    const validDates = preferredDates.map(slot => slot.date);
+    
+    // Set min and max based on preferred dates
+    const sortedDates = validDates.sort();
+    dateInput.min = sortedDates[0] < todayStr ? todayStr : sortedDates[0];
+    dateInput.max = sortedDates[sortedDates.length - 1];
+    
+    // Add validation on date change
+    dateInput.addEventListener('change', (e) => {
+      const selectedDate = e.target.value;
+      if (!validDates.includes(selectedDate)) {
+        alert('Please select a date from the student\'s preferred schedule.');
+        e.target.value = presetDate || validDates[0];
+      }
+    });
+    
+    // Set default to first valid date if no preset
+    if (!presetDate && validDates.length > 0) {
+      dateInput.value = validDates[0] >= todayStr ? validDates[0] : (validDates.find(d => d >= todayStr) || validDates[0]);
+    }
+  }
+
   // If presetDate exists but is in the past, force it to today
   if (presetDate && presetDate < todayStr) {
     dateInput.value = todayStr;
   }
+
+  // Validate time inputs (8 AM to 5 PM)
+  const validateTime = (input) => {
+    const value = input.value;
+    if (!value) return true;
+    
+    const [hours, minutes] = value.split(':').map(Number);
+    const totalMinutes = hours * 60 + minutes;
+    const minMinutes = 8 * 60; // 8:00 AM
+    const maxMinutes = 17 * 60; // 5:00 PM
+    
+    if (totalMinutes < minMinutes || totalMinutes > maxMinutes) {
+      alert('Please select a time between 8:00 AM and 5:00 PM');
+      return false;
+    }
+    return true;
+  };
+
+  startTimeInput.addEventListener('change', (e) => {
+    if (!validateTime(e.target)) {
+      e.target.value = "08:00";
+    }
+  });
+
+  endTimeInput.addEventListener('change', (e) => {
+    if (!validateTime(e.target)) {
+      e.target.value = "17:00";
+    }
+  });
 
   // close handler
   overlay.querySelector("#ts_cancel").addEventListener("click", () => {
@@ -835,6 +1209,28 @@ overlay.innerHTML = `
       return;
     }
 
+    // Validate date is in preferred schedule
+    if (preferredDates.length > 0) {
+      const validDates = preferredDates.map(slot => slot.date);
+      if (!validDates.includes(dateVal)) {
+        alert("Please select a date from the student's preferred schedule.");
+        return;
+      }
+    }
+
+    // Validate times are between 8 AM and 5 PM
+    const [startHour, startMin] = startTimeVal.split(':').map(Number);
+    const [endHour, endMin] = endTimeVal.split(':').map(Number);
+    
+    const startMinutes = startHour * 60 + startMin;
+    const endMinutes = endHour * 60 + endMin;
+    
+    if (startMinutes < 8 * 60 || startMinutes > 17 * 60 || 
+        endMinutes < 8 * 60 || endMinutes > 17 * 60) {
+      alert("Times must be between 8:00 AM and 5:00 PM.");
+      return;
+    }
+
     // compose full ISO-ish strings compatible with Date constructor
     // Append seconds to avoid timezone oddities: "YYYY-MM-DDTHH:MM:00"
     const startIso = `${dateVal}T${startTimeVal}:00`;
@@ -848,8 +1244,8 @@ overlay.innerHTML = `
       return;
     }
 
-    if (startDate.getTime() > endDate.getTime()) {
-      alert("Start must be before or equal to End.");
+    if (startDate.getTime() >= endDate.getTime()) {
+      alert("Start time must be before end time.");
       return;
     }
 
@@ -914,6 +1310,7 @@ let _submissionsListenerUnsub = null;
 let _submissionsCache = []; // array of { id, data }
 let _currentSort = 'newest'; // default
 let _currentScheduleSort = 'newest';
+let _buttonUpdateInterval = null; // Interval to update "Start Call" buttons
 
 export async function loadCounselingForms() {
   const container = document.getElementById("sessions-container");
@@ -945,6 +1342,14 @@ export async function loadCounselingForms() {
     }
   }
 
+  // Set up periodic check to update button states (every 10 seconds)
+  if (_buttonUpdateInterval) {
+    clearInterval(_buttonUpdateInterval);
+  }
+  _buttonUpdateInterval = setInterval(() => {
+    updateButtonStates();
+  }, 10000); // Check every 10 seconds
+
   // clear container while we attach listener
   container.innerHTML = `<div class="loading">Loading...</div>`;
 
@@ -973,6 +1378,67 @@ export async function loadCounselingForms() {
   } catch (err) {
     console.error("Failed to attach submissions listener:", err);
     container.innerHTML = `<div class="error">Failed to load submissions</div>`;
+  }
+}
+
+// Update button states without full re-render
+function updateButtonStates() {
+  const container = document.getElementById("sessions-container");
+  if (!container) return;
+
+  const currentUid = auth.currentUser ? auth.currentUser.uid : null;
+  if (!currentUid) return;
+
+  // Find all session cards with "wait" action buttons
+  const cards = container.querySelectorAll('.card-session');
+  
+  let needsFullRefresh = false;
+
+  cards.forEach(card => {
+    const submissionId = card.dataset.submissionId;
+    if (!submissionId) return;
+
+    // Find the submission data from cache
+    const submissionItem = _submissionsCache.find(item => item.id === submissionId);
+    if (!submissionItem) return;
+
+    const submission = submissionItem.data;
+    
+    // Only process cards for sessions taken by current user with assigned schedule
+    if (submission.taken_by !== currentUid || !submission.assigned_sched || !submission.assigned_sched.start) return;
+
+    const startTime = tsToMillis(submission.assigned_sched.start);
+    const canStartNow = Date.now() >= startTime;
+
+    const waitButton = card.querySelector('button.btn.start[data-action="wait"]');
+    
+    if (waitButton) {
+      if (canStartNow) {
+        // Mark that we need a full refresh to change the button to "Start Call"
+        needsFullRefresh = true;
+      } else {
+        // Update the countdown text
+        const timeUntil = formatTimeUntil(new Date(startTime));
+        waitButton.textContent = `Start in ${timeUntil}`;
+      }
+    }
+  });
+
+  // If any buttons can now be activated, refresh the entire list
+  if (needsFullRefresh) {
+    renderSubmissionsFromCache();
+  }
+}
+
+// Cleanup function to stop button update interval
+export function cleanupCounselingForms() {
+  if (_buttonUpdateInterval) {
+    clearInterval(_buttonUpdateInterval);
+    _buttonUpdateInterval = null;
+  }
+  if (typeof _submissionsListenerUnsub === 'function') {
+    _submissionsListenerUnsub();
+    _submissionsListenerUnsub = null;
   }
 }
 async function renderSubmissionsFromCache() {
